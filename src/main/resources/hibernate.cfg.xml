@@ -19,5 +19,8 @@
         <mapping class="com.epam.internal.data.entities.UserInfo"/>
         <mapping class="com.epam.internal.data.entities.Account"/>
         <mapping class="com.epam.internal.data.entities.AccountType"/>
+        <mapping class="com.epam.internal.data.entities.Income"/>
+        <mapping class="com.epam.internal.data.entities.OutcomeType"/>
+        <mapping class="com.epam.internal.data.entities.Outcome"/>
     </session-factory>
 </hibernate-configuration>

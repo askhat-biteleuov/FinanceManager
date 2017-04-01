@@ -3,6 +3,8 @@ package com.epam.internal.data.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table
@@ -21,6 +23,10 @@ public class Account implements Serializable {
     @ManyToOne
     @JoinColumn(nullable = false, name = "user_id", foreignKey = @ForeignKey(name = "fk_user_id"))
     private User user;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Income> incomeTransactions = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Outcome> outcomeTransactions = new ArrayList<>();
 
     public Account() {
     }
@@ -70,5 +76,21 @@ public class Account implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public List<Income> getIncomeTransactions() {
+        return incomeTransactions;
+    }
+
+    public void setIncomeTransactions(List<Income> incomeTransactions) {
+        this.incomeTransactions = incomeTransactions;
+    }
+
+    public List<Outcome> getOutcomeTransactions() {
+        return outcomeTransactions;
+    }
+
+    public void setOutcomeTransactions(List<Outcome> outcomeTransactions) {
+        this.outcomeTransactions = outcomeTransactions;
     }
 }

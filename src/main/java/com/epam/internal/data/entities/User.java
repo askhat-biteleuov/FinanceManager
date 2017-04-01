@@ -22,6 +22,8 @@ public class User implements Serializable {
     private UserInfo info;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Account> accounts = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OutcomeType> outcomeTypes = new ArrayList<>();
 
     public User() {
     }
@@ -71,4 +73,14 @@ public class User implements Serializable {
     public void setAccounts(List<Account> accounts) {
         this.accounts = accounts;
     }
+
+    public List<OutcomeType> getOutcomeTypes() {
+        return outcomeTypes;
+    }
+
+    public void setOutcomeTypes(List<OutcomeType> outcomeTypes) {
+        this.outcomeTypes = outcomeTypes;
+    }
+
+
 }
