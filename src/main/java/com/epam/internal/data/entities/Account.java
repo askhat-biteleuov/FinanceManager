@@ -28,8 +28,8 @@ public class Account implements Serializable {
     public Account(String name, BigDecimal balance, AccountType type, User user) {
         this.name = name;
         this.balance = balance;
-        /*this.type = type;
-        this.user = user;*/
+        this.type = type;
+        this.user = user;
     }
 
     public Long getId() {
