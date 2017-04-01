@@ -6,10 +6,6 @@ import org.springframework.stereotype.Repository;
 @Repository("accountDao")
 public class AccountDao extends AbstractDao<Account> implements IGenericDao<Account> {
 
-    AccountDao(Class<Account> persistentClass) {
-        super(persistentClass);
-    }
-
     @Override
     public Account findById(long id) {
         return findById(id);

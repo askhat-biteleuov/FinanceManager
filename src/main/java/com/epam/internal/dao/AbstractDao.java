@@ -4,6 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
 
 
 public abstract class AbstractDao<T extends Serializable> {
@@ -13,8 +14,9 @@ public abstract class AbstractDao<T extends Serializable> {
     @Autowired
     private SessionFactory sessionFactory;
 
-    AbstractDao(Class<T> persistentClass) {
-        this.persistentClass = persistentClass;
+    @SuppressWarnings("unchecked")
+    AbstractDao() {
+        this.persistentClass =(Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[1];
     }
 
     public T findById(long id){
