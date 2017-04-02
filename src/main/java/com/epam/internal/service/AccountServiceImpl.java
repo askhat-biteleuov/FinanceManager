@@ -2,6 +2,7 @@ package com.epam.internal.service;
 
 import com.epam.internal.dao.AccountDao;
 import com.epam.internal.data.entities.Account;
+import com.epam.internal.data.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +21,8 @@ public class AccountServiceImpl implements IAccountService {
     }
 
     @Override
-    public List<Account> findAll() {
-        return dao.findAll();
+    public List<Account> findAllUserAccounts(User user) {
+        return dao.findAllUserAccounts(user);
     }
 
     @Override
