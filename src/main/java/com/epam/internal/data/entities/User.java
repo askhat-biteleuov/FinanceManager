@@ -20,9 +20,9 @@ public class User implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_info_id", foreignKey = @ForeignKey(name = "fk_user_info_id"))
     private UserInfo info;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy ="user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Account> accounts = new ArrayList<>();
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy ="user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OutcomeType> outcomeTypes = new ArrayList<>();
 
     public User() {

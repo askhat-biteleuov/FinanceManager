@@ -23,9 +23,9 @@ public class Account implements Serializable {
     @ManyToOne
     @JoinColumn(nullable = false, name = "user_id", foreignKey = @ForeignKey(name = "fk_user_id"))
     private User user;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy ="account", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Income> incomeTransactions = new ArrayList<>();
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy ="account", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Outcome> outcomeTransactions = new ArrayList<>();
 
     public Account() {
