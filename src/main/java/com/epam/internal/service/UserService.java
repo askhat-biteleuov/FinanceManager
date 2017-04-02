@@ -1,6 +1,6 @@
 package com.epam.internal.service;
 
-import com.epam.internal.dao.UserDao;
+import com.epam.internal.dao.implementation.UserDao;
 import com.epam.internal.data.entities.User;
 import com.epam.internal.data.entities.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
