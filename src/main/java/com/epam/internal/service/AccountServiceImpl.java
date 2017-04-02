@@ -35,7 +35,7 @@ public class AccountServiceImpl implements IAccountService {
     }
 
     @Override
-    public void update(Account account) {
+    public void updateAccount(Account account) {
         dao.update(account);
     }
 

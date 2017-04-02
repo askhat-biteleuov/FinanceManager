@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository("accountDao")
 public class AccountDao extends AbstractDao<Account> implements IGenericDao<Account> {
-    //Some AccountDao
+
 }
