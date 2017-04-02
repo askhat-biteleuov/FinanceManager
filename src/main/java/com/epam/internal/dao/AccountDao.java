@@ -5,7 +5,7 @@ import com.epam.internal.data.entities.User;
 
 import java.util.List;
 
-public interface IAccountDao {
+public interface AccountDao {
 
     void updateInfo(Account account);
 

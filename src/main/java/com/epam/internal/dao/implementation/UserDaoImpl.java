@@ -1,12 +1,12 @@
 package com.epam.internal.dao.implementation;
 
 import com.epam.internal.dao.AbstractDao;
-import com.epam.internal.dao.IUserDao;
+import com.epam.internal.dao.UserDao;
 import com.epam.internal.data.entities.User;
 import org.springframework.stereotype.Repository;
 
 @Repository("userDao")
-public class UserDao extends AbstractDao<String, User> implements IUserDao {
+public class UserDaoImpl extends AbstractDao<String, User> implements UserDao {
 
     @Override
     public void saveUser(User user) {

@@ -1,6 +1,6 @@
 package com.epam.internal.service;
 
-import com.epam.internal.dao.implementation.UserDao;
+import com.epam.internal.dao.UserDao;
 import com.epam.internal.data.entities.User;
 import com.epam.internal.data.entities.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,23 +19,23 @@ public class UserService implements IUserService {
 
     @Override
     public void createUser(User user) {
-        dao.create(user);
+        dao.saveUser(user);
     }
 
     @Override
     public void deleteUserByEmail(String email) {
-        dao.delete(findByEmail(email));
+        dao.deleteUser(findByEmail(email));
     }
 
     @Override
     public void updateUser(User user) {
-        dao.update(user);
+        dao.updateUser(user);
     }
 
     @Override
     public void updateUserInfo(User user, UserInfo info) {
         user.setInfo(info);
-        dao.update(user);
+        dao.updateUser(user);
     }
 
 

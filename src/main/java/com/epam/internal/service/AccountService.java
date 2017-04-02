@@ -1,6 +1,6 @@
 package com.epam.internal.service;
 
-import com.epam.internal.dao.implementation.AccountDao;
+import com.epam.internal.dao.AccountDao;
 import com.epam.internal.data.entities.Account;
 import com.epam.internal.data.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +22,12 @@ public class AccountService implements IAccountService {
 
     @Override
     public void createAccount(Account account) {
-        dao.create(account);
+        dao.saveAccount(account);
     }
 
     @Override
     public void updateAccount(Account account) {
-        dao.update(account);
+        dao.updateInfo(account);
     }
 
 

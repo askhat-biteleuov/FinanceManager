@@ -2,7 +2,7 @@ package com.epam.internal.dao;
 
 import com.epam.internal.data.entities.User;
 
-public interface IUserDao {
+public interface UserDao {
 
     void saveUser(User user);
 

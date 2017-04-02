@@ -1,7 +1,7 @@
 package com.epam.internal.dao.implementation;
 
 import com.epam.internal.dao.AbstractDao;
-import com.epam.internal.dao.IAccountDao;
+import com.epam.internal.dao.AccountDao;
 import com.epam.internal.data.entities.Account;
 import com.epam.internal.data.entities.User;
 import org.springframework.stereotype.Repository;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository("accountDao")
-public class AccountDao extends AbstractDao<Integer, Account> implements IAccountDao {
+public class AccountDaoImpl extends AbstractDao<Integer, Account> implements AccountDao {
     @Override
     public void updateInfo(Account account) {
         update(account);
