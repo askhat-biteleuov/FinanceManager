@@ -5,10 +5,11 @@ import com.epam.internal.data.entities.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 
 
 @Service("accountService")
-public class AccountServiceImpl implements AccountService {
+public class AccountServiceImpl implements IAccountService {
 
     @Autowired
     private AccountDao dao;
@@ -16,6 +17,11 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Account findById(int id) {
         return dao.findById(id);
+    }
+
+    @Override
+    public List<Account> findAll() {
+        return dao.findAll();
     }
 
     @Override
@@ -29,7 +35,9 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void deleteAccount(Account account) {
-        dao.delete(account);
+    public void update(Account account) {
+        dao.update(account);
     }
+
+
 }

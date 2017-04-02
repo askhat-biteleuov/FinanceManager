@@ -2,10 +2,13 @@ package com.epam.internal.service;
 
 import com.epam.internal.data.entities.Account;
 
-public interface AccountService {
+import java.util.List;
+
+public interface IAccountService {
 
     Account findById(int id);
+    List<Account> findAll();
     void createAccount(Account account);
     void deleteAccountById(int id);
-    void deleteAccount(Account account);
+    void update(Account account);
 }
