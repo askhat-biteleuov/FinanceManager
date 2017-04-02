@@ -7,15 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service("userService")
-public class UserServiceImpl implements IUserService {
+public class UserService implements IUserService {
 
     @Autowired
     private UserDao dao;
-
-    @Override
-    public User findById(int id) {
-        return dao.findById(id);
-    }
 
     @Override
     public User findByEmail(String email) {
@@ -28,8 +23,8 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public void deleteUserById(int id) {
-        dao.deleteById(id);
+    public void deleteUserByEmail(String email) {
+        dao.delete(findByEmail(email));
     }
 
     @Override

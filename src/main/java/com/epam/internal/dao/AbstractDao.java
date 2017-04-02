@@ -4,22 +4,29 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 
-public abstract class AbstractDao<T extends Serializable> {
+public abstract class AbstractDao<PK extends Serializable, T> {
 
-    private Class<T> persistentClass;
+    private final Class<T> persistentClass;
 
     @Autowired
     private SessionFactory sessionFactory;
 
-    public void setPersistentClass(Class<T> persistentClass) {
-        this.persistentClass = persistentClass;
+    @SuppressWarnings("unchecked")
+    public AbstractDao() {
+        this.persistentClass =(Class<T>) ((ParameterizedType)
+                this.getClass().getGenericSuperclass()).getActualTypeArguments()[1];
     }
 
-    public T findById(long id){
-        return (T)getCurrentSession().get(persistentClass, id);
+    protected Session getCurrentSession() {
+        return sessionFactory.getCurrentSession();
+    }
+
+    public T getByKey(PK key){
+        return getCurrentSession().get(persistentClass, key);
     }
 
     @SuppressWarnings("unchecked")
@@ -39,13 +46,5 @@ public abstract class AbstractDao<T extends Serializable> {
         getCurrentSession().delete(entity);
     }
 
-    public void deleteById(long id) {
-        T entity = findById(id);
-        delete(entity);
-    }
-
-    protected final Session getCurrentSession() {
-        return sessionFactory.getCurrentSession();
-    }
 
 }

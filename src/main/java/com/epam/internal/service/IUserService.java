@@ -7,10 +7,9 @@ import java.util.List;
 
 public interface IUserService {
 
-    User findById(int id);
     User findByEmail(String email);
     void createUser(User user);
-    void deleteUserById(int id);
+    void deleteUserByEmail(String email);
     void updateUser(User user);
     void updateUserInfo(User user, UserInfo info);
 
