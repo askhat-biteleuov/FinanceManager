@@ -28,6 +28,8 @@
     <bean id="userService" class="com.epam.internal.services.implementation.UserServiceImpl"/>
 
     <bean id="incomeService" class="com.epam.internal.services.implementation.IncomeServiceImpl"/>
+    <bean id="outcomeService" class="com.epam.internal.services.implementation.OutcomeServiceImpl"/>
+    <bean id="outcomeTypeService" class="com.epam.internal.services.implementation.OutcomeTypeServiceImpl"/>
 
     <bean id="sessionFactory"
           class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
