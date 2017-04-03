@@ -28,5 +28,12 @@ public class UserDaoImpl extends AbstractDao<String, User> implements UserDao {
         return getByKey(email);
     }
 
-
+/*
+    public User getUserByEmail(String email) {
+        User user = (User) getCurrentSession()
+                    .createQuery("from User u where u.info.email=:email")
+                    .setParameter("email", email)
+                    .uniqueResult();
+        return user;
+}*/
 }
