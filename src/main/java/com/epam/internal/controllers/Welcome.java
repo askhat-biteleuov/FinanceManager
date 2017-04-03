@@ -5,7 +5,10 @@ import com.epam.internal.models.Account;
 import com.epam.internal.models.Income;
 import com.epam.internal.models.User;
 import com.epam.internal.models.UserInfo;
+import com.epam.internal.services.AccountService;
 import com.epam.internal.services.IncomeService;
+import com.epam.internal.services.implementation.AccountServiceImpl;
+import com.epam.internal.services.implementation.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +20,12 @@ import java.util.Date;
 
 @Controller
 public class Welcome {
+
     @Autowired
-    UserDao userDao;
+    private UserServiceImpl userService;
+
+    @Autowired
+    private AccountServiceImpl accountService;
 
     @Autowired
     private IncomeService service;
@@ -30,12 +37,16 @@ public class Welcome {
         return "das";//userDao.getUserByEmail("user@email").getEmail();
     }
 
-    @RequestMapping("/users")
+    @RequestMapping("/accounts")
     public ModelAndView users() {
-        ModelAndView model = new ModelAndView("users");
+        ModelAndView model = new ModelAndView("accounts");
         User user = new User("user@email","password",new UserInfo("name","lastname"));
-        userDao.create(user);
-        model.addObject("user", userDao.getUserByEmail("user@email"));
+        userService.createUser(user);
+        Account account = new Account("visa", new BigDecimal(2323), null, user);
+        accountService.createAccount(account);
+        Account account2 = new Account("mastercard", new BigDecimal(2343), null, user);
+        accountService.createAccount(account2);
+        model.addObject("accounts", accountService.findAllUserAccounts(user));
         return model;
     }
 

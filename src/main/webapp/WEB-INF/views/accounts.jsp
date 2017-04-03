@@ -16,6 +16,22 @@
     <title>Users</title>
 </head>
 <body>
-    ${user.email}
+<div align="center">
+    <h1>User accounts List</h1>
+    <table border="1">
+        <th>id</th>
+        <th>name</th>
+        <th>balance</th>
+
+        <c:forEach var="account" items="${accounts}">
+            <tr>
+                <td>${account.id}</td>
+                <td>${account.name}</td>
+                <td>${account.balance}</td>
+
+            </tr>
+        </c:forEach>
+    </table>
+</div>
 </body>
 </html>
