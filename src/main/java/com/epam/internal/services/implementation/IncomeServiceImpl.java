@@ -1,9 +1,9 @@
-package com.epam.internal.service.implementation;
+package com.epam.internal.services.implementation;
 
-import com.epam.internal.dao.IncomeDao;
-import com.epam.internal.data.entities.Account;
-import com.epam.internal.data.entities.Income;
-import com.epam.internal.service.IncomeService;
+import com.epam.internal.daos.IncomeDao;
+import com.epam.internal.models.Account;
+import com.epam.internal.models.Income;
+import com.epam.internal.services.IncomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

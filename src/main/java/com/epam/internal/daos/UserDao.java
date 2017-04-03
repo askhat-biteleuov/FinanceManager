@@ -1,6 +1,6 @@
-package com.epam.internal.dao.test;
+package com.epam.internal.daos;
 
-import com.epam.internal.data.entities.User;
+import com.epam.internal.models.User;
 import org.hibernate.Session;
 
 public class UserDao extends GenericDao<User> {

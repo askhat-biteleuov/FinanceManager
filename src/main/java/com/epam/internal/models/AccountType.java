@@ -1,4 +1,4 @@
-package com.epam.internal.data.entities;
+package com.epam.internal.models;
 
 import javax.persistence.*;
 import java.io.Serializable;

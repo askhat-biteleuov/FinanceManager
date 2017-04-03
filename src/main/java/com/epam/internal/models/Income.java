@@ -1,15 +1,13 @@
-package com.epam.internal.data.entities;
+package com.epam.internal.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table
-public class Outcome implements Serializable{
+public class Income implements Serializable{
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,18 +21,14 @@ public class Outcome implements Serializable{
     @ManyToOne
     @JoinColumn(nullable = false, name = "account_id", foreignKey = @ForeignKey(name = "fk_account_id"))
     private Account account;
-    @ManyToOne
-    @JoinColumn(nullable = false, name = "outcome_type_id",foreignKey = @ForeignKey(name = "fk_outcome_type_id"))
-    private OutcomeType outcomeType;
 
-    public Outcome() {
+    public Income(){
     }
 
-    public Outcome(BigDecimal amount, Date date, Account account, OutcomeType outcomeType) {
+    public Income(BigDecimal amount, Date date, Account account) {
         this.amount = amount;
         this.date = date;
         this.account = account;
-        this.outcomeType = outcomeType;
     }
 
     public Long getId() {
@@ -75,13 +69,5 @@ public class Outcome implements Serializable{
 
     public void setAccount(Account account) {
         this.account = account;
-    }
-
-    public OutcomeType getOutcomeType() {
-        return outcomeType;
-    }
-
-    public void setOutcomeType(OutcomeType outcomeType) {
-        this.outcomeType = outcomeType;
     }
 }

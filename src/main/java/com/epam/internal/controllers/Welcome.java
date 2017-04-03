@@ -1,11 +1,8 @@
 package com.epam.internal.controllers;
 
-import com.epam.internal.dao.test.GenericDao;
-import com.epam.internal.dao.test.UserDao;
-import com.epam.internal.data.entities.User;
-import com.epam.internal.data.entities.UserInfo;
-import com.epam.internal.service.UserService;
-import com.epam.internal.service.implementation.UserServiceImpl;
+import com.epam.internal.daos.UserDao;
+import com.epam.internal.models.User;
+import com.epam.internal.models.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

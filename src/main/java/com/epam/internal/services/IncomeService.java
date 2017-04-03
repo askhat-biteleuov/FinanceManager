@@ -1,7 +1,7 @@
-package com.epam.internal.service;
+package com.epam.internal.services;
 
-import com.epam.internal.data.entities.Account;
-import com.epam.internal.data.entities.Income;
+import com.epam.internal.models.Account;
+import com.epam.internal.models.Income;
 
 import java.util.List;
 

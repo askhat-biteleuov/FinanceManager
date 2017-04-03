@@ -1,9 +1,9 @@
-package com.epam.internal.service.implementation;
+package com.epam.internal.services.implementation;
 
-import com.epam.internal.dao.OutcomeTypeDao;
-import com.epam.internal.data.entities.OutcomeType;
-import com.epam.internal.data.entities.User;
-import com.epam.internal.service.OutcomeTypeService;
+import com.epam.internal.daos.OutcomeTypeDao;
+import com.epam.internal.models.OutcomeType;
+import com.epam.internal.models.User;
+import com.epam.internal.services.OutcomeTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

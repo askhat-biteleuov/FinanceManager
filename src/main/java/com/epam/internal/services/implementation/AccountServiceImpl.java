@@ -1,9 +1,9 @@
-package com.epam.internal.service.implementation;
+package com.epam.internal.services.implementation;
 
-import com.epam.internal.dao.AccountDao;
-import com.epam.internal.data.entities.Account;
-import com.epam.internal.data.entities.User;
-import com.epam.internal.service.AccountService;
+import com.epam.internal.daos.AccountDao;
+import com.epam.internal.models.Account;
+import com.epam.internal.models.User;
+import com.epam.internal.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
