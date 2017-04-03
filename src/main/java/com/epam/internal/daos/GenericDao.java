@@ -10,6 +10,10 @@ public class GenericDao<T> {
 
     private SessionFactory sessionFactory;
 
+    public GenericDao(Class<T> type) {
+        this.type = type;
+    }
+
     public SessionFactory getSessionFactory() {
         return sessionFactory;
     }
@@ -18,15 +22,11 @@ public class GenericDao<T> {
         this.sessionFactory = sessionFactory;
     }
 
-    public GenericDao(Class<T> type) {
-        this.type = type;
-    }
-
     public void create(T entity) {
         getSessionFactory().openSession().save(entity);
     }
 
-    public T findyById(Long id) {
+    public T findyById(long id) {
         return getSessionFactory().openSession().get(type, id);
     }
 

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="userDao" class="com.epam.internal.daos.UserDao" scope="prototype">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="incomeDao" class="com.epam.internal.daos.GenericDao" scope="prototype">
+        <constructor-arg value="com.epam.internal.models.Income"/>
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="outcomeDao" class="com.epam.internal.daos.GenericDao" scope="prototype">
+        <constructor-arg value="com.epam.internal.models.Outcome"/>
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="outcomeTypeDao" class="com.epam.internal.daos.GenericDao" scope="prototype">
+        <constructor-arg value="com.epam.internal.models.OutcomeType"/>
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="incomeService" class="com.epam.internal.services.implementation.IncomeServiceImpl"/>
+
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="configLocation" value="classpath:hibernate.cfg.xml" />
+    </bean>
+</beans>

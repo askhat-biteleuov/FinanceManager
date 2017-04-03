@@ -13,15 +13,15 @@ public class Account implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String name;
-    @Column(nullable = false)
+    @Column(nullable = true)
     private BigDecimal balance;
     @OneToOne
-    @JoinColumn(nullable = false, name = "account_type_id", foreignKey = @ForeignKey(name = "fk_account_type_id"))
+    @JoinColumn(nullable = true, name = "account_type_id", foreignKey = @ForeignKey(name = "fk_account_type_id"))
     private AccountType type;
     @ManyToOne
-    @JoinColumn(nullable = false, name = "user_id", foreignKey = @ForeignKey(name = "fk_user_id"))
+    @JoinColumn(nullable = true, name = "user_id", foreignKey = @ForeignKey(name = "fk_user_id"))
     private User user;
     @OneToMany(mappedBy ="account", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Income> incomeTransactions = new ArrayList<>();

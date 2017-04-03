@@ -13,9 +13,9 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = true)
     private String email;
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String password;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_info_id", foreignKey = @ForeignKey(name = "fk_user_info_id"))

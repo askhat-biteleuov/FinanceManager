@@ -9,5 +9,6 @@ public interface OutcomeService {
     void addOutcome(Outcome outcome);
     void deleteOutcome(Outcome outcome);
     void updateOutcome(Outcome outcome);
+    Outcome findById(long id);
     List<Outcome> getAllOutcomes(Account account);
 }

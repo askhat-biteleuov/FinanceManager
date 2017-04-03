@@ -19,7 +19,7 @@ public class Income implements Serializable{
     @Column
     private String note;
     @ManyToOne
-    @JoinColumn(nullable = false, name = "account_id", foreignKey = @ForeignKey(name = "fk_account_id"))
+    @JoinColumn(nullable = true, name = "account_id", foreignKey = @ForeignKey(name = "fk_account_id"))
     private Account account;
 
     public Income(){
