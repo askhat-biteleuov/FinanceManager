@@ -2,7 +2,10 @@ package com.epam.internal.dao.implementation;
 
 import com.epam.internal.dao.AbstractDao;
 import com.epam.internal.dao.IncomeDao;
+import com.epam.internal.data.entities.Account;
 import com.epam.internal.data.entities.Income;
+
+import java.util.List;
 
 public class IncomeDaoImpl extends AbstractDao<Integer, Income> implements IncomeDao {
     @Override
@@ -18,5 +21,10 @@ public class IncomeDaoImpl extends AbstractDao<Integer, Income> implements Incom
     @Override
     public void updateIncome(Income income) {
         update(income);
+    }
+
+    @Override
+    public List<Income> getAllIncomes(Account account) {
+        return account.getIncomeTransactions();
     }
 }

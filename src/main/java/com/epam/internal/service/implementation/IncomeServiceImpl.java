@@ -30,6 +30,6 @@ public class IncomeServiceImpl implements IncomeService {
 
     @Override
     public List<Income> findAllIncomesInAccount(Account account) {
-        return account.getIncomeTransactions();
+        return dao.getAllIncomes(account);
     }
 }
