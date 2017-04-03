@@ -9,12 +9,10 @@ public class UserDao extends GenericDao<User> {
     }
 
     public User getUserByEmail(String email) {
-        openCurrentSession();
-        User user = (User) getCurrentSession()
+        User user = (User)getSessionFactory().getCurrentSession()
                 .createQuery("from User u where u.email=:email")
                 .setParameter("email", email)
                 .uniqueResult();
-        closeCurrentSession();
         return user;
     }
 

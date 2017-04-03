@@ -12,4 +12,14 @@
 
     <context:component-scan base-package="com.epam.internal.controllers" />
 
+    <bean id="userDao" class="com.epam.internal.dao.test.UserDao">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="configLocation" value="classpath:hibernate.cfg.xml" />
+    </bean>
 </beans>
