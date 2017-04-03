@@ -4,9 +4,9 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="userDao" class="com.epam.internal.daos.UserDao" scope="prototype">
-        <property name="sessionFactory" ref="sessionFactory"/>
-    </bean>
+    <bean id="userDao" class="com.epam.internal.daos.UserDao" scope="prototype"/>
+
+    <bean id="accountDao" class="com.epam.internal.daos.AccountDao" scope="prototype"/>
 
     <bean id="incomeDao" class="com.epam.internal.daos.GenericDao" scope="prototype">
         <constructor-arg value="com.epam.internal.models.Income"/>
@@ -22,6 +22,10 @@
         <constructor-arg value="com.epam.internal.models.OutcomeType"/>
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
+
+    <bean id="accountService" class="com.epam.internal.services.implementation.AccountServiceImpl"/>
+
+    <bean id="userService" class="com.epam.internal.services.implementation.UserServiceImpl"/>
 
     <bean id="incomeService" class="com.epam.internal.services.implementation.IncomeServiceImpl"/>
 

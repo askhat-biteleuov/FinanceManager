@@ -1,6 +1,7 @@
 package com.epam.internal.daos;
 
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -8,6 +9,7 @@ public class GenericDao<T> {
 
     private Class<T> type;
 
+    @Autowired
     private SessionFactory sessionFactory;
 
     public GenericDao(Class<T> type) {
