@@ -13,6 +13,7 @@
     <context:component-scan base-package="com.epam.internal.controllers" />
 
     <bean id="userDao" class="com.epam.internal.dao.test.UserDao">
+
         <property name="sessionFactory">
             <ref bean="sessionFactory"/>
         </property>

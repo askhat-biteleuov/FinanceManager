@@ -20,6 +20,6 @@ public class Welcome {
     public String welcome() {
         User user = new User("user@email","password",new UserInfo("name","lastname"));
         userDao.create(user);
-        return (userDao.getUserByEmail("user@email")).getEmail();
+        return userDao.getUserByEmail("user@email").getEmail();
     }
 }
