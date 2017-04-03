@@ -10,7 +10,7 @@ import java.util.List;
 public class IncomeDaoImpl extends AbstractDao<Integer, Income> implements IncomeDao {
     @Override
     public void addIncome(Income income) {
-        update(income);
+        create(income);
     }
 
     @Override
