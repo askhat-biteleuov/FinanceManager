@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table
+@Table(uniqueConstraints = {@UniqueConstraint(name = "name_user",columnNames = {"name", "user_id"})})
 public class Account implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

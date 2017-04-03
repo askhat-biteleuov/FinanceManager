@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Entity
-@Table
+@Table(uniqueConstraints = {@UniqueConstraint(name = "name_user", columnNames = {"name", "user_id"})})
 public class OutcomeType implements Serializable{
     private static final long serialVersionUID = 1L;
     @Id
