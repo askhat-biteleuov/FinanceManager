@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -24,9 +25,18 @@ public class Welcome {
     @RequestMapping("/welcome")
     @ResponseBody
     public String welcome() {
+       // User user = new User("user@email","password",new UserInfo("name","lastname"));
+       // userDao.create(user);
+        return "das";//userDao.getUserByEmail("user@email").getEmail();
+    }
+
+    @RequestMapping("/users")
+    public ModelAndView users() {
+        ModelAndView model = new ModelAndView("users");
         User user = new User("user@email","password",new UserInfo("name","lastname"));
         userDao.create(user);
-        return userDao.getUserByEmail("user@email").getEmail();
+        model.addObject("user", userDao.getUserByEmail("user@email"));
+        return model;
     }
 
     @RequestMapping("/income")
