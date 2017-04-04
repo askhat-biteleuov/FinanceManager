@@ -1,12 +1,10 @@
 package com.epam.internal.controllers;
 
-import com.epam.internal.models.Account;
-import com.epam.internal.models.Income;
-import com.epam.internal.models.User;
-import com.epam.internal.models.UserInfo;
+import com.epam.internal.models.*;
 import com.epam.internal.services.IncomeService;
+import com.epam.internal.services.OutcomeService;
+import com.epam.internal.services.OutcomeTypeService;
 import com.epam.internal.services.implementation.AccountServiceImpl;
-import com.epam.internal.services.implementation.OutcomeTypeServiceImpl;
 import com.epam.internal.services.implementation.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class Welcome {
@@ -30,7 +29,10 @@ public class Welcome {
     private IncomeService incomeService;
 
     @Autowired
-    private OutcomeTypeServiceImpl outcomeTypeService;
+    private OutcomeTypeService outcomeTypeService;
+
+    @Autowired
+    private OutcomeService outcomeService;
 
     @RequestMapping("/welcome")
     @ResponseBody
@@ -63,11 +65,25 @@ public class Welcome {
         return incomeService.findById(1L).getAmount().toString();
     }
 
-    @RequestMapping("/outcometypes")
+    @RequestMapping("/inout")
     public ModelAndView types() {
-        ModelAndView view = new ModelAndView("outcometypes");
+        ModelAndView view = new ModelAndView("inoutcomes");
         User user = userService.findByEmail("user@email");
+        List<Account> allUserAccounts = accountService.findAllUserAccounts(user);
+        Account account = allUserAccounts.get(0);
+        Income income = new Income(BigDecimal.valueOf(40000), new Date(), account);
+        OutcomeType food = new OutcomeType("food", BigDecimal.valueOf(5000), user);
+        OutcomeType cinema = new OutcomeType("cinema", BigDecimal.valueOf(1500), user);
+        Outcome outcomeFood = new Outcome(BigDecimal.valueOf(300), new Date(), account, food);
+        Outcome outcomeCinema = new Outcome(BigDecimal.valueOf(900), new Date(), account, cinema);
+        incomeService.addIncome(income);
+        outcomeTypeService.addOutcomeType(food);
+        outcomeTypeService.addOutcomeType(cinema);
+        outcomeService.addOutcome(outcomeFood);
+        outcomeService.addOutcome(outcomeCinema);
         view.addObject("types", outcomeTypeService.getAvailableOutcomeTypes(user));
+        view.addObject("outcomes", outcomeService.getAllOutcomes(account));
+        view.addObject("incomes", incomeService.findAllIncomesInAccount(account));
         return view;
     }
 }

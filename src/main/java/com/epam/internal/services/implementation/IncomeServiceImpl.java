@@ -1,19 +1,18 @@
 package com.epam.internal.services.implementation;
 
 import com.epam.internal.daos.GenericDao;
+import com.epam.internal.daos.IncomeDao;
 import com.epam.internal.models.Account;
 import com.epam.internal.models.Income;
 import com.epam.internal.services.IncomeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.List;
 
 public class IncomeServiceImpl implements IncomeService {
 
-    @Qualifier("incomeDao")
     @Autowired
-    private GenericDao<Income> dao;
+    private IncomeDao dao;
 
     @Override
     public void addIncome(Income income) {
@@ -37,6 +36,6 @@ public class IncomeServiceImpl implements IncomeService {
 
     @Override
     public List<Income> findAllIncomesInAccount(Account account) {
-        return account.getIncomeTransactions();
+        return dao.getAccountsIncomes(account);
     }
 }

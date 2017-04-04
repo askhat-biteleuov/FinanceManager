@@ -8,13 +8,11 @@
 
     <bean id="accountDao" class="com.epam.internal.daos.AccountDao" scope="prototype"/>
 
-    <bean id="incomeDao" class="com.epam.internal.daos.GenericDao" scope="prototype">
-        <constructor-arg value="com.epam.internal.models.Income"/>
+    <bean id="incomeDao" class="com.epam.internal.daos.IncomeDao" scope="prototype">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <bean id="outcomeDao" class="com.epam.internal.daos.GenericDao" scope="prototype">
-        <constructor-arg value="com.epam.internal.models.Outcome"/>
+    <bean id="outcomeDao" class="com.epam.internal.daos.OutcomeDao" scope="prototype">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 

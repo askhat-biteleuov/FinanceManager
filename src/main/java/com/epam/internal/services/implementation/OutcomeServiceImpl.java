@@ -1,18 +1,16 @@
 package com.epam.internal.services.implementation;
 
-import com.epam.internal.daos.GenericDao;
+import com.epam.internal.daos.OutcomeDao;
 import com.epam.internal.models.Account;
 import com.epam.internal.models.Outcome;
 import com.epam.internal.services.OutcomeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.List;
 
 public class OutcomeServiceImpl implements OutcomeService {
-    @Qualifier("outcomeDao")
     @Autowired
-    private GenericDao<Outcome> dao;
+    private OutcomeDao dao;
 
     @Override
     public void addOutcome(Outcome outcome) {
@@ -36,6 +34,6 @@ public class OutcomeServiceImpl implements OutcomeService {
 
     @Override
     public List<Outcome> getAllOutcomes(Account account) {
-        return account.getOutcomeTransactions();
+        return dao.getAllAccountsOutcomes(account);
     }
 }
