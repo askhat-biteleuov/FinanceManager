@@ -18,10 +18,10 @@ public class UserDao extends GenericDao<User> {
     public User getUserByEmail(String email) {
         Session currentSession = getSessionFactory().openSession();
         CriteriaBuilder builder = currentSession.getCriteriaBuilder();
-        CriteriaQuery<User> accountCriteriaQuery = builder.createQuery(User.class);
-        Root<User> userRoot = accountCriteriaQuery.from(User.class);
-        accountCriteriaQuery.where(builder.equal(userRoot.get(User_.email), email));
-        User user = currentSession.createQuery(accountCriteriaQuery).getSingleResult();
+        CriteriaQuery<User> cq = builder.createQuery(User.class);
+        Root<User> userRoot = cq.from(User.class);
+        cq.where(builder.equal(userRoot.get(User_.email), email));
+        User user = currentSession.createQuery(cq).getSingleResult();
         currentSession.close();
         return user;
     }

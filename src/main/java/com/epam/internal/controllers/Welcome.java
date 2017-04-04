@@ -37,9 +37,22 @@ public class Welcome {
     @RequestMapping("/welcome")
     @ResponseBody
     public String welcome() {
-       // User user = new User("user@email","password",new UserInfo("name","lastname"));
-       // userDao.create(user);
-        return "das";//userDao.getUserByEmail("user@email").getEmail();
+        User user = new User("user@email","password",new UserInfo("name","lastname"));
+        userService.createUser(user);
+        userService.deleteUser(user);
+        User user2 = new User("user2@email","password",new UserInfo("name","lastname"));
+        userService.createUser(user2);
+//        User user2 = new User("user2@email","password",new UserInfo("namee","lastnamee"));
+//        userService.createUser(user2);
+//        Account account3 = new Account("visa", new BigDecimal(23243), null, user2);
+//        accountService.createAccount(account3);
+//        Account account = new Account("visa", new BigDecimal(2323), null, user);
+//        accountService.createAccount(account);
+//        Account account2 = new Account("mastercard", new BigDecimal(2343), null, user);
+//        accountService.createAccount(account2);
+//        userService.deleteUser(user);
+//        accountService.deleteAccount(accountService.findUserAccountByName(user2, "visa"));
+        return "success";
     }
 
     @RequestMapping("/accounts")

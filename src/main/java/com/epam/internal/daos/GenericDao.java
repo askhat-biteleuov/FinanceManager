@@ -1,5 +1,6 @@
 package com.epam.internal.daos;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -25,24 +26,36 @@ public class GenericDao<T> {
     }
 
     public void create(T entity) {
-        getSessionFactory().openSession().save(entity);
+        Session currentSession = sessionFactory.openSession();
+        currentSession.save(entity);
+        currentSession.close();
     }
 
     public T findyById(long id) {
-        return getSessionFactory().openSession().get(type, id);
+        Session currentSession = sessionFactory.openSession();
+        T entity = currentSession.get(type, id);
+        currentSession.close();
+        return entity;
     }
 
     public void update(T entity) {
-        getSessionFactory().openSession().update(entity);
+        Session currentSession = sessionFactory.openSession();
+        currentSession.update(entity);
+        currentSession.close();
     }
 
     public void delete(T entity) {
-        getSessionFactory().openSession().delete(entity);
+        Session currentSession = sessionFactory.openSession();
+        currentSession.delete(entity);
+        currentSession.close();
     }
 
     @SuppressWarnings("unchecked")
     public List<T> getAll() {
-        return getSessionFactory().openSession().createQuery("from " + type.getName()).list();
+        Session currentSession = sessionFactory.openSession();
+        List<T> list = currentSession.createQuery("from " + type.getName()).list();
+        currentSession.close();
+        return list;
     }
 
 }

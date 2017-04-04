@@ -20,6 +20,11 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public Account findUserAccountByName(User user, String name) {
+        return accountDao.findUserAccountByName(user, name);
+    }
+
+    @Override
     public void createAccount(Account account) {
         accountDao.create(account);
     }
@@ -27,5 +32,10 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void updateAccount(Account account) {
         accountDao.update(account);
+    }
+
+    @Override
+    public void deleteAccount(Account account) {
+        accountDao.delete(account);
     }
 }
