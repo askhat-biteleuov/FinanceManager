@@ -18,8 +18,7 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <bean id="outcomeTypeDao" class="com.epam.internal.daos.GenericDao" scope="prototype">
-        <constructor-arg value="com.epam.internal.models.OutcomeType"/>
+    <bean id="outcomeTypeDao" class="com.epam.internal.daos.OutcomeTypeDao" scope="prototype">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 

@@ -1,13 +1,12 @@
 package com.epam.internal.controllers;
 
-import com.epam.internal.daos.UserDao;
 import com.epam.internal.models.Account;
 import com.epam.internal.models.Income;
 import com.epam.internal.models.User;
 import com.epam.internal.models.UserInfo;
-import com.epam.internal.services.AccountService;
 import com.epam.internal.services.IncomeService;
 import com.epam.internal.services.implementation.AccountServiceImpl;
+import com.epam.internal.services.implementation.OutcomeTypeServiceImpl;
 import com.epam.internal.services.implementation.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,7 +27,11 @@ public class Welcome {
     private AccountServiceImpl accountService;
 
     @Autowired
-    private IncomeService service;
+    private IncomeService incomeService;
+
+    @Autowired
+    private OutcomeTypeServiceImpl outcomeTypeService;
+
     @RequestMapping("/welcome")
     @ResponseBody
     public String welcome() {
@@ -56,7 +59,15 @@ public class Welcome {
         User user = new User("user@email","password",new UserInfo("name","lastname"));
         Account account = new Account("card", BigDecimal.valueOf(5000), null, user);
         Income income = new Income(BigDecimal.valueOf(300), new Date(), account);
-        service.addIncome(income);
-        return service.findById(1L).getAmount().toString();
+        incomeService.addIncome(income);
+        return incomeService.findById(1L).getAmount().toString();
+    }
+
+    @RequestMapping("/outcometypes")
+    public ModelAndView types() {
+        ModelAndView view = new ModelAndView("outcometypes");
+        User user = userService.findByEmail("user@email");
+        view.addObject("types", outcomeTypeService.getAvailableOutcomeTypes(user));
+        return view;
     }
 }

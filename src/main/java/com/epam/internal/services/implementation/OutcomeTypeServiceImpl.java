@@ -1,18 +1,17 @@
 package com.epam.internal.services.implementation;
 
-import com.epam.internal.daos.GenericDao;
+import com.epam.internal.daos.OutcomeTypeDao;
 import com.epam.internal.models.OutcomeType;
 import com.epam.internal.models.User;
 import com.epam.internal.services.OutcomeTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.List;
 
 public class OutcomeTypeServiceImpl implements OutcomeTypeService {
-    @Qualifier("outcomeTypeDao")
+
     @Autowired
-    private GenericDao<OutcomeType> dao;
+    private OutcomeTypeDao dao;
 
     @Override
     public void addOutcomeType(OutcomeType type) {
@@ -36,6 +35,6 @@ public class OutcomeTypeServiceImpl implements OutcomeTypeService {
 
     @Override
     public List<OutcomeType> getAvailableOutcomeTypes(User user) {
-        return user.getOutcomeTypes();
+        return dao.getAllUsersOutcomeTypes(user);
     }
 }
