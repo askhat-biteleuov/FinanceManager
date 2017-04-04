@@ -48,6 +48,7 @@ public class GenericDao<T> {
         Session currentSession = sessionFactory.openSession();
         currentSession.beginTransaction();
         currentSession.delete(entity);
+        currentSession.flush();
         currentSession.getTransaction().commit();
         currentSession.close();
     }
