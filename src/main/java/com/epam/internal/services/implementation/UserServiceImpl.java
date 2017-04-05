@@ -6,6 +6,8 @@ import com.epam.internal.models.UserInfo;
 import com.epam.internal.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.servlet.http.HttpSession;
+
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -28,6 +30,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(User user) {
+        user.getAccounts().clear();
+        user.setOutcomeTypes(null);
         dao.delete(user);
     }
 
@@ -42,5 +46,13 @@ public class UserServiceImpl implements UserService {
         dao.update(user);
     }
 
+    @Override
+    public void saveUserToSession(User user, HttpSession session) {
+        session.setAttribute("user", user);
+    }
 
+    @Override
+    public void removeUserFromSession(HttpSession session) {
+        session.removeAttribute("user");
+    }
 }

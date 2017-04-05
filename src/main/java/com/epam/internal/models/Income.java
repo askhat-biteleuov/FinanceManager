@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Entity
 @Table
-public class Income implements Serializable{
+public class Income implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +22,7 @@ public class Income implements Serializable{
     @JoinColumn(nullable = true, name = "account_id", foreignKey = @ForeignKey(name = "fk_account_id"))
     private Account account;
 
-    public Income(){
+    public Income() {
     }
 
     public Income(BigDecimal amount, Date date, Account account) {

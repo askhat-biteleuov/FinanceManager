@@ -35,7 +35,7 @@ public class AccountDao extends GenericDao<Account> {
         Root<Account> accountRoot = cq.from(Account.class);
         Predicate p1 = builder.equal(accountRoot.get(Account_.user), user);
         Predicate p2 = builder.equal(accountRoot.get(Account_.name), name);
-        cq.where(builder.and(p1,p2));
+        cq.where(builder.and(p1, p2));
         Account account = currentSession.createQuery(cq).getSingleResult();
         currentSession.close();
         return account;

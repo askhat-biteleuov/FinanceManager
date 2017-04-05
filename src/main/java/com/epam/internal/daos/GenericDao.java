@@ -1,8 +1,9 @@
 package com.epam.internal.daos;
 
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,39 +26,30 @@ public class GenericDao<T> {
         this.sessionFactory = sessionFactory;
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     public void create(T entity) {
-        Session currentSession = sessionFactory.openSession();
-        currentSession.save(entity);
-        currentSession.close();
+        sessionFactory.getCurrentSession().save(entity);
     }
 
+    @Transactional(readOnly = true)
     public T findyById(long id) {
-        Session currentSession = sessionFactory.openSession();
-        T entity = currentSession.get(type, id);
-        currentSession.close();
+        T entity = sessionFactory.getCurrentSession().get(type, id);
         return entity;
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     public void update(T entity) {
-        Session currentSession = sessionFactory.openSession();
-        currentSession.update(entity);
-        currentSession.close();
+        sessionFactory.getCurrentSession().update(entity);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     public void delete(T entity) {
-        Session currentSession = sessionFactory.openSession();
-        currentSession.beginTransaction();
-        currentSession.delete(entity);
-        currentSession.flush();
-        currentSession.getTransaction().commit();
-        currentSession.close();
+        sessionFactory.getCurrentSession().delete(entity);
     }
 
-    @SuppressWarnings("unchecked")
+    @Transactional(readOnly = true)
     public List<T> getAll() {
-        Session currentSession = sessionFactory.openSession();
-        List<T> list = currentSession.createQuery("from " + type.getName()).list();
-        currentSession.close();
+        List<T> list = sessionFactory.getCurrentSession().createQuery("from " + type.getName()).list();
         return list;
     }
 

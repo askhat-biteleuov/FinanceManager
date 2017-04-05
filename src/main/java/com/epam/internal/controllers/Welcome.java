@@ -37,9 +37,9 @@ public class Welcome {
     @RequestMapping("/welcome")
     @ResponseBody
     public String welcome() {
-        User user = new User("user@email","password",new UserInfo("name","lastname"));
+        User user = new User("user@email", "password", new UserInfo("name", "lastname"));
         userService.createUser(user);
-        User user2 = new User("user2@email","password",new UserInfo("namee","lastnamee"));
+        User user2 = new User("user2@email", "password", new UserInfo("namee", "lastnamee"));
         userService.createUser(user2);
         Account account3 = new Account("visa", new BigDecimal(23243), null, user2);
         accountService.createAccount(account3);
@@ -54,7 +54,7 @@ public class Welcome {
     @RequestMapping("/accounts")
     public ModelAndView users() {
         ModelAndView model = new ModelAndView("accounts");
-        User user = new User("user@email","password",new UserInfo("name","lastname"));
+        User user = new User("user@email", "password", new UserInfo("name", "lastname"));
         userService.createUser(user);
         Account account = new Account("visa", new BigDecimal(2323), null, user);
         accountService.createAccount(account);
@@ -67,7 +67,7 @@ public class Welcome {
     @RequestMapping("/income")
     @ResponseBody
     public String income() {
-        User user = new User("user@email","password",new UserInfo("name","lastname"));
+        User user = new User("user@email", "password", new UserInfo("name", "lastname"));
         Account account = new Account("card", BigDecimal.valueOf(5000), null, user);
         Income income = new Income(BigDecimal.valueOf(300), new Date(), account);
         incomeService.addIncome(income);

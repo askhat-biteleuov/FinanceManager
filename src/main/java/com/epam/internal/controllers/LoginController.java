@@ -21,8 +21,7 @@ public class LoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView init() {
-        ModelAndView modelAndView = new ModelAndView("login");
-        return modelAndView;
+        return new ModelAndView("login");
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -31,8 +30,8 @@ public class LoginController {
         if (loginDTO != null && loginDTO.getEmail() != null & loginDTO.getPassword() != null) {
             try {
                 User user = userService.findByEmail(loginDTO.getEmail());
-                if (isAvailiableUser(loginDTO, user)) {
-                    session.setAttribute("user", user);
+                if (loginDTO.getEmail().equals(user.getEmail()) && loginDTO.getPassword().equals(user.getPassword())) {
+                    userService.saveUserToSession(user, session);
                     modelAndView.setViewName("index");
                 } else {
                     modelAndView.addObject("error", "Password wrong!");
@@ -50,7 +49,16 @@ public class LoginController {
         }
     }
 
-    public boolean isAvailiableUser(LoginDTO loginDTO, User user) {
-        return loginDTO.getEmail().equals(user.getEmail()) && loginDTO.getPassword().equals(user.getPassword());
+    @RequestMapping(value = "/exit", method = RequestMethod.GET)
+    public ModelAndView exit(HttpSession session) {
+        ModelAndView modelAndView = new ModelAndView("index");
+        userService.removeUserFromSession(session);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    public ModelAndView index() {
+        ModelAndView modelAndView = new ModelAndView("index");
+        return modelAndView;
     }
 }
