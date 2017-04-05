@@ -30,8 +30,9 @@ public class OutcomeDao extends GenericDao<Outcome> {
         return session.createQuery(query).getResultList();
     }
 
+    @Transactional
     public List<Outcome> getIncomesInAccountByDate(Account account, Date date) {
-        Session session = getSessionFactory().openSession();
+        Session session = getSessionFactory().getCurrentSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<Outcome> query = criteriaBuilder.createQuery(Outcome.class);
         Root<Outcome> incomeRoot = query.from(Outcome.class);
@@ -39,8 +40,6 @@ public class OutcomeDao extends GenericDao<Outcome> {
         Predicate equalAccount = criteriaBuilder.equal(incomeRoot.get(Outcome_.account), account);
         Predicate equalDate = criteriaBuilder.equal(incomeRoot.get(Outcome_.date), date);
         query.where(criteriaBuilder.and(equalAccount, equalDate));
-        List<Outcome> outcomesByDate = session.createQuery(query).getResultList();
-        session.close();
-        return outcomesByDate;
+        return session.createQuery(query).getResultList();
     }
 }
