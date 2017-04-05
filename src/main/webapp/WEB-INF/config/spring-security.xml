@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+             http://www.springframework.org/schema/beans/spring-beans.xsd
+             http://www.springframework.org/schema/security
+             http://www.springframework.org/schema/security/spring-security-4.2.xsd">
+
+    <http auto-config="true">
+        <intercept-url pattern="/" access="permitAll"/>
+        <intercept-url pattern="/accounts" access="hasRole('USER')"/>
+        <intercept-url pattern="/welcome" access="permitAll"/>
+        <intercept-url pattern="/index" access="permitAll"/>
+        <form-login login-page="/login" default-target-url="/index"
+                    username-parameter="email"
+                    password-parameter="password"
+                    authentication-failure-url="/login?error"/>
+        <logout logout-url="/logout" logout-success-url="/login?logout"/>
+        <csrf/>
+    </http>
+
+    <authentication-manager>
+        <authentication-provider user-service-ref="customUserDetailsService"/>
+    </authentication-manager>
+
+    <beans:bean id="customUserDetailsService"
+                class="com.epam.internal.services.implementation.CustomUserDetailsService"/>
+
+</beans:beans>

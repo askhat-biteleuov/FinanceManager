@@ -4,6 +4,7 @@ import com.epam.internal.DTO.RegistrationDTO;
 import com.epam.internal.models.User;
 import com.epam.internal.models.UserInfo;
 import com.epam.internal.services.implementation.UserServiceImpl;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -32,6 +33,7 @@ public class RegistrationController {
             modelAndView.setViewName("registration");
             return modelAndView;
         }
+
         User user = userService.findByEmail(registrationDTO.getEmail());
         boolean userExist = user != null;
         if (!userExist) {

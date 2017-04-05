@@ -1,31 +1,24 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
 <head>
-    <title>Login</title>
+    <title>Sign In</title>
 </head>
 <body>
-
-<div style="text-align: center;">
-
-    <h3>Login page</h3>
-
-    <br/>
-
-    <form method="POST" action="<c:url value="/login"/>">
-        <h1>Log in</h1>
-        <input name="email" type="text" placeholder="Email" autofocus="true" value="${loginDTO.email}"/><br>
-        <input name="password" type="password" placeholder="Password"/><br>
-        <span style="color: red">${error}</span><br>
-        <button type="submit">Log In</button>
-        <br>
-        <span><a href="/registration">Create an account</a></span>
-    </form>
-
-</div>
-
+<c:url var="loginUrl" value="/login"/>
+<form action="${loginUrl}" method="post">
+    <c:if test="${param.error != null}">
+        <p>Invalid username and password.</p>
+    </c:if>
+    <c:if test="${param.logout != null}">
+        <p>You have been logged out successfully.</p>
+    </c:if>
+    <input type="text" id="username" name="email" placeholder="Enter Username" required>
+    <input type="password" id="password" name="password" placeholder="Enter Password" required>
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    <input type="submit" value="Sign in">
+</form>
 </body>
 </html>

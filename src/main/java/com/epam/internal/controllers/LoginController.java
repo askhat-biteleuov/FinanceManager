@@ -4,6 +4,8 @@ import com.epam.internal.DTO.LoginDTO;
 import com.epam.internal.models.User;
 import com.epam.internal.services.implementation.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +26,7 @@ public class LoginController {
         return new ModelAndView("login");
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    /*@RequestMapping(value = "/login", method = RequestMethod.POST)
     public ModelAndView submit(@ModelAttribute("loginDTO") LoginDTO loginDTO, HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
         if (loginDTO != null && loginDTO.getEmail() != null & loginDTO.getPassword() != null) {
@@ -54,11 +56,30 @@ public class LoginController {
         ModelAndView modelAndView = new ModelAndView("index");
         userService.removeUserFromSession(session);
         return modelAndView;
-    }
+    }*/
 
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    @RequestMapping("/index")
     public ModelAndView index() {
         ModelAndView modelAndView = new ModelAndView("index");
+        if ("anonymousUser".equals(getPrincipal())) {
+            modelAndView.addObject("notAuthenticated", true);
+        } else {
+            User user = userService.findByEmail(getPrincipal());
+            modelAndView.addObject("user", user);
+        }
         return modelAndView;
     }
+
+    private String getPrincipal() {
+        String email;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            email = ((UserDetails) principal).getUsername();
+        } else {
+            return "anonymousUser";
+        }
+        return email;
+    }
+
+
 }

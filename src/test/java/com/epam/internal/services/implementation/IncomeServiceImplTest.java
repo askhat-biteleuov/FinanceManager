@@ -1,4 +1,4 @@
-package com.epam.internal.services.implementation;
+/*package com.epam.internal.services.implementation;
 
 import com.epam.internal.models.Account;
 import com.epam.internal.models.Income;
@@ -68,4 +68,4 @@ public class IncomeServiceImplTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(allIncomesInAccount.size(), 1);
     }
 
-}
+}*/

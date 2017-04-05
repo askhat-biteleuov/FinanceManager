@@ -13,6 +13,7 @@
     <input name="password" type="password" placeholder="Password"/><br>
     <input name="confirm" type="password" placeholder="Confirm Password"/><br>
     <span style="color: red">${error}</span><br>
+    <input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}" />
     <button type="submit">Sign Up</button>
     <br>
 </form>
