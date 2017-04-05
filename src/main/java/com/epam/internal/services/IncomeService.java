@@ -3,6 +3,7 @@ package com.epam.internal.services;
 import com.epam.internal.models.Account;
 import com.epam.internal.models.Income;
 
+import java.util.Date;
 import java.util.List;
 
 public interface IncomeService {
@@ -11,4 +12,6 @@ public interface IncomeService {
     void deleteIncome(Income income);
     Income findById(long id);
     List<Income> findAllIncomesInAccount(Account account);
+    List<Income> findIncomesInAccountByDate(Account account, Date date);
+
 }

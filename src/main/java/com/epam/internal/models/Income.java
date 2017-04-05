@@ -70,4 +70,28 @@ public class Income implements Serializable{
     public void setAccount(Account account) {
         this.account = account;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Income income = (Income) o;
+
+        if (id != null ? !id.equals(income.id) : income.id != null) return false;
+        if (amount != null ? !amount.equals(income.amount) : income.amount != null) return false;
+        if (date != null ? !date.equals(income.date) : income.date != null) return false;
+        if (note != null ? !note.equals(income.note) : income.note != null) return false;
+        return account != null ? account.equals(income.account) : income.account == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (amount != null ? amount.hashCode() : 0);
+        result = 31 * result + (date != null ? date.hashCode() : 0);
+        result = 31 * result + (note != null ? note.hashCode() : 0);
+        result = 31 * result + (account != null ? account.hashCode() : 0);
+        return result;
+    }
 }

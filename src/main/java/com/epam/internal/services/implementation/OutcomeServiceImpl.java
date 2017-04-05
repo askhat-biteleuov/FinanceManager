@@ -6,6 +6,7 @@ import com.epam.internal.models.Outcome;
 import com.epam.internal.services.OutcomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Date;
 import java.util.List;
 
 public class OutcomeServiceImpl implements OutcomeService {
@@ -33,7 +34,12 @@ public class OutcomeServiceImpl implements OutcomeService {
     }
 
     @Override
-    public List<Outcome> getAllOutcomes(Account account) {
+    public List<Outcome> findAllOutcomesInAccount(Account account) {
         return dao.getAllAccountsOutcomes(account);
+    }
+
+    @Override
+    public List<Outcome> findOutcomesInAccountByDate(Account account, Date date) {
+        return dao.getIncomesInAccountByDate(account, date);
     }
 }

@@ -91,7 +91,7 @@ public class Welcome {
         outcomeService.addOutcome(outcomeFood);
         outcomeService.addOutcome(outcomeCinema);
         view.addObject("types", outcomeTypeService.getAvailableOutcomeTypes(user));
-        view.addObject("outcomes", outcomeService.getAllOutcomes(account));
+        view.addObject("outcomes", outcomeService.findAllOutcomesInAccount(account));
         view.addObject("incomes", incomeService.findAllIncomesInAccount(account));
         return view;
     }
