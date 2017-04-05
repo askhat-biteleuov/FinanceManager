@@ -23,8 +23,7 @@ public class UserDao extends GenericDao<User> {
         CriteriaQuery<User> cq = builder.createQuery(User.class);
         Root<User> userRoot = cq.from(User.class);
         cq.where(builder.equal(userRoot.get(User_.email), email));
-        User user = currentSession.createQuery(cq).getSingleResult();
-        return user;
+        return currentSession.createQuery(cq).getSingleResult();
     }
 
       /*User user = (User) currentSession

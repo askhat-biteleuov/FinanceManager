@@ -1,10 +1,13 @@
 package com.epam.internal.models;
 
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,14 +25,17 @@ public class User implements Serializable {
     @Column(nullable = false)
     private String password;
     @OneToOne
+    @Cascade(CascadeType.ALL)
     @JoinColumn(name = "user_info_id", foreignKey = @ForeignKey(name = "fk_user_info_id"))
     private UserInfo info;
 
-    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user")
+    @Cascade(CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Account> accounts = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user")
+    @Cascade(CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<OutcomeType> outcomeTypes = new ArrayList<>();
 

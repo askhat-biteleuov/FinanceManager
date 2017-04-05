@@ -1,9 +1,12 @@
 package com.epam.internal.models;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -26,10 +29,12 @@ public class Account implements Serializable {
     @ManyToOne
     @JoinColumn(nullable = false, name = "user_id", foreignKey = @ForeignKey(name = "fk_user_id"))
     private User user;
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "account")
+    @Cascade(CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Income> incomeTransactions = new ArrayList<>();
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "account")
+    @Cascade(CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Outcome> outcomeTransactions = new ArrayList<>();
 

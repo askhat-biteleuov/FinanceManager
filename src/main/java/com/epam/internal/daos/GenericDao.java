@@ -26,31 +26,30 @@ public class GenericDao<T> {
         this.sessionFactory = sessionFactory;
     }
 
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional
     public void create(T entity) {
         sessionFactory.getCurrentSession().save(entity);
     }
 
     @Transactional(readOnly = true)
     public T findyById(long id) {
-        T entity = sessionFactory.getCurrentSession().get(type, id);
-        return entity;
+        return sessionFactory.getCurrentSession().get(type, id);
     }
 
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional
     public void update(T entity) {
         sessionFactory.getCurrentSession().update(entity);
     }
 
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional
     public void delete(T entity) {
         sessionFactory.getCurrentSession().delete(entity);
     }
 
     @Transactional(readOnly = true)
+    @SuppressWarnings("unchecked")
     public List<T> getAll() {
-        List<T> list = sessionFactory.getCurrentSession().createQuery("from " + type.getName()).list();
-        return list;
+        return (List<T>) sessionFactory.getCurrentSession().createQuery("from " + type.getName()).list();
     }
 
 }
