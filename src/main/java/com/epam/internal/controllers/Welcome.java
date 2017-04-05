@@ -14,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 @Controller
 public class Welcome {
@@ -78,8 +77,7 @@ public class Welcome {
     public ModelAndView types() {
         ModelAndView view = new ModelAndView("inoutcomes");
         User user = userService.findByEmail("user@email");
-        List<Account> allUserAccounts = accountService.findAllUserAccounts(user);
-        Account account = allUserAccounts.get(0);
+        Account account = accountService.findAllUserAccounts(user).get(0);
         Income income = new Income(BigDecimal.valueOf(40000), new Date(), account);
         OutcomeType food = new OutcomeType("food", BigDecimal.valueOf(5000), user);
         OutcomeType cinema = new OutcomeType("cinema", BigDecimal.valueOf(1500), user);

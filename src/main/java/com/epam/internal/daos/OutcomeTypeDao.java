@@ -4,6 +4,7 @@ import com.epam.internal.models.OutcomeType;
 import com.epam.internal.models.OutcomeType_;
 import com.epam.internal.models.User;
 import org.hibernate.Session;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -16,15 +17,14 @@ public class OutcomeTypeDao extends GenericDao<OutcomeType> {
         super(OutcomeType.class);
     }
 
+    @Transactional
     public List<OutcomeType> getAllUsersOutcomeTypes(User user) {
-        Session currentSession = getSessionFactory().openSession();
+        Session currentSession = getSessionFactory().getCurrentSession();
         CriteriaBuilder criteriaBuilder = currentSession.getCriteriaBuilder();
         CriteriaQuery<OutcomeType> query = criteriaBuilder.createQuery(OutcomeType.class);
         Root<OutcomeType> root = query.from(OutcomeType.class);
 
         query.where(criteriaBuilder.equal(root.get(OutcomeType_.user), user));
-        List<OutcomeType> availableTypes = currentSession.createQuery(query).getResultList();
-        currentSession.close();
-        return availableTypes;
+        return currentSession.createQuery(query).getResultList();
     }
 }
