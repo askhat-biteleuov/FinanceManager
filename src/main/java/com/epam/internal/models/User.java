@@ -21,7 +21,7 @@ public class User implements Serializable {
     private String email;
     @Column(nullable = false)
     private String password;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_info_id", foreignKey = @ForeignKey(name = "fk_user_info_id"))
     private UserInfo info;
 

@@ -23,7 +23,7 @@ public class Account implements Serializable {
     @OneToOne
     @JoinColumn(nullable = true, name = "account_type_id", foreignKey = @ForeignKey(name = "fk_account_type_id"))
     private AccountType type;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(nullable = false, name = "user_id", foreignKey = @ForeignKey(name = "fk_user_id"))
     private User user;
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
