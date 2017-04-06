@@ -1,13 +1,13 @@
-package com.epam.internal.DTO;
+package com.epam.internal.dtos;
 
-public class RegistrationDTO {
+public class RegistrationDto {
     private String email;
     private String firstName;
     private String lastName;
     private String password;
     private String confirm;
 
-    public RegistrationDTO() {
+    public RegistrationDto() {
     }
 
     public String getEmail() {

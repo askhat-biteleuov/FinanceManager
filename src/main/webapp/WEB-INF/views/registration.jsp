@@ -7,9 +7,9 @@
 <body>
 <form method="POST" action="<c:url value="/registration"/>">
     <h1>Registration</h1>
-    <input name="email" type="text" placeholder="Email*" autofocus="true" value="${registrationDTO.email}"/><br>
-    <input name="firstName" type="text" placeholder="First name" value="${registrationDTO.firstName}"/><br>
-    <input name="lastName" type="text" placeholder="Last name" value="${registrationDTO.lastName}"/><br>
+    <input name="email" type="text" placeholder="Email*" autofocus value="${registrationDto.email}"/><br>
+    <input name="firstName" type="text" placeholder="First name" value="${registrationDto.firstName}"/><br>
+    <input name="lastName" type="text" placeholder="Last name" value="${registrationDto.lastName}"/><br>
     <input name="password" type="password" placeholder="Password"/><br>
     <input name="confirm" type="password" placeholder="Confirm Password"/><br>
     <span style="color: red">${error}</span><br>

@@ -25,12 +25,12 @@ public class LoginController {
     }
 
     /*@RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ModelAndView submit(@ModelAttribute("loginDTO") LoginDTO loginDTO, HttpSession session) {
+    public ModelAndView submit(@ModelAttribute("loginDto") LoginDto loginDto, HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
-        if (loginDTO != null && loginDTO.getEmail() != null & loginDTO.getPassword() != null) {
+        if (loginDto != null && loginDto.getEmail() != null & loginDto.getPassword() != null) {
             try {
-                User user = userService.findByEmail(loginDTO.getEmail());
-                if (loginDTO.getEmail().equals(user.getEmail()) && loginDTO.getPassword().equals(user.getPassword())) {
+                User user = userService.findByEmail(loginDto.getEmail());
+                if (loginDto.getEmail().equals(user.getEmail()) && loginDto.getPassword().equals(user.getPassword())) {
                     userService.saveUserToSession(user, session);
                     modelAndView.setViewName("index");
                 } else {

@@ -6,13 +6,16 @@ import java.io.Serializable;
 @Entity
 @Table
 public class UserInfo implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column
     private String firstName;
+
     @Column
     private String lastName;
 

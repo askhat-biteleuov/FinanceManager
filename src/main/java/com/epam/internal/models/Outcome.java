@@ -8,19 +8,26 @@ import java.util.Date;
 @Entity
 @Table
 public class Outcome implements Serializable {
+
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false)
     private BigDecimal amount;
+
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", nullable = false)
     private Date date;
+
     @Column
     private String note;
+
     @ManyToOne
     @JoinColumn(nullable = false, name = "account_id", foreignKey = @ForeignKey(name = "fk_account_id"))
     private Account account;
+
     @ManyToOne
     @JoinColumn(nullable = false, name = "outcome_type_id", foreignKey = @ForeignKey(name = "fk_outcome_type_id"))
     private OutcomeType outcomeType;

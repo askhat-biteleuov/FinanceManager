@@ -1,10 +1,9 @@
 package com.epam.internal.controllers;
 
-import com.epam.internal.DTO.RegistrationDTO;
+import com.epam.internal.dtos.RegistrationDto;
 import com.epam.internal.models.User;
 import com.epam.internal.models.UserInfo;
 import com.epam.internal.services.implementation.UserServiceImpl;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,19 +25,19 @@ public class RegistrationController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public ModelAndView submit(@ModelAttribute("registrationDTO") RegistrationDTO registrationDTO) {
+    public ModelAndView submit(@ModelAttribute("registrationDto") RegistrationDto registrationDto) {
         ModelAndView modelAndView = new ModelAndView();
-        if (!Objects.equals(registrationDTO.getPassword(), registrationDTO.getConfirm())) {
+        if (!Objects.equals(registrationDto.getPassword(), registrationDto.getConfirm())) {
             modelAndView.addObject("error", "Passwords don't match!");
             modelAndView.setViewName("registration");
             return modelAndView;
         }
 
-        User user = userService.findByEmail(registrationDTO.getEmail());
+        User user = userService.findByEmail(registrationDto.getEmail());
         boolean userExist = user != null;
         if (!userExist) {
-            UserInfo userInfo = new UserInfo(registrationDTO.getFirstName(), registrationDTO.getLastName());
-            user = new User(registrationDTO.getEmail(), registrationDTO.getPassword(), userInfo);
+            UserInfo userInfo = new UserInfo(registrationDto.getFirstName(), registrationDto.getLastName());
+            user = new User(registrationDto.getEmail(), registrationDto.getPassword(), userInfo);
             userService.createUser(user);
             modelAndView.setViewName("login");
         } else {

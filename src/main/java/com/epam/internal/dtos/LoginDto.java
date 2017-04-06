@@ -1,10 +1,10 @@
-package com.epam.internal.DTO;
+package com.epam.internal.dtos;
 
-public class LoginDTO {
+public class LoginDto {
     private String email;
     private String password;
 
-    public LoginDTO() {
+    public LoginDto() {
     }
 
     public String getEmail() {

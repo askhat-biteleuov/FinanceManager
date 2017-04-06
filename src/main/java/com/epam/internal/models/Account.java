@@ -15,24 +15,32 @@ import java.util.List;
 @Entity
 @Table(uniqueConstraints = {@UniqueConstraint(name = "name_user", columnNames = {"name", "user_id"})})
 public class Account implements Serializable {
+
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false)
     private String name;
+
     @Column(nullable = false)
     private BigDecimal balance;
+
     @OneToOne
     @JoinColumn(nullable = true, name = "account_type_id", foreignKey = @ForeignKey(name = "fk_account_type_id"))
     private AccountType type;
+
     @ManyToOne
     @JoinColumn(nullable = false, name = "user_id", foreignKey = @ForeignKey(name = "fk_user_id"))
     private User user;
+
     @OneToMany(mappedBy = "account")
     @Cascade(CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Income> incomeTransactions = new ArrayList<>();
+
     @OneToMany(mappedBy = "account")
     @Cascade(CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
