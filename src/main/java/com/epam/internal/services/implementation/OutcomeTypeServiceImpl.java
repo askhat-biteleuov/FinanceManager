@@ -5,6 +5,7 @@ import com.epam.internal.models.OutcomeType;
 import com.epam.internal.models.User;
 import com.epam.internal.services.OutcomeTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -34,7 +35,9 @@ public class OutcomeTypeServiceImpl implements OutcomeTypeService {
     }
 
     @Override
+    @Transactional
     public List<OutcomeType> getAvailableOutcomeTypes(User user) {
-        return dao.getAllUsersOutcomeTypes(user);
+//        return dao.getAllUsersOutcomeTypes(user);
+        return user.getOutcomeTypes();
     }
 }

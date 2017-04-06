@@ -4,36 +4,24 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <bean id="userDao" class="com.epam.internal.daos.UserDao" scope="prototype"/>
+    <bean class="com.epam.internal.daos.UserDao"/>
+    <bean class="com.epam.internal.daos.AccountDao"/>
+    <bean class="com.epam.internal.daos.IncomeDao"/>
+    <bean class="com.epam.internal.daos.OutcomeDao"/>
+    <bean class="com.epam.internal.daos.OutcomeTypeDao"/>
 
-    <bean id="accountDao" class="com.epam.internal.daos.AccountDao" scope="prototype"/>
-
-    <bean id="incomeDao" class="com.epam.internal.daos.IncomeDao" scope="prototype">
-        <property name="sessionFactory" ref="sessionFactory"/>
-    </bean>
-
-    <bean id="outcomeDao" class="com.epam.internal.daos.OutcomeDao" scope="prototype">
-        <property name="sessionFactory" ref="sessionFactory"/>
-    </bean>
-
-    <bean id="outcomeTypeDao" class="com.epam.internal.daos.OutcomeTypeDao" scope="prototype">
-        <property name="sessionFactory" ref="sessionFactory"/>
-    </bean>
-
-    <bean id="accountService" class="com.epam.internal.services.implementation.AccountServiceImpl"/>
-
-    <bean id="userService" class="com.epam.internal.services.implementation.UserServiceImpl"/>
-
-    <bean id="incomeService" class="com.epam.internal.services.implementation.IncomeServiceImpl"/>
-    <bean id="outcomeService" class="com.epam.internal.services.implementation.OutcomeServiceImpl"/>
-    <bean id="outcomeTypeService" class="com.epam.internal.services.implementation.OutcomeTypeServiceImpl"/>
+    <bean class="com.epam.internal.services.implementation.AccountServiceImpl"/>
+    <bean class="com.epam.internal.services.implementation.UserServiceImpl"/>
+    <bean class="com.epam.internal.services.implementation.IncomeServiceImpl"/>
+    <bean class="com.epam.internal.services.implementation.OutcomeServiceImpl"/>
+    <bean class="com.epam.internal.services.implementation.OutcomeTypeServiceImpl"/>
 
 
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost:3306/epam?serverTimezone=UTC"/>
-        <property name="username" value="root" />
+        <property name="url" value="jdbc:mysql://localhost:3306/epam?serverTimezone=UTC&amp;useSSL=false"/>
+        <property name="username" value="root"/>
         <property name="password" value="root"/>
     </bean>
 
@@ -42,8 +30,10 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="configLocation" value="classpath:hibernate.cfg.xml" />
     </bean>
+
     <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
+
     <tx:annotation-driven transaction-manager="transactionManager"/>
 </beans>

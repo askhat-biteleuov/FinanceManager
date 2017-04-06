@@ -1,13 +1,12 @@
 package com.epam.internal.models;
 
 
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
-import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +28,7 @@ public class User implements Serializable {
     @JoinColumn(name = "user_info_id", foreignKey = @ForeignKey(name = "fk_user_info_id"))
     private UserInfo info;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = javax.persistence.CascadeType.ALL, orphanRemoval = true)
     @Cascade(CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Account> accounts = new ArrayList<>();

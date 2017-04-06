@@ -3,7 +3,6 @@ package com.epam.internal.services.implementation;
 import com.epam.internal.models.User;
 import com.epam.internal.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.AliasFor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
