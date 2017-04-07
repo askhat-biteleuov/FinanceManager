@@ -4,7 +4,10 @@ import com.epam.internal.daos.AccountDao;
 import com.epam.internal.models.Account;
 import com.epam.internal.models.User;
 import com.epam.internal.models.UserInfo;
-import org.mockito.*;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -16,7 +19,6 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
-import static org.testng.Assert.*;
 
 public class AccountServiceImplTest {
 
