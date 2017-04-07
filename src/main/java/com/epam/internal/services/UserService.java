@@ -18,8 +18,4 @@ public interface UserService {
     void updateUser(User user);
 
     void updateUserInfo(User user, UserInfo info);
-
-    void saveUserToSession(User user, HttpSession session);
-
-    void removeUserFromSession(HttpSession session);
 }

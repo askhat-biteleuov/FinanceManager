@@ -1,11 +1,5 @@
 package com.epam.internal.models;
 
-
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,7 +13,7 @@ public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @Column(unique = true, nullable = false)
     private String email;
@@ -27,19 +21,14 @@ public class User implements Serializable {
     @Column(nullable = false)
     private String password;
 
-    @OneToOne
-    @Cascade(CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_info_id", foreignKey = @ForeignKey(name = "fk_user_info_id"))
     private UserInfo info;
 
-    @OneToMany(mappedBy = "user", cascade = javax.persistence.CascadeType.ALL, orphanRemoval = true)
-    @Cascade(CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     private List<Account> accounts = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
-    @Cascade(CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     private List<OutcomeType> outcomeTypes = new ArrayList<>();
 
     public User() {
@@ -51,11 +40,11 @@ public class User implements Serializable {
         this.info = info;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -98,6 +87,4 @@ public class User implements Serializable {
     public void setOutcomeTypes(List<OutcomeType> outcomeTypes) {
         this.outcomeTypes = outcomeTypes;
     }
-
-
 }

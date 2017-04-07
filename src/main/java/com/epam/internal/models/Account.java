@@ -1,9 +1,9 @@
 package com.epam.internal.models;
 
 import org.hibernate.annotations.*;
-import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.Table;
@@ -20,7 +20,7 @@ public class Account implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @Column(nullable = false)
     private String name;
@@ -36,14 +36,10 @@ public class Account implements Serializable {
     @JoinColumn(nullable = false, name = "user_id", foreignKey = @ForeignKey(name = "fk_user_id"))
     private User user;
 
-    @OneToMany(mappedBy = "account")
-    @Cascade(CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account", orphanRemoval = true)
     private List<Income> incomeTransactions = new ArrayList<>();
 
-    @OneToMany(mappedBy = "account")
-    @Cascade(CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account", orphanRemoval = true)
     private List<Outcome> outcomeTransactions = new ArrayList<>();
 
     public Account() {
@@ -56,11 +52,11 @@ public class Account implements Serializable {
         this.user = user;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

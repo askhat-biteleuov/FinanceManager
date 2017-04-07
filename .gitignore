@@ -3,4 +3,5 @@
 /out/
 /target/
 /classes/
+*.log
 .gitignore

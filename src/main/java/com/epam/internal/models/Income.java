@@ -13,7 +13,7 @@ public class Income implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @Column(nullable = false)
     private BigDecimal amount;
@@ -25,7 +25,7 @@ public class Income implements Serializable {
     private String note;
 
     @ManyToOne
-    @JoinColumn(nullable = true, name = "account_id", foreignKey = @ForeignKey(name = "fk_account_id"))
+    @JoinColumn(nullable = false, name = "account_id", foreignKey = @ForeignKey(name = "fk_account_id"))
     private Account account;
 
     public Income() {
@@ -37,11 +37,11 @@ public class Income implements Serializable {
         this.account = account;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -75,29 +75,5 @@ public class Income implements Serializable {
 
     public void setAccount(Account account) {
         this.account = account;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Income income = (Income) o;
-
-        if (id != null ? !id.equals(income.id) : income.id != null) return false;
-        if (amount != null ? !amount.equals(income.amount) : income.amount != null) return false;
-        if (date != null ? !date.equals(income.date) : income.date != null) return false;
-        if (note != null ? !note.equals(income.note) : income.note != null) return false;
-        return account != null ? account.equals(income.account) : income.account == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (amount != null ? amount.hashCode() : 0);
-        result = 31 * result + (date != null ? date.hashCode() : 0);
-        result = 31 * result + (note != null ? note.hashCode() : 0);
-        result = 31 * result + (account != null ? account.hashCode() : 0);
-        return result;
     }
 }

@@ -30,8 +30,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(User user) {
-        user.getAccounts().clear();
-        user.setOutcomeTypes(null);
         dao.delete(user);
     }
 
@@ -44,15 +42,5 @@ public class UserServiceImpl implements UserService {
     public void updateUserInfo(User user, UserInfo info) {
         user.setInfo(info);
         dao.update(user);
-    }
-
-    @Override
-    public void saveUserToSession(User user, HttpSession session) {
-        session.setAttribute("user", user);
-    }
-
-    @Override
-    public void removeUserFromSession(HttpSession session) {
-        session.removeAttribute("user");
     }
 }
