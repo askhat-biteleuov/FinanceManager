@@ -10,7 +10,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class OutcomeDao extends GenericDao<Outcome> {
@@ -31,7 +31,7 @@ public class OutcomeDao extends GenericDao<Outcome> {
     }
 
     @Transactional
-    public List<Outcome> getIncomesInAccountByDate(Account account, Date date) {
+    public List<Outcome> getIncomesInAccountByDate(Account account, LocalDateTime date) {
         Session session = getSessionFactory().getCurrentSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<Outcome> query = criteriaBuilder.createQuery(Outcome.class);

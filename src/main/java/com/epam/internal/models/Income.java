@@ -3,7 +3,7 @@ package com.epam.internal.models;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table
@@ -19,7 +19,7 @@ public class Income implements Serializable {
     private BigDecimal amount;
 
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", nullable = false)
-    private Date date;
+    private LocalDateTime date;
 
     @Column
     private String note;
@@ -31,7 +31,7 @@ public class Income implements Serializable {
     public Income() {
     }
 
-    public Income(BigDecimal amount, Date date, Account account) {
+    public Income(BigDecimal amount, LocalDateTime date, Account account) {
         this.amount = amount;
         this.date = date;
         this.account = account;
@@ -53,11 +53,11 @@ public class Income implements Serializable {
         this.amount = amount;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

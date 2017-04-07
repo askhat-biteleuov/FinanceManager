@@ -12,8 +12,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -82,8 +82,8 @@ public class IncomeServiceImplTest {
     }
 
     private List<Income> getIncomeList() {
-        Income income1 = new Income(BigDecimal.valueOf(300), new Date(), account);
-        Income income2 = new Income(BigDecimal.valueOf(500), new Date(), account);
+        Income income1 = new Income(BigDecimal.valueOf(300), LocalDateTime.of(2000, 2, 3, 5, 1), account);
+        Income income2 = new Income(BigDecimal.valueOf(500), LocalDateTime.of(2000, 2, 3, 5, 1), account);
 
         incomes.add(income1);
         incomes.add(income2);

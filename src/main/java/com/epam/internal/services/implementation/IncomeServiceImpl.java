@@ -6,7 +6,7 @@ import com.epam.internal.models.Income;
 import com.epam.internal.services.IncomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class IncomeServiceImpl implements IncomeService {
@@ -40,7 +40,7 @@ public class IncomeServiceImpl implements IncomeService {
     }
 
     @Override
-    public List<Income> findIncomesInAccountByDate(Account account, Date date) {
+    public List<Income> findIncomesInAccountByDate(Account account, LocalDateTime date) {
         return dao.getIncomesInAccountByDate(account, date);
     }
 }

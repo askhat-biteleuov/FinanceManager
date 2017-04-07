@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Controller
 public class Welcome {
@@ -68,7 +68,7 @@ public class Welcome {
     public String income() {
         User user = new User("user@email", "password", new UserInfo("name", "lastname"));
         Account account = new Account("card", BigDecimal.valueOf(5000), null, user);
-        Income income = new Income(BigDecimal.valueOf(300), new Date(), account);
+        Income income = new Income(BigDecimal.valueOf(300), LocalDateTime.of(2000, 3, 15, 23, 1), account);
         incomeService.addIncome(income);
         return incomeService.findById(1L).getAmount().toString();
     }
@@ -78,11 +78,11 @@ public class Welcome {
         ModelAndView view = new ModelAndView("inoutcomes");
         User user = userService.findByEmail("user@email");
         Account account = accountService.findAllUserAccounts(user).get(0);
-        Income income = new Income(BigDecimal.valueOf(40000), new Date(), account);
+        Income income = new Income(BigDecimal.valueOf(40000), LocalDateTime.of(2000, 2, 3, 5, 1), account);
         OutcomeType food = new OutcomeType("food", BigDecimal.valueOf(5000), user);
         OutcomeType cinema = new OutcomeType("cinema", BigDecimal.valueOf(1500), user);
-        Outcome outcomeFood = new Outcome(BigDecimal.valueOf(300), new Date(), account, food);
-        Outcome outcomeCinema = new Outcome(BigDecimal.valueOf(900), new Date(), account, cinema);
+        Outcome outcomeFood = new Outcome(BigDecimal.valueOf(300), LocalDateTime.of(2000, 2, 3, 5, 1), account, food);
+        Outcome outcomeCinema = new Outcome(BigDecimal.valueOf(900), LocalDateTime.of(2000, 2, 3, 5, 1), account, cinema);
         incomeService.addIncome(income);
         outcomeTypeService.addOutcomeType(food);
         outcomeTypeService.addOutcomeType(cinema);

@@ -3,7 +3,7 @@ package com.epam.internal.services;
 import com.epam.internal.models.Account;
 import com.epam.internal.models.Income;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface IncomeService {
@@ -17,6 +17,6 @@ public interface IncomeService {
 
     List<Income> findAllIncomesInAccount(Account account);
 
-    List<Income> findIncomesInAccountByDate(Account account, Date date);
+    List<Income> findIncomesInAccountByDate(Account account, LocalDateTime date);
 
 }
