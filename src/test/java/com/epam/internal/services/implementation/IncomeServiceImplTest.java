@@ -1,71 +1,93 @@
 package com.epam.internal.services.implementation;
 
+import com.epam.internal.daos.IncomeDao;
 import com.epam.internal.models.Account;
 import com.epam.internal.models.Income;
 import com.epam.internal.models.User;
 import com.epam.internal.models.UserInfo;
-import com.epam.internal.services.AccountService;
 import com.epam.internal.services.IncomeService;
-import com.epam.internal.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.mockito.*;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@ContextConfiguration(locations = {"file:../webapp/"})
-public class IncomeServiceImplTest extends AbstractTestNGSpringContextTests {
+import static org.mockito.Mockito.*;
 
-    @Autowired
-    private IncomeService incomeService;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private AccountService accountService;
-    private User user;
-    private Account account;
-    private Income income;
+public class IncomeServiceImplTest {
+    @Mock
+    private IncomeDao incomeDao;
 
-    @BeforeClass(dependsOnMethods = {"springTestContextPrepareTestInstance"})
-    public void setUp() {
-        user = new User("email", "password", new UserInfo("firstName", "lastName"));
-        userService.createUser(user);
-        account = new Account("creditCard", BigDecimal.valueOf(11111), null, user);
-        accountService.createAccount(account);
-        income = new Income(BigDecimal.valueOf(40000), new Date(), account);
-        incomeService.addIncome(income);
+    @InjectMocks
+    private IncomeService incomeService = new IncomeServiceImpl();
+
+    @Spy
+    private List<Income> incomes = new ArrayList<>();
+
+    @Captor
+    private ArgumentCaptor<Income> captor;
+
+    private User user = new User("email", "pass", new UserInfo("firstName", "lastName"));
+    private Account account = new Account("visa", BigDecimal.valueOf(5000), null, user);
+
+    @BeforeClass
+    public void setUpClass() {
+        MockitoAnnotations.initMocks(this);
+        incomes = getIncomeList();
     }
 
-    @Test(enabled = false)
+    @Test
     public void testAddIncome() throws Exception {
-        incomeService.addIncome(income);
+        doNothing().when(incomeDao).create(any(Income.class));
+        incomeService.addIncome(incomes.get(0));
+
+        verify(incomeDao, times(1)).create(captor.capture());
+
+        Assert.assertEquals(captor.getValue().getAmount(), BigDecimal.valueOf(300));
+        Assert.assertEquals(2, incomes.size());
+        verify(incomes, times(2)).add(any(Income.class));
     }
 
-    @Test(enabled = false)
+    @Test
     public void testUpdateIncome() throws Exception {
-        income = new Income(BigDecimal.valueOf(50000), new Date(), account);
-        incomeService.updateIncome(income);
+        doNothing().when(incomeDao).update(any(Income.class));
+        incomeService.updateIncome(incomes.get(0));
+        verify(incomeDao, times(1)).update(any(Income.class));
     }
 
-    @Test(enabled = false)
+    @Test
     public void testDeleteIncome() throws Exception {
+        doNothing().when(incomeDao).delete(any(Income.class));
+        incomeService.deleteIncome(incomes.get(0));
+        verify(incomeDao, times(1)).delete(any(Income.class));
     }
 
     @Test
     public void testFindById() throws Exception {
-        Income byId = incomeService.findById(1L);
-        Assert.assertNotNull(byId);
+        when(incomeDao.findyById(anyLong())).thenReturn(mock(Income.class));
+        Assert.assertEquals(incomeService.findById(1L).getAmount(), mock(Income.class).getAmount());
+        verify(incomeDao, times(1)).findyById(anyLong());
     }
 
     @Test
     public void testFindAllIncomesInAccount() throws Exception {
-        List<Income> allIncomesInAccount = incomeService.findAllIncomesInAccount(account);
-        Assert.assertEquals(allIncomesInAccount.size(), 1);
+        when(incomeDao.getAccountsIncomes(any(Account.class)))
+            .thenReturn(incomes);
+        Assert.assertEquals(incomeService.findAllIncomesInAccount(account), incomes);
+        verify(incomeDao, times(1)).getAccountsIncomes(any(Account.class));
+    }
+
+    private List<Income> getIncomeList() {
+        Income income1 = new Income(BigDecimal.valueOf(300), new Date(), account);
+        Income income2 = new Income(BigDecimal.valueOf(500), new Date(), account);
+
+        incomes.add(income1);
+        incomes.add(income2);
+        return incomes;
     }
 
 }
