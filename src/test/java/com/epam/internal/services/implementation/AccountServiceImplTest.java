@@ -1,54 +1,64 @@
 package com.epam.internal.services.implementation;
 
+import com.epam.internal.daos.AccountDao;
 import com.epam.internal.models.Account;
-import com.epam.internal.models.OutcomeType;
 import com.epam.internal.models.User;
 import com.epam.internal.models.UserInfo;
-import com.epam.internal.services.AccountService;
-import com.epam.internal.services.OutcomeTypeService;
-import com.epam.internal.services.UserService;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.mockito.*;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
-@ContextConfiguration(locations = {"classpath:common-mvc-config.xml"})
-public class AccountServiceImplTest extends AbstractTestNGSpringContextTests {
-    @Autowired
-    private AccountService accountService;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private OutcomeTypeService outcomeTypeService;
-    @Autowired
-    private SessionFactory sessionFactory;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
+import static org.testng.Assert.*;
+
+public class AccountServiceImplTest {
+
+    @Mock
+    private AccountDao dao;
+
+    @InjectMocks
+    private AccountServiceImpl service;
+
+    @Spy
+    private List<Account> accounts = new ArrayList<>();
+
+    private static User user = new User("user@email", "password", new UserInfo("name", "surname"));
+    private static Account acc1;
 
     @BeforeMethod
     public void setUp() throws Exception {
-        User user = new User("email", "pass", new UserInfo("firstname", "lastname"));
-        userService.createUser(user);
-        Account account = new Account("visa", BigDecimal.valueOf(5000), null, user);
-        Account account1 = new Account("credit", BigDecimal.valueOf(2000), null, user);
-        accountService.createAccount(account);
-        accountService.createAccount(account1);
-        OutcomeType type = new OutcomeType("food", BigDecimal.valueOf(900), user);
-        outcomeTypeService.addOutcomeType(type);
+        MockitoAnnotations.initMocks(this);
+        accounts = getAccountList();
     }
 
     @Test
     public void testFindAllUserAccounts() throws Exception {
-        Session curSes = sessionFactory.openSession();
-        User user = userService.findByEmail("email");
-        Assert.assertEquals(2, accountService.findAllUserAccounts(user).size());
-        Assert.assertEquals(2, user.getAccounts().size());
-        Assert.assertEquals(1, outcomeTypeService.getAvailableOutcomeTypes(user).size());
-        curSes.close();
+        when(dao.findAllUserAccounts(user)).thenReturn(accounts);
+        Assert.assertEquals(service.findAllUserAccounts(user), accounts);
+        verify(dao, times(1)).findAllUserAccounts(user);
     }
+
+    @Test
+    public void testFindUserAccountByName() throws Exception {
+        when(dao.findUserAccountByName(any(User.class), anyString())).thenReturn(acc1);
+        Assert.assertEquals(service.findUserAccountByName(user, "visa"), acc1);
+        verify(dao, times(1)).findUserAccountByName(any(User.class), anyString());
+    }
+
+    private List<Account> getAccountList() {
+        acc1 = new Account("visa", BigDecimal.valueOf(1234), null, user);
+        Account acc2 = new Account("mastercard", BigDecimal.valueOf(4321), null, user);
+        accounts.add(acc1);
+        accounts.add(acc2);
+        return accounts;
+    }
+
 
 }
