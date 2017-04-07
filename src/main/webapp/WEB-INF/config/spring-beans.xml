@@ -16,6 +16,9 @@
     <bean class="com.epam.internal.services.implementation.OutcomeServiceImpl"/>
     <bean class="com.epam.internal.services.implementation.OutcomeTypeServiceImpl"/>
 
+    <bean id="genericDao" class="com.epam.internal.daos.GenericDao">
+        <constructor-arg value="com.epam.internal.models.User"/>
+    </bean>
 
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">

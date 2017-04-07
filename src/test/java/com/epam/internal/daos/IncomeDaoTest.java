@@ -26,8 +26,8 @@ public class IncomeDaoTest extends AbstractTestNGSpringContextTests {
     private AccountService accountService;
 
 
-    private static User user = new User("email", "pass", new UserInfo("firstName", "lastName"));
-    private static Account account = new Account("visa", BigDecimal.valueOf(5000), null, user);
+    private User user = new User("email", "pass", new UserInfo("firstName", "lastName"));
+    private Account account = new Account("visa", BigDecimal.valueOf(5000), null, user);
 
     @BeforeMethod
     public void setUp() {
