@@ -1,30 +1,20 @@
 package com.epam.internal.services.implementation;
 
-import com.epam.internal.daos.IncomeDao;
 import com.epam.internal.daos.UserDao;
-import com.epam.internal.models.*;
-import com.epam.internal.services.AccountService;
-import com.epam.internal.services.IncomeService;
-import com.epam.internal.services.OutcomeTypeService;
+import com.epam.internal.models.User;
+import com.epam.internal.models.UserInfo;
 import com.epam.internal.services.UserService;
 import org.mockito.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.testng.Assert.*;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
 
 public class UserServiceImplTest {
 
@@ -45,6 +35,8 @@ public class UserServiceImplTest {
         MockitoAnnotations.initMocks(this);
         users = getUserList();
     }
+
+    private static User user;
     @Test
     public void testCreateUser() throws Exception {
         doNothing().when(userDao).create(any(User.class));
@@ -55,8 +47,45 @@ public class UserServiceImplTest {
         Assert.assertEquals(4, users.size());
         verify(users, times(4)).add(any(User.class));
     }
+
+    @Test
+    public void testFindByEmail() throws Exception {
+        when(userDao.getUserByEmail(anyString())).thenReturn(user);
+        Assert.assertEquals(userService.findByEmail("user@email"), user);
+        verify(userDao, times(1)).getUserByEmail(anyString());
+    }
+
+    @Test
+    public void testDeleteUserByEmail() throws Exception {
+        when(userDao.getUserByEmail(anyString())).thenReturn(user);
+        doNothing().when(userDao).delete(any(User.class));
+        userService.deleteUserByEmail("user@email");
+        verify(userDao, times(1)).delete(any(User.class));
+    }
+
+    @Test
+    public void testDeleteUser() throws Exception {
+        doNothing().when(userDao).delete(any(User.class));
+        userService.deleteUser(users.get(0));
+        verify(userDao, times(1)).delete(any(User.class));
+    }
+
+    @Test
+    public void testUpdateUser() throws Exception {
+        doNothing().when(userDao).update(any(User.class));
+        userService.updateUser(users.get(0));
+        verify(userDao, times(1)).update(any(User.class));
+    }
+
+    @Test
+    public void testUpdateUserInfo() throws Exception {
+        doNothing().when(userDao).update(any(User.class));
+        userService.updateUserInfo(users.get(0), any(UserInfo.class));
+        verify(userDao, times(1)).update(any(User.class));
+    }
+
     private List<User> getUserList() {
-        User user = new User("user@email", "password", new UserInfo("name", "lastname"));
+        user = new User("user@email", "password", new UserInfo("name", "lastname"));
         User user1 = new User("user1@email", "password", new UserInfo("name1", "lastname1"));
         User user2 = new User("user2@email", "password", new UserInfo("name2", "lastname2"));
         User user3 = new User("user3@email", "password", new UserInfo("name3", "lastname3"));

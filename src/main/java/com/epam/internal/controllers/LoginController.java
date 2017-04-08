@@ -1,6 +1,8 @@
 package com.epam.internal.controllers;
 
 import com.epam.internal.models.User;
+import com.epam.internal.services.AccountService;
+import com.epam.internal.services.OutcomeTypeService;
 import com.epam.internal.services.implementation.UserServiceImpl;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,12 @@ public class LoginController {
 
     @Autowired
     private UserServiceImpl userService;
+
+    @Autowired
+    private AccountService accountService;
+
+    @Autowired
+    private OutcomeTypeService outcomeTypeService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView init() {
@@ -64,6 +72,8 @@ public class LoginController {
         } else {
             User user = userService.findByEmail(getPrincipal());
             modelAndView.addObject("user", user);
+            modelAndView.addObject("accounts", accountService.findAllUserAccounts(user));
+            modelAndView.addObject("outcomeTypes", outcomeTypeService.getAvailableOutcomeTypes(user));
         }
         return modelAndView;
     }

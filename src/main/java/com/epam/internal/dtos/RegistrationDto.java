@@ -2,6 +2,7 @@ package com.epam.internal.dtos;
 
 
 import org.hibernate.validator.constraints.Email;
+
 import javax.validation.constraints.Min;
 
 public class RegistrationDto {

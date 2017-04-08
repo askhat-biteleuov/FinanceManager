@@ -7,8 +7,6 @@ import com.epam.internal.models.UserInfo;
 import com.epam.internal.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.servlet.http.HttpSession;
-
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -47,8 +45,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void createUser(RegistrationDto registrationDto) {
-        UserInfo userInfo = new UserInfo(registrationDto.getFirstName(),registrationDto.getLastName());
-        User user = new User(registrationDto.getEmail(),registrationDto.getPassword(),userInfo);
+        UserInfo userInfo = new UserInfo(registrationDto.getFirstName(), registrationDto.getLastName());
+        User user = new User(registrationDto.getEmail(), registrationDto.getPassword(), userInfo);
         dao.create(user);
     }
 }

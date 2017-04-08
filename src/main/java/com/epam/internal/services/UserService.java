@@ -4,8 +4,6 @@ import com.epam.internal.dtos.RegistrationDto;
 import com.epam.internal.models.User;
 import com.epam.internal.models.UserInfo;
 
-import javax.servlet.http.HttpSession;
-
 public interface UserService {
 
     User findByEmail(String email);
