@@ -75,15 +75,16 @@ public class IncomeServiceImplTest {
 
     @Test
     public void testFindAllIncomesInAccount() throws Exception {
-        when(incomeDao.getAccountsIncomes(any(Account.class)))
-            .thenReturn(incomes);
+        when(incomeDao.getAccountsIncomes(any(Account.class))).thenReturn(incomes);
         Assert.assertEquals(incomeService.findAllIncomesInAccount(account), incomes);
         verify(incomeDao, times(1)).getAccountsIncomes(any(Account.class));
     }
 
     private List<Income> getIncomeList() {
-        Income income1 = new Income(BigDecimal.valueOf(300), LocalDateTime.of(2000, 2, 3, 5, 1), account);
-        Income income2 = new Income(BigDecimal.valueOf(500), LocalDateTime.of(2000, 2, 3, 5, 1), account);
+        Income income1 = new Income(BigDecimal.valueOf(300), LocalDateTime.of(2000, 2, 3,
+                5, 1), account);
+        Income income2 = new Income(BigDecimal.valueOf(500), LocalDateTime.of(2000, 2, 3,
+                5, 1), account);
 
         incomes.add(income1);
         incomes.add(income2);
