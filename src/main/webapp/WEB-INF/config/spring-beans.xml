@@ -21,6 +21,7 @@
     </bean>
 
     <bean class="com.epam.internal.validation.UserValidator"/>
+    <bean class="com.epam.internal.validation.AccountValidator"/>
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />

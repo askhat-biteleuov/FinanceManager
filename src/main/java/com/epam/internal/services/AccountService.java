@@ -1,5 +1,6 @@
 package com.epam.internal.services;
 
+import com.epam.internal.dtos.AccountDto;
 import com.epam.internal.models.Account;
 import com.epam.internal.models.User;
 
@@ -16,4 +17,6 @@ public interface AccountService {
     void updateAccount(Account account);
 
     void deleteAccount(Account account);
+
+    void createAccount(AccountDto accountDto, User user);
 }

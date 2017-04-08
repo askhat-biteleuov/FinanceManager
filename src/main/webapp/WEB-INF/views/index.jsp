@@ -1,5 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 
 <html>
 <body>
@@ -23,21 +26,18 @@
         <h2>Счета</h2>
         <table border="1">
             <tr>
-                <th>ID</th>
                 <th>Название</th>
                 <th>Баланс</th>
             </tr>
             <tbody>
             <c:forEach var="account" items="${accounts}">
                 <tr>
-                    <td><c:out value="${account.id}"/></td>
                     <td><c:out value="${account.name}"/></td>
-                    <td><c:out value="${account.balance}"/></td>
+                    <td><fmt:formatNumber type="currency" value="${account.balance}"/></td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
-        <h2>Категории расходов </h2>
         <table border="1">
             <tr>
                 <th>ID</th>
