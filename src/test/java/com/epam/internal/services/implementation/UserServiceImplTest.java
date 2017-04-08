@@ -1,9 +1,13 @@
 package com.epam.internal.services.implementation;
 
+import com.epam.internal.daos.IncomeDao;
+import com.epam.internal.daos.UserDao;
 import com.epam.internal.models.*;
 import com.epam.internal.services.AccountService;
+import com.epam.internal.services.IncomeService;
 import com.epam.internal.services.OutcomeTypeService;
 import com.epam.internal.services.UserService;
+import org.mockito.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -13,57 +17,54 @@ import org.testng.annotations.Test;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.testng.Assert.*;
 
-@ContextConfiguration(locations = {"classpath:common-mvc-config.xml"})
-public class UserServiceImplTest extends AbstractTestNGSpringContextTests {
+public class UserServiceImplTest {
 
-    @Autowired
-    private UserService userService;
+    @Mock
+    private UserDao userDao;
 
-    @Autowired
-    private AccountService accountService;
+    @InjectMocks
+    private  UserService userService = new UserServiceImpl();
 
-    @Autowired
-    private OutcomeTypeService outcomeTypeService;
+    @Spy
+    private List<User> users = new ArrayList<>();
+
+    @Captor
+    private ArgumentCaptor<User> captor;
 
     @BeforeMethod
     public void setUp() throws Exception {
-        User user = new User("user@email", "password", new UserInfo("name", "lastname"));
-        userService.createUser(user);
-        User user2 = new User("user2@email", "password", new UserInfo("namee", "lastnamee"));
-        userService.createUser(user2);
-
-        Account account = new Account("visa", new BigDecimal(2323), null, user);
-        accountService.createAccount(account);
-        Account account2 = new Account("mastercard", new BigDecimal(2343), null, user);
-        accountService.createAccount(account2);
-        Account account3 = new Account("visa", new BigDecimal(23243), null, user2);
-        accountService.createAccount(account3);
-
-        OutcomeType food = new OutcomeType("food", BigDecimal.valueOf(5000), user);
-        outcomeTypeService.addOutcomeType(food);
-        OutcomeType cinema = new OutcomeType("cinema", BigDecimal.valueOf(1500), user2);
-        outcomeTypeService.addOutcomeType(cinema);
+        MockitoAnnotations.initMocks(this);
+        users = getUserList();
     }
-
     @Test
-    public void testDeleteUser() throws Exception {
-        User user = userService.findByEmail("user@email");
-        User user2 = userService.findByEmail("user2@email");
-        userService.deleteUser(user);
-        userService.deleteUser(user2);
+    public void testCreateUser() throws Exception {
+        doNothing().when(userDao).create(any(User.class));
+        userService.createUser(users.get(0));
 
-        Assert.assertNull(userService.findByEmail("user@email"));
-        Assert.assertNull(userService.findByEmail("user2@email"));
-
-        Assert.assertEquals(0, accountService.findAllUserAccounts(user).size());
-        Assert.assertEquals(0, accountService.findAllUserAccounts(user2).size());
-
-        Assert.assertEquals(0, outcomeTypeService.getAvailableOutcomeTypes(user).size());
-        Assert.assertEquals(0, outcomeTypeService.getAvailableOutcomeTypes(user2).size());
-
+        verify(userDao, times(1)).create(captor.capture());
+        Assert.assertEquals(captor.getValue().getEmail(), "user@email");
+        Assert.assertEquals(4, users.size());
+        verify(users, times(4)).add(any(User.class));
+    }
+    private List<User> getUserList() {
+        User user = new User("user@email", "password", new UserInfo("name", "lastname"));
+        User user1 = new User("user1@email", "password", new UserInfo("name1", "lastname1"));
+        User user2 = new User("user2@email", "password", new UserInfo("name2", "lastname2"));
+        User user3 = new User("user3@email", "password", new UserInfo("name3", "lastname3"));
+        users.add(user);
+        users.add(user1);
+        users.add(user2);
+        users.add(user3);
+        return users;
     }
 
 }

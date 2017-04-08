@@ -1,49 +1,62 @@
 package com.epam.internal.controllers;
 
 import com.epam.internal.dtos.RegistrationDto;
-import com.epam.internal.models.User;
-import com.epam.internal.models.UserInfo;
+import com.epam.internal.services.UserService;
 import com.epam.internal.services.implementation.UserServiceImpl;
+import com.epam.internal.validation.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.Objects;
+import javax.validation.Valid;
 
 @Controller
 public class RegistrationController {
 
     @Autowired
-    private UserServiceImpl userService;
+    private UserService userService;
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public ModelAndView init() {
-        return new ModelAndView("registration");
+        return new ModelAndView("registration", "registrationDto",  new RegistrationDto());
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public ModelAndView submit(@ModelAttribute("registrationDto") RegistrationDto registrationDto) {
-        ModelAndView modelAndView = new ModelAndView();
-        if (!Objects.equals(registrationDto.getPassword(), registrationDto.getConfirm())) {
-            modelAndView.addObject("error", "Passwords don't match!");
-            modelAndView.setViewName("registration");
-            return modelAndView;
+    public ModelAndView submit(@Valid @ModelAttribute("registrationDto") RegistrationDto registrationDto, BindingResult result){
+        UserValidator userValidator = new UserValidator();
+        userValidator.validate(registrationDto,result);
+        if(result.hasErrors()){
+            return new ModelAndView("registration");
+        }else{
+            userService.createUser(registrationDto);
+            return new ModelAndView("login");
         }
-
-        User user = userService.findByEmail(registrationDto.getEmail());
-        boolean userExist = user != null;
-        if (!userExist) {
-            UserInfo userInfo = new UserInfo(registrationDto.getFirstName(), registrationDto.getLastName());
-            user = new User(registrationDto.getEmail(), registrationDto.getPassword(), userInfo);
-            userService.createUser(user);
-            modelAndView.setViewName("login");
-        } else {
-            modelAndView.addObject("error", "User have already existed!");
-            modelAndView.setViewName("registration");
-        }
-        return modelAndView;
     }
+
+
+//    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+//    public ModelAndView submit(@ModelAttribute("registrationDto") RegistrationDto registrationDto) {
+//        ModelAndView modelAndView = new ModelAndView();
+//        if (!Objects.equals(registrationDto.getPassword(), registrationDto.getConfirm())) {
+//            modelAndView.addObject("error", "Passwords don't match!");
+//            modelAndView.setViewName("registration");
+//            return modelAndView;
+//        }
+//
+//        User user = userService.findByEmail(registrationDto.getEmail());
+//        boolean userExist = user != null;
+//        if (!userExist) {
+//            UserInfo userInfo = new UserInfo(registrationDto.getFirstName(), registrationDto.getLastName());
+//            user = new User(registrationDto.getEmail(), registrationDto.getPassword(), userInfo);
+//            userService.createUser(user);
+//            modelAndView.setViewName("login");
+//        } else {
+//            modelAndView.addObject("error", "User have already existed!");
+//            modelAndView.setViewName("registration");
+//        }
+//        return modelAndView;
+//    }
 }
