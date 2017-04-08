@@ -8,17 +8,26 @@
              http://www.springframework.org/schema/security/spring-security-4.2.xsd">
 
     <sec:http auto-config="true">
-        <sec:intercept-url pattern="/" access="permitAll"/>
-        <sec:intercept-url pattern="/index" access="permitAll"/>
-        <sec:intercept-url pattern="/registration" access="permitAll"/>
-        <sec:intercept-url pattern="/welcome" access="permitAll"/>
-        <sec:intercept-url pattern="/" access="hasRole('USER')"/>
+        <sec:intercept-url pattern="/index" access="permitAll" requires-channel="https"/>
+        <sec:intercept-url pattern="/registration" access="permitAll" requires-channel="https"/>
+        <sec:intercept-url pattern="/login" access="permitAll" requires-channel="https"/>
+        <!--sec:intercept-url pattern="/**" access="isAuthenticated()"/-->
         <sec:form-login login-page="/login" default-target-url="/index"
                         username-parameter="email"
                         password-parameter="password"
                         authentication-failure-url="/login?error"/>
         <sec:logout logout-url="/logout" logout-success-url="/login?logout"/>
         <sec:csrf/>
+        <sec:port-mappings>
+            <!-- Default ports -->
+            <sec:port-mapping http="80" https="443"/>
+            <!-- Websphere default ports -->
+            <sec:port-mapping http="9080" https="9443"/>
+            <!-- Tomcat default ports -->
+            <sec:port-mapping http="8080" https="8443"/>
+            <!-- Jetty custom ports -->
+            <sec:port-mapping http="7777" https="7443"/>
+        </sec:port-mappings>
     </sec:http>
 
     <sec:authentication-manager>
