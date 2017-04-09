@@ -9,7 +9,6 @@ import com.epam.internal.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.List;
 
 public class AccountServiceImpl implements AccountService {
@@ -25,6 +24,11 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Account findUserAccountByName(User user, String name) {
         return accountDao.findUserAccountByName(user, name);
+    }
+
+    @Override
+    public Account findAccountById(long id) {
+        return accountDao.findyById(id);
     }
 
     @Override

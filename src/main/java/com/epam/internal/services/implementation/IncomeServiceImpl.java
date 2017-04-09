@@ -1,12 +1,16 @@
 package com.epam.internal.services.implementation;
 
 import com.epam.internal.daos.IncomeDao;
+import com.epam.internal.dtos.IncomeDto;
 import com.epam.internal.models.Account;
 import com.epam.internal.models.Income;
 import com.epam.internal.services.IncomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 public class IncomeServiceImpl implements IncomeService {
@@ -16,6 +20,14 @@ public class IncomeServiceImpl implements IncomeService {
 
     @Override
     public void addIncome(Income income) {
+        dao.create(income);
+    }
+
+    @Override
+    public void addIncome(IncomeDto incomeDto, Account account) {
+        Income income = new Income(new BigDecimal(incomeDto.getAmount()), LocalDateTime.of(LocalDate.parse(incomeDto.getDateTime()),
+                LocalTime.now()), account);
+        income.setNote(incomeDto.getNote());
         dao.create(income);
     }
 

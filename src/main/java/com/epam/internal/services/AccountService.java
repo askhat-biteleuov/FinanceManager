@@ -12,6 +12,8 @@ public interface AccountService {
 
     Account findUserAccountByName(User user, String name);
 
+    Account findAccountById(long id);
+
     void createAccount(Account account);
 
     void updateAccount(Account account);

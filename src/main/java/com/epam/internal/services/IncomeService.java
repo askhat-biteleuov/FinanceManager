@@ -1,5 +1,6 @@
 package com.epam.internal.services;
 
+import com.epam.internal.dtos.IncomeDto;
 import com.epam.internal.models.Account;
 import com.epam.internal.models.Income;
 
@@ -8,6 +9,8 @@ import java.util.List;
 
 public interface IncomeService {
     void addIncome(Income income);
+
+    void addIncome(IncomeDto incomeDto, Account account);
 
     void updateIncome(Income income);
 
