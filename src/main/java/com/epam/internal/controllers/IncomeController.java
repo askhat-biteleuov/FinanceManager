@@ -32,9 +32,7 @@ public class IncomeController {
         String accountId = request.getParameter("accountId");
         IncomeDto incomeDto = new IncomeDto();
         incomeDto.setAccountId(Long.parseLong(accountId));
-        ModelAndView modelAndView = new ModelAndView("newincome", "incomeDto", incomeDto);
-        modelAndView.getModel().put("accountId", Long.parseLong(accountId));
-        return modelAndView;
+        return new ModelAndView("newincome", "incomeDto", incomeDto);
     }
 
     @RequestMapping(value = "/addincome", method = RequestMethod.POST)
