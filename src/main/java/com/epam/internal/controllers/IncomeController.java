@@ -16,6 +16,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
 
 @Controller
 public class IncomeController {
@@ -43,6 +44,8 @@ public class IncomeController {
             Account account = accountService.findAccountById(incomeDto.getAccountId());
             if (account != null) {
                 incomeService.addIncome(incomeDto, account);
+                account.setBalance(account.getBalance().add(new BigDecimal(incomeDto.getAmount())));
+                accountService.updateAccount(account);
                 return new ModelAndView("redirect:" + "/index");
             }
         }
