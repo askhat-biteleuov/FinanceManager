@@ -21,7 +21,7 @@ public class GenericDaoTest extends AbstractTestNGSpringContextTests {
         user = new User("email1", "pass", new UserInfo("firstName", "lastName"));
     }
 
-    @Test(enabled = false)
+    @Test
     public void testCreate() throws Exception {
         genericDao.create(user);
 

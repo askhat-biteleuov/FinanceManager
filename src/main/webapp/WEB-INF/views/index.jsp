@@ -44,11 +44,15 @@
             <c:forEach var="outcomeType" items="${outcomeTypes}">
                 <tr>
                     <td><c:out value="${outcomeType.name}"/></td>
-                    <td><c:out value="${outcomeType.balance}"/></td>
+                    <td><c:out value="${outcomeType.limit}"/></td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
     </div>
+    <form action="/addouttype" method="POST">
+        <button type="submit">Добавить категорию расходов</button>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    </form>
 </c:if>
 </t:master-page>
