@@ -37,6 +37,13 @@
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             </form>
                         </td>
+                        <td>
+                            <form action="/addoutcome" method="GET">
+                                <input type="hidden" name="accountId" value="${account.id}">
+                                <button type="submit">Добавить расход</button>
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            </form>
+                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>

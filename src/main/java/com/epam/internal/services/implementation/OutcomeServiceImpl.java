@@ -1,12 +1,17 @@
 package com.epam.internal.services.implementation;
 
 import com.epam.internal.daos.OutcomeDao;
+import com.epam.internal.dtos.OutcomeDto;
 import com.epam.internal.models.Account;
 import com.epam.internal.models.Outcome;
+import com.epam.internal.models.OutcomeType;
 import com.epam.internal.services.OutcomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 public class OutcomeServiceImpl implements OutcomeService {
@@ -16,6 +21,14 @@ public class OutcomeServiceImpl implements OutcomeService {
     @Override
     public void addOutcome(Outcome outcome) {
         dao.create(outcome);
+    }
+
+    @Override
+    public void addOutcome(OutcomeDto outcomeDto, Account account, OutcomeType outcomeType) {
+        Outcome income = new Outcome(new BigDecimal(outcomeDto.getAmount()), LocalDateTime.of(LocalDate.parse(outcomeDto.getDate()),
+                LocalTime.now()), account, outcomeType);
+        income.setNote(outcomeDto.getNote());
+        dao.create(income);
     }
 
     @Override

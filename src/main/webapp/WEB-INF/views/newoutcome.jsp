@@ -3,11 +3,15 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>Добавление дохода</title>
+    <title>Добавление расхода</title>
 </head>
 <body>
-<form:form method="POST" action="/addincome" modelAttribute="incomeDto">
-    <h1>Добавление дохода</h1>
+<form:form method="POST" action="/addoutcome" modelAttribute="outcomeDto">
+    <h1>Добавление расхода</h1>
+    <form:select path="outcomeType">
+        <form:option value="NONE" label="--- Select ---"/>
+        <form:options items="${outcomeDto.outcomeTypes}"/>
+    </form:select>
     <form:input path="note" placeholder="Note"/><br/>
     <form:input path="amount" placeholder="Amount"/><br/>
     <form:input path="date" type="date" placeholder="Date"/><br/>

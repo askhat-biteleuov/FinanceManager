@@ -25,7 +25,7 @@ public class IncomeServiceImpl implements IncomeService {
 
     @Override
     public void addIncome(IncomeDto incomeDto, Account account) {
-        Income income = new Income(new BigDecimal(incomeDto.getAmount()), LocalDateTime.of(LocalDate.parse(incomeDto.getDateTime()),
+        Income income = new Income(new BigDecimal(incomeDto.getAmount()), LocalDateTime.of(LocalDate.parse(incomeDto.getDate()),
                 LocalTime.now()), account);
         income.setNote(incomeDto.getNote());
         dao.create(income);
