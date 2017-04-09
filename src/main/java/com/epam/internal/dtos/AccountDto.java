@@ -6,7 +6,8 @@ public class AccountDto {
 
     private String name;
 
-    @Pattern(regexp = "^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\\.[0-9]{2})?$", message = "WrongFormat.accountDto.balance")
+//    TODO message must be taken from message.properties
+    @Pattern(regexp = "^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\\.[0-9]{2})?$", message = "Wrong format (e.g. 4530.03)")
     private String balance;
 
     public AccountDto() {

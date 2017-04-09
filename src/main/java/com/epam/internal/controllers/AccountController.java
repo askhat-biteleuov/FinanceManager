@@ -4,6 +4,7 @@ import com.epam.internal.dtos.AccountDto;
 import com.epam.internal.models.User;
 import com.epam.internal.services.AccountService;
 import com.epam.internal.services.UserService;
+import com.epam.internal.validation.AccountValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,6 +27,9 @@ public class AccountController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AccountValidator accountValidator;
+
     @RequestMapping(value = "/account", method = RequestMethod.GET)
     public ModelAndView getList() {
         return new ModelAndView("account", "accountDto", new AccountDto());
@@ -33,6 +37,7 @@ public class AccountController {
 
     @RequestMapping(value = "/account", method = RequestMethod.POST)
     public ModelAndView submit(@Valid @ModelAttribute("accountDto") AccountDto accountDto, BindingResult result) {
+        accountValidator.validate(accountDto, result);
         User loggedUser = userService.getLoggedUser();
         if (!result.hasErrors() && loggedUser != null) {
             accountService.createAccount(accountDto, loggedUser);

@@ -18,6 +18,7 @@
 <form:form method="POST" action="${accountURL}" commandName="accountDto">
     <h1>Новый счет</h1>
     <form:input path="name" placeholder="Name"/><br>
+    <form:errors path="name" cssStyle="color: red"/><br>
     <form:input path="balance" placeholder="Balance"/><br>
     <form:errors path="balance" cssStyle="color: red"/><br>
     <input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}" />
