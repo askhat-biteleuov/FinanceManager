@@ -4,6 +4,8 @@ package com.epam.internal.dtos;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.Min;
+
 public class RegistrationDto {
     @Email(regexp = "^[_A-Za-z0-9-+]+" +
             "(.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(.[A-Za-z0-9]+)*" +
@@ -12,8 +14,10 @@ public class RegistrationDto {
     private String firstName;
     private String lastName;
     @NotEmpty
+    @Min(value = 6)
     private String password;
     @NotEmpty
+    @Min(value = 6)
     private String confirm;
 
     public RegistrationDto() {
