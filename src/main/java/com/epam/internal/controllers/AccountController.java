@@ -4,7 +4,6 @@ import com.epam.internal.dtos.AccountDto;
 import com.epam.internal.models.User;
 import com.epam.internal.services.AccountService;
 import com.epam.internal.services.UserService;
-import com.epam.internal.validation.AccountValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,23 +26,19 @@ public class AccountController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private AccountValidator accountValidator;
-
     @RequestMapping(value = "/account", method = RequestMethod.GET)
     public ModelAndView getList() {
-        return new ModelAndView("accounts", "accountDto", new AccountDto());
+        return new ModelAndView("account", "accountDto", new AccountDto());
     }
 
     @RequestMapping(value = "/account", method = RequestMethod.POST)
     public ModelAndView submit(@Valid @ModelAttribute("accountDto") AccountDto accountDto, BindingResult result) {
-        accountValidator.validate(accountDto, result);
         if (!result.hasErrors()) {
             User loggedUser = userService.findByEmail(getPrincipal());
             accountService.createAccount(accountDto, loggedUser);
             return new ModelAndView("redirect:" + "/index");
         }
-        return new ModelAndView("accounts");
+        return new ModelAndView("account");
     }
 
     private String getPrincipal() {

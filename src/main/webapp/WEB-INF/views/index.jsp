@@ -1,11 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-
-<html>
-<body>
+<t:master-page title="Главная">
 <c:if test="${notAuthenticated != null}">
     <h2>Добрый день!</h2>
     <p>Вы можете войти в свой аккаунт или пройти регистрацию.</p>
@@ -17,13 +15,11 @@
     </form>
 </c:if>
 <c:if test="${user != null}">
-    <a>Добрый день, ${user.email}!</a>
-    <form action="${pageContext.request.contextPath}/logout" method="post">
-        <button type="submit">Выход</button>
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-    </form>
     <div align="center">
         <h2>Счета</h2>
+        <form action="/account" method="GET">
+            <button type="submit">Добавить счет</button>
+        </form>
         <table border="1">
             <tr>
                 <th>Название</th>
@@ -38,16 +34,15 @@
             </c:forEach>
             </tbody>
         </table>
+        <h2>Категории расходов</h2>
         <table border="1">
             <tr>
-                <th>ID</th>
                 <th>Название</th>
                 <th>Лимит</th>
             </tr>
             <tbody>
             <c:forEach var="outcomeType" items="${outcomeTypes}">
                 <tr>
-                    <td><c:out value="${outcomeType.id}"/></td>
                     <td><c:out value="${outcomeType.name}"/></td>
                     <td><c:out value="${outcomeType.balance}"/></td>
                 </tr>
@@ -56,5 +51,4 @@
         </table>
     </div>
 </c:if>
-</body>
-</html>
+</t:master-page>
