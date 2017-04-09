@@ -6,7 +6,7 @@ public class AccountDto {
 
     private String name;
 
-    @Pattern(regexp = "^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\\.[0-9]{2})?$")
+    @Pattern(regexp = "^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\\.[0-9]{2})?$", message = "WrongFormat.accountDto.balance")
     private String balance;
 
     public AccountDto() {

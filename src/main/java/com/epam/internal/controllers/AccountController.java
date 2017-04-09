@@ -33,22 +33,11 @@ public class AccountController {
 
     @RequestMapping(value = "/account", method = RequestMethod.POST)
     public ModelAndView submit(@Valid @ModelAttribute("accountDto") AccountDto accountDto, BindingResult result) {
-        if (!result.hasErrors()) {
-            User loggedUser = userService.findByEmail(getPrincipal());
+        User loggedUser = userService.getLoggedUser();
+        if (!result.hasErrors() && loggedUser != null) {
             accountService.createAccount(accountDto, loggedUser);
             return new ModelAndView("redirect:" + "/index");
         }
         return new ModelAndView("account");
-    }
-
-    private String getPrincipal() {
-        String email;
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserDetails) {
-            email = ((UserDetails) principal).getUsername();
-        } else {
-            return "anonymousUser";
-        }
-        return email;
     }
 }

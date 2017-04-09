@@ -11,6 +11,7 @@
         <sec:intercept-url pattern="/index" access="permitAll" requires-channel="https"/>
         <sec:intercept-url pattern="/registration" access="permitAll" requires-channel="https"/>
         <sec:intercept-url pattern="/login" access="permitAll" requires-channel="https"/>
+        <sec:intercept-url pattern="/account" access="isAuthenticated()" requires-channel="https"/>
         <!--sec:intercept-url pattern="/**" access="isAuthenticated()"/-->
         <sec:form-login login-page="/login" default-target-url="/index"
                         username-parameter="email"

@@ -35,22 +35,12 @@ public class OutcomeTypesController {
 
     @RequestMapping(value = "/newoutcometype", method = RequestMethod.POST)
     public ModelAndView newType(@Valid @ModelAttribute("outcometypeDto") OutcomeTypeDto outcomeTypeDto, BindingResult result) {
-        if (!result.hasErrors()) {
-            User user = userService.findByEmail(getPrincipal());
-            typeService.addOutcomeType(outcomeTypeDto, user);
+        User loggedUser = userService.getLoggedUser();
+        if (!result.hasErrors() && loggedUser != null) {
+            typeService.addOutcomeType(outcomeTypeDto, loggedUser);
             return new ModelAndView("redirect:" + "/index");
         }
         return new ModelAndView("newoutcometype");
     }
 
-    private String getPrincipal() {
-        String email;
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserDetails) {
-            email = ((UserDetails) principal).getUsername();
-        } else {
-            return "anonymousUser";
-        }
-        return email;
-    }
 }

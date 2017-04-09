@@ -8,6 +8,8 @@ public interface UserService {
 
     User findByEmail(String email);
 
+    User getLoggedUser();
+
     void createUser(User user);
 
     void deleteUserByEmail(String email);

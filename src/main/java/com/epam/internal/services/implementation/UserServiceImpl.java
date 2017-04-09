@@ -6,6 +6,8 @@ import com.epam.internal.models.User;
 import com.epam.internal.models.UserInfo;
 import com.epam.internal.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 public class UserServiceImpl implements UserService {
 
@@ -14,6 +16,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByEmail(String email) {
+        return dao.getUserByEmail(email);
+    }
+
+    @Override
+    public User getLoggedUser() {
+        String email;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            email = ((UserDetails) principal).getUsername();
+        } else {
+            return null;
+        }
         return dao.getUserByEmail(email);
     }
 

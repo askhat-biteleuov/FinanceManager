@@ -67,27 +67,15 @@ public class LoginController {
     @RequestMapping({"/index", "/"})
     public ModelAndView index() {
         ModelAndView modelAndView = new ModelAndView("index");
-        if ("anonymousUser".equals(getPrincipal())) {
+        User loggedUser = userService.getLoggedUser();
+        if (loggedUser == null) {
             modelAndView.addObject("notAuthenticated", true);
         } else {
-            User user = userService.findByEmail(getPrincipal());
-            modelAndView.addObject("user", user);
-            modelAndView.addObject("accounts", accountService.findAllUserAccounts(user));
-            modelAndView.addObject("outcomeTypes", outcomeTypeService.getAvailableOutcomeTypes(user));
+            modelAndView.addObject("user", loggedUser);
+            modelAndView.addObject("accounts", accountService.findAllUserAccounts(loggedUser));
+            modelAndView.addObject("outcomeTypes", outcomeTypeService.getAvailableOutcomeTypes(loggedUser));
         }
         return modelAndView;
     }
-
-    private String getPrincipal() {
-        String email;
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserDetails) {
-            email = ((UserDetails) principal).getUsername();
-        } else {
-            return "anonymousUser";
-        }
-        return email;
-    }
-
 
 }
