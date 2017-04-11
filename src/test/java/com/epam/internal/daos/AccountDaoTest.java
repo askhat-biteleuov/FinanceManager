@@ -50,4 +50,11 @@ public class AccountDaoTest extends AbstractTestNGSpringContextTests{
         Assert.assertEquals(acc1.getUser().getEmail(), accountDao.findUserAccountByName(user, "visa").getUser().getEmail());
     }
 
+    @Test
+    public void testAccountDelete() throws Exception {
+        User user1 = userService.findByEmail("user@email");
+        userService.deleteUser(user1);
+        Assert.assertEquals(0,accountDao.findAllUserAccounts(user1).size());
+    }
+
 }
