@@ -8,10 +8,10 @@
 <body>
 <form:form method="POST" action="/addoutcome" modelAttribute="outcomeDto">
     <h1>Добавление расхода</h1>
-    <form:select path="outcomeType">
-        <form:option value="NONE" label="--- Select ---"/>
-        <form:options items="${outcomeDto.outcomeTypes}"/>
-    </form:select>
+    <form:select path="outcomeTypeId">
+        <form:option value="1" label="--- Select ---"/>
+        <form:options items="${outcomeDto.outcomeTypes}" itemValue="id" itemLabel="name"/>
+    </form:select><br/>
     <form:input path="note" placeholder="Note"/><br/>
     <form:input path="amount" placeholder="Amount"/><br/>
     <form:input path="date" type="date" placeholder="Date"/><br/>
