@@ -8,11 +8,15 @@ import com.epam.internal.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao dao;
+
+    @Autowired
+    private PasswordEncoder encoder;
 
     @Override
     public User findByEmail(String email) {
@@ -60,7 +64,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void createUser(RegistrationDto registrationDto) {
         UserInfo userInfo = new UserInfo(registrationDto.getFirstName(), registrationDto.getLastName());
-        User user = new User(registrationDto.getEmail(), registrationDto.getPassword(), userInfo);
+        User user = new User(registrationDto.getEmail(), encoder.encode(registrationDto.getPassword()), userInfo);
         dao.create(user);
     }
 }

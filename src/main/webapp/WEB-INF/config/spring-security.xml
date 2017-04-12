@@ -32,10 +32,14 @@
     </sec:http>
 
     <sec:authentication-manager>
-        <sec:authentication-provider user-service-ref="customUserDetailsService"/>
+        <sec:authentication-provider user-service-ref="customUserDetailsService">
+            <sec:password-encoder ref="passwordEncoder"/>
+        </sec:authentication-provider>
     </sec:authentication-manager>
 
     <bean id="customUserDetailsService"
           class="com.epam.internal.services.implementation.CustomUserDetailsService"/>
+
+    <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 
 </beans>
