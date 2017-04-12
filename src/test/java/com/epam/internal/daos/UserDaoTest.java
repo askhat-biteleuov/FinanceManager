@@ -10,23 +10,25 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import static org.mockito.Mockito.verify;
+import static org.mockito.internal.verification.VerificationModeFactory.times;
+
 
 @ContextConfiguration("classpath:common-mvc-config.xml")
 public class UserDaoTest extends AbstractTestNGSpringContextTests {
     @Autowired
-    private UserService userService;
+    private UserDao userDao;
 
     private static User user;
 
     @BeforeMethod
     public void setUp() throws Exception {
         user = new User("user@email", "password", new UserInfo("name", "surname"));
-        userService.createUser(user);
+        userDao.create(user);
     }
 
     @Test
     public void testGetUserByEmail() throws Exception {
-        Assert.assertEquals(user.getEmail(), userService.findByEmail("user@email").getEmail());
+        Assert.assertEquals(user.getEmail(), userDao.getUserByEmail("user@email").getEmail());
     }
-
 }
