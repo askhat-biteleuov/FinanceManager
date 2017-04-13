@@ -18,7 +18,8 @@ import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 public class AccountServiceImplTest {
 
@@ -42,16 +43,14 @@ public class AccountServiceImplTest {
 
     @Test
     public void testFindAllUserAccounts() throws Exception {
-        when(dao.findAllUserAccounts(user)).thenReturn(accounts);
         Assert.assertEquals(service.findAllUserAccounts(user), accounts);
-        verify(dao, times(1)).findAllUserAccounts(user);
+        verify(service, times(1)).findAllUserAccounts(user);
     }
 
     @Test
     public void testFindUserAccountByName() throws Exception {
-        when(dao.findUserAccountByName(any(User.class), anyString())).thenReturn(acc1);
         Assert.assertEquals(service.findUserAccountByName(user, "visa"), acc1);
-        verify(dao, times(1)).findUserAccountByName(any(User.class), anyString());
+        verify(service, times(1)).findUserAccountByName(any(User.class), anyString());
     }
 
     private List<Account> getAccountList() {

@@ -6,8 +6,6 @@ import com.epam.internal.services.OutcomeTypeService;
 import com.epam.internal.services.implementation.UserServiceImpl;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,8 +38,6 @@ public class LoginController {
             modelAndView.addObject("notAuthenticated", true);
         } else {
             modelAndView.addObject("user", loggedUser);
-            modelAndView.addObject("accounts", accountService.findAllUserAccounts(loggedUser));
-            modelAndView.addObject("outcomeTypes", outcomeTypeService.getAvailableOutcomeTypes(loggedUser));
         }
         return modelAndView;
     }

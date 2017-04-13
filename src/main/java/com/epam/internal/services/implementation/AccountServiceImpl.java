@@ -18,12 +18,12 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public List<Account> findAllUserAccounts(User user) {
-        return accountDao.findAllUserAccounts(user);
+        return user.getAccounts();
     }
 
     @Override
     public Account findUserAccountByName(User user, String name) {
-        return accountDao.findUserAccountByName(user, name);
+        return user.getAccounts().stream().filter(account -> account.getName().equals(name)).findFirst().get();
     }
 
     @Override

@@ -26,7 +26,7 @@
                     <th>Баланс</th>
                 </tr>
                 <tbody>
-                <c:forEach var="account" items="${accounts}">
+                <c:forEach var="account" items="${user.accounts}">
                     <tr>
                         <td><c:out value="${account.name}"/></td>
                         <td><fmt:formatNumber type="currency" value="${account.balance}"/></td>
@@ -55,7 +55,7 @@
                     <th>Лимит</th>
                 </tr>
                 <tbody>
-                <c:forEach var="outcomeType" items="${outcomeTypes}">
+                <c:forEach var="outcomeType" items="${user.outcomeTypes}">
                     <tr>
                         <td><c:out value="${outcomeType.name}"/></td>
                         <td><c:out value="${outcomeType.limit}"/></td>
