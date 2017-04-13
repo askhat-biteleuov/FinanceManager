@@ -18,12 +18,20 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public List<Account> findAllUserAccounts(User user) {
-        return user.getAccounts();
+        if (user == null) {
+            return null;
+        } else {
+            return user.getAccounts();
+        }
     }
 
     @Override
     public Account findUserAccountByName(User user, String name) {
-        return user.getAccounts().stream().filter(account -> account.getName().equals(name)).findFirst().get();
+        if (user == null) {
+            return null;
+        } else {
+            return user.getAccounts().stream().filter(account -> account.getName().equals(name)).findFirst().get();
+        }
     }
 
     @Override
