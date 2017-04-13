@@ -6,6 +6,7 @@ import com.epam.internal.models.User;
 import org.hibernate.Session;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -37,6 +38,10 @@ public class AccountDao extends GenericDao<Account> {
         Predicate p1 = builder.equal(accountRoot.get(Account_.user), user);
         Predicate p2 = builder.equal(accountRoot.get(Account_.name), name);
         cq.where(builder.and(p1, p2));
-        return currentSession.createQuery(cq).getSingleResult();
+        try {
+            return currentSession.createQuery(cq).getSingleResult();
+        } catch (NoResultException nre) {
+            return null;
+        }
     }
 }

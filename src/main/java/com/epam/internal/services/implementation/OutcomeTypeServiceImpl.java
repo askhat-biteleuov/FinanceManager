@@ -38,7 +38,7 @@ public class OutcomeTypeServiceImpl implements OutcomeTypeService {
 
     @Override
     public OutcomeType findTypeById(long id) {
-        return dao.findyById(id);
+        return dao.findById(id);
     }
 
     @Override

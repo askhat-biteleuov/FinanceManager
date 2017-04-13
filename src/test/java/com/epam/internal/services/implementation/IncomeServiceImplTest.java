@@ -68,9 +68,9 @@ public class IncomeServiceImplTest {
 
     @Test
     public void testFindById() throws Exception {
-        when(incomeDao.findyById(anyLong())).thenReturn(mock(Income.class));
+        when(incomeDao.findById(anyLong())).thenReturn(mock(Income.class));
         Assert.assertEquals(incomeService.findById(1L).getAmount(), mock(Income.class).getAmount());
-        verify(incomeDao, times(1)).findyById(anyLong());
+        verify(incomeDao, times(1)).findById(anyLong());
     }
 
     @Test

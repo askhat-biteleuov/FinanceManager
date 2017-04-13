@@ -31,7 +31,7 @@ public class GenericDao<T> {
     }
 
     @Transactional(readOnly = true)
-    public T findyById(long id) {
+    public T findById(long id) {
         return sessionFactory.getCurrentSession().get(type, id);
     }
 

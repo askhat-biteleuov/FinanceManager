@@ -25,7 +25,6 @@ public class OutcomeDao extends GenericDao<Outcome> {
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<Outcome> query = criteriaBuilder.createQuery(Outcome.class);
         Root<Outcome> root = query.from(Outcome.class);
-
         query.where(criteriaBuilder.equal(root.get(Outcome_.account), account));
         return session.createQuery(query).getResultList();
     }
@@ -36,7 +35,6 @@ public class OutcomeDao extends GenericDao<Outcome> {
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<Outcome> query = criteriaBuilder.createQuery(Outcome.class);
         Root<Outcome> incomeRoot = query.from(Outcome.class);
-
         Predicate equalAccount = criteriaBuilder.equal(incomeRoot.get(Outcome_.account), account);
         Predicate equalDate = criteriaBuilder.equal(incomeRoot.get(Outcome_.date), date);
         query.where(criteriaBuilder.and(equalAccount, equalDate));

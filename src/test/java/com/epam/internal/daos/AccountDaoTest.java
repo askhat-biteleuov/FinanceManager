@@ -11,6 +11,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import javax.persistence.Table;
 import java.math.BigDecimal;
 
 import static org.testng.Assert.*;
@@ -50,11 +51,16 @@ public class AccountDaoTest extends AbstractTestNGSpringContextTests{
         Assert.assertEquals(acc1.getUser().getEmail(), accountDao.findUserAccountByName(user, "visa").getUser().getEmail());
     }
 
-    @Test
+    @Test(dependsOnMethods = {"testFindUserAccountByName", "testFindAllUserAccounts"})
     public void testAccountDelete() throws Exception {
         User user1 = userService.findByEmail("user@email");
         userService.deleteUser(user1);
         Assert.assertEquals(0,accountDao.findAllUserAccounts(user1).size());
     }
 
+    @Test(dependsOnMethods = "testAccountDelete")
+    public void testSearchInEmptyTable() throws Exception{
+        Assert.assertNull(accountDao.findUserAccountByName(user, "visa"));
+        Assert.assertEquals(0, accountDao.findAllUserAccounts(user).size());
+    }
 }

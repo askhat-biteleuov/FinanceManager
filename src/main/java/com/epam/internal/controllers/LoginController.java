@@ -32,38 +32,6 @@ public class LoginController {
         return new ModelAndView("login");
     }
 
-    /*@RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ModelAndView submit(@ModelAttribute("loginDto") LoginDto loginDto, HttpSession session) {
-        ModelAndView modelAndView = new ModelAndView();
-        if (loginDto != null && loginDto.getEmail() != null & loginDto.getPassword() != null) {
-            try {
-                User user = userService.findByEmail(loginDto.getEmail());
-                if (loginDto.getEmail().equals(user.getEmail()) && loginDto.getPassword().equals(user.getPassword())) {
-                    userService.saveUserToSession(user, session);
-                    modelAndView.setViewName("index");
-                } else {
-                    modelAndView.addObject("error", "Password wrong!");
-                    modelAndView.setViewName("login");
-                }
-            } catch (NoResultException e) {
-                modelAndView.addObject("error", "User didn't find!");
-                modelAndView.setViewName("login");
-            }
-            return modelAndView;
-        } else {
-            modelAndView.addObject("error", "Please enter details!");
-            modelAndView.setViewName("login");
-            return modelAndView;
-        }
-    }
-
-    @RequestMapping(value = "/exit", method = RequestMethod.GET)
-    public ModelAndView exit(HttpSession session) {
-        ModelAndView modelAndView = new ModelAndView("index");
-        userService.removeUserFromSession(session);
-        return modelAndView;
-    }*/
-
     @RequestMapping({"/index", "/"})
     public ModelAndView index() {
         ModelAndView modelAndView = new ModelAndView("index");

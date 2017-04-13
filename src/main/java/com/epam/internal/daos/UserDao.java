@@ -30,14 +30,4 @@ public class UserDao extends GenericDao<User> {
             return null;
         }
     }
-
-      /*User user = (User) currentSession
-                .createQuery("from User u where u.email=:email")
-                .setParameter("email", email)
-                .uniqueResult();
-        currentSession.close();*/
-        /*CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaQuery<String> query = builder.createQuery(String.class);
-        Root<RuleVar> ruleVariableRoot = query.from(RuleVar.class);
-        query.select(ruleVariableRoot.get(RuleVar_.varType)).distinct(true);*/
 }

@@ -43,7 +43,7 @@ public class IncomeServiceImpl implements IncomeService {
 
     @Override
     public Income findById(long id) {
-        return dao.findyById(id);
+        return dao.findById(id);
     }
 
     @Override
