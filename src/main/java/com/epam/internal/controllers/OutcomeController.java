@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class OutcomeController {
     }
 
     @RequestMapping(value = "/addoutcome", method = RequestMethod.POST)
-    public ModelAndView addOutcome(@ModelAttribute("outcomeDto") OutcomeDto outcomeDto, BindingResult result, WebRequest request) {
+    public ModelAndView addOutcome(@Valid @ModelAttribute("outcomeDto") OutcomeDto outcomeDto, BindingResult result, WebRequest request) {
         User user = userService.getLoggedUser();
         LOGGER.info("Нашли юзера");
         LOGGER.info(result.getAllErrors().toString());
@@ -61,8 +62,8 @@ public class OutcomeController {
             LOGGER.info("Аккаунта или тип расходов = нулл");
         }
         LOGGER.info("юзер = нулл");
-        OutcomeDto freshDto = prepareDTO(request);
-        return new ModelAndView("newoutcome", "outcomeDto", freshDto);
+//        OutcomeDto freshDto = prepareDTO(request);
+        return new ModelAndView("newoutcome"/*, "outcomeDto", freshDto*/);
     }
 
     private OutcomeDto prepareDTO(WebRequest request) {

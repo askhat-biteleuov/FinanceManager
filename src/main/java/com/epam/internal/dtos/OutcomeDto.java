@@ -1,16 +1,22 @@
 package com.epam.internal.dtos;
 
 import com.epam.internal.models.OutcomeType;
+import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.List;
 
 public class OutcomeDto {
     @Pattern(regexp = "^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\\.[0-9]{2})?$")
     private String amount;
+    @NotEmpty
     private String date;
     private String note;
     private long accountId;
+    @NotNull
+    @Min(value = 1)
     private long outcomeTypeId;
     private List<OutcomeType> outcomeTypes;
     private OutcomeType outcomeType;
