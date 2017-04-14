@@ -4,6 +4,7 @@ import com.epam.internal.dtos.OutcomeTypeDto;
 import com.epam.internal.models.User;
 import com.epam.internal.services.OutcomeTypeService;
 import com.epam.internal.services.UserService;
+import com.epam.internal.validation.OutcomeTypeValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -21,6 +22,8 @@ public class OutcomeTypesController {
     private OutcomeTypeService typeService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private OutcomeTypeValidator validator;
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView addType() {
@@ -29,6 +32,7 @@ public class OutcomeTypesController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView newType(@Valid @ModelAttribute("outcometypeDto") OutcomeTypeDto outcomeTypeDto, BindingResult result) {
+        validator.validate(outcomeTypeDto, result);
         User loggedUser = userService.getLoggedUser();
         if (!result.hasErrors() && loggedUser != null) {
             typeService.addOutcomeType(outcomeTypeDto, loggedUser);

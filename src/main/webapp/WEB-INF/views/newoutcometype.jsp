@@ -10,6 +10,7 @@
 <form:form method="POST" action="/addouttype" modelAttribute="outcometypeDto">
     <h1>Добавьте новую категорию расходов</h1>
     <form:input path="name" placeholder="Name"/><br>
+    <form:errors path="name" cssStyle="color: red"/><br>
     <form:input path="limit" placeholder="Limit"/><br>
     <form:errors path="limit" cssStyle="color: red"/><br>
     <input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}" />

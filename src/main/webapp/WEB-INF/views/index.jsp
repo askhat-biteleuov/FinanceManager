@@ -63,10 +63,11 @@
                 </c:forEach>
                 </tbody>
             </table>
+            <br/>
+            <form action="/addouttype" method="GET">
+                <button type="submit">Добавить категорию расходов</button>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            </form>
         </div>
-        <form action="/addouttype" method="GET">
-            <button type="submit">Добавить категорию расходов</button>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        </form>
     </c:if>
 </t:master-page>

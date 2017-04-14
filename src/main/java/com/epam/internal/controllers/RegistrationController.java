@@ -21,7 +21,7 @@ public class RegistrationController {
     private UserService userService;
 
     @Autowired
-    UserValidator userValidator;
+    private UserValidator userValidator;
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public ModelAndView init() {
@@ -42,27 +42,4 @@ public class RegistrationController {
             return new ModelAndView("login");
         }
     }
-
-//    @RequestMapping(value = "/registration", method = RequestMethod.POST)
-//    public ModelAndView submit(@ModelAttribute("registrationDto") RegistrationDto registrationDto) {
-//        ModelAndView modelAndView = new ModelAndView();
-//        if (!Objects.equals(registrationDto.getPassword(), registrationDto.getConfirm())) {
-//            modelAndView.addObject("error", "Passwords don't match!");
-//            modelAndView.setViewName("registration");
-//            return modelAndView;
-//        }
-//
-//        User user = userService.findByEmail(registrationDto.getEmail());
-//        boolean userExist = user != null;
-//        if (!userExist) {
-//            UserInfo userInfo = new UserInfo(registrationDto.getFirstName(), registrationDto.getLastName());
-//            user = new User(registrationDto.getEmail(), registrationDto.getPassword(), userInfo);
-//            userService.createUser(user);
-//            modelAndView.setViewName("login");
-//        } else {
-//            modelAndView.addObject("error", "User have already existed!");
-//            modelAndView.setViewName("registration");
-//        }
-//        return modelAndView;
-//    }
 }

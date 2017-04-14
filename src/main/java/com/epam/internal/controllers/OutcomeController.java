@@ -44,7 +44,8 @@ public class OutcomeController {
     public ModelAndView addOutcome(@ModelAttribute("outcomeDto") OutcomeDto outcomeDto, BindingResult result, WebRequest request) {
         User user = userService.getLoggedUser();
         LOGGER.info("Нашли юзера");
-        if (/*!result.hasErrors() &&*/ user != null) {
+        LOGGER.info(result.getAllErrors().toString());
+        if (!result.hasErrors() && user != null) {
             LOGGER.info("Ошибок нет и юзер не равен нулл");
             LOGGER.info("ID Аккаунта = " + outcomeDto.getAccountId());
             LOGGER.info("ID outcomeType = " + outcomeDto.getOutcomeTypeId());
@@ -64,7 +65,7 @@ public class OutcomeController {
         return new ModelAndView("newoutcome", "outcomeDto", freshDto);
     }
 
-    public OutcomeDto prepareDTO(WebRequest request) {
+    private OutcomeDto prepareDTO(WebRequest request) {
         String accountId = request.getParameter("accountId");
         User user = userService.getLoggedUser();
         List<OutcomeType> availableOutcomeTypes = outcomeTypeService.getAvailableOutcomeTypes(user);
