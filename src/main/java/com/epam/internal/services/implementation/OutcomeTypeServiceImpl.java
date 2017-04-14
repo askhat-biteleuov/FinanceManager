@@ -43,6 +43,6 @@ public class OutcomeTypeServiceImpl implements OutcomeTypeService {
 
     @Override
     public List<OutcomeType> getAvailableOutcomeTypes(User user) {
-        return dao.getAllUsersOutcomeTypes(user);
+        return user != null ? user.getOutcomeTypes() : null;
     }
 }
