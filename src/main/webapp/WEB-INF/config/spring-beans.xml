@@ -15,11 +15,7 @@
     <bean class="com.epam.internal.services.implementation.IncomeServiceImpl"/>
     <bean class="com.epam.internal.services.implementation.OutcomeServiceImpl"/>
     <bean class="com.epam.internal.services.implementation.OutcomeTypeServiceImpl"/>
-
-    <bean id="genericDao" class="com.epam.internal.daos.GenericDao">
-        <constructor-arg value="com.epam.internal.models.User"/>
-    </bean>
-
+    
     <bean class="com.epam.internal.validation.UserValidator"/>
     <bean class="com.epam.internal.validation.AccountValidator"/>
     <bean class="com.epam.internal.validation.OutcomeTypeValidator"/>
