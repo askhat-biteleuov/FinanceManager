@@ -1,10 +1,13 @@
 package com.epam.internal.dtos;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.validation.constraints.Pattern;
 
 public class IncomeDto {
     @Pattern(regexp = "^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\\.[0-9]{2})?$")
     private String amount;
+    @NotEmpty
     private String date;
     private String note;
     private long accountId;
