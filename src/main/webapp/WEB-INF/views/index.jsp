@@ -58,7 +58,7 @@
                 <c:forEach var="outcomeType" items="${user.outcomeTypes}">
                     <tr>
                         <td><c:out value="${outcomeType.name}"/></td>
-                        <td><c:out value="${outcomeType.limit}"/></td>
+                        <td><fmt:formatNumber type="currency" value="${outcomeType.limit}"/></td>
                     </tr>
                 </c:forEach>
                 </tbody>
