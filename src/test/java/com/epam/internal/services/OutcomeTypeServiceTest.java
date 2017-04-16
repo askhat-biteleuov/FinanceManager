@@ -14,15 +14,11 @@ import org.testng.annotations.Test;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static org.testng.Assert.*;
-
 @ContextConfiguration("classpath:common-mvc-config.xml")
-public class OutcomeTypeServiceTest extends AbstractTestNGSpringContextTests{
+public class OutcomeTypeServiceTest extends AbstractTestNGSpringContextTests {
+
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private AccountService accountService;
 
     @Autowired
     private OutcomeTypeService outcomeTypeService;

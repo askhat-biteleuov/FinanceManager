@@ -13,7 +13,7 @@
     <form:errors path="name" cssStyle="color: red"/><br>
     <form:input path="limit" placeholder="Limit"/><br>
     <form:errors path="limit" cssStyle="color: red"/><br>
-    <input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}" />
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <form:button type="submit">Добавить</form:button>
     <br>
 </form:form>

@@ -19,7 +19,7 @@
     <form:input path="date" type="date" placeholder="Date"/><br/>
     <form:errors path="date" cssStyle="color: red"/><br/>
     <form:hidden path="accountId"/>
-    <input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}" />
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <form:button type="submit">Добавить</form:button>
     <br>
 </form:form>

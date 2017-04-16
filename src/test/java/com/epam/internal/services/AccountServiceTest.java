@@ -16,8 +16,6 @@ import org.testng.annotations.Test;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static org.testng.Assert.*;
-
 @ContextConfiguration("classpath:common-mvc-config.xml")
 public class AccountServiceTest extends AbstractTestNGSpringContextTests {
 
@@ -67,7 +65,7 @@ public class AccountServiceTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void testSearchInEmptyTable() throws Exception{
+    public void testSearchInEmptyTable() throws Exception {
         userService.deleteUser(userService.findByEmail("user@email"));
         User user = userService.findByEmail("user@email");
         Assert.assertNull(user);
