@@ -10,7 +10,7 @@
     <h1>Добавление расхода</h1>
     <form:select path="outcomeTypeId">
         <form:option value="1" label="--- Select ---"/>
-        <form:options items="${outcomeDto.outcomeTypes}" itemValue="id" itemLabel="name"/>
+        <form:options items="${types}" itemValue="id" itemLabel="name"/>
     </form:select><br/>
     <form:errors path="outcomeTypeId" cssStyle="color: red"/><br/>
     <form:input path="note" placeholder="Note"/><br/>

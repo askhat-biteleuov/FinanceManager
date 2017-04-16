@@ -32,7 +32,13 @@ public class CustomUserDetailsService implements UserDetailsService {
             //TO-DO user's roles
             List<GrantedAuthority> authorities = new ArrayList<>();
             authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-            return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
+            return new org.springframework.security.core.userdetails.User(user.getEmail(),
+                                                                          user.getPassword(),
+                                                                           enabled,
+                                                                   accountNonExpired,
+                                                                 credentialsNonExpired,
+                                                                   accountNonLocked,
+                                                                                    authorities);
         }
     }
 }

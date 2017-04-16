@@ -20,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
-import java.util.List;
 
 @Controller
 public class OutcomeController {
@@ -38,7 +37,9 @@ public class OutcomeController {
     @RequestMapping(value = "/addoutcome", method = RequestMethod.GET)
     public ModelAndView newOutcome(WebRequest request) {
         OutcomeDto outcomeDto = prepareDTO(request);
-        return new ModelAndView("newoutcome", "outcomeDto", outcomeDto);
+        ModelAndView modelAndView = new ModelAndView("newoutcome", "outcomeDto", outcomeDto);
+        modelAndView.addObject("types", outcomeTypeService.getAvailableOutcomeTypes(userService.getLoggedUser()));
+        return modelAndView;
     }
 
     @RequestMapping(value = "/addoutcome", method = RequestMethod.POST)
@@ -64,18 +65,15 @@ public class OutcomeController {
             LOGGER.info("Аккаунта или тип расходов = нулл");
         }
         LOGGER.info("юзер = нулл");
-        OutcomeDto freshDto = prepareDTO(request);
-        return new ModelAndView("newoutcome", "outcomeDto", freshDto);
+        ModelAndView modelAndView = new ModelAndView("newoutcome");
+        modelAndView.addObject("types", outcomeTypeService.getAvailableOutcomeTypes(user));
+        return modelAndView;
     }
 
     private OutcomeDto prepareDTO(WebRequest request) {
         String accountId = request.getParameter("accountId");
-        User user = userService.getLoggedUser();
-        List<OutcomeType> availableOutcomeTypes = outcomeTypeService.getAvailableOutcomeTypes(user);
         OutcomeDto outcomeDto = new OutcomeDto();
         outcomeDto.setAccountId(Long.parseLong(accountId));
-        outcomeDto.setOutcomeTypes(availableOutcomeTypes);
-        availableOutcomeTypes.forEach(type -> LOGGER.info(type.getId()));
         return outcomeDto;
     }
 
