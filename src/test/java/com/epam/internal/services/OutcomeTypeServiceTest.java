@@ -1,11 +1,8 @@
-package com.epam.internal.services.implementation;
+package com.epam.internal.services;
 
 import com.epam.internal.models.OutcomeType;
 import com.epam.internal.models.User;
 import com.epam.internal.models.UserInfo;
-import com.epam.internal.services.AccountService;
-import com.epam.internal.services.OutcomeTypeService;
-import com.epam.internal.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -17,8 +14,10 @@ import org.testng.annotations.Test;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static org.testng.Assert.*;
+
 @ContextConfiguration("classpath:common-mvc-config.xml")
-public class OutcomeTypeServiceImplTest extends AbstractTestNGSpringContextTests {
+public class OutcomeTypeServiceTest extends AbstractTestNGSpringContextTests{
     @Autowired
     private UserService userService;
 
@@ -42,7 +41,10 @@ public class OutcomeTypeServiceImplTest extends AbstractTestNGSpringContextTests
 
     @AfterMethod
     public void tearDown() throws Exception {
-        userService.deleteUser(userService.findByEmail(USER_EMAIL));
+        User user = userService.findByEmail(USER_EMAIL);
+        if (user != null) {
+            userService.deleteUser(user);
+        }
 
     }
 
