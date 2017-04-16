@@ -1,9 +1,9 @@
 package com.epam.internal.controllers;
 
 import com.epam.internal.dtos.RegistrationDto;
-import com.epam.internal.models.User;
 import com.epam.internal.services.UserService;
 import com.epam.internal.validation.UserValidator;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -16,6 +16,7 @@ import javax.validation.Valid;
 
 @Controller
 public class RegistrationController {
+    private static final Logger LOGGER = Logger.getLogger(LoginController.class);
 
     @Autowired
     private UserService userService;
@@ -31,14 +32,11 @@ public class RegistrationController {
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public ModelAndView submit(@Valid @ModelAttribute("registrationDto") RegistrationDto registrationDto, BindingResult result) {
         userValidator.validate(registrationDto, result);
-        User user = userService.findByEmail(registrationDto.getEmail());
-        if (user != null) {
-            result.rejectValue("email", "Exist.registrationDto.email");
-        }
         if (result.hasErrors()) {
             return new ModelAndView("registration");
         } else {
             userService.createUser(registrationDto);
+            LOGGER.info("New user was registered:" + registrationDto.getEmail());
             return new ModelAndView("login");
         }
     }

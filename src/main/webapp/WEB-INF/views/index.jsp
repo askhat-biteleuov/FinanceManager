@@ -4,7 +4,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <t:master-page title="Главная">
-    <c:if test="${notAuthenticated != null}">
+    <c:if test="${user == null}">
         <h2>Добрый день!</h2>
         <p>Вы можете войти в свой аккаунт или пройти регистрацию.</p>
         <form action="/login" method="GET">
@@ -17,7 +17,7 @@
     <c:if test="${user != null}">
         <div align="center">
             <h2>Счета</h2>
-            <form action="/account" method="GET">
+            <form action="/add-account" method="GET">
                 <button type="submit">Добавить счет</button>
             </form>
             <table border="1">

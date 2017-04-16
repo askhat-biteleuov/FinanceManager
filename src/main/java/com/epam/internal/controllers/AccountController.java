@@ -5,9 +5,8 @@ import com.epam.internal.models.User;
 import com.epam.internal.services.AccountService;
 import com.epam.internal.services.UserService;
 import com.epam.internal.validation.AccountValidator;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,6 +19,7 @@ import javax.validation.Valid;
 
 @Controller
 public class AccountController {
+    private static final Logger LOGGER = Logger.getLogger(LoginController.class);
 
     @Autowired
     private AccountService accountService;
@@ -30,17 +30,18 @@ public class AccountController {
     @Autowired
     private AccountValidator accountValidator;
 
-    @RequestMapping(value = "/account", method = RequestMethod.GET)
+    @RequestMapping(value = "/add-account", method = RequestMethod.GET)
     public ModelAndView getList() {
         return new ModelAndView("account", "accountDto", new AccountDto());
     }
 
-    @RequestMapping(value = "/account", method = RequestMethod.POST)
+    @RequestMapping(value = "/add-account", method = RequestMethod.POST)
     public ModelAndView submit(@Valid @ModelAttribute("accountDto") AccountDto accountDto, BindingResult result) {
         accountValidator.validate(accountDto, result);
         User loggedUser = userService.getLoggedUser();
         if (!result.hasErrors() && loggedUser != null) {
             accountService.createAccount(accountDto, loggedUser);
+            LOGGER.info("New account was create:" + accountDto.getName());
             return new ModelAndView("redirect:" + "/index");
         }
         return new ModelAndView("account");

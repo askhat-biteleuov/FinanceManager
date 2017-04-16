@@ -1,8 +1,6 @@
 package com.epam.internal.controllers;
 
 import com.epam.internal.models.User;
-import com.epam.internal.services.AccountService;
-import com.epam.internal.services.OutcomeTypeService;
 import com.epam.internal.services.implementation.UserServiceImpl;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +16,8 @@ public class LoginController {
     @Autowired
     private UserServiceImpl userService;
 
-    @Autowired
-    private AccountService accountService;
-
-    @Autowired
-    private OutcomeTypeService outcomeTypeService;
-
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView init() {
-        LOGGER.info("Логинимся");
         return new ModelAndView("login");
     }
 
@@ -34,9 +25,7 @@ public class LoginController {
     public ModelAndView index() {
         ModelAndView modelAndView = new ModelAndView("index");
         User loggedUser = userService.getLoggedUser();
-        if (loggedUser == null) {
-            modelAndView.addObject("notAuthenticated", true);
-        } else {
+        if (loggedUser != null) {
             modelAndView.addObject("user", loggedUser);
         }
         return modelAndView;

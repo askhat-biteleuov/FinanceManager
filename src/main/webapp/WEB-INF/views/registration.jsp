@@ -5,7 +5,7 @@
 
 <t:master-page title="Регистрация">
     <c:url var="registrationURL" value="/registration"/>
-    <form:form method="POST" action="${registrationURL}" commandName="registrationDto">
+    <form:form method="POST" action="${registrationURL}" modelAttribute="registrationDto">
         <h1>Регистрация</h1>
         <form:input path="email" placeholder="Email"/><br>
         <form:errors path="email" cssStyle="color: red"/><br>

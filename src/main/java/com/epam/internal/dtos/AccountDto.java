@@ -1,9 +1,11 @@
 package com.epam.internal.dtos;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.validation.constraints.Pattern;
 
 public class AccountDto {
-
+    @NotEmpty
     private String name;
 
     @Pattern(regexp = "^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\\.[0-9]{2})?$")
