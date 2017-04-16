@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -25,6 +26,14 @@ public class UserDaoTest extends AbstractTestNGSpringContextTests {
     public void setUp() throws Exception {
         user = new User("user@email", "password", new UserInfo("name", "surname"));
         userDao.create(user);
+    }
+
+    @AfterMethod
+    public void cleanUp() throws Exception {
+        User reload = userDao.findById(user.getId());
+        if (reload != null) {
+            userDao.delete(user);
+        }
     }
 
     @Test
