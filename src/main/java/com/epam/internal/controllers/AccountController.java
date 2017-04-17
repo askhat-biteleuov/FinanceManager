@@ -1,6 +1,7 @@
 package com.epam.internal.controllers;
 
 import com.epam.internal.dtos.AccountDto;
+import com.epam.internal.models.Account;
 import com.epam.internal.models.User;
 import com.epam.internal.services.AccountService;
 import com.epam.internal.services.UserService;
@@ -12,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -45,5 +47,13 @@ public class AccountController {
             return new ModelAndView("redirect:" + "/index");
         }
         return new ModelAndView("account");
+    }
+
+    @RequestMapping(value = "/account/page", method = RequestMethod.GET)
+    public ModelAndView getAccountPage(@RequestParam("name") String nameOfAccount) {
+        ModelAndView modelAndView = new ModelAndView("accountpage");
+        Account accountByName = accountService.findUserAccountByName(userService.getLoggedUser(), nameOfAccount);
+        modelAndView.addObject("account", accountByName);
+        return modelAndView;
     }
 }

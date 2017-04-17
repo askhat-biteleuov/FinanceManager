@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <t:master-page title="Главная">
     <c:if test="${user == null}">
@@ -28,22 +29,12 @@
                 <tbody>
                 <c:forEach var="account" items="${user.accounts}">
                     <tr>
-                        <td><c:out value="${account.name}"/></td>
+                        <td>
+                            <a href="<c:url value="/account/page?name=${account.name}"/>">
+                                <c:out value="${account.name}"/>
+                            </a>
+                        </td>
                         <td><fmt:formatNumber type="currency" value="${account.balance}"/></td>
-                        <td>
-                            <form action="/addincome" method="GET">
-                                <input type="hidden" name="accountId" value="${account.id}">
-                                <button type="submit">Добавить доход</button>
-                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                            </form>
-                        </td>
-                        <td>
-                            <form action="/addoutcome" method="GET">
-                                <input type="hidden" name="accountId" value="${account.id}">
-                                <button type="submit">Добавить расход</button>
-                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                            </form>
-                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>
