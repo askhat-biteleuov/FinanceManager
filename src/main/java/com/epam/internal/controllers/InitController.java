@@ -1,17 +1,13 @@
 package com.epam.internal.controllers;
 
 import com.epam.internal.models.*;
-import com.epam.internal.services.AccountService;
-import com.epam.internal.services.OutcomeService;
-import com.epam.internal.services.OutcomeTypeService;
-import com.epam.internal.services.UserService;
+import com.epam.internal.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Controller
@@ -24,6 +20,8 @@ public class InitController {
     private OutcomeTypeService outcomeTypeService;
     @Autowired
     private OutcomeService outcomeService;
+    @Autowired
+    private IncomeService incomeService;
 
     @RequestMapping("/init")
     public ModelAndView init() {
@@ -54,8 +52,23 @@ public class InitController {
                 new Outcome(new BigDecimal(4542), LocalDateTime.now(), accounts[0], types[1]),
                 new Outcome(new BigDecimal(1542), LocalDateTime.now(), accounts[0], types[2]),
         };
+
         for (Outcome outcome : outcomes) {
             outcomeService.addOutcome(outcome);
+        }
+
+        Income[] incomes = {
+                new Income(BigDecimal.valueOf(13423), LocalDateTime.now(), accounts[0]),
+                new Income(BigDecimal.valueOf(4324), LocalDateTime.now(), accounts[0]),
+                new Income(BigDecimal.valueOf(13242), LocalDateTime.now(), accounts[0]),
+                new Income(BigDecimal.valueOf(1345435), LocalDateTime.now(), accounts[0]),
+                new Income(BigDecimal.valueOf(234234), LocalDateTime.now(), accounts[0]),
+                new Income(BigDecimal.valueOf(6346), LocalDateTime.now(), accounts[0]),
+                new Income(BigDecimal.valueOf(2356), LocalDateTime.now(), accounts[0]),
+        };
+
+        for (Income income : incomes) {
+            incomeService.addIncome(income);
         }
         return new ModelAndView("index");
     }
