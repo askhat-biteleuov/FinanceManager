@@ -1,10 +1,8 @@
 package com.epam.internal.controllers;
 
-import com.epam.internal.models.Account;
-import com.epam.internal.models.OutcomeType;
-import com.epam.internal.models.User;
-import com.epam.internal.models.UserInfo;
+import com.epam.internal.models.*;
 import com.epam.internal.services.AccountService;
+import com.epam.internal.services.OutcomeService;
 import com.epam.internal.services.OutcomeTypeService;
 import com.epam.internal.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +11,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Controller
 public class InitController {
     @Autowired
-    UserService userService;
+    private UserService userService;
     @Autowired
-    AccountService accountService;
+    private AccountService accountService;
     @Autowired
-    OutcomeTypeService outcomeTypeService;
+    private OutcomeTypeService outcomeTypeService;
+    @Autowired
+    private OutcomeService outcomeService;
 
     @RequestMapping("/init")
     public ModelAndView init() {
@@ -45,6 +47,15 @@ public class InitController {
         };
         for (OutcomeType type : types) {
             outcomeTypeService.addOutcomeType(type);
+        }
+
+        Outcome[] outcomes = {
+                new Outcome(new BigDecimal(2122), LocalDateTime.now(), accounts[0], types[0]),
+                new Outcome(new BigDecimal(4542), LocalDateTime.now(), accounts[0], types[1]),
+                new Outcome(new BigDecimal(1542), LocalDateTime.now(), accounts[0], types[2]),
+        };
+        for (Outcome outcome : outcomes) {
+            outcomeService.addOutcome(outcome);
         }
         return new ModelAndView("index");
     }

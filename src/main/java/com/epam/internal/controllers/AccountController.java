@@ -2,8 +2,10 @@ package com.epam.internal.controllers;
 
 import com.epam.internal.dtos.AccountDto;
 import com.epam.internal.models.Account;
+import com.epam.internal.models.Outcome;
 import com.epam.internal.models.User;
 import com.epam.internal.services.AccountService;
+import com.epam.internal.services.OutcomeService;
 import com.epam.internal.services.UserService;
 import com.epam.internal.validation.AccountValidator;
 import org.apache.log4j.Logger;
@@ -17,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -28,6 +33,9 @@ public class AccountController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private OutcomeService outcomeService;
 
     @Autowired
     private AccountValidator accountValidator;
@@ -53,7 +61,37 @@ public class AccountController {
     public ModelAndView getAccountPage(@RequestParam("name") String nameOfAccount) {
         ModelAndView modelAndView = new ModelAndView("accountpage");
         Account accountByName = accountService.findUserAccountByName(userService.getLoggedUser(), nameOfAccount);
+        List<Outcome> outcomes = outcomeService.findAllOutcomesInAccount(accountByName);
+        Map<String, Double> outcomeSum = countTypeAmount(outcomes);
+        Map<String, Double> outcomePercentage = countTypePercentage(outcomeSum);
+        modelAndView.addObject("outcomes", outcomePercentage);
         modelAndView.addObject("account", accountByName);
         return modelAndView;
+    }
+
+    private Map<String, Double> countTypeAmount(List<Outcome> outcomes) {
+        Map<String, Double> outcomeSum = new HashMap<>();
+        for (Outcome outcome : outcomes) {
+            if (!outcomeSum.containsKey(outcome.getOutcomeType().getName())) {
+                outcomeSum.put(outcome.getOutcomeType().getName(), outcome.getAmount().doubleValue());
+            } else {
+                Double oldValue = outcomeSum.get(outcome.getOutcomeType().getName());
+                outcomeSum.replace(outcome.getOutcomeType().getName(), oldValue+outcome.getAmount().doubleValue());
+            }
+        }
+        return outcomeSum;
+    }
+
+    private Map<String, Double> countTypePercentage( Map<String, Double> outcomes) {
+        Map<String, Double> outcomeSum = new HashMap<>();
+        final Double maxPercent = 100.0;
+        Double totalOutcomes = 0.0;
+        for (String type : outcomes.keySet()) {
+            totalOutcomes += outcomes.get(type);
+        }
+        for (String type : outcomes.keySet()) {
+            outcomeSum.put(type, (maxPercent*outcomes.get(type))/totalOutcomes);
+        }
+        return outcomeSum;
     }
 }

@@ -3,7 +3,34 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <html>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', {packages: ['corechart']});
+</script>
 <t:master-page title="${account.name}">
+    <div id="container" style="width: 550px; height: 400px; margin: 0 auto"></div>
+    <script language="JavaScript">
+        function drawChart() {
+            // Define the chart to be drawn.
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Type');
+            data.addColumn('number', 'Amount');
+            <c:forEach items="${outcomes}" var="outcome">
+            data.addRow(["${outcome.key}", ${outcome.value}]);
+            </c:forEach>
+            // Set chart options
+            var options = {
+                'title': 'Statistics',
+                'width': 550,
+                'height': 400
+            };
+
+            // Instantiate and draw the chart.
+            var chart = new google.visualization.PieChart(document.getElementById('container'));
+            chart.draw(data, options);
+        }
+        google.charts.setOnLoadCallback(drawChart);
+    </script>
     <h2>Счёт ${account.name}</h2>
     <form action="<c:url value="/addincome"/>" method="GET">
         <input type="hidden" name="accountId" value="${account.id}">
