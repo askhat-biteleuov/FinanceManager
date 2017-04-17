@@ -61,9 +61,10 @@ public class IncomeController {
         List<Income> allIncomesInAccount = incomeService.findAllIncomesInAccount(accountById);
         PagedListHolder<Income> pagedListHolder = new PagedListHolder<>(allIncomesInAccount);
         final int pageSize = 5;
-        final int maxPages = allIncomesInAccount.size() / pageSize;
+        final int maxPages = allIncomesInAccount.size() / pageSize + 1;
         pagedListHolder.setPageSize(pageSize);
         modelAndView.addObject("maxPages", maxPages);
+        modelAndView.addObject("accountId", accountId);
         if (page == null || page < 1 || page > pagedListHolder.getPageCount()) page = 1;
         modelAndView.addObject("page", page);
         if (page < 1 || page > pagedListHolder.getPageCount()) {

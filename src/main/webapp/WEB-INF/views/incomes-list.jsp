@@ -25,6 +25,7 @@
                 </c:forEach>
                 <c:url value="/income/list" var="prev">
                     <c:param name="page" value="${page-1}"/>
+                    <c:param name="accountId" value="${accountId}"/>
                 </c:url>
                 <c:if test="${page > 1}">
                 <a href=<c:out value="${prev}"/>>Prev</a>
@@ -38,6 +39,7 @@
                 <c:otherwise>
                 <c:url value="/income/list" var="url">
                     <c:param name="page" value="${i.index}"/>
+                    <c:param name="accountId" value="${accountId}"/>
                 </c:url>
                 <a href=<c:out value="${url}"/>>${i.index}</a>
                 </c:otherwise>
@@ -45,6 +47,7 @@
                 </c:forEach>
                 <c:url value="/income/list" var="next">
                     <c:param name="page" value="${page + 1}"/>
+                    <c:param name="accountId" value="${accountId}"/>
                 </c:url>
                 <c:if test="${page + 1 <= maxPages}">
                 <a href=<c:out value="${next}" />>Next</a>
