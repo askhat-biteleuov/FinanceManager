@@ -63,8 +63,7 @@ public class AccountController {
         Account accountByName = accountService.findUserAccountByName(userService.getLoggedUser(), nameOfAccount);
         List<Outcome> outcomes = outcomeService.findAllOutcomesInAccount(accountByName);
         Map<String, Double> outcomeSum = countTypeAmount(outcomes);
-        Map<String, Double> outcomePercentage = countTypePercentage(outcomeSum);
-        modelAndView.addObject("outcomes", outcomePercentage);
+        modelAndView.addObject("outcomes", outcomeSum);
         modelAndView.addObject("account", accountByName);
         return modelAndView;
     }
@@ -78,19 +77,6 @@ public class AccountController {
                 Double oldValue = outcomeSum.get(outcome.getOutcomeType().getName());
                 outcomeSum.replace(outcome.getOutcomeType().getName(), oldValue+outcome.getAmount().doubleValue());
             }
-        }
-        return outcomeSum;
-    }
-
-    private Map<String, Double> countTypePercentage( Map<String, Double> outcomes) {
-        Map<String, Double> outcomeSum = new HashMap<>();
-        final Double maxPercent = 100.0;
-        Double totalOutcomes = 0.0;
-        for (String type : outcomes.keySet()) {
-            totalOutcomes += outcomes.get(type);
-        }
-        for (String type : outcomes.keySet()) {
-            outcomeSum.put(type, (maxPercent*outcomes.get(type))/totalOutcomes);
         }
         return outcomeSum;
     }
