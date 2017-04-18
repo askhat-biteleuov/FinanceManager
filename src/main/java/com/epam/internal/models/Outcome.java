@@ -3,7 +3,9 @@ package com.epam.internal.models;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @Table
@@ -18,9 +20,11 @@ public class Outcome implements Serializable {
     @Column(nullable = false)
     private BigDecimal amount;
 
-    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", nullable = false)
-    private LocalDateTime date;
+    @Column(nullable = false)
+    private LocalDate date;
 
+    @Column(nullable = false)
+    private LocalTime time;
     @Column
     private String note;
 
@@ -35,9 +39,10 @@ public class Outcome implements Serializable {
     public Outcome() {
     }
 
-    public Outcome(BigDecimal amount, LocalDateTime date, Account account, OutcomeType outcomeType) {
+    public Outcome(BigDecimal amount, LocalDate date, LocalTime time, Account account, OutcomeType outcomeType) {
         this.amount = amount;
         this.date = date;
+        this.time = time;
         this.account = account;
         this.outcomeType = outcomeType;
     }
@@ -58,11 +63,11 @@ public class Outcome implements Serializable {
         this.amount = amount;
     }
 
-    public LocalDateTime getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -88,5 +93,13 @@ public class Outcome implements Serializable {
 
     public void setOutcomeType(OutcomeType outcomeType) {
         this.outcomeType = outcomeType;
+    }
+
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
     }
 }

@@ -41,10 +41,10 @@ public class IncomeServiceTest extends AbstractTestNGSpringContextTests {
         userService.createUser(user);
         Account acc1 = new Account("visa", BigDecimal.valueOf(1234), null, userService.findByEmail(USER_EMAIL));
         accountService.createAccount(acc1);
-        Income inc1 = new Income(BigDecimal.valueOf(1234), DATE, acc1);
-        Income inc2 = new Income(BigDecimal.valueOf(111), DATE, acc1);
-        Income inc3 = new Income(BigDecimal.valueOf(2222), DATE, acc1);
-        Income inc4 = new Income(BigDecimal.valueOf(2222), DATE, acc1);
+        Income inc1 = new Income(BigDecimal.valueOf(1234), DATE.toLocalDate(), DATE.toLocalTime() ,acc1);
+        Income inc2 = new Income(BigDecimal.valueOf(111), DATE.toLocalDate(), DATE.toLocalTime(), acc1);
+        Income inc3 = new Income(BigDecimal.valueOf(2222), DATE.toLocalDate(), DATE.toLocalTime(), acc1);
+        Income inc4 = new Income(BigDecimal.valueOf(2222), DATE.toLocalDate(), DATE.toLocalTime(), acc1);
         incomeService.addIncome(inc1);
         incomeService.addIncome(inc2);
         incomeService.addIncome(inc3);
@@ -66,10 +66,10 @@ public class IncomeServiceTest extends AbstractTestNGSpringContextTests {
                         (userService.findByEmail(USER_EMAIL), "visa")).size(), 4);
     }
 
-    @Test(enabled = false)
+    @Test
     public void testFindIncomesInAccountByDate() throws Exception {
         Account account = accountService.findUserAccountByName(userService.findByEmail(USER_EMAIL), "visa");
-        Assert.assertEquals(incomeService.findIncomesInAccountByDate(account, DATE).size(), 2);
+        Assert.assertEquals(incomeService.findIncomesInAccountByDate(account, DATE.toLocalDate()).size(), 4);
     }
 
     @Test

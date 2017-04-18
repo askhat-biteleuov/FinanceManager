@@ -26,8 +26,8 @@ public class OutcomeServiceImpl implements OutcomeService {
 
     @Override
     public void addOutcome(OutcomeDto outcomeDto, Account account, OutcomeType outcomeType) {
-        Outcome income = new Outcome(new BigDecimal(outcomeDto.getAmount()), LocalDateTime.of(LocalDate.parse(outcomeDto.getDate()),
-                LocalTime.now()), account, outcomeType);
+        Outcome income = new Outcome(new BigDecimal(outcomeDto.getAmount()), LocalDate.parse(outcomeDto.getDate()),
+                LocalTime.now(), account, outcomeType);
         income.setNote(outcomeDto.getNote());
         dao.create(income);
     }
@@ -53,7 +53,7 @@ public class OutcomeServiceImpl implements OutcomeService {
     }
 
     @Override
-    public List<Outcome> findOutcomesInAccountByDate(Account account, LocalDateTime date) {
+    public List<Outcome> findOutcomesInAccountByDate(Account account, LocalDate date) {
         return dao.getIncomesInAccountByDate(account, date);
     }
 

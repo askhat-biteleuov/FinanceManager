@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Controller
 public class InitController {
@@ -48,9 +50,9 @@ public class InitController {
         }
 
         Outcome[] outcomes = {
-                new Outcome(new BigDecimal(2122), LocalDateTime.now(), accounts[0], types[0]),
-                new Outcome(new BigDecimal(4542), LocalDateTime.now(), accounts[0], types[1]),
-                new Outcome(new BigDecimal(1542), LocalDateTime.now(), accounts[0], types[2]),
+                new Outcome(new BigDecimal(2122), LocalDate.now(), LocalTime.now(), accounts[0], types[0]),
+                new Outcome(new BigDecimal(4542), LocalDate.now(), LocalTime.now(), accounts[0], types[1]),
+                new Outcome(new BigDecimal(1542), LocalDate.now(), LocalTime.now(), accounts[0], types[2]),
         };
 
         for (Outcome outcome : outcomes) {
@@ -58,13 +60,13 @@ public class InitController {
         }
 
         Income[] incomes = {
-                new Income(BigDecimal.valueOf(13423), LocalDateTime.now(), accounts[0]),
-                new Income(BigDecimal.valueOf(4324), LocalDateTime.now(), accounts[0]),
-                new Income(BigDecimal.valueOf(13242), LocalDateTime.now(), accounts[0]),
-                new Income(BigDecimal.valueOf(1345435), LocalDateTime.now(), accounts[0]),
-                new Income(BigDecimal.valueOf(234234), LocalDateTime.now(), accounts[0]),
-                new Income(BigDecimal.valueOf(6346), LocalDateTime.now(), accounts[0]),
-                new Income(BigDecimal.valueOf(2356), LocalDateTime.now(), accounts[0]),
+                new Income(BigDecimal.valueOf(13423), LocalDate.now(), LocalTime.now(), accounts[0]),
+                new Income(BigDecimal.valueOf(4324), LocalDate.now(), LocalTime.now(), accounts[0]),
+                new Income(BigDecimal.valueOf(13242), LocalDate.now(), LocalTime.now(), accounts[0]),
+                new Income(BigDecimal.valueOf(1345435), LocalDate.now(), LocalTime.now(), accounts[0]),
+                new Income(BigDecimal.valueOf(234234), LocalDate.now(), LocalTime.now(), accounts[0]),
+                new Income(BigDecimal.valueOf(6346), LocalDate.now(), LocalTime.now(), accounts[0]),
+                new Income(BigDecimal.valueOf(2356), LocalDate.now(), LocalTime.now(), accounts[0]),
         };
 
         for (Income income : incomes) {

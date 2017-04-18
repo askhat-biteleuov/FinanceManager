@@ -5,6 +5,7 @@ import com.epam.internal.models.Account;
 import com.epam.internal.models.Income;
 import org.springframework.beans.support.PagedListHolder;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public interface IncomeService {
 
     List<Income> findAllIncomesInAccount(Account account);
 
-    List<Income> findIncomesInAccountByDate(Account account, LocalDateTime date);
+    List<Income> findIncomesInAccountByDate(Account account, LocalDate date);
 
     PagedListHolder<Income> getPagedIncomeList(Account account, int pageSize);
 }
