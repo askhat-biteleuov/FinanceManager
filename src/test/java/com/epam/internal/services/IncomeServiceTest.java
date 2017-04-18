@@ -5,6 +5,7 @@ import com.epam.internal.models.Income;
 import com.epam.internal.models.User;
 import com.epam.internal.models.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
@@ -41,9 +42,13 @@ public class IncomeServiceTest extends AbstractTestNGSpringContextTests {
         Account acc1 = new Account("visa", BigDecimal.valueOf(1234), null, userService.findByEmail(USER_EMAIL));
         accountService.createAccount(acc1);
         Income inc1 = new Income(BigDecimal.valueOf(1234), DATE, acc1);
-        Income inc2 = new Income(BigDecimal.valueOf(2224), DATE, acc1);
+        Income inc2 = new Income(BigDecimal.valueOf(111), DATE, acc1);
+        Income inc3 = new Income(BigDecimal.valueOf(2222), DATE, acc1);
+        Income inc4 = new Income(BigDecimal.valueOf(2222), DATE, acc1);
         incomeService.addIncome(inc1);
         incomeService.addIncome(inc2);
+        incomeService.addIncome(inc3);
+        incomeService.addIncome(inc4);
     }
 
     @AfterMethod
@@ -58,7 +63,7 @@ public class IncomeServiceTest extends AbstractTestNGSpringContextTests {
     public void testFindAllIncomesInAccount() throws Exception {
         Assert.assertEquals(incomeService.findAllIncomesInAccount
                 (accountService.findUserAccountByName
-                        (userService.findByEmail(USER_EMAIL), "visa")).size(), 2);
+                        (userService.findByEmail(USER_EMAIL), "visa")).size(), 4);
     }
 
     @Test(enabled = false)
@@ -73,6 +78,19 @@ public class IncomeServiceTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(incomeService.findAllIncomesInAccount
                 (accountService.findUserAccountByName
                         (userService.findByEmail(USER_EMAIL), "visa")).size(), 0);
+    }
+
+    @Test
+    public void testIncomesPaging() throws Exception {
+        PagedListHolder<Income> pagedList = incomeService.getPagedIncomeList
+                (accountService.findUserAccountByName
+                        (userService.findByEmail(USER_EMAIL), "visa"), 3);
+        pagedList.setPage(0);
+        Assert.assertEquals(pagedList.getPageList().size(), 3);
+        pagedList.setPage(1);
+        Assert.assertEquals(pagedList.getPageList().size(), 1);
+        Assert.assertEquals(pagedList.getPageCount(), 2);
+
     }
 
 }
