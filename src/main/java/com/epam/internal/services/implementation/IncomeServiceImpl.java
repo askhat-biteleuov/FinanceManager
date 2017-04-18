@@ -26,6 +26,7 @@ public class IncomeServiceImpl implements IncomeService {
 
     @Override
     public void addIncome(IncomeDto incomeDto, Account account) {
+        LocalDate das = LocalDate.parse(incomeDto.getDate());
         Income income = new Income(new BigDecimal(incomeDto.getAmount()), LocalDate.parse(incomeDto.getDate()), LocalTime.now(), account);
         income.setNote(incomeDto.getNote());
         dao.create(income);
@@ -54,6 +55,11 @@ public class IncomeServiceImpl implements IncomeService {
     @Override
     public List<Income> findIncomesInAccountByDate(Account account, LocalDate date) {
         return dao.getIncomesInAccountByDate(account, date);
+    }
+
+    @Override
+    public List<Income> findIncomesInAccountByMonth(Account account, LocalDate date) {
+        return dao.getIncomesInAccountByMonth(account,date);
     }
 
     @Override
