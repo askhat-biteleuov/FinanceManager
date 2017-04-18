@@ -7,6 +7,7 @@ import com.epam.internal.models.Outcome;
 import com.epam.internal.models.OutcomeType;
 import com.epam.internal.services.OutcomeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -54,5 +55,13 @@ public class OutcomeServiceImpl implements OutcomeService {
     @Override
     public List<Outcome> findOutcomesInAccountByDate(Account account, LocalDateTime date) {
         return dao.getIncomesInAccountByDate(account, date);
+    }
+
+    @Override
+    public PagedListHolder<Outcome> getPagedOutcomeList(Account account, int pageSize) {
+        List<Outcome> allOutcomesInAccount = dao.getAllAccountsOutcomes(account);
+        PagedListHolder<Outcome> pagedList = new PagedListHolder<>(allOutcomesInAccount);
+        pagedList.setPageSize(pageSize);
+        return pagedList;
     }
 }

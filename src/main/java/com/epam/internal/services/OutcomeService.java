@@ -4,6 +4,7 @@ import com.epam.internal.dtos.OutcomeDto;
 import com.epam.internal.models.Account;
 import com.epam.internal.models.Outcome;
 import com.epam.internal.models.OutcomeType;
+import org.springframework.beans.support.PagedListHolder;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,4 +23,6 @@ public interface OutcomeService {
     List<Outcome> findAllOutcomesInAccount(Account account);
 
     List<Outcome> findOutcomesInAccountByDate(Account account, LocalDateTime date);
+
+    PagedListHolder<Outcome> getPagedOutcomeList(Account account, int pageSize);
 }

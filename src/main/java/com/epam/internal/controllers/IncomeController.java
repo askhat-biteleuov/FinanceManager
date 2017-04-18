@@ -20,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
-import java.util.List;
 
 @Controller
 public class IncomeController {
@@ -58,21 +57,19 @@ public class IncomeController {
     public ModelAndView listOfIncomes(@RequestParam("accountId") int accountId, @RequestParam(required = false) Integer page) {
         ModelAndView modelAndView = new ModelAndView("incomes-list");
         Account accountById = accountService.findAccountById(accountId);
-        List<Income> allIncomesInAccount = incomeService.findAllIncomesInAccount(accountById);
-        PagedListHolder<Income> pagedListHolder = new PagedListHolder<>(allIncomesInAccount);
-        final int pageSize = 5;
-        final int maxPages = allIncomesInAccount.size() / pageSize + 1;
-        pagedListHolder.setPageSize(pageSize);
-        modelAndView.addObject("maxPages", maxPages);
+        PagedListHolder<Income> pagedIncomeList = incomeService.getPagedIncomeList(accountById, 5);
+        modelAndView.addObject("maxPages", pagedIncomeList.getPageCount());
         modelAndView.addObject("accountId", accountId);
-        if (page == null || page < 1 || page > pagedListHolder.getPageCount()) page = 1;
+        if (page == null || page < 1 || page > pagedIncomeList.getPageCount()) {
+            page = 1;
+        }
         modelAndView.addObject("page", page);
-        if (page < 1 || page > pagedListHolder.getPageCount()) {
-            pagedListHolder.setPage(0);
-            modelAndView.addObject("incomes", pagedListHolder.getPageList());
-        } else if (page <= pagedListHolder.getPageCount()) {
-            pagedListHolder.setPage(page - 1);
-            modelAndView.addObject("incomes", pagedListHolder.getPageList());
+        if (page < 1 || page > pagedIncomeList.getPageCount()) {
+            pagedIncomeList.setPage(0);
+            modelAndView.addObject("incomes", pagedIncomeList.getPageList());
+        } else if (page <= pagedIncomeList.getPageCount()) {
+            pagedIncomeList.setPage(page - 1);
+            modelAndView.addObject("incomes", pagedIncomeList.getPageList());
         }
         return modelAndView;
     }

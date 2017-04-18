@@ -28,7 +28,7 @@
                     <c:param name="accountId" value="${accountId}"/>
                 </c:url>
                 <c:if test="${page > 1}">
-                <a href=<c:out value="${prev}"/>>Prev</a>
+                    <a href=<c:out value="${prev}"/>>Prev</a>
                 </c:if>
 
                 <c:forEach begin="1" end="${maxPages}" step="1" varStatus="i">

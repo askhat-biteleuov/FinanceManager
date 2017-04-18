@@ -6,6 +6,7 @@ import com.epam.internal.models.Account;
 import com.epam.internal.models.Income;
 import com.epam.internal.services.IncomeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -54,5 +55,13 @@ public class IncomeServiceImpl implements IncomeService {
     @Override
     public List<Income> findIncomesInAccountByDate(Account account, LocalDateTime date) {
         return dao.getIncomesInAccountByDate(account, date);
+    }
+
+    @Override
+    public PagedListHolder<Income> getPagedIncomeList(Account account, int pageSize) {
+        List<Income> allIncomesInAccount = dao.getAccountsIncomes(account);
+        PagedListHolder<Income> pagedList = new PagedListHolder<>(allIncomesInAccount);
+        pagedList.setPageSize(pageSize);
+        return pagedList;
     }
 }
