@@ -8,7 +8,6 @@ import com.epam.internal.services.AccountService;
 import com.epam.internal.services.IncomeService;
 import com.epam.internal.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Controller
 public class IncomeController {
@@ -57,20 +57,22 @@ public class IncomeController {
     public ModelAndView listOfIncomes(@RequestParam("accountId") int accountId, @RequestParam(required = false) Integer page) {
         ModelAndView modelAndView = new ModelAndView("incomes-list");
         Account accountById = accountService.findAccountById(accountId);
-        PagedListHolder<Income> pagedIncomeList = incomeService.getPagedIncomeList(accountById, 5);
-        modelAndView.addObject("maxPages", pagedIncomeList.getPageCount());
-        modelAndView.addObject("accountId", accountId);
-        if (page == null || page < 1 || page > pagedIncomeList.getPageCount()) {
-            page = 1;
-        }
-        modelAndView.addObject("page", page);
-        if (page < 1 || page > pagedIncomeList.getPageCount()) {
-            pagedIncomeList.setPage(0);
-            modelAndView.addObject("incomes", pagedIncomeList.getPageList());
-        } else if (page <= pagedIncomeList.getPageCount()) {
-            pagedIncomeList.setPage(page - 1);
-            modelAndView.addObject("incomes", pagedIncomeList.getPageList());
-        }
+//        PagedListHolder<Income> pagedIncomeList = incomeService.getPagedIncomeList(accountById, 5);
+//        modelAndView.addObject("maxPages", pagedIncomeList.getPageCount());
+//        modelAndView.addObject("accountId", accountId);
+//        if (page == null || page < 1 || page > pagedIncomeList.getPageCount()) {
+//            page = 1;
+//        }
+//        modelAndView.addObject("page", page);
+//        if (page < 1 || page > pagedIncomeList.getPageCount()) {
+//            pagedIncomeList.setPage(0);
+//            modelAndView.addObject("incomes", pagedIncomeList.getPageList());
+//        } else if (page <= pagedIncomeList.getPageCount()) {
+//            pagedIncomeList.setPage(page - 1);
+//            modelAndView.addObject("incomes", pagedIncomeList.getPageList());
+//        }
+        List<Income> allIncomesInAccount = incomeService.findAllIncomesInAccount(accountById);
+        modelAndView.addObject("incomes", allIncomesInAccount);
         return modelAndView;
     }
 }
