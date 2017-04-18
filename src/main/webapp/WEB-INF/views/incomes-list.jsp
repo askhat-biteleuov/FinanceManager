@@ -5,7 +5,6 @@
 <%@ taglib prefix="display" uri="http://displaytag.sf.net" %>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 
-<html>
 <t:master-page title="Список доходов">
     <div align="center">
         <h2>Доходы</h2>
@@ -16,4 +15,4 @@
             <display:column property="amount" title="Amount"/>
         </display:table>
 </t:master-page>
-</html>
+

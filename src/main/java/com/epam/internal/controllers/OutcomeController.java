@@ -1,9 +1,7 @@
 package com.epam.internal.controllers;
 
 import com.epam.internal.dtos.OutcomeDto;
-import com.epam.internal.models.Account;
-import com.epam.internal.models.OutcomeType;
-import com.epam.internal.models.User;
+import com.epam.internal.models.*;
 import com.epam.internal.services.AccountService;
 import com.epam.internal.services.OutcomeService;
 import com.epam.internal.services.OutcomeTypeService;
@@ -15,11 +13,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Controller
 public class OutcomeController {
@@ -75,6 +75,15 @@ public class OutcomeController {
         OutcomeDto outcomeDto = new OutcomeDto();
         outcomeDto.setAccountId(Long.parseLong(accountId));
         return outcomeDto;
+    }
+
+    @RequestMapping(value = "/outcome/list")
+    public ModelAndView listOfOutcomes(@RequestParam("accountId") int accountId) {
+        ModelAndView modelAndView = new ModelAndView("outcomes-list");
+        Account accountById = accountService.findAccountById(accountId);
+        List<Outcome> allOutcomesInAccount = outcomeService.findAllOutcomesInAccount(accountById);
+        modelAndView.addObject("outcomes", allOutcomesInAccount);
+        return modelAndView;
     }
 
 

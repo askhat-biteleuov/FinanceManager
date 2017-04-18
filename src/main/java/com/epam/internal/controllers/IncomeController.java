@@ -54,23 +54,9 @@ public class IncomeController {
     }
 
     @RequestMapping(value = "/income/list")
-    public ModelAndView listOfIncomes(@RequestParam("accountId") int accountId, @RequestParam(required = false) Integer page) {
+    public ModelAndView listOfIncomes(@RequestParam("accountId") int accountId) {
         ModelAndView modelAndView = new ModelAndView("incomes-list");
         Account accountById = accountService.findAccountById(accountId);
-//        PagedListHolder<Income> pagedIncomeList = incomeService.getPagedIncomeList(accountById, 5);
-//        modelAndView.addObject("maxPages", pagedIncomeList.getPageCount());
-//        modelAndView.addObject("accountId", accountId);
-//        if (page == null || page < 1 || page > pagedIncomeList.getPageCount()) {
-//            page = 1;
-//        }
-//        modelAndView.addObject("page", page);
-//        if (page < 1 || page > pagedIncomeList.getPageCount()) {
-//            pagedIncomeList.setPage(0);
-//            modelAndView.addObject("incomes", pagedIncomeList.getPageList());
-//        } else if (page <= pagedIncomeList.getPageCount()) {
-//            pagedIncomeList.setPage(page - 1);
-//            modelAndView.addObject("incomes", pagedIncomeList.getPageList());
-//        }
         List<Income> allIncomesInAccount = incomeService.findAllIncomesInAccount(accountById);
         modelAndView.addObject("incomes", allIncomesInAccount);
         return modelAndView;

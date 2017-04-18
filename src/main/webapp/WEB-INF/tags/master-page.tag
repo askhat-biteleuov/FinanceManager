@@ -14,7 +14,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>${title}</title>
     <!-- Bootstrap -->
-    <spring:url value="/resourses/css/bootstrap.min.css" var="cssURL"/>
+    <spring:url value="/resources/css/bootstrap.mis.css" var="cssURL"/>
     <link href="${cssURL}" rel="stylesheet">
 </head>
 <body>
@@ -31,12 +31,12 @@
         </form>
     </c:if>
 </nav>
-<jsp:doBody/>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<spring:url value="/resourses/js/jquery-3.2.1.min.js" var="jqueryURL"/>
+<spring:url value="/resourсes/js/jquery-3.2.1.min.js" var="jqueryURL"/>
 <script src="${jqueryURL}"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<spring:url value="/resourses/js/bootstrap.min.js" var="bootjsURL"/>
+<spring:url value="/resourсes/js/bootstrap.min.js" var="bootjsURL"/>
 <script src="${bootjsURL}"></script>
+<jsp:doBody/>
 </body>
 </html>
