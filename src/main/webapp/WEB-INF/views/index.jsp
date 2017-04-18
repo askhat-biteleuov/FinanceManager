@@ -40,7 +40,7 @@
                 </tbody>
             </table>
             <h2>Категории расходов</h2>
-            <table border="1">
+            <table border="1" class="table">
                 <tr>
                     <th>Название</th>
                     <th>Лимит</th>
@@ -48,7 +48,12 @@
                 <tbody>
                 <c:forEach var="outcomeType" items="${user.outcomeTypes}">
                     <tr>
-                        <td><c:out value="${outcomeType.name}"/></td>
+                        <td>
+                            <c:url value="/outcometype/page" var="outcomeTypeUrl">
+                                <c:param name="typeId" value="${outcomeType.id}"/>
+                            </c:url>
+                            <a href="<c:out value="${outcomeTypeUrl}"/>"><c:out value="${outcomeType.name}"/></a>
+                        </td>
                         <td><fmt:formatNumber type="currency" value="${outcomeType.limit}"/></td>
                     </tr>
                 </c:forEach>

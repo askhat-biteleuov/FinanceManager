@@ -2,6 +2,7 @@ package com.epam.internal.services.implementation;
 
 import com.epam.internal.daos.OutcomeTypeDao;
 import com.epam.internal.dtos.OutcomeTypeDto;
+import com.epam.internal.models.Outcome;
 import com.epam.internal.models.OutcomeType;
 import com.epam.internal.models.User;
 import com.epam.internal.services.OutcomeTypeService;
@@ -44,5 +45,15 @@ public class OutcomeTypeServiceImpl implements OutcomeTypeService {
     @Override
     public List<OutcomeType> getAvailableOutcomeTypes(User user) {
         return user != null ? user.getOutcomeTypes() : null;
+    }
+
+    @Override
+    public List<Outcome> getOutcomesOfType(OutcomeType outcomeType, int first, int last) {
+        return dao.getOutcomesOfType(outcomeType, first, last);
+    }
+
+    @Override
+    public Long getSizeOutcomesOfType(OutcomeType outcomeType) {
+        return dao.getSizeOutcomesOfType(outcomeType);
     }
 }

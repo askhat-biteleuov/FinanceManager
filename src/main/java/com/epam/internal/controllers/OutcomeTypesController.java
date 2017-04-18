@@ -1,6 +1,8 @@
 package com.epam.internal.controllers;
 
 import com.epam.internal.dtos.OutcomeTypeDto;
+import com.epam.internal.models.Outcome;
+import com.epam.internal.models.OutcomeType;
 import com.epam.internal.models.User;
 import com.epam.internal.services.OutcomeTypeService;
 import com.epam.internal.services.UserService;
@@ -14,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
-@RequestMapping("/addouttype")
 public class OutcomeTypesController {
     @Autowired
     private OutcomeTypeService typeService;
@@ -25,12 +27,30 @@ public class OutcomeTypesController {
     @Autowired
     private OutcomeTypeValidator validator;
 
-    @RequestMapping(method = RequestMethod.GET)
+
+    @RequestMapping(value = "/outcometype/page", method = RequestMethod.GET)
+    public ModelAndView showOutcomeType(Long typeId, Integer pageId) {
+        if (pageId == null) pageId = 1;
+        int pageSize = 5;
+        OutcomeType outcomeType = typeService.findTypeById(typeId);
+        long size = typeService.getSizeOutcomesOfType(outcomeType);
+        double numberOfPages = (double) size / pageSize;
+        int count = (int) Math.ceil(numberOfPages);
+        int numberOfItemsOnPage = pageId * pageSize > size ? (int) size : pageId * pageSize;
+        List<Outcome> outcomes = typeService.getOutcomesOfType(outcomeType, (pageId - 1) * pageSize, numberOfItemsOnPage);
+
+        OutcomeTypeDto outcomeTypeDto = new OutcomeTypeDto(typeId, outcomeType.getName(), outcomeType.getLimit().toString(), outcomes);
+        ModelAndView modelAndView = new ModelAndView("outcometype", "outcomeTypeDto", outcomeTypeDto);
+        modelAndView.addObject("count", count);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/addouttype", method = RequestMethod.GET)
     public ModelAndView addType() {
         return new ModelAndView("newoutcometype", "outcometypeDto", new OutcomeTypeDto());
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value = "/addouttype", method = RequestMethod.POST)
     public ModelAndView newType(@Valid @ModelAttribute("outcometypeDto") OutcomeTypeDto outcomeTypeDto, BindingResult result) {
         validator.validate(outcomeTypeDto, result);
         User loggedUser = userService.getLoggedUser();

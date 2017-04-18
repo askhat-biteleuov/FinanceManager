@@ -9,7 +9,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Controller
@@ -51,6 +50,13 @@ public class InitController {
 
         Outcome[] outcomes = {
                 new Outcome(new BigDecimal(2122), LocalDate.now(), LocalTime.now(), accounts[0], types[0]),
+                new Outcome(new BigDecimal(332), LocalDate.now(), LocalTime.now(), accounts[0], types[0]),
+                new Outcome(new BigDecimal(4144), LocalDate.now(), LocalTime.now(), accounts[0], types[0]),
+                new Outcome(new BigDecimal(9999), LocalDate.now(), LocalTime.now(), accounts[0], types[0]),
+                new Outcome(new BigDecimal(50), LocalDate.now(), LocalTime.now(), accounts[0], types[0]),
+                new Outcome(new BigDecimal(1234), LocalDate.now(), LocalTime.now(), accounts[0], types[0]),
+                new Outcome(new BigDecimal(2222), LocalDate.now(), LocalTime.now(), accounts[0], types[0]),
+                new Outcome(new BigDecimal(3999), LocalDate.now(), LocalTime.now(), accounts[0], types[0]),
                 new Outcome(new BigDecimal(4542), LocalDate.now(), LocalTime.now(), accounts[0], types[1]),
                 new Outcome(new BigDecimal(1542), LocalDate.now(), LocalTime.now(), accounts[0], types[2]),
         };

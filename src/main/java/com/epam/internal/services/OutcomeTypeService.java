@@ -1,6 +1,7 @@
 package com.epam.internal.services;
 
 import com.epam.internal.dtos.OutcomeTypeDto;
+import com.epam.internal.models.Outcome;
 import com.epam.internal.models.OutcomeType;
 import com.epam.internal.models.User;
 
@@ -18,4 +19,8 @@ public interface OutcomeTypeService {
     OutcomeType findTypeById(long id);
 
     List<OutcomeType> getAvailableOutcomeTypes(User user);
+
+    List<Outcome> getOutcomesOfType(OutcomeType outcomeType, int first, int last);
+
+    Long getSizeOutcomesOfType(OutcomeType outcomeType);
 }
