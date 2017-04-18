@@ -3,8 +3,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="display" uri="http://displaytag.sf.net" %>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 
+<link rel="stylesheet" href="/resources/css/bootstrap.min.css"/>
 <t:master-page title="Список доходов">
     <div align="center">
         <h2>Доходы</h2>

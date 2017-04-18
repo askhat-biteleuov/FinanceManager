@@ -22,6 +22,8 @@
         <property name="basename" value="messages"/>
     </bean>
 
+    <mvc:resources mapping="/resources/**" location="/resources/" cache-period="100000"/>
+
     <import resource="spring-beans.xml"/>
     <import resource="spring-security.xml"/>
 </beans>
