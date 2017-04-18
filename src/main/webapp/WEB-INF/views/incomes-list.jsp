@@ -10,7 +10,7 @@
     <div align="center">
         <h2>Доходы</h2>
         <spring:url value="/income/list" var="incomeList"/>
-        <display:table name="incomes" requestURI="${incomeList}" pagesize="5">
+        <display:table name="incomes" requestURI="${incomeList}" pagesize="5" class="table">
             <display:column property="id" title="ID"/>
             <display:column property="date" title="Date"/>
             <display:column property="amount" title="Amount"/>
