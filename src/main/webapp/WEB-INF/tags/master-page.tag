@@ -15,13 +15,11 @@
     <title>${title}</title>
     <!-- Bootstrap -->
     <link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet">
-    <%--<spring:url value="/resources/css/bootstrap.mis.css" var="cssURL"/>--%>
-    <%--<link href="${cssURL}" rel="stylesheet">--%>
 </head>
 <body>
 <nav>
+    <a href="/">Главная</a> |
     <c:if test="${userName == null}">
-        <a href="/">Главная</a> |
         <a href="/login">Войти в аккаунт</a> | <a href="/registration">Пройти регистрацию</a>
     </c:if>
     <c:if test="${userName != null}">
@@ -32,12 +30,10 @@
         </form>
     </c:if>
 </nav>
-<%--<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->--%>
-<%--<spring:url value="/resourсes/js/jquery-3.2.1.min.js" var="jqueryURL"/>--%>
-<%--<script src="${jqueryURL}"></script>--%>
-<%--<!-- Include all compiled plugins (below), or include individual files as needed -->--%>
-<%--<spring:url value="/resourсes/js/bootstrap.min.js" var="bootjsURL"/>--%>
-<%--<script src="${bootjsURL}"></script>--%>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="/resourсes/js/jquery-3.2.1.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/resourсes/js/bootstrap.min.js"></script>
 <jsp:doBody/>
 </body>
 </html>

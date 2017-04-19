@@ -1,7 +1,10 @@
 package com.epam.internal.controllers;
 
 import com.epam.internal.dtos.OutcomeDto;
-import com.epam.internal.models.*;
+import com.epam.internal.models.Account;
+import com.epam.internal.models.Outcome;
+import com.epam.internal.models.OutcomeType;
+import com.epam.internal.models.User;
 import com.epam.internal.services.AccountService;
 import com.epam.internal.services.OutcomeService;
 import com.epam.internal.services.OutcomeTypeService;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.List;
@@ -86,5 +90,11 @@ public class OutcomeController {
         return modelAndView;
     }
 
-
+    @RequestMapping(value = "/outcome/delete", method = RequestMethod.POST)
+    public ModelAndView deleteOutcome(Long outcomeId, final HttpServletRequest request) {
+        Outcome outcome = outcomeService.findById(outcomeId);
+        outcomeService.deleteOutcome(outcome);
+        String referer = request.getHeader("referer");
+        return new ModelAndView("redirect:" + referer);
+    }
 }

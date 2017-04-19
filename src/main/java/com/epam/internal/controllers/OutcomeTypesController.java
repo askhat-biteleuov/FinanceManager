@@ -27,7 +27,6 @@ public class OutcomeTypesController {
     @Autowired
     private OutcomeTypeValidator validator;
 
-
     @RequestMapping(value = "/outcometype/page", method = RequestMethod.GET)
     public ModelAndView showOutcomeType(Long typeId, Integer pageId) {
         if (pageId == null) pageId = 1;
@@ -45,12 +44,19 @@ public class OutcomeTypesController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/addouttype", method = RequestMethod.GET)
-    public ModelAndView addType() {
-        return new ModelAndView("newoutcometype", "outcometypeDto", new OutcomeTypeDto());
+    @RequestMapping(value = "/outcometype/delete", method = RequestMethod.POST)
+    public ModelAndView deleteOutcomeType(Long outcomeTypeId) {
+        OutcomeType outcomeType = typeService.findTypeById(outcomeTypeId);
+        typeService.deleteOutcomeType(outcomeType);
+        return new ModelAndView("redirect:" + "/index");
     }
 
-    @RequestMapping(value = "/addouttype", method = RequestMethod.POST)
+    @RequestMapping(value = "/outcometype/add", method = RequestMethod.GET)
+    public ModelAndView addType() {
+        return new ModelAndView("outcometype-add", "outcometypeDto", new OutcomeTypeDto());
+    }
+
+    @RequestMapping(value = "/outcometype/add", method = RequestMethod.POST)
     public ModelAndView newType(@Valid @ModelAttribute("outcometypeDto") OutcomeTypeDto outcomeTypeDto, BindingResult result) {
         validator.validate(outcomeTypeDto, result);
         User loggedUser = userService.getLoggedUser();
@@ -58,7 +64,7 @@ public class OutcomeTypesController {
             typeService.addOutcomeType(outcomeTypeDto, loggedUser);
             return new ModelAndView("redirect:" + "/index");
         }
-        return new ModelAndView("newoutcometype");
+        return new ModelAndView("outcometype-add");
     }
 
 }

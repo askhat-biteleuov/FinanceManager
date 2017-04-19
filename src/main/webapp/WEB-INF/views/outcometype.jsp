@@ -5,9 +5,7 @@
 
 <t:master-page title="${outcomeTypeDto.name}">
     <h1>${outcomeTypeDto.name}</h1>
-    <button>Добавить расход</button>
-    <button>Удалить категорию</button>
-    <br>
+
     <c:forEach var="i" begin="1" end="${count}">
         <c:url value="/outcometype/page" var="pageUrl">
             <c:param name="pageId" value="${i}"/>
@@ -15,11 +13,13 @@
         </c:url>
         <a href="${pageUrl}">${i}</a>
     </c:forEach>
-    <table>
+    <table class="table">
         <tr>
             <th>Дата</th>
             <th>Сумма</th>
             <th>Счет</th>
+            <th></th>
+            <th></th>
         </tr>
         <tbody>
         <c:forEach var="outcome" items="${outcomeTypeDto.outcomes}">
@@ -33,17 +33,26 @@
                 <td>
                         ${outcome.account.name}
                 </td>
-            </tr>
-            <tr>
                 <td>
                         ${outcome.note}
                 </td>
                 <td></td>
                 <td>
-                    <button>Удалить расход</button>
+                    <form action="<c:url value="/outcome/delete"/>" method="POST"
+                          onsubmit="return confirm('После удаления, категория и расходы по ней будут удалены! Вы хотите продолжить?')">
+                        <input type="hidden" name="outcomeId" value="${outcome.id}">
+                        <button type="submit">Удалить расход</button>
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    </form>
                 </td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
+    <form action="<c:url value="/outcometype/delete"/>" method="POST"
+          onsubmit="return confirm('После удаления, категория и расходы по ней будут удалены! Вы хотите продолжить?')">
+        <input type="hidden" name="outcomeTypeId" value="${outcomeTypeDto.id}">
+        <button type="submit">Удалить категорию</button>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    </form>
 </t:master-page>

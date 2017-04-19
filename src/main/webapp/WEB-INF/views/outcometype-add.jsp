@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<form:form method="POST" action="/addouttype" modelAttribute="outcometypeDto">
+<form:form method="POST" action="/outcometype/add" modelAttribute="outcometypeDto">
     <h1>Добавьте новую категорию расходов</h1>
     <form:input path="name" placeholder="Name"/><br>
     <form:errors path="name" cssStyle="color: red"/><br>
