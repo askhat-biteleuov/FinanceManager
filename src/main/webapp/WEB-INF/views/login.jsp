@@ -5,7 +5,7 @@
 
 <t:master-page title="Вход">
     <c:url var="loginUrl" value="/login"/>
-    <form action="${loginUrl}" method="post">
+    <form action="${loginUrl}" method="post" class="form-inline">
         <c:if test="${param.error != null}">
             <p>Invalid username and password.</p>
         </c:if>

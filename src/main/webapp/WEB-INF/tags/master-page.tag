@@ -17,11 +17,16 @@
     <link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet">
 </head>
 <body>
-<nav>
-    <a href="/">Главная</a> |
-    <c:if test="${userName == null}">
-        <a href="/login">Войти в аккаунт</a> | <a href="/registration">Пройти регистрацию</a>
-    </c:if>
+<nav class="navbar-default">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav">
+            <li class="active"><a class="navbar-brand" href="/">Главная</a></li>
+            <c:if test="${userName == null}">
+                <li><a href="/login">Войти в аккаунт</a></li>
+                <li><a href="/registration">Пройти регистрацию</a></li>
+            </c:if>
+        </ul>
+    </div>
     <c:if test="${userName != null}">
         <a>Добрый день, ${userName}!</a>
         <form action="${pageContext.request.contextPath}/logout" method="post">

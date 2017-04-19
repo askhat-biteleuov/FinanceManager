@@ -21,7 +21,7 @@
             <form action="/add-account" method="GET">
                 <button type="submit">Добавить счет</button>
             </form>
-            <table border="1">
+            <table border="1" class="table">
                 <tr>
                     <th>Название</th>
                     <th>Баланс</th>

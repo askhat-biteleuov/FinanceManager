@@ -13,4 +13,5 @@
         <display:column property="date" title="Date"/>
         <display:column property="amount" title="Amount"/>
     </display:table>
+    <button type="submit" onclick="history.back()" class="btn">Назад</button>
 </t:master-page>

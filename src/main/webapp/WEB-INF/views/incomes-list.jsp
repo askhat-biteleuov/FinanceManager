@@ -4,7 +4,6 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="display" uri="http://displaytag.sf.net" %>
 
-<link rel="stylesheet" href="/resources/css/bootstrap.min.css"/>
 <t:master-page title="Список доходов">
     <div align="center">
         <h2>Доходы</h2>
@@ -14,5 +13,6 @@
             <display:column property="date" title="Date"/>
             <display:column property="amount" title="Amount"/>
         </display:table>
+    <button type="submit" onclick="history.back()" class="btn">Назад</button>
 </t:master-page>
 

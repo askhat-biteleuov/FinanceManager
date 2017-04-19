@@ -8,6 +8,7 @@
     google.charts.load('current', {packages: ['corechart']});
 </script>
 <t:master-page title="${account.name}">
+    <button type="submit" onclick="history.back()" class="btn">Назад</button>
     <div id="container" style="width: 550px; height: 400px; margin: 0 auto"></div>
     <script language="JavaScript">
         function drawChart() {
