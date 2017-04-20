@@ -17,7 +17,7 @@
     <link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet">
 </head>
 <body>
-<nav class="navbar-default">
+<nav class="navbar navbar-default">
     <div class="container-fluid">
         <ul class="nav navbar-nav">
             <li class="active"><a class="navbar-brand" href="/">Главная</a></li>
@@ -26,19 +26,29 @@
                 <li><a href="/registration">Пройти регистрацию</a></li>
             </c:if>
         </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <c:if test="${userName != null}">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button"
+                       aria-haspopup="true" aria-expanded="false">Добрый день, ${userName}!<span
+                            class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <form action="${pageContext.request.contextPath}/logout" method="post">
+                                <button class="btn-link" type="submit">Выход</button>
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            </c:if>
+        </ul>
     </div>
-    <c:if test="${userName != null}">
-        <a>Добрый день, ${userName}!</a>
-        <form action="${pageContext.request.contextPath}/logout" method="post">
-            <button type="submit">Выход</button>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        </form>
-    </c:if>
 </nav>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="/resourсes/js/jquery-3.2.1.min.js"></script>
+<script src="/resources/js/jquery-3.2.1.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/resourсes/js/bootstrap.min.js"></script>
+<script src="/resources/js/bootstrap.min.js"></script>
 <jsp:doBody/>
 </body>
 </html>

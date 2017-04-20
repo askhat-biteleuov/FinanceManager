@@ -29,18 +29,34 @@ public class OutcomeTypesController {
 
     @RequestMapping(value = "/outcometype/page", method = RequestMethod.GET)
     public ModelAndView showOutcomeType(Long typeId, Integer pageId) {
-        if (pageId == null) pageId = 1;
+        //init page number
+        if (pageId == null) {
+            pageId = 1;
+        }
+        //number of elements on page
         int pageSize = 5;
         OutcomeType outcomeType = typeService.findTypeById(typeId);
+        //number of all elements into Type
         long size = typeService.getSizeOutcomesOfType(outcomeType);
-        double numberOfPages = (double) size / pageSize;
-        int count = (int) Math.ceil(numberOfPages);
-        int numberOfItemsOnPage = pageId * pageSize > size ? (int) size : pageId * pageSize;
-        List<Outcome> outcomes = typeService.getOutcomesOfType(outcomeType, (pageId - 1) * pageSize, numberOfItemsOnPage);
+        //count first and last element in sublist
+        int firstItem = (pageId - 1) * pageSize;
+        int lastItem = pageId * pageSize > size ? (int) size : pageId * pageSize;
+        List<Outcome> outcomes = typeService.getOutcomesOfType(outcomeType, firstItem, lastItem);
 
         OutcomeTypeDto outcomeTypeDto = new OutcomeTypeDto(typeId, outcomeType.getName(), outcomeType.getLimit().toString(), outcomes);
         ModelAndView modelAndView = new ModelAndView("outcometype", "outcomeTypeDto", outcomeTypeDto);
+        //number of pages
+        double numberOfPages = (double) size / pageSize;
+        int count = (int) Math.ceil(numberOfPages);
         modelAndView.addObject("count", count);
+        //Count range of paginations links
+        int startpage = pageId - 5 > 0 ? pageId - 5 : 1;
+        int endpage = startpage + 10 < count ? startpage + 10 : count;
+
+        modelAndView.addObject("startpage", startpage);
+        modelAndView.addObject("endpage", endpage);
+        modelAndView.addObject("selectedPage", pageId);
+
         return modelAndView;
     }
 
