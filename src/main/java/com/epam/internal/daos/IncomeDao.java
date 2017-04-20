@@ -28,29 +28,15 @@ public class IncomeDao extends GenericDao<Income> {
     }
 
     @Transactional
-    public List<Income> getIncomesInAccountByDate(Account account, LocalDate date) {
+    public List<Income> getIncomesInAccountByDate(Account account, LocalDate start, LocalDate end) {
         Session session = getSessionFactory().getCurrentSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<Income> query = criteriaBuilder.createQuery(Income.class);
         Root<Income> incomeRoot = query.from(Income.class);
         Predicate equalAccount = criteriaBuilder.equal(incomeRoot.get(Income_.account), account);
-        Predicate equalDate = criteriaBuilder.equal(incomeRoot.get(Income_.date), date);
+        Predicate equalDate = criteriaBuilder.between(incomeRoot.get(Income_.date), start, end);
         query.where(criteriaBuilder.and(equalAccount, equalDate));
         return session.createQuery(query).getResultList();
     }
 
-    @Transactional
-    public List<Income> getIncomesInAccountByMonth(Account account, LocalDate date) {
-        Session session = getSessionFactory().getCurrentSession();
-        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-        CriteriaQuery<Income> query = criteriaBuilder.createQuery(Income.class);
-        Root<Income> incomeRoot = query.from(Income.class);
-        Predicate equalAccount = criteriaBuilder.equal(incomeRoot.get(Income_.account), account);
-        Predicate equalYear = criteriaBuilder.equal(criteriaBuilder.function("year", Integer.class,
-                incomeRoot.get(Income_.date)), date.getYear());
-        Predicate equalMonth = criteriaBuilder.equal(criteriaBuilder.function("month", Integer.class,
-                incomeRoot.get(Income_.date)), date.getMonth().getValue());
-        query.where(criteriaBuilder.and(equalAccount, equalYear, equalMonth));
-        return session.createQuery(query).getResultList();
-    }
 }

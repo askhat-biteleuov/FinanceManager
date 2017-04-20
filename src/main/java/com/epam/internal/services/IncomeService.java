@@ -22,9 +22,7 @@ public interface IncomeService {
 
     List<Income> findAllIncomesInAccount(Account account);
 
-    List<Income> findIncomesInAccountByDate(Account account, LocalDate date);
-
-    List<Income> findIncomesInAccountByMonth(Account account, LocalDate date);
+    List<Income> findIncomesInAccountByDate(Account account, LocalDate start, LocalDate end);
 
     PagedListHolder<Income> getPagedIncomeList(Account account, int pageSize);
 }

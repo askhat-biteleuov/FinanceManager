@@ -31,13 +31,13 @@ public class OutcomeDao extends GenericDao<Outcome> {
     }
 
     @Transactional
-    public List<Outcome> getIncomesInAccountByDate(Account account, LocalDate date) {
+    public List<Outcome> getOutcomeInAccountByDate(Account account, LocalDate start, LocalDate end) {
         Session session = getSessionFactory().getCurrentSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<Outcome> query = criteriaBuilder.createQuery(Outcome.class);
-        Root<Outcome> incomeRoot = query.from(Outcome.class);
-        Predicate equalAccount = criteriaBuilder.equal(incomeRoot.get(Outcome_.account), account);
-        Predicate equalDate = criteriaBuilder.equal(incomeRoot.get(Outcome_.date), date);
+        Root<Outcome> outcomeRoot = query.from(Outcome.class);
+        Predicate equalAccount = criteriaBuilder.equal(outcomeRoot.get(Outcome_.account), account);
+        Predicate equalDate = criteriaBuilder.between(outcomeRoot.get(Outcome_.date), start, end);
         query.where(criteriaBuilder.and(equalAccount, equalDate));
         return session.createQuery(query).getResultList();
     }

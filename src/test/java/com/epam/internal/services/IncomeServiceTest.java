@@ -18,11 +18,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
+import java.util.Date;
 import java.util.List;
 
 import static org.testng.Assert.*;
 
-@ContextConfiguration("classpath:common-mvc-config.xml")
+@ContextConfiguration("classpath:spring-utils.xml")
 public class IncomeServiceTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
@@ -48,14 +49,10 @@ public class IncomeServiceTest extends AbstractTestNGSpringContextTests {
         Income inc2 = new Income(BigDecimal.valueOf(111), DATE.toLocalDate(), DATE.toLocalTime(), acc1);
         Income inc3 = new Income(BigDecimal.valueOf(2222), DATE.toLocalDate(), DATE.toLocalTime(), acc1);
         Income inc4 = new Income(BigDecimal.valueOf(2222), DATE.toLocalDate(), DATE.toLocalTime(), acc1);
-        Income inc5 = new Income(BigDecimal.valueOf(3463), LocalDate.of(2017, 2, 2), LocalTime.of(12, 13), acc1);
-        Income inc6 = new Income(BigDecimal.valueOf(3763), LocalDate.of(2017, 2, 23), LocalTime.of(12, 16), acc1);
         incomeService.addIncome(inc1);
         incomeService.addIncome(inc2);
         incomeService.addIncome(inc3);
         incomeService.addIncome(inc4);
-        incomeService.addIncome(inc5);
-        incomeService.addIncome(inc6);
     }
 
     @AfterMethod
@@ -76,14 +73,9 @@ public class IncomeServiceTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testFindIncomesInAccountByDate() throws Exception {
         Account account = accountService.findUserAccountByName(userService.findByEmail(USER_EMAIL), "visa");
-        Assert.assertEquals(incomeService.findIncomesInAccountByDate(account, DATE.toLocalDate()).size(), 4);
-    }
-
-    @Test
-    public void testFindIncomesInAccountByMonth() throws Exception {
-        Account account = accountService.findUserAccountByName(userService.findByEmail(USER_EMAIL), "visa");
-        List<Income> f = incomeService.findIncomesInAccountByMonth(account, LocalDate.of(2017,2,10));
-        Assert.assertEquals(f.size(), 2);
+        LocalDate start = LocalDate.of(DATE.getYear(), DATE.getMonth().getValue()-1, DATE.getDayOfMonth());
+        LocalDate end = LocalDate.of(DATE.getYear(), DATE.getMonth().getValue()+1, DATE.getDayOfMonth());
+        Assert.assertEquals(incomeService.findIncomesInAccountByDate(account, start, end).size(), 4);
     }
 
     @Test

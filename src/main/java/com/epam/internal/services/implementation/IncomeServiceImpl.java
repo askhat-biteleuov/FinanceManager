@@ -53,13 +53,8 @@ public class IncomeServiceImpl implements IncomeService {
     }
 
     @Override
-    public List<Income> findIncomesInAccountByDate(Account account, LocalDate date) {
-        return dao.getIncomesInAccountByDate(account, date);
-    }
-
-    @Override
-    public List<Income> findIncomesInAccountByMonth(Account account, LocalDate date) {
-        return dao.getIncomesInAccountByMonth(account,date);
+    public List<Income> findIncomesInAccountByDate(Account account, LocalDate start, LocalDate end) {
+        return dao.getIncomesInAccountByDate(account, start, end);
     }
 
     @Override

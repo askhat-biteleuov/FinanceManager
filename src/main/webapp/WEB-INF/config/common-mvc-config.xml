@@ -24,6 +24,5 @@
 
     <mvc:resources mapping="/resources/**" location="/resources/" cache-period="100000"/>
 
-    <import resource="spring-beans.xml"/>
-    <import resource="spring-security.xml"/>
+    <import resource="spring-utils.xml"/>
 </beans>

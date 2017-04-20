@@ -53,8 +53,8 @@ public class OutcomeServiceImpl implements OutcomeService {
     }
 
     @Override
-    public List<Outcome> findOutcomesInAccountByDate(Account account, LocalDate date) {
-        return dao.getIncomesInAccountByDate(account, date);
+    public List<Outcome> findOutcomesInAccountByDate(Account account, LocalDate start, LocalDate end) {
+        return dao.getOutcomeInAccountByDate(account, start, end);
     }
 
     @Override
