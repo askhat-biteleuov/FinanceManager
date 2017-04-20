@@ -17,6 +17,11 @@
     <form:input path="amount" placeholder="Amount"/><br/>
     <form:errors path="amount" cssStyle="color: red"/><br/>
     <form:input path="date" type="date" placeholder="Date"/><br/>
+    <script>
+        var utc_date = new Date();
+        utc_date.setMinutes(utc_date.getMinutes() - utc_date.getTimezoneOffset());
+        document.getElementById("date").valueAsDate = utc_date;
+    </script>
     <form:errors path="date" cssStyle="color: red"/><br/>
     <form:hidden path="accountId"/>
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
