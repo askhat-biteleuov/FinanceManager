@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
 
-@ContextConfiguration("classpath:common-mvc-config.xml")
+@ContextConfiguration("classpath:spring-utils.xml")
 public class UserServiceTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
@@ -21,15 +21,18 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests {
 
     private static User user;
 
+    private final static String USER_EMAIL = "user@email";
+    private final static String USER_PASS = "password";
+
     @BeforeMethod
     public void setUp() throws Exception {
-        user = new User("user@email", "password", new UserInfo("name", "surname"));
+        user = new User(USER_EMAIL, USER_PASS, new UserInfo("name", "surname"));
         userService.createUser(user);
     }
 
     @AfterMethod
     public void tearDown() throws Exception {
-        User reload = userService.findByEmail(user.getEmail());
+        User reload = userService.findByEmail(USER_EMAIL);
         if (reload != null) {
             userService.deleteUser(user);
         }
@@ -37,7 +40,13 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testGetUserByEmail() throws Exception {
-        Assert.assertEquals(user.getEmail(), userService.findByEmail("user@email").getEmail());
+        Assert.assertEquals(USER_EMAIL, userService.findByEmail(USER_EMAIL).getEmail());
+    }
+
+    @Test
+    public void testUserDataInitialization(){
+        Assert.assertNotNull(userService.findByEmail(USER_EMAIL).getAccounts());
+        Assert.assertEquals(6, userService.findByEmail(USER_EMAIL).getOutcomeTypes().size());
     }
 
 }
