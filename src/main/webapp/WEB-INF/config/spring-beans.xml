@@ -4,23 +4,23 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <bean class="com.epam.internal.daos.UserDao"/>
-    <bean class="com.epam.internal.daos.AccountDao"/>
-    <bean class="com.epam.internal.daos.IncomeDao"/>
-    <bean class="com.epam.internal.daos.OutcomeDao"/>
-    <bean class="com.epam.internal.daos.OutcomeTypeDao"/>
+    <bean class="com.fm.internal.daos.UserDao"/>
+    <bean class="com.fm.internal.daos.AccountDao"/>
+    <bean class="com.fm.internal.daos.IncomeDao"/>
+    <bean class="com.fm.internal.daos.OutcomeDao"/>
+    <bean class="com.fm.internal.daos.OutcomeTypeDao"/>
 
-    <bean class="com.epam.internal.services.implementation.AccountServiceImpl"/>
-    <bean class="com.epam.internal.services.implementation.UserServiceImpl"/>
-    <bean class="com.epam.internal.services.implementation.IncomeServiceImpl"/>
-    <bean class="com.epam.internal.services.implementation.OutcomeServiceImpl"/>
-    <bean class="com.epam.internal.services.implementation.OutcomeTypeServiceImpl"/>
-    <bean class="com.epam.internal.services.implementation.PaginationServiceImpl"/>
+    <bean class="com.fm.internal.services.implementation.AccountServiceImpl"/>
+    <bean class="com.fm.internal.services.implementation.UserServiceImpl"/>
+    <bean class="com.fm.internal.services.implementation.IncomeServiceImpl"/>
+    <bean class="com.fm.internal.services.implementation.OutcomeServiceImpl"/>
+    <bean class="com.fm.internal.services.implementation.OutcomeTypeServiceImpl"/>
+    <bean class="com.fm.internal.services.implementation.PaginationServiceImpl"/>
 
 
-    <bean class="com.epam.internal.validation.UserValidator"/>
-    <bean class="com.epam.internal.validation.AccountValidator"/>
-    <bean class="com.epam.internal.validation.OutcomeTypeValidator"/>
+    <bean class="com.fm.internal.validation.UserValidator"/>
+    <bean class="com.fm.internal.validation.AccountValidator"/>
+    <bean class="com.fm.internal.validation.OutcomeTypeValidator"/>
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
