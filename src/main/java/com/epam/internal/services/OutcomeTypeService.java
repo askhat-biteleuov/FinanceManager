@@ -20,7 +20,7 @@ public interface OutcomeTypeService {
 
     List<OutcomeType> getAvailableOutcomeTypes(User user);
 
-    List<Outcome> getOutcomesOfType(OutcomeType outcomeType, int first, int last);
+    List<Outcome> getOutcomesOfType(OutcomeType outcomeType, int first, int limit);
 
     Long getSizeOutcomesOfType(OutcomeType outcomeType);
 }

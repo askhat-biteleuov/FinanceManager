@@ -48,8 +48,8 @@ public class OutcomeTypeServiceImpl implements OutcomeTypeService {
     }
 
     @Override
-    public List<Outcome> getOutcomesOfType(OutcomeType outcomeType, int first, int last) {
-        return dao.getOutcomesOfType(outcomeType, first, last);
+    public List<Outcome> getOutcomesOfType(OutcomeType outcomeType, int first, int limit) {
+        return dao.getOutcomesOfType(outcomeType, first, limit);
     }
 
     @Override

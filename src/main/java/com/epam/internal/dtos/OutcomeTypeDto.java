@@ -16,6 +16,7 @@ public class OutcomeTypeDto {
     private String limit;
 
     private List<Outcome> outcomes;
+
     public OutcomeTypeDto() {
     }
 
