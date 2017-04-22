@@ -16,7 +16,7 @@
 <form:form method="POST" action="/transfer" modelAttribute="transferDto">
     <h1>Добавление расхода</h1>
     <form:select path="toAccountId">
-        <form:option value="1" label="--- Select ---"/>
+        <form:option value="1" disabled="true" label="--- Select ---"/>
         <form:options items="${accounts}" itemValue="id" itemLabel="name"/>
     </form:select><br/>
     <form:errors path="toAccountId" cssStyle="color: red"/><br/>

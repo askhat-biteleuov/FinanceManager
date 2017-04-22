@@ -75,7 +75,7 @@
         <button type="button">Добавить расход</button>
         <form:form method="POST" action="/addoutcome" modelAttribute="outcomeDto" cssClass="trans">
             <form:select path="outcomeTypeId">
-                <form:option value="0" label="--- Select ---"/>
+                <form:option value="0" disabled="true" label="--- Select ---"/>
                 <form:options items="${types}" itemValue="id" itemLabel="name"/>
             </form:select><br/>
             <form:errors path="outcomeTypeId" cssStyle="color: red"/><br/>
