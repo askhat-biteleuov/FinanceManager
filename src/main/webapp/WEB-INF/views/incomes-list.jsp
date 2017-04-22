@@ -17,23 +17,23 @@
             <th></th>
         </tr>
         <tbody>
-        <c:forEach var="income" items="${accountDto.incomes}">
+        <c:forEach var="outcome" items="${accountDto.incomes}">
             <tr>
                 <td>
-                        ${income.date} ${income.time}
+                        ${outcome.date} ${outcome.time}
                 </td>
                 <td>
-                        ${income.amount}
+                        ${outcome.amount}
                 </td>
                 <td>
-                        ${income.account.name}
+                        ${outcome.account.name}
                 </td>
                 <td>
-                        ${income.note}
+                        ${outcome.note}
                 </td>
                 <td>
                     <form action="<c:url value="/income/delete"/>" method="POST">
-                        <input type="hidden" name="incomeId" value="${income.id}">
+                        <input type="hidden" name="incomeId" value="${outcome.id}">
                         <button type="submit">Удалить доход</button>
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     </form>

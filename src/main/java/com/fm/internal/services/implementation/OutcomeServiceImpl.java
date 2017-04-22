@@ -57,6 +57,16 @@ public class OutcomeServiceImpl implements OutcomeService {
     }
 
     @Override
+    public List<Outcome> getPageOfOutcomes(Account account, int first, int limit) {
+        return dao.getPageOfOutcomes(account, first, limit);
+    }
+
+    @Override
+    public Long getAmountOfOutcomesInAccount(Account account) {
+        return dao.getAmountOfOutcomesInAccount(account);
+    }
+
+    @Override
     public PagedListHolder<Outcome> getPagedOutcomeList(Account account, int pageSize) {
         List<Outcome> allOutcomesInAccount = dao.getAllAccountsOutcomes(account);
         PagedListHolder<Outcome> pagedList = new PagedListHolder<>(allOutcomesInAccount);

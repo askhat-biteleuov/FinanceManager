@@ -42,7 +42,7 @@ public class OutcomeDao extends GenericDao<Outcome> {
     }
 
     @Transactional
-    public Long getSizeOfOutcomesInAccount(Account account) {
+    public Long getAmountOfOutcomesInAccount(Account account) {
         Session session = getSessionFactory().getCurrentSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<Long> query = criteriaBuilder.createQuery(Long.class);
@@ -50,5 +50,15 @@ public class OutcomeDao extends GenericDao<Outcome> {
         query.select(criteriaBuilder.count(root));
         query.where(criteriaBuilder.equal(root.get(Outcome_.account), account));
         return session.createQuery(query).uniqueResult();
+    }
+
+    @Transactional
+    public List<Outcome> getPageOfOutcomes(Account account, int offset, int limit) {
+        Session session = getSessionFactory().getCurrentSession();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<Outcome> query = criteriaBuilder.createQuery(Outcome.class);
+        Root<Outcome> root = query.from(Outcome.class);
+        query.where(criteriaBuilder.equal(root.get(Outcome_.account), account));
+        return session.createQuery(query).setFirstResult(offset).setMaxResults(limit).getResultList();
     }
 }

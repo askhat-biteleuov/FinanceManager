@@ -25,7 +25,7 @@ public interface IncomeService {
 
     List<Income> getPageOfIncomes(Account account, int first, int limit);
 
-    Long getSizeOfIncomesInAccount(Account account);
+    Long getAmountOfIncomesInAccount(Account account);
 
     PagedListHolder<Income> getPagedIncomeList(Account account, int pageSize);
 }

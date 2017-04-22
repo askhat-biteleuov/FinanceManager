@@ -7,11 +7,40 @@
 <t:master-page title="Список расходов">
     <div align="center">
     <h2>Расходы</h2>
-    <spring:url value="/outcome/list" var="outcomeList"/>
-    <display:table name="outcomes" requestURI="${outcomeList}" pagesize="5" class="table">
-        <display:column property="id" title="ID"/>
-        <display:column property="date" title="Date"/>
-        <display:column property="amount" title="Amount"/>
-    </display:table>
+    <jsp:include page="../fragments/pagination.jsp"/>
+    <table class="table">
+        <tr>
+            <th>Дата</th>
+            <th>Сумма</th>
+            <th>Счет</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tbody>
+        <c:forEach var="outcome" items="${accountDto.outcomes}">
+            <tr>
+                <td>
+                        ${outcome.date} ${outcome.time}
+                </td>
+                <td>
+                        ${outcome.amount}
+                </td>
+                <td>
+                        ${outcome.account.name}
+                </td>
+                <td>
+                        ${outcome.note}
+                </td>
+                <td>
+                    <form action="<c:url value="/outcome/delete"/>" method="POST">
+                        <input type="hidden" name="outcomeId" value="${outcome.id}">
+                        <button type="submit">Удалить расход</button>
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    </form>
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
     <button type="submit" onclick="history.back()" class="btn">Назад</button>
 </t:master-page>

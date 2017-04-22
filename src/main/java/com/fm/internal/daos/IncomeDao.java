@@ -39,7 +39,7 @@ public class IncomeDao extends GenericDao<Income> {
     }
 
     @Transactional
-    public Long getSizeOfIncomesInAccount(Account account) {
+    public Long getAmountOfIncomesInAccount(Account account) {
         Session session = getSessionFactory().getCurrentSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<Long> query = criteriaBuilder.createQuery(Long.class);

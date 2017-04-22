@@ -62,8 +62,8 @@ public class IncomeServiceImpl implements IncomeService {
     }
 
     @Override
-    public Long getSizeOfIncomesInAccount(Account account) {
-        return dao.getSizeOfIncomesInAccount(account);
+    public Long getAmountOfIncomesInAccount(Account account) {
+        return dao.getAmountOfIncomesInAccount(account);
     }
 
     @Override

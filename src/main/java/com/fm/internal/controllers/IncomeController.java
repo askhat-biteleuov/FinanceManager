@@ -66,7 +66,7 @@ public class IncomeController {
             pageId = 1;
         }
         Account accountById = accountService.findAccountById(accountId);
-        Long sizeOfIncomesInAccount = incomeService.getSizeOfIncomesInAccount(accountById);
+        Long sizeOfIncomesInAccount = incomeService.getAmountOfIncomesInAccount(accountById);
         int pageSize = 10;
         PaginationDto paginationDto = paginationService.createPagination(accountId, pageId, pageSize, sizeOfIncomesInAccount, "/income/page");
         List<Income> pageOfIncomes = incomeService.getPageOfIncomes(accountById, paginationDto.getFirstItem(), pageSize);
