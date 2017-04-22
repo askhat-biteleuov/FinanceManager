@@ -1,10 +1,6 @@
 package com.fm.internal.controllers;
 
-import com.fm.internal.dtos.AccountDto;
-import com.fm.internal.dtos.IncomeDto;
-import com.fm.internal.dtos.OutcomeDto;
-import com.fm.internal.dtos.RangeDto;
-import com.fm.internal.dtos.TransferDto;
+import com.fm.internal.dtos.*;
 import com.fm.internal.models.Account;
 import com.fm.internal.models.Outcome;
 import com.fm.internal.models.User;
@@ -72,11 +68,16 @@ public class AccountController {
         Account accountByName = accountService.findUserAccountByName(userService.getLoggedUser(), nameOfAccount);
         RangeDto rangeDto = new RangeDto();
         rangeDto.setAccountName(nameOfAccount);
+        TransferDto transferDto = new TransferDto();
+        transferDto.setAccountId(accountByName.getId());
         modelAndView.addObject("rangeDto", rangeDto);
         modelAndView.addObject("account", accountByName);
         modelAndView.addObject("incomeDto", new IncomeDto());
         modelAndView.addObject("outcomeDto", new OutcomeDto());
+        modelAndView.addObject("transferDto", transferDto);
         modelAndView.addObject("types", outcomeTypeService.getAvailableOutcomeTypes(userService.getLoggedUser()));
+        modelAndView.addObject("accounts",
+                accountService.findAllUserAccounts(accountService.findAccountById(transferDto.getAccountId()).getUser()));
         return modelAndView;
     }
 
@@ -86,12 +87,17 @@ public class AccountController {
         List<Outcome> outcomes = outcomeService.findOutcomesInAccountByDate(accountByName,
                 LocalDate.parse(rangeDto.getStart()), LocalDate.parse(rangeDto.getEnd()));
         Map<String, Double> outcomeSum = countTypeAmount(outcomes);
+        TransferDto transferDto = new TransferDto();
+        transferDto.setAccountId(accountByName.getId());
         ModelAndView modelAndView = new ModelAndView("accountpage");
         modelAndView.addObject("account", accountByName);
         modelAndView.addObject("outcomes", outcomeSum);
         modelAndView.addObject("incomeDto", new IncomeDto());
         modelAndView.addObject("outcomeDto", new OutcomeDto());
+        modelAndView.addObject("transferDto", transferDto);
         modelAndView.addObject("types", outcomeTypeService.getAvailableOutcomeTypes(userService.getLoggedUser()));
+        modelAndView.addObject("accounts",
+                accountService.findAllUserAccounts(accountService.findAccountById(transferDto.getAccountId()).getUser()));
         return modelAndView;
     }
 

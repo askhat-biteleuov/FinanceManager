@@ -74,6 +74,7 @@
             <form:button type="submit">Добавить</form:button>
         </form:form>
         <br/>
+        <br/>
         <button type="button">Добавить расход</button>
         <form:form method="POST" action="/addoutcome" modelAttribute="outcomeDto" cssClass="trans">
             <form:select path="outcomeTypeId">
@@ -89,17 +90,26 @@
             <input type="hidden" name="accountId" value="${account.id}">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <form:button type="submit">Добавить</form:button>
+            <br/>
+        </form:form>
+        <br/>
+        <br/>
+        <button type="submit">Перевести на другой счет</button>
+        <form:form method="POST" action="/transfer" modelAttribute="transferDto" cssClass="trans">
+            <h1>Добавление расхода</h1>
+            <form:select path="toAccountId">
+                <form:option value="1" disabled="true" label="--- Select ---"/>
+                <form:options items="${accounts}" itemValue="id" itemLabel="name"/>
+            </form:select><br/>
+            <form:errors path="toAccountId" cssStyle="color: red"/><br/>
+            <form:input path="amount" placeholder="Amount"/><br/>
+            <form:errors path="amount" cssStyle="color: red"/><br/>
+            <input type="hidden" name="accountId" value="${account.id}">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            <form:button type="submit">Добавить</form:button>
             <br>
         </form:form>
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-    </form>
-    <form action="<c:url value="/transfer"/>" method="GET">
-        <input type="hidden" name="accountId" value="${account.id}">
-        <button type="submit">Перевести на другой счет</button>
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-    </form>
-    <br/>
-        </form>
+        <br/>
         <br/>
     </div>
     <form action="<c:url value="/income/page"/>" method="GET">
