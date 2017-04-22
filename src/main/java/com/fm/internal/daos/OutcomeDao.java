@@ -40,4 +40,15 @@ public class OutcomeDao extends GenericDao<Outcome> {
         query.where(criteriaBuilder.and(equalAccount, equalDate));
         return session.createQuery(query).getResultList();
     }
+
+    @Transactional
+    public Long getSizeOfOutcomesInAccount(Account account) {
+        Session session = getSessionFactory().getCurrentSession();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<Long> query = criteriaBuilder.createQuery(Long.class);
+        Root<Outcome> root = query.from(Outcome.class);
+        query.select(criteriaBuilder.count(root));
+        query.where(criteriaBuilder.equal(root.get(Outcome_.account), account));
+        return session.createQuery(query).uniqueResult();
+    }
 }

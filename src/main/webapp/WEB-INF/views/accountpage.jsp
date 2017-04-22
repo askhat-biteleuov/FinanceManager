@@ -11,12 +11,14 @@
 <t:master-page title="${account.name}">
     <script>
         $(document).ready(function () {
+            var utc_date = new Date();
+            utc_date.setMinutes(utc_date.getMinutes() - utc_date.getTimezoneOffset());
             $('#adding').on('click', 'button', function () {
                 $(this).next('form').slideToggle();
-                var utc_date = new Date();
-                utc_date.setMinutes(utc_date.getMinutes() - utc_date.getTimezoneOffset());
-                $('#date').valueAsDate(utc_date);
             });
+            $('#date').on('focus', function () {
+                $(this).valueAsDate(utc_date);
+            })
         });
     </script>
     <style>
@@ -65,7 +67,7 @@
             <form:input path="note" placeholder="Note"/><br/>
             <form:input path="amount" placeholder="Amount"/><br/>
             <form:errors path="amount" cssStyle="color: red"/><br/>
-            <form:input path="date" type="date" id="date"/><br/>
+            <form:input path="date" type="date"/><br/>
             <form:errors path="date" cssStyle="color: red"/><br/>
             <input type="hidden" id="accountId" name="accountId" value="${account.id}">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -82,7 +84,7 @@
             <form:input path="note" placeholder="Note"/><br/>
             <form:input path="amount" placeholder="Amount"/><br/>
             <form:errors path="amount" cssStyle="color: red"/><br/>
-            <form:input path="date" type="date" placeholder="Date" id="date"/><br/>
+            <form:input path="date" type="date"/><br/>
             <form:errors path="date" cssStyle="color: red"/><br/>
             <input type="hidden" name="accountId" value="${account.id}">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -100,7 +102,7 @@
         </form>
         <br/>
     </div>
-    <form action="<c:url value="/income/list"/>" method="GET">
+    <form action="<c:url value="/income/page"/>" method="GET">
         <input type="hidden" name="accountId" value="${account.id}">
         <button type="submit">Посмотреть все доходы</button>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

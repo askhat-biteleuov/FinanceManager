@@ -23,5 +23,9 @@ public interface IncomeService {
 
     List<Income> findIncomesInAccountByDate(Account account, LocalDate start, LocalDate end);
 
+    List<Income> getPageOfIncomes(Account account, int first, int limit);
+
+    Long getSizeOfIncomesInAccount(Account account);
+
     PagedListHolder<Income> getPagedIncomeList(Account account, int pageSize);
 }

@@ -57,6 +57,16 @@ public class IncomeServiceImpl implements IncomeService {
     }
 
     @Override
+    public List<Income> getPageOfIncomes(Account account, int first, int limit) {
+        return dao.getPageOfIncomes(account, first, limit);
+    }
+
+    @Override
+    public Long getSizeOfIncomesInAccount(Account account) {
+        return dao.getSizeOfIncomesInAccount(account);
+    }
+
+    @Override
     public PagedListHolder<Income> getPagedIncomeList(Account account, int pageSize) {
         List<Income> allIncomesInAccount = dao.getAccountsIncomes(account);
         PagedListHolder<Income> pagedList = new PagedListHolder<>(allIncomesInAccount);

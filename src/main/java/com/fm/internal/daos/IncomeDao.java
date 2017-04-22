@@ -38,4 +38,25 @@ public class IncomeDao extends GenericDao<Income> {
         return session.createQuery(query).getResultList();
     }
 
+    @Transactional
+    public Long getSizeOfIncomesInAccount(Account account) {
+        Session session = getSessionFactory().getCurrentSession();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<Long> query = criteriaBuilder.createQuery(Long.class);
+        Root<Income> root = query.from(Income.class);
+        query.select(criteriaBuilder.count(root));
+        query.where(criteriaBuilder.equal(root.get(Income_.account), account));
+        return session.createQuery(query).uniqueResult();
+    }
+
+    @Transactional
+    public List<Income> getPageOfIncomes(Account account, int offset, int limit) {
+        Session session = getSessionFactory().getCurrentSession();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<Income> query = criteriaBuilder.createQuery(Income.class);
+        Root<Income> root = query.from(Income.class);
+        query.where(criteriaBuilder.equal(root.get(Income_.account), account));
+        return session.createQuery(query).setFirstResult(offset).setMaxResults(limit).getResultList();
+    }
+
 }
