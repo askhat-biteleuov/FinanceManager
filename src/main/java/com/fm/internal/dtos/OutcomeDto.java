@@ -15,6 +15,7 @@ public class OutcomeDto {
     private String date;
     private String note;
     private long accountId;
+//    TODO Fix validation
     @NotNull
     @Min(value = 1)
     private long outcomeTypeId;

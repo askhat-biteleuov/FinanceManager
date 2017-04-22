@@ -8,4 +8,6 @@ public class AccountDao extends GenericDao<Account> {
         super(Account.class);
     }
 
+
+
 }

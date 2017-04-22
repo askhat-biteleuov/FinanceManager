@@ -40,6 +40,14 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public void makeTransfer(Account from, Account to, String amount) {
+        from.setBalance(from.getBalance().subtract(new BigDecimal(amount)));
+        accountDao.update(from);
+        to.setBalance(to.getBalance().add(new BigDecimal(amount)));
+        accountDao.update(to);
+    }
+
+    @Override
     public void createAccount(Account account) {
         accountDao.create(account);
     }

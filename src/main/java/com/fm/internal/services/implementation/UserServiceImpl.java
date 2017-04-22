@@ -49,9 +49,9 @@ public class UserServiceImpl implements UserService {
     public void createUser(User user) {
         user.setPassword(encoder.encode(user.getPassword()));
         dao.create(user);
-        Account initAccount = new Account("Кошелек", BigDecimal.ZERO, null, user);
-        accountService.createAccount(initAccount);
-        OutcomeType[] initOutcomeTypes = {
+       /* Account initAccount = new Account("Кошелек", BigDecimal.ZERO, null, user);
+        accountService.createAccount(initAccount);*/
+       /* OutcomeType[] initOutcomeTypes = {
                 new OutcomeType("Еда", new BigDecimal(5000), user),
                 new OutcomeType("Транспорт", new BigDecimal(1000), user),
                 new OutcomeType("Интернет", new BigDecimal(1000), user),
@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
                 new OutcomeType("Развлечения", new BigDecimal(3000), user),
                 new OutcomeType("Покупки", new BigDecimal(4000), user),
         };
-        Arrays.stream(initOutcomeTypes).forEach((outcomeType -> outcomeTypeService.addOutcomeType(outcomeType)));
+        Arrays.stream(initOutcomeTypes).forEach((outcomeType -> outcomeTypeService.addOutcomeType(outcomeType)));*/
     }
 
     @Override

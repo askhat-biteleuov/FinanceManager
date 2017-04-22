@@ -90,6 +90,13 @@
             <br>
         </form:form>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    </form>
+    <form action="<c:url value="/transfer"/>" method="GET">
+        <input type="hidden" name="accountId" value="${account.id}">
+        <button type="submit">Перевести на другой счет</button>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    </form>
+    <br/>
         </form>
         <br/>
     </div>

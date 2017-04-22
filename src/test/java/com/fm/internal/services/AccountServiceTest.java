@@ -16,7 +16,7 @@ import org.testng.annotations.Test;
 import java.math.BigDecimal;
 import java.util.List;
 
-@ContextConfiguration("classpath:common-mvc-config.xml")
+@ContextConfiguration("classpath:spring-utils.xml")
 public class AccountServiceTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
@@ -50,7 +50,7 @@ public class AccountServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testFindAllUserAccounts() throws Exception {
-        final int ACCOUNTS_AMOUNT = 2;
+        final int ACCOUNTS_AMOUNT = 3;
         User user = userService.findByEmail(USER_EMAIL);
         Assert.assertEquals(accountService.findAllUserAccounts(user).size(), ACCOUNTS_AMOUNT);
     }

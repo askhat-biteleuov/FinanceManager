@@ -4,6 +4,7 @@ import com.fm.internal.dtos.AccountDto;
 import com.fm.internal.dtos.IncomeDto;
 import com.fm.internal.dtos.OutcomeDto;
 import com.fm.internal.dtos.RangeDto;
+import com.fm.internal.dtos.TransferDto;
 import com.fm.internal.models.Account;
 import com.fm.internal.models.Outcome;
 import com.fm.internal.models.User;

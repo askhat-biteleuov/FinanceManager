@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 import java.math.BigDecimal;
 import java.util.List;
 
-@ContextConfiguration("classpath:common-mvc-config.xml")
+@ContextConfiguration("classpath:spring-utils.xml")
 public class OutcomeTypeServiceTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
@@ -48,7 +48,7 @@ public class OutcomeTypeServiceTest extends AbstractTestNGSpringContextTests {
     public void testGetAvailableOutcomeTypes() throws Exception {
         User user = userService.findByEmail(USER_EMAIL);
         List<OutcomeType> availableOutcomeTypes = outcomeTypeService.getAvailableOutcomeTypes(user);
-        Assert.assertEquals(availableOutcomeTypes.size(), 2);
+        Assert.assertEquals(availableOutcomeTypes.size(), 8);
     }
 
 }

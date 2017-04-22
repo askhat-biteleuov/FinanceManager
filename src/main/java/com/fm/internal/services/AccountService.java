@@ -14,6 +14,8 @@ public interface AccountService {
 
     Account findAccountById(long id);
 
+    void makeTransfer(Account from, Account to, String amount);
+
     void createAccount(Account account);
 
     void updateAccount(Account account);
