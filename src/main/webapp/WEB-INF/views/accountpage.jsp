@@ -13,6 +13,9 @@
         $(document).ready(function () {
             $('#adding').on('click', 'button', function () {
                 $(this).next('form').slideToggle();
+                var utc_date = new Date();
+                utc_date.setMinutes(utc_date.getMinutes() - utc_date.getTimezoneOffset());
+                $('#date').valueAsDate(utc_date);
             });
         });
     </script>
@@ -57,30 +60,39 @@
     </script>
     <h2>Счёт ${account.name}</h2>
     <div id="adding">
-        <button type="submit">Добавить доход</button>
+        <button type="button">Добавить доход</button>
         <form:form method="POST" action="/addincome" modelAttribute="incomeDto" cssClass="trans">
             <form:input path="note" placeholder="Note"/><br/>
             <form:input path="amount" placeholder="Amount"/><br/>
             <form:errors path="amount" cssStyle="color: red"/><br/>
             <form:input path="date" type="date" id="date"/><br/>
-            <script>
-                var utc_date = new Date();
-                utc_date.setMinutes(utc_date.getMinutes() - utc_date.getTimezoneOffset());
-                document.getElementById("date").valueAsDate = utc_date;
-            </script>
             <form:errors path="date" cssStyle="color: red"/><br/>
             <input type="hidden" id="accountId" name="accountId" value="${account.id}">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <form:button type="submit">Добавить</form:button>
         </form:form>
-    </div>
-    <br/>
-    <form action="<c:url value="/addoutcome"/>" method="GET">
-        <input type="hidden" name="accountId" value="${account.id}">
-        <button type="submit">Добавить расход</button>
+        <br/>
+        <button type="button">Добавить расход</button>
+        <form:form method="POST" action="/addoutcome" modelAttribute="outcomeDto" cssClass="trans">
+            <form:select path="outcomeTypeId">
+                <form:option value="0" label="--- Select ---"/>
+                <form:options items="${types}" itemValue="id" itemLabel="name"/>
+            </form:select><br/>
+            <form:errors path="outcomeTypeId" cssStyle="color: red"/><br/>
+            <form:input path="note" placeholder="Note"/><br/>
+            <form:input path="amount" placeholder="Amount"/><br/>
+            <form:errors path="amount" cssStyle="color: red"/><br/>
+            <form:input path="date" type="date" placeholder="Date" id="date"/><br/>
+            <form:errors path="date" cssStyle="color: red"/><br/>
+            <input type="hidden" name="accountId" value="${account.id}">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            <form:button type="submit">Добавить</form:button>
+            <br>
+        </form:form>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-    </form>
-    <br/>
+        </form>
+        <br/>
+    </div>
     <form action="<c:url value="/income/list"/>" method="GET">
         <input type="hidden" name="accountId" value="${account.id}">
         <button type="submit">Посмотреть все доходы</button>

@@ -3,18 +3,15 @@ package com.fm.internal.controllers;
 import com.fm.internal.dtos.AccountDto;
 import com.fm.internal.dtos.IncomeDto;
 import com.fm.internal.dtos.OutcomeDto;
+import com.fm.internal.dtos.RangeDto;
 import com.fm.internal.models.Account;
 import com.fm.internal.models.Outcome;
 import com.fm.internal.models.User;
 import com.fm.internal.services.AccountService;
 import com.fm.internal.services.OutcomeService;
+import com.fm.internal.services.OutcomeTypeService;
 import com.fm.internal.services.UserService;
 import com.fm.internal.validation.AccountValidator;
-import com.fm.internal.dtos.AccountDto;
-import com.fm.internal.dtos.RangeDto;
-import com.fm.internal.models.Account;
-import com.fm.internal.models.Outcome;
-import com.fm.internal.models.User;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,6 +43,9 @@ public class AccountController {
     private OutcomeService outcomeService;
 
     @Autowired
+    private OutcomeTypeService outcomeTypeService;
+
+    @Autowired
     private AccountValidator accountValidator;
 
     @RequestMapping(value = "/add-account", method = RequestMethod.GET)
@@ -73,6 +73,9 @@ public class AccountController {
         rangeDto.setAccountName(nameOfAccount);
         modelAndView.addObject("rangeDto", rangeDto);
         modelAndView.addObject("account", accountByName);
+        modelAndView.addObject("incomeDto", new IncomeDto());
+        modelAndView.addObject("outcomeDto", new OutcomeDto());
+        modelAndView.addObject("types", outcomeTypeService.getAvailableOutcomeTypes(userService.getLoggedUser()));
         return modelAndView;
     }
 
@@ -82,10 +85,12 @@ public class AccountController {
         List<Outcome> outcomes = outcomeService.findOutcomesInAccountByDate(accountByName,
                 LocalDate.parse(rangeDto.getStart()), LocalDate.parse(rangeDto.getEnd()));
         Map<String, Double> outcomeSum = countTypeAmount(outcomes);
-        modelAndView.addObject("outcomes", outcomeSum);
+        ModelAndView modelAndView = new ModelAndView("accountpage");
         modelAndView.addObject("account", accountByName);
+        modelAndView.addObject("outcomes", outcomeSum);
         modelAndView.addObject("incomeDto", new IncomeDto());
         modelAndView.addObject("outcomeDto", new OutcomeDto());
+        modelAndView.addObject("types", outcomeTypeService.getAvailableOutcomeTypes(userService.getLoggedUser()));
         return modelAndView;
     }
 
