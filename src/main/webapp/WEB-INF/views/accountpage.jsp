@@ -9,6 +9,18 @@
 </script>
 
 <t:master-page title="${account.name}">
+    <script>
+        $(document).ready(function () {
+            $('#adding').on('click', 'button', function () {
+                $(this).next('form').slideToggle();
+            });
+        });
+    </script>
+    <style>
+        .trans {
+            display: none;
+        }
+    </style>
     <button type="submit" onclick="history.back()" class="btn">Назад</button>
 
     <form:form method="post" action="/account/page" modelAttribute="rangeDto">
@@ -44,11 +56,25 @@
         google.charts.setOnLoadCallback(drawChart);
     </script>
     <h2>Счёт ${account.name}</h2>
-    <form action="<c:url value="/addincome"/>" method="GET">
-        <input type="hidden" name="accountId" value="${account.id}">
+    <div id="adding">
         <button type="submit">Добавить доход</button>
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-    </form>
+        <form:form method="POST" action="/addincome" modelAttribute="incomeDto" cssClass="trans">
+            <form:input path="note" placeholder="Note"/><br/>
+            <form:input path="amount" placeholder="Amount"/><br/>
+            <form:errors path="amount" cssStyle="color: red"/><br/>
+            <form:input path="date" type="date" id="date"/><br/>
+            <script>
+                var utc_date = new Date();
+                utc_date.setMinutes(utc_date.getMinutes() - utc_date.getTimezoneOffset());
+                document.getElementById("date").valueAsDate = utc_date;
+            </script>
+            <form:errors path="date" cssStyle="color: red"/><br/>
+            <input type="hidden" id="accountId" name="accountId" value="${account.id}">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            <form:button type="submit">Добавить</form:button>
+        </form:form>
+    </div>
+    <br/>
     <form action="<c:url value="/addoutcome"/>" method="GET">
         <input type="hidden" name="accountId" value="${account.id}">
         <button type="submit">Добавить расход</button>

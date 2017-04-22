@@ -15,6 +15,10 @@
     <title>${title}</title>
     <!-- Bootstrap -->
     <link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
 </head>
 <body>
 <nav class="navbar navbar-default">
@@ -45,10 +49,7 @@
         </ul>
     </div>
 </nav>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="/resources/js/jquery-3.2.1.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/resources/js/bootstrap.min.js"></script>
+
 <jsp:doBody/>
 </body>
 </html>

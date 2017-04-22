@@ -10,7 +10,6 @@ import com.fm.internal.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,7 +38,7 @@ public class IncomeController {
     }
 
     @RequestMapping(value = "/addincome", method = RequestMethod.POST)
-    public ModelAndView addIncome(@Valid @ModelAttribute("incomeDto") IncomeDto incomeDto, BindingResult result) {
+    public ModelAndView addIncome(@Valid IncomeDto incomeDto, BindingResult result) {
         User user = userService.getLoggedUser();
         if (!result.hasErrors() && user != null) {
             Account account = accountService.findAccountById(incomeDto.getAccountId());

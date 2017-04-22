@@ -32,7 +32,7 @@ public class InitController {
         Account[] accounts = {
                 new Account("Visa", new BigDecimal(29999), null, user),
                 new Account("Mastercard", new BigDecimal(3000), null, user),
-                new Account("Кошелек", new BigDecimal(5752), null, user)
+                new Account("Альфа", new BigDecimal(5752), null, user)
         };
         for (Account account : accounts) {
             accountService.createAccount(account);
@@ -40,9 +40,6 @@ public class InitController {
 
         OutcomeType[] types = {
                 new OutcomeType("Еда вне дома", new BigDecimal(3000), user),
-                new OutcomeType("Транспорт", new BigDecimal(500), user),
-                new OutcomeType("Интернет", new BigDecimal(1700), user),
-                new OutcomeType("Развлечения", new BigDecimal(3000), user)
         };
         for (OutcomeType type : types) {
             outcomeTypeService.addOutcomeType(type);

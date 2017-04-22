@@ -1,6 +1,8 @@
 package com.fm.internal.controllers;
 
 import com.fm.internal.dtos.AccountDto;
+import com.fm.internal.dtos.IncomeDto;
+import com.fm.internal.dtos.OutcomeDto;
 import com.fm.internal.models.Account;
 import com.fm.internal.models.Outcome;
 import com.fm.internal.models.User;
@@ -80,9 +82,10 @@ public class AccountController {
         List<Outcome> outcomes = outcomeService.findOutcomesInAccountByDate(accountByName,
                 LocalDate.parse(rangeDto.getStart()), LocalDate.parse(rangeDto.getEnd()));
         Map<String, Double> outcomeSum = countTypeAmount(outcomes);
-        ModelAndView modelAndView = new ModelAndView("accountpage");
-        modelAndView.addObject("account", accountByName);
         modelAndView.addObject("outcomes", outcomeSum);
+        modelAndView.addObject("account", accountByName);
+        modelAndView.addObject("incomeDto", new IncomeDto());
+        modelAndView.addObject("outcomeDto", new OutcomeDto());
         return modelAndView;
     }
 
