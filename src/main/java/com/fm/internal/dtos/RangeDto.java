@@ -1,4 +1,4 @@
-package com.epam.internal.dtos;
+package com.fm.internal.dtos;
 
 public class RangeDto {
 
