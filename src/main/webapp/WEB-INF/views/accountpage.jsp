@@ -14,12 +14,38 @@
             var utc_date = new Date();
             utc_date.setMinutes(utc_date.getMinutes() - utc_date.getTimezoneOffset());
             $('#adding').on('click', 'button', function () {
-                $(this).next('form').slideToggle();
+                var form = $(this).next('form');
+                form.slideToggle();
+                form.submit(function (event) {
+                    var formData = {
+                        'amount': $('input[name=amount]').val(),
+                        'date': $('input[name=date]').val(),
+                        'note': $('input[name=note]').val(),
+                        'accountId': $('input[name=accountId]').val(),
+                    };
+                    event.preventDefault();
+                    $.ajax({
+                        type: 'POST',
+                        beforeSend: function (request) {
+                            var token = $("meta[name='_csrf']").attr("content");
+                            var header = $("meta[name='_csrf_header']").attr("content");
+                            request.setRequestHeader(header, token);
+                        },
+                        contentType: 'application/json; charset=UTF-8',
+                        url: $(this).attr('action'),
+                        data: JSON.stringify(formData)
+                    }).done(function () {
+                        alert('Adding income was successful');
+                    }).fail(function () {
+                        alert('FAIL');
+                    });
+                });
             });
-            $('#date').on('focus', function () {
-                $(this).valueAsDate(utc_date);
-            })
         });
+        $('#date').on('focus', function () {
+            $(this).valueAsDate(utc_date);
+        });
+
     </script>
     <style>
         .trans {
@@ -117,7 +143,7 @@
         <button type="submit">Посмотреть все доходы</button>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     </form>
-    <form action="<c:url value="/outcome/list"/>" method="GET">
+    <form action="<c:url value="/outcome/page"/>" method="GET">
         <input type="hidden" name="accountId" value="${account.id}">
         <button type="submit">Посмотреть все расходы</button>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

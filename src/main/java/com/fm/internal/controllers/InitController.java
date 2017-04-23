@@ -54,8 +54,6 @@ public class InitController {
                 new Outcome(new BigDecimal(1234), LocalDate.now(), LocalTime.now(), accounts[0], types[0]),
                 new Outcome(new BigDecimal(2222), LocalDate.now(), LocalTime.now(), accounts[0], types[0]),
                 new Outcome(new BigDecimal(3999), LocalDate.now(), LocalTime.now(), accounts[0], types[0]),
-                new Outcome(new BigDecimal(4542), LocalDate.now(), LocalTime.now(), accounts[0], types[1]),
-                new Outcome(new BigDecimal(1542), LocalDate.now(), LocalTime.now(), accounts[0], types[2]),
         };
         for (int i = 0; i < 10; i++) {
             for (Outcome outcome : outcomes) {

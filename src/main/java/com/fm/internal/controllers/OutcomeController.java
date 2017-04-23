@@ -104,13 +104,13 @@ public class OutcomeController {
         Account accountById = accountService.findAccountById(accountId);
         Long amountOfOutcomesInAccount = outcomeService.getAmountOfOutcomesInAccount(accountById);
         int pageSize = 10;
-        PaginationDto paginationDto = paginationService.createPagination(accountId, pageId, pageSize, amountOfOutcomesInAccount, "/income/page");
+        PaginationDto paginationDto = paginationService.createPagination(accountId, pageId, pageSize, amountOfOutcomesInAccount, "/outcome/page");
         List<Outcome> pageOfOutcomes = outcomeService.getPageOfOutcomes(accountById, paginationDto.getFirstItem(), pageSize);
         AccountDto accountDto = new AccountDto(accountId, accountById.getName(), accountById.getBalance().toString());
         accountDto.setOutcomes(pageOfOutcomes);
         ModelAndView modelAndView = new ModelAndView("outcomes-list", "accountDto", accountDto);
         modelAndView.addObject("paginationDto", paginationDto);
-        modelAndView.addObject("incomes", pageOfOutcomes);
+        modelAndView.addObject("outcomes", pageOfOutcomes);
         return modelAndView;
     }
 
