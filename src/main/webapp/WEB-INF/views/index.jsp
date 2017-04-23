@@ -50,7 +50,7 @@
                     <tr>
                         <td>
                             <c:url value="/outcometype/page" var="outcomeTypeUrl">
-                                <c:param name="typeId" value="${outcomeType.id}"/>
+                                <c:param name="itemId" value="${outcomeType.id}"/>
                             </c:url>
                             <a href="<c:out value="${outcomeTypeUrl}"/>"><c:out value="${outcomeType.name}"/></a>
                         </td>

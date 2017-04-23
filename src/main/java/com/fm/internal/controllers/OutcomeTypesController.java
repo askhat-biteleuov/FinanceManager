@@ -32,27 +32,34 @@ public class OutcomeTypesController {
     private PaginationServiceImpl paginationService;
 
     @RequestMapping(value = "/outcometype/page", method = RequestMethod.GET)
-    public ModelAndView showOutcomeType(Long typeId, Integer pageId) {
+    public ModelAndView showOutcomeType(Long itemId, Integer pageId) {
         if (pageId == null) {
             pageId = 1;
         }
-        OutcomeType outcomeType = typeService.findTypeById(typeId);
+        OutcomeType outcomeType = typeService.findTypeById(itemId);
         long sizeOutcomesOfType = typeService.getSizeOutcomesOfType(outcomeType);
         int pageSize = 5;
-        PaginationDto paginationDto = paginationService.createPagination(typeId, pageId, pageSize, sizeOutcomesOfType, "/outcometype/page");
+        PaginationDto paginationDto = paginationService.createPagination(itemId, pageId, pageSize, sizeOutcomesOfType, "/outcometype/page");
         List<Outcome> outcomes = typeService.getOutcomesOfType(outcomeType, paginationDto.getFirstItem(), pageSize);
 
-        OutcomeTypeDto outcomeTypeDto = new OutcomeTypeDto(typeId, outcomeType.getName(), outcomeType.getLimit().toString(), outcomes);
+        OutcomeTypeDto outcomeTypeDto = new OutcomeTypeDto(itemId, outcomeType.getName(), outcomeType.getLimit().toString(), outcomes);
         ModelAndView modelAndView = new ModelAndView("outcometype", "outcomeTypeDto", outcomeTypeDto);
         modelAndView.addObject("paginationDto", paginationDto);
         return modelAndView;
     }
 
 
-    @RequestMapping(value = "/outcometype/delete", method = RequestMethod.POST)
-    public ModelAndView deleteOutcomeType(Long outcomeTypeId) {
+    @RequestMapping(value = "/outcometype/delete/all", method = RequestMethod.POST)
+    public ModelAndView deleteOutcomeTypeWithOutcomes(Long outcomeTypeId) {
         OutcomeType outcomeType = typeService.findTypeById(outcomeTypeId);
         typeService.deleteOutcomeType(outcomeType);
+        // TODO: 23.04.2017 fix cascade delete
+        return new ModelAndView("redirect:" + "/index");
+    }
+
+    @RequestMapping(value = "/outcometype/delete/move", method = RequestMethod.POST)
+    public ModelAndView deleteOutcomeTypeAndMoveOutcomes(Long outcomeTypeId) {
+        // TODO: 23.04.2017 move all outcomes
         return new ModelAndView("redirect:" + "/index");
     }
 

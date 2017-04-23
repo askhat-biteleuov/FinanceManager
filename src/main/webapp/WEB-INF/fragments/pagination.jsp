@@ -5,7 +5,7 @@
 <ul class="pagination">
     <c:url value="${paginationDto.url}" var="firstPageUrl">
         <c:param name="pageId" value="${1}"/>
-        <c:param name="typeId" value="${paginationDto.itemId}"/>
+        <c:param name="itemId" value="${paginationDto.itemId}"/>
     </c:url>
     <c:choose>
         <c:when test="${paginationDto.selectedPage == 1}">
@@ -19,7 +19,7 @@
     <c:forEach var="i" begin="${paginationDto.startPage}" end="${paginationDto.endPage}">
         <c:url value="${paginationDto.url}" var="pageUrl">
             <c:param name="pageId" value="${i}"/>
-            <c:param name="typeId" value="${paginationDto.itemId}"/>
+            <c:param name="itemId" value="${paginationDto.itemId}"/>
         </c:url>
         <c:choose>
             <c:when test="${paginationDto.selectedPage == i}">
@@ -33,7 +33,7 @@
 
     <c:url value="${paginationDto.url}" var="lastPageUrl">
         <c:param name="pageId" value="${paginationDto.pageCount}"/>
-        <c:param name="typeId" value="${paginationDto.itemId}"/>
+        <c:param name="itemId" value="${paginationDto.itemId}"/>
     </c:url>
     <c:choose>
         <c:when test="${paginationDto.selectedPage == paginationDto.pageCount}">
