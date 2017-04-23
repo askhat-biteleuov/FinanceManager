@@ -87,6 +87,6 @@ public class UserServiceImpl implements UserService {
     public void createUser(RegistrationDto registrationDto) {
         UserInfo userInfo = new UserInfo(registrationDto.getFirstName(), registrationDto.getLastName());
         User user = new User(registrationDto.getEmail(), encoder.encode(registrationDto.getPassword()), userInfo);
-        dao.create(user);
+        createUser(user);
     }
 }
