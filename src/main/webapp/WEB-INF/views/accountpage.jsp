@@ -143,7 +143,11 @@
             <h1>Добавление расхода</h1>
             <form:select path="toAccountId">
                 <form:option value="1" disabled="true" label="--- Select ---"/>
-                <form:options items="${accounts}" itemValue="id" itemLabel="name"/>
+                <c:forEach items="${accounts}" var="acc">
+                    <c:if test="${acc.id != transferDto.accountId}">
+                        <form:option value="${acc.id}" label="${acc.name}"/>
+                    </c:if>
+                </c:forEach>
             </form:select><br/>
             <form:errors path="toAccountId" cssStyle="color: red"/><br/>
             <form:input path="amount" placeholder="Amount"/><br/>

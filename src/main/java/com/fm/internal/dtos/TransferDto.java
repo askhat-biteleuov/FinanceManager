@@ -11,7 +11,6 @@ public class TransferDto {
     private String amount;
 
     private long accountId;
-//    TODO Fix validation
     @NotNull
     @Min(value = 1)
     private long toAccountId;
