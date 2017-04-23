@@ -162,12 +162,12 @@
         <br/>
     </div>
     <form action="<c:url value="/income/page"/>" method="GET">
-        <input type="hidden" name="accountId" value="${account.id}">
+        <input type="hidden" name="itemId" value="${account.id}">
         <button type="submit">Посмотреть все доходы</button>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     </form>
     <form action="<c:url value="/outcome/page"/>" method="GET">
-        <input type="hidden" name="accountId" value="${account.id}">
+        <input type="hidden" name="itemId" value="${account.id}">
         <button type="submit">Посмотреть все расходы</button>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     </form>

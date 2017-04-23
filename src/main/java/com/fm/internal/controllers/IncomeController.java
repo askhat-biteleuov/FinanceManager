@@ -56,7 +56,7 @@ public class IncomeController {
     }
 
     @RequestMapping(value = "/income/page", method = RequestMethod.GET)
-    public ModelAndView listOfIncomes(@RequestParam("accountId") Long accountId,
+    public ModelAndView listOfIncomes(@RequestParam("itemId") Long accountId,
                                       @RequestParam(value = "pageId", required = false) Integer pageId) {
         if (pageId == null) {
             pageId = 1;

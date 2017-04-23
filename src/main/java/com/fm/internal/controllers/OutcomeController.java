@@ -71,7 +71,7 @@ public class OutcomeController {
     }
 
     @RequestMapping(value = "/outcome/page", method = RequestMethod.GET)
-    public ModelAndView listOfIncomes(@RequestParam("accountId") Long accountId,
+    public ModelAndView listOfIncomes(@RequestParam("itemId") Long accountId,
                                       @RequestParam(value = "pageId", required = false) Integer pageId) {
         if (pageId == null) {
             pageId = 1;
