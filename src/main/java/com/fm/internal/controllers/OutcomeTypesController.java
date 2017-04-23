@@ -45,21 +45,24 @@ public class OutcomeTypesController {
         OutcomeTypeDto outcomeTypeDto = new OutcomeTypeDto(itemId, outcomeType.getName(), outcomeType.getLimit().toString(), outcomes);
         ModelAndView modelAndView = new ModelAndView("outcometype", "outcomeTypeDto", outcomeTypeDto);
         modelAndView.addObject("paginationDto", paginationDto);
+
+        modelAndView.addObject("user", userService.getLoggedUser());
         return modelAndView;
     }
 
 
     @RequestMapping(value = "/outcometype/delete/all", method = RequestMethod.POST)
-    public ModelAndView deleteOutcomeTypeWithOutcomes(Long outcomeTypeId) {
-        OutcomeType outcomeType = typeService.findTypeById(outcomeTypeId);
+    public ModelAndView deleteOutcomeTypeWithOutcomes(Long currentOutcomeTypeId) {
+        OutcomeType outcomeType = typeService.findTypeById(currentOutcomeTypeId);
         typeService.deleteOutcomeType(outcomeType);
-        // TODO: 23.04.2017 fix cascade delete
         return new ModelAndView("redirect:" + "/index");
     }
 
     @RequestMapping(value = "/outcometype/delete/move", method = RequestMethod.POST)
-    public ModelAndView deleteOutcomeTypeAndMoveOutcomes(Long outcomeTypeId) {
-        // TODO: 23.04.2017 move all outcomes
+    public ModelAndView deleteOutcomeTypeAndMoveOutcomes(Long currentOutcomeTypeId, Long newOutcomeTypeId) {
+        OutcomeType currentOutcomeType = typeService.findTypeById(currentOutcomeTypeId);
+        OutcomeType newOutcomeType = typeService.findTypeById(newOutcomeTypeId);
+        typeService.deleteTypeAndUpdateOutcomes(currentOutcomeType, newOutcomeType);
         return new ModelAndView("redirect:" + "/index");
     }
 

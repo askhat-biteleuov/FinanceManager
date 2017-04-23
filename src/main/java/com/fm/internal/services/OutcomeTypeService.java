@@ -14,6 +14,8 @@ public interface OutcomeTypeService {
 
     void deleteOutcomeType(OutcomeType type);
 
+    void deleteTypeAndUpdateOutcomes(OutcomeType oldOutcomeType, OutcomeType newOutcomeType);
+
     void updateOutcomeType(OutcomeType type);
 
     OutcomeType findTypeById(long id);

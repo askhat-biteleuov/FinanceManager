@@ -2,6 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%--@elvariable id="outcomeTypeDto" type="com.fm.internal.dtos.OutcomeTypeDto"--%>
 
 <t:master-page title="${outcomeTypeDto.name}">
     <div class="container">
@@ -51,14 +52,10 @@
                 </div>
             </c:otherwise>
         </c:choose>
-
         <div>
             <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#myModal">Удалить категорию
             </button>
-                <%--Modal window--%>
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
-                <jsp:include page="outcometype-delete.jsp"/>
-            </div>
+            <jsp:include page="outcometype-delete.jsp"/>
         </div>
     </div>
 </t:master-page>
