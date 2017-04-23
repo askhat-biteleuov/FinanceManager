@@ -64,20 +64,8 @@ public class AccountController {
 
     @RequestMapping(value = "/account/page", method = RequestMethod.GET)
     public ModelAndView getAccountPage(@RequestParam("name") String nameOfAccount) {
-        ModelAndView modelAndView = new ModelAndView("accountpage");
-        Account accountByName = accountService.findUserAccountByName(userService.getLoggedUser(), nameOfAccount);
-        RangeDto rangeDto = new RangeDto();
-        rangeDto.setAccountName(nameOfAccount);
-        TransferDto transferDto = new TransferDto();
-        transferDto.setAccountId(accountByName.getId());
-        modelAndView.addObject("rangeDto", rangeDto);
-        modelAndView.addObject("account", accountByName);
-        modelAndView.addObject("incomeDto", new IncomeDto());
-        modelAndView.addObject("outcomeDto", new OutcomeDto());
-        modelAndView.addObject("transferDto", transferDto);
-        modelAndView.addObject("types", outcomeTypeService.getAvailableOutcomeTypes(userService.getLoggedUser()));
-        modelAndView.addObject("accounts",
-                accountService.findAllUserAccounts(accountService.findAccountById(transferDto.getAccountId()).getUser()));
+        ModelAndView modelAndView = setDefaultMavForAccountByName(nameOfAccount);
+        modelAndView.setViewName("accountpage");
         return modelAndView;
     }
 
@@ -87,11 +75,21 @@ public class AccountController {
         List<Outcome> outcomes = outcomeService.findOutcomesInAccountByDate(accountByName,
                 LocalDate.parse(rangeDto.getStart()), LocalDate.parse(rangeDto.getEnd()));
         Map<String, Double> outcomeSum = countTypeAmount(outcomes);
-        TransferDto transferDto = new TransferDto();
-        transferDto.setAccountId(accountByName.getId());
-        ModelAndView modelAndView = new ModelAndView("accountpage");
-        modelAndView.addObject("account", accountByName);
+        ModelAndView modelAndView = setDefaultMavForAccountByName(rangeDto.getAccountName());
         modelAndView.addObject("outcomes", outcomeSum);
+        modelAndView.setViewName("accountpage");
+        return modelAndView;
+    }
+
+    private ModelAndView setDefaultMavForAccountByName(String accountName) {
+        ModelAndView modelAndView = new ModelAndView();
+        Account account = getAccountByName(accountName);
+        RangeDto rangeDto = new RangeDto();
+        rangeDto.setAccountName(accountName);
+        TransferDto transferDto = new TransferDto();
+        transferDto.setAccountId(account.getId());
+        modelAndView.addObject("rangeDto", rangeDto);
+        modelAndView.addObject("account", account);
         modelAndView.addObject("incomeDto", new IncomeDto());
         modelAndView.addObject("outcomeDto", new OutcomeDto());
         modelAndView.addObject("transferDto", transferDto);
@@ -99,6 +97,10 @@ public class AccountController {
         modelAndView.addObject("accounts",
                 accountService.findAllUserAccounts(accountService.findAccountById(transferDto.getAccountId()).getUser()));
         return modelAndView;
+    }
+
+    private Account getAccountByName(String accountName) {
+        return accountService.findUserAccountByName(userService.getLoggedUser(), accountName);
     }
 
     private Map<String, Double> countTypeAmount(List<Outcome> outcomes) {
