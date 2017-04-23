@@ -18,9 +18,8 @@
             <div class="modal-footer">
                 <button class="btn btn-primary btn-block" type="button" data-dismiss="modal" data-toggle="modal"
                         data-target="#moveOutcomes">
-                    Переместить все операции в "Без категории"
+                    Переместить все операции в другую категорию
                 </button>
-
                 <form action="<c:url value="/outcometype/delete/all"/>" method="POST">
                     <input type="hidden" name="currentOutcomeTypeId" value="${outcomeTypeDto.id}">
                     <button class="btn btn-primary btn-block" type="submit">Стереть все операции</button>
@@ -45,7 +44,9 @@
                 Выберите куда переместить расходы:
                 <select name="newOutcomeTypeId" size="1">
                     <c:forEach var="outcomeType" items="${user.outcomeTypes}">
-                        <option value="${outcomeType.id}">${outcomeType.name}</option>
+                        <c:if test="${outcomeType.id!=outcomeTypeDto.id}">
+                            <option value="${outcomeType.id}">${outcomeType.name}</option>
+                        </c:if>
                     </c:forEach>
                 </select>
             </div>
