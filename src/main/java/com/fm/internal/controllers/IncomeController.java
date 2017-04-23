@@ -13,10 +13,7 @@ import com.fm.internal.services.implementation.PaginationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -45,7 +42,7 @@ public class IncomeController {
     }
 
     @RequestMapping(value = "/addincome", method = RequestMethod.POST)
-    public ModelAndView addIncome(@Valid @RequestBody IncomeDto incomeDto, BindingResult result) {
+    public @ResponseBody Account addIncome(@Valid @ModelAttribute("incomeDto") IncomeDto incomeDto, BindingResult result) {
         User user = userService.getLoggedUser();
         if (!result.hasErrors() && user != null) {
             Account account = accountService.findAccountById(incomeDto.getAccountId());
@@ -53,10 +50,9 @@ public class IncomeController {
                 incomeService.addIncome(incomeDto, account);
                 account.setBalance(account.getBalance().add(new BigDecimal(incomeDto.getAmount())));
                 accountService.updateAccount(account);
-                return new ModelAndView("redirect:" + "/index");
             }
         }
-        return new ModelAndView("newincome");
+        return accountService.findAccountById(incomeDto.getAccountId());
     }
 
     @RequestMapping(value = "/income/page", method = RequestMethod.GET)
