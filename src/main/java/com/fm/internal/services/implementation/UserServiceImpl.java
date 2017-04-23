@@ -86,7 +86,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void createUser(RegistrationDto registrationDto) {
         UserInfo userInfo = new UserInfo(registrationDto.getFirstName(), registrationDto.getLastName());
-        User user = new User(registrationDto.getEmail(), encoder.encode(registrationDto.getPassword()), userInfo);
+        User user = new User(registrationDto.getEmail(), registrationDto.getPassword(), userInfo);
         createUser(user);
     }
 }
