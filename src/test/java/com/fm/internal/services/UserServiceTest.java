@@ -15,16 +15,25 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private AccountService accountService;
+    @Autowired
+    private OutcomeTypeService outcomeTypeService;
 
     private static User user;
+    private static User user2;
 
     private final static String USER_EMAIL = "user@email";
     private final static String USER_PASS = "password";
+    private final static String SECOND_USER_EMAIL = "seconduser@email";
+    private final static String SECOND_USER_PASS = "password";
 
     @BeforeMethod
     public void setUp() throws Exception {
         user = new User(USER_EMAIL, USER_PASS, new UserInfo("name", "surname"));
         userService.createUser(user);
+        user2 = new User(SECOND_USER_EMAIL, SECOND_USER_PASS, new UserInfo("name", "surname"));
+        userService.createUser(user2);
     }
 
     @AfterMethod
@@ -32,6 +41,10 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests {
         User reload = userService.findByEmail(USER_EMAIL);
         if (reload != null) {
             userService.deleteUser(user);
+        }
+        reload = userService.findByEmail(SECOND_USER_EMAIL);
+        if (reload != null) {
+            userService.deleteUser(user2);
         }
     }
 
@@ -42,8 +55,10 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testUserDataInitialization(){
-        Assert.assertNotNull(userService.findByEmail(USER_EMAIL).getAccounts());
-        Assert.assertEquals(6, userService.findByEmail(USER_EMAIL).getOutcomeTypes().size());
+        Assert.assertNotNull(accountService.findAllUserAccounts(userService.findByEmail(USER_EMAIL)));
+        Assert.assertEquals(6, outcomeTypeService.getAvailableOutcomeTypes(userService.findByEmail(USER_EMAIL)).size());
+        Assert.assertNotNull(accountService.findAllUserAccounts(userService.findByEmail(SECOND_USER_EMAIL)));
+        Assert.assertEquals(6, outcomeTypeService.getAvailableOutcomeTypes(userService.findByEmail(SECOND_USER_EMAIL)).size());
     }
 
 }
