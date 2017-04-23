@@ -16,48 +16,49 @@
             $('#adding').on('click', 'button', function () {
                 var form = $(this).next('form');
                 form.slideToggle();
-                form.submit(function (event) {
-                    if (!$('#amount').val()) {
-                        if ($("#amount").parent().next(".validation").length == 0) {
-                            $("#amount").parent().after(
-                                "<div class='validation' style='color:red;margin-bottom: 20px;'>Please enter amount</div>"
-                            );
-                        }
-                        event.preventDefault(); // prevent form from POST to server
-                    } else {
-                        var formData = {
-                            'amount': $('input[name=amount]').val(),
-                            'date': $('input[name=date]').val(),
-                            'note': $('input[name=note]').val(),
-                            'accountId': $('input[name=accountId]').val(),
-                        };
-                        $("#amount").parent().next(".validation").remove(); // remove it
-                        sendAjax(formData, form);
-                    }
-                });
-            });
-            $('#date').on('focus', function () {
-                $(this).valueAsDate(utc_date);
-            });
-
-            function sendAjax(data, form) {
-                $.ajax({
-                    type: 'POST',
-                    beforeSend: function (request) {
-                        var token = $("meta[name='_csrf']").attr("content");
-                        var header = $("meta[name='_csrf_header']").attr("content");
-                        request.setRequestHeader(header, token);
-                    },
-                    contentType: 'application/json; charset=UTF-8',
-                    url: form.attr('action'),
-                    data: JSON.stringify(data)
-                }).done(function () {
-                    alert('SUCCESS');
-                }).fail(function (error) {
-                    alert('FAIL ' + error);
-                });
-            }
-        })
+//                form.submit(function (event) {
+//                    if (!$('#amount').val()) {
+//                        if ($("#amount").parent().next(".validation").length == 0) {
+//                            $("#amount").parent().after(
+//                                "<div class='validation' style='color:red;margin-bottom: 20px;'>Please enter amount</div>"
+//                            );
+//                        }
+//                        event.preventDefault(); // prevent form from POST to server
+//                    } else {
+//                        var formData = {
+//                            'amount': $('input[name=amount]').val(),
+//                            'date': $('input[name=date]').val(),
+//                            'note': $('input[name=note]').val(),
+//                            'accountId': $('input[name=accountId]').val(),
+//                        };
+//                        $("#amount").parent().next(".validation").remove(); // remove it
+//                        sendAjax(formData, form);
+//                    }
+//                });
+//            });
+//            $('#date').on('focus', function () {
+//                $(this).valueAsDate(utc_date);
+//            });
+//
+//            function sendAjax(data, form) {
+//                $.ajax({
+//                    type: 'POST',
+//                    beforeSend: function (request) {
+//                        var token = $("meta[name='_csrf']").attr("content");
+//                        var header = $("meta[name='_csrf_header']").attr("content");
+//                        request.setRequestHeader(header, token);
+//                    },
+//                    contentType: 'application/json; charset=UTF-8',
+//                    url: form.attr('action'),
+//                    data: JSON.stringify(data)
+//                }).done(function () {
+//                    alert('SUCCESS');
+//                }).fail(function (error) {
+//                    alert('FAIL ' + error);
+//                });
+//            }
+            })
+        });
     </script>
     <style>
         .trans {

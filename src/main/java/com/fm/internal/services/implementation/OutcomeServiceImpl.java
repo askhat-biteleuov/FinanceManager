@@ -4,10 +4,8 @@ import com.fm.internal.daos.OutcomeDao;
 import com.fm.internal.dtos.OutcomeDto;
 import com.fm.internal.models.Account;
 import com.fm.internal.models.Outcome;
-import com.fm.internal.models.OutcomeType;
 import com.fm.internal.services.OutcomeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.support.PagedListHolder;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -21,14 +19,6 @@ public class OutcomeServiceImpl implements OutcomeService {
     @Override
     public void addOutcome(Outcome outcome) {
         dao.create(outcome);
-    }
-
-    @Override
-    public void addOutcome(OutcomeDto outcomeDto, Account account, OutcomeType outcomeType) {
-        Outcome income = new Outcome(new BigDecimal(outcomeDto.getAmount()), LocalDate.parse(outcomeDto.getDate()),
-                LocalTime.now(), account, outcomeType);
-        income.setNote(outcomeDto.getNote());
-        dao.create(income);
     }
 
     @Override
@@ -67,10 +57,11 @@ public class OutcomeServiceImpl implements OutcomeService {
     }
 
     @Override
-    public PagedListHolder<Outcome> getPagedOutcomeList(Account account, int pageSize) {
-        List<Outcome> allOutcomesInAccount = dao.getAllAccountsOutcomes(account);
-        PagedListHolder<Outcome> pagedList = new PagedListHolder<>(allOutcomesInAccount);
-        pagedList.setPageSize(pageSize);
-        return pagedList;
+    public Outcome createOutcomeFromDto(OutcomeDto outcomeDto) {
+        Outcome outcome = new Outcome();
+        outcome.setAmount(new BigDecimal(outcomeDto.getAmount()));
+        outcome.setDate(LocalDate.parse(outcomeDto.getDate()));
+        outcome.setTime(LocalTime.now());
+        return outcome;
     }
 }

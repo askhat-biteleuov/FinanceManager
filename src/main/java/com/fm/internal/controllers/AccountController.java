@@ -110,7 +110,7 @@ public class AccountController {
                 outcomeSum.put(outcome.getOutcomeType().getName(), outcome.getAmount().doubleValue());
             } else {
                 Double oldValue = outcomeSum.get(outcome.getOutcomeType().getName());
-                outcomeSum.replace(outcome.getOutcomeType().getName(), oldValue+outcome.getAmount().doubleValue());
+                outcomeSum.replace(outcome.getOutcomeType().getName(), oldValue + outcome.getAmount().doubleValue());
             }
         }
         return outcomeSum;

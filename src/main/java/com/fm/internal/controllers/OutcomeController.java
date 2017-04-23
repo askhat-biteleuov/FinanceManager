@@ -20,12 +20,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
@@ -43,56 +41,33 @@ public class OutcomeController {
     @Autowired
     private PaginationServiceImpl paginationService;
 
-    @RequestMapping(value = "/addoutcome", method = RequestMethod.GET)
-    public ModelAndView newOutcome(WebRequest request) {
-        OutcomeDto outcomeDto = prepareDTO(request);
-        ModelAndView modelAndView = new ModelAndView("newoutcome", "outcomeDto", outcomeDto);
-        modelAndView.addObject("types", outcomeTypeService.getAvailableOutcomeTypes(userService.getLoggedUser()));
-        return modelAndView;
-    }
-
     @RequestMapping(value = "/addoutcome", method = RequestMethod.POST)
     public ModelAndView addOutcome(@Valid @ModelAttribute("outcomeDto") OutcomeDto outcomeDto,
-                                   BindingResult result,
-                                   WebRequest request) {
+                                   BindingResult result) {
         User user = userService.getLoggedUser();
-        LOGGER.info("Нашли юзера");
-        LOGGER.info(result.getAllErrors().toString());
         if (!result.hasErrors() && user != null) {
-            LOGGER.info("Ошибок нет и юзер не равен нулл");
-            LOGGER.info("ID Аккаунта = " + outcomeDto.getAccountId());
-            LOGGER.info("ID outcomeType = " + outcomeDto.getOutcomeTypeId());
-            Account account = accountService.findAccountById(outcomeDto.getAccountId());
-            OutcomeType outcomeType = outcomeTypeService.findTypeById(outcomeDto.getOutcomeTypeId());
-            if (account != null && outcomeType != null) {
-                LOGGER.info("Аккаунт не равен нулл и тип расходов не равен нулл");
-                outcomeService.addOutcome(outcomeDto, account, outcomeType);
-                account.setBalance(account.getBalance().subtract(new BigDecimal(outcomeDto.getAmount())));
-                accountService.updateAccount(account);
-                return new ModelAndView("redirect:" + "/index");
-            }
-            LOGGER.info("Аккаунта или тип расходов = нулл");
+            saveNewOutcome(outcomeDto);
+            return new ModelAndView("redirect:" + "/index");
         }
-        LOGGER.info("юзер = нулл");
         ModelAndView modelAndView = new ModelAndView("newoutcome");
         modelAndView.addObject("types", outcomeTypeService.getAvailableOutcomeTypes(user));
         return modelAndView;
     }
 
-    private OutcomeDto prepareDTO(WebRequest request) {
-        String accountId = request.getParameter("accountId");
-        OutcomeDto outcomeDto = new OutcomeDto();
-        outcomeDto.setAccountId(Long.parseLong(accountId));
-        return outcomeDto;
+    private void saveNewOutcome(OutcomeDto outcomeDto) {
+        Account account = accountService.findAccountById(outcomeDto.getAccountId());
+        OutcomeType outcomeType = outcomeTypeService.findTypeById(outcomeDto.getOutcomeTypeId());
+        Outcome newOutcome = outcomeService.createOutcomeFromDto(outcomeDto);
+        newOutcome.setAccount(account);
+        newOutcome.setOutcomeType(outcomeType);
+        newOutcome.setNote(outcomeDto.getNote());
+        saveNewOutcome(newOutcome, account);
     }
 
-    @RequestMapping(value = "/outcome/list")
-    public ModelAndView listOfOutcomes(@RequestParam("accountId") int accountId) {
-        ModelAndView modelAndView = new ModelAndView("outcomes-list");
-        Account accountById = accountService.findAccountById(accountId);
-        List<Outcome> allOutcomesInAccount = outcomeService.findAllOutcomesInAccount(accountById);
-        modelAndView.addObject("outcomes", allOutcomesInAccount);
-        return modelAndView;
+    private void saveNewOutcome(Outcome outcome, Account account) {
+        outcomeService.addOutcome(outcome);
+        account.setBalance(account.getBalance().subtract(outcome.getAmount()));
+        accountService.updateAccount(account);
     }
 
     @RequestMapping(value = "/outcome/page", method = RequestMethod.GET)
