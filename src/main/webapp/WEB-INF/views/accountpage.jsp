@@ -29,7 +29,7 @@
         <form:button type="submit">Submit</form:button>
     </form:form>
     <div id="container" style="width: 550px; height: 400px; margin: 0 auto"></div>
-    <script src="<c:url value="/resources/js/drawoutcomesPiechart.js"/>"></script>
+    <script src="<c:url value="/resources/js/drawOutcomesPiechart.js"/>"></script>
     <h2>Счёт ${account.name}</h2>
     <div id="adding">
         <button type="button">Добавить доход</button>
