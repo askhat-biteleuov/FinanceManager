@@ -42,7 +42,8 @@ public class IncomeController {
     }
 
     @RequestMapping(value = "/addincome", method = RequestMethod.POST)
-    public @ResponseBody Account addIncome(@Valid @ModelAttribute("incomeDto") IncomeDto incomeDto, BindingResult result) {
+    @ResponseBody
+    public void addIncome(@Valid @RequestBody IncomeDto incomeDto, BindingResult result) {
         User user = userService.getLoggedUser();
         if (!result.hasErrors() && user != null) {
             Account account = accountService.findAccountById(incomeDto.getAccountId());
@@ -52,7 +53,6 @@ public class IncomeController {
                 accountService.updateAccount(account);
             }
         }
-        return accountService.findAccountById(incomeDto.getAccountId());
     }
 
     @RequestMapping(value = "/income/page", method = RequestMethod.GET)

@@ -13,10 +13,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -80,6 +77,18 @@ public class AccountController {
         modelAndView.setViewName("accountpage");
         return modelAndView;
     }
+
+    @RequestMapping(value = "/account/pagejson", method = RequestMethod.POST)
+    @ResponseBody
+    public Object getPieChartJson(@RequestBody RangeDto rangeDto, BindingResult result) {
+        Account accountByName = accountService.findUserAccountByName(userService.getLoggedUser(), rangeDto.getAccountName());
+        List<Outcome> outcomes = outcomeService.findOutcomesInAccountByDate(accountByName,
+                LocalDate.parse(rangeDto.getStart()), LocalDate.parse(rangeDto.getEnd()));
+        Map<String, Double> outcomeSum = countTypeAmount(outcomes);
+        return outcomeSum;
+    }
+
+
 
     private ModelAndView setDefaultMavForAccountByName(String accountName) {
         ModelAndView modelAndView = new ModelAndView();

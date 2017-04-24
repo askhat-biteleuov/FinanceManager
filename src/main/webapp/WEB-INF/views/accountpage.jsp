@@ -16,48 +16,87 @@
             $('#adding').on('click', 'button', function () {
                 var form = $(this).next('form');
                 form.slideToggle();
-//                form.submit(function (event) {
-//                    if (!$('#amount').val()) {
-//                        if ($("#amount").parent().next(".validation").length == 0) {
-//                            $("#amount").parent().after(
-//                                "<div class='validation' style='color:red;margin-bottom: 20px;'>Please enter amount</div>"
-//                            );
-//                        }
-//                        event.preventDefault(); // prevent form from POST to server
-//                    } else {
-//                        var formData = {
-//                            'amount': $('input[name=amount]').val(),
-//                            'date': $('input[name=date]').val(),
-//                            'note': $('input[name=note]').val(),
-//                            'accountId': $('input[name=accountId]').val(),
-//                        };
-//                        $("#amount").parent().next(".validation").remove(); // remove it
-//                        sendAjax(formData, form);
-//                    }
-//                });
-//            });
-//            $('#date').on('focus', function () {
-//                $(this).valueAsDate(utc_date);
-//            });
-//
-//            function sendAjax(data, form) {
-//                $.ajax({
-//                    type: 'POST',
-//                    beforeSend: function (request) {
-//                        var token = $("meta[name='_csrf']").attr("content");
-//                        var header = $("meta[name='_csrf_header']").attr("content");
-//                        request.setRequestHeader(header, token);
-//                    },
-//                    contentType: 'application/json; charset=UTF-8',
-//                    url: form.attr('action'),
-//                    data: JSON.stringify(data)
-//                }).done(function () {
-//                    alert('SUCCESS');
-//                }).fail(function (error) {
-//                    alert('FAIL ' + error);
-//                });
-//            }
-            })
+                form.submit(function (event) {
+                    event.preventDefault(); // prevent form from POST to server
+
+                    if (!$('#amount').val()) {
+                        if ($("#amount").parent().next(".validation").length == 0) {
+                            $("#amount").parent().after(
+                                    "<div class='validation' style='color:red;margin-bottom: 20px;'>Please enter amount</div>"
+                            );
+                        }
+                    } else {
+                        var formData = {
+                            'amount': $('input[name=amount]').val(),
+                            'date': $('input[name=date]').val(),
+                            'note': $('input[name=note]').val(),
+                            'accountId': $('input[name=accountId]').val(),
+                        };
+                        $("#amount").parent().next(".validation").remove(); // remove it
+                        sendAjax(formData, form);
+                    }
+                });
+            });
+            $('#incomeForm [name=date]').on('focus', function () {
+                $(this).val(utc_date);
+            });
+
+            function sendAjax(data, form) {
+                $.ajax({
+                    type: 'POST',
+                    beforeSend: function (request) {
+                        var token = $("meta[name='_csrf']").attr("content");
+                        var header = $("meta[name='_csrf_header']").attr("content");
+                        request.setRequestHeader(header, token);
+                    },
+                    contentType: 'application/json; charset=UTF-8',
+                    url: form.attr('action'),
+                    data: JSON.stringify(data)
+                }).done(function (data) {
+                    alert('SUCCESS');
+                }).fail(function (error) {
+                    alert('FAIL ' + error);
+                });
+            }
+
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+    <script>
+        $(document).ready(function () {
+            $('#rangeDto').submit(function (event) {
+                event.preventDefault();
+
+                $.ajax({
+                    type: 'POST',
+                    beforeSend: function (request) {
+                        var token = $("meta[name='_csrf']").attr("content");
+                        var header = $("meta[name='_csrf_header']").attr("content");
+                        request.setRequestHeader(header, token);
+                    },
+                    contentType: 'application/json; charset=UTF-8',
+                    url: '/account/pagejson',
+                    data: JSON.stringify({
+                        "start": $("#rangeDto [name=start]").val(),
+                        "end": $("#rangeDto [name=end]").val(),
+                        "accountName": $('#rangeDto [name=accountName]').val()
+                    })
+                }).done(function (data) {
+                    alert(data);
+                    drawChart(data);
+                }).fail(function (error) {
+                    alert('FAIL ' + error);
+                });
+            });
         });
     </script>
     <style>
@@ -68,9 +107,9 @@
     <button type="submit" onclick="history.back()" class="btn">Назад</button>
 
     <form:form method="post" action="/account/page" modelAttribute="rangeDto">
-        <form:input path="start" type="date" id="date"/><br/>
+        <form:input path="start" type="date"/><br/>
         <form:errors path="start" cssStyle="color: red"/><br/>
-        <form:input path="end" type="date" id="date"/><br/>
+        <form:input path="end" type="date"/><br/>
         <form:errors path="end" cssStyle="color: red"/><br/>
         <form:hidden path="accountName"/>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -78,14 +117,17 @@
     </form:form>
     <div id="container" style="width: 550px; height: 400px; margin: 0 auto"></div>
     <script language="JavaScript">
-        function drawChart() {
+        function drawChart(data2) {
             // Define the chart to be drawn.
             var data = new google.visualization.DataTable();
             data.addColumn('string', 'Type');
             data.addColumn('number', 'Amount');
-            <c:forEach items="${outcomes}" var="outcome">
-            data.addRow(["${outcome.key}", ${outcome.value}]);
-            </c:forEach>
+            <%--<c:forEach items="${outcomes}" var="outcome">--%>
+            <%--data.addRow(["${outcome.key}", ${outcome.value}]);--%>
+            <%--</c:forEach>--%>
+            for (var key in data2) {
+                data.addRow([key, data2[key]]);
+            }
             // Set chart options
             var options = {
                 'title': 'Statistics',
@@ -102,7 +144,7 @@
     <h2>Счёт ${account.name}</h2>
     <div id="adding">
         <button type="button">Добавить доход</button>
-        <form:form method="POST" action="/addincome" modelAttribute="incomeDto" cssClass="trans">
+        <form:form method="POST" action="/addincome" modelAttribute="incomeDto" id="incomeForm" cssClass="trans">
             <div>
                 <form:input path="note" placeholder="Note"/><br/>
             </div>
