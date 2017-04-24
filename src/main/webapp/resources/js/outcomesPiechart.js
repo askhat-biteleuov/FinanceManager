@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $('#rangeDto').submit(function (event) {
+    $('#rangeForm').submit(function (event) {
         event.preventDefault();
         $.ajax({
             type: 'POST',
@@ -11,9 +11,9 @@ $(document).ready(function () {
             contentType: 'application/json; charset=UTF-8',
             url: '/account/pagejson',
             data: JSON.stringify({
-                "start": $("#rangeDto [name=start]").val(),
-                "end": $("#rangeDto [name=end]").val(),
-                "accountName": $('#rangeDto [name=accountName]').val()
+                "start": $("#rangeForm [name=start]").val(),
+                "end": $("#rangeForm [name=end]").val(),
+                "accountName": $('#rangeForm [name=accountName]').val()
             })
         }).done(function (data) {
             alert(data);

@@ -84,8 +84,7 @@ public class AccountController {
         Account accountByName = accountService.findUserAccountByName(userService.getLoggedUser(), rangeDto.getAccountName());
         List<Outcome> outcomes = outcomeService.findOutcomesInAccountByDate(accountByName,
                 LocalDate.parse(rangeDto.getStart()), LocalDate.parse(rangeDto.getEnd()));
-        Map<String, Double> outcomeSum = countTypeAmount(outcomes);
-        return outcomeSum;
+        return countTypeAmount(outcomes);
     }
 
 
