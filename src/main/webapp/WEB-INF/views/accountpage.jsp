@@ -9,103 +9,16 @@
 </script>
 
 <t:master-page title="${account.name}">
-    <script>
-        $(document).ready(function () {
-            var utc_date = new Date();
-            utc_date.setMinutes(utc_date.getMinutes() - utc_date.getTimezoneOffset());
-            $('#adding').on('click', 'button', function () {
-                var form = $(this).next('form');
-                form.slideToggle();
-                form.submit(function (event) {
-                    event.preventDefault(); // prevent form from POST to server
+    <script src="<c:url value="/resources/js/addIncome.js"/>"></script>
 
-                    if (!$('#amount').val()) {
-                        if ($("#amount").parent().next(".validation").length == 0) {
-                            $("#amount").parent().after(
-                                    "<div class='validation' style='color:red;margin-bottom: 20px;'>Please enter amount</div>"
-                            );
-                        }
-                    } else {
-                        var formData = {
-                            'amount': $('input[name=amount]').val(),
-                            'date': $('input[name=date]').val(),
-                            'note': $('input[name=note]').val(),
-                            'accountId': $('input[name=accountId]').val(),
-                        };
-                        $("#amount").parent().next(".validation").remove(); // remove it
-                        sendAjax(formData, form);
-                    }
-                });
-            });
-            $('#incomeForm [name=date]').on('focus', function () {
-                $(this).val(utc_date);
-            });
-
-            function sendAjax(data, form) {
-                $.ajax({
-                    type: 'POST',
-                    beforeSend: function (request) {
-                        var token = $("meta[name='_csrf']").attr("content");
-                        var header = $("meta[name='_csrf_header']").attr("content");
-                        request.setRequestHeader(header, token);
-                    },
-                    contentType: 'application/json; charset=UTF-8',
-                    url: form.attr('action'),
-                    data: JSON.stringify(data)
-                }).done(function (data) {
-                    alert('SUCCESS');
-                }).fail(function (error) {
-                    alert('FAIL ' + error);
-                });
-            }
-
-        });
-    </script>
-
-
-
-
-
-
-
-
-
-
-    <script>
-        $(document).ready(function () {
-            $('#rangeDto').submit(function (event) {
-                event.preventDefault();
-
-                $.ajax({
-                    type: 'POST',
-                    beforeSend: function (request) {
-                        var token = $("meta[name='_csrf']").attr("content");
-                        var header = $("meta[name='_csrf_header']").attr("content");
-                        request.setRequestHeader(header, token);
-                    },
-                    contentType: 'application/json; charset=UTF-8',
-                    url: '/account/pagejson',
-                    data: JSON.stringify({
-                        "start": $("#rangeDto [name=start]").val(),
-                        "end": $("#rangeDto [name=end]").val(),
-                        "accountName": $('#rangeDto [name=accountName]').val()
-                    })
-                }).done(function (data) {
-                    alert(data);
-                    drawChart(data);
-                }).fail(function (error) {
-                    alert('FAIL ' + error);
-                });
-            });
-        });
-    </script>
     <style>
         .trans {
             display: none;
         }
     </style>
-    <button type="submit" onclick="history.back()" class="btn">Назад</button>
 
+    <button type="submit" onclick="history.back()" class="btn">Назад</button>
+    <script src="<c:url value="/resources/js/outcomesPiechart.js"/>"></script>
     <form:form method="post" action="/account/page" modelAttribute="rangeDto">
         <form:input path="start" type="date"/><br/>
         <form:errors path="start" cssStyle="color: red"/><br/>
@@ -116,31 +29,7 @@
         <form:button type="submit">Submit</form:button>
     </form:form>
     <div id="container" style="width: 550px; height: 400px; margin: 0 auto"></div>
-    <script language="JavaScript">
-        function drawChart(data2) {
-            // Define the chart to be drawn.
-            var data = new google.visualization.DataTable();
-            data.addColumn('string', 'Type');
-            data.addColumn('number', 'Amount');
-            <%--<c:forEach items="${outcomes}" var="outcome">--%>
-            <%--data.addRow(["${outcome.key}", ${outcome.value}]);--%>
-            <%--</c:forEach>--%>
-            for (var key in data2) {
-                data.addRow([key, data2[key]]);
-            }
-            // Set chart options
-            var options = {
-                'title': 'Statistics',
-                'width': 550,
-                'height': 400
-            };
-
-            // Instantiate and draw the chart.
-            var chart = new google.visualization.PieChart(document.getElementById('container'));
-            chart.draw(data, options);
-        }
-        google.charts.setOnLoadCallback(drawChart);
-    </script>
+    <script src="<c:url value="/resources/js/drawoutcomesPiechart.js"/>"></script>
     <h2>Счёт ${account.name}</h2>
     <div id="adding">
         <button type="button">Добавить доход</button>
