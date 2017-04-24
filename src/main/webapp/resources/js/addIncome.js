@@ -1,6 +1,5 @@
 $(document).ready(function () {
-    var utc_date = new Date();
-    utc_date.setMinutes(utc_date.getMinutes() - utc_date.getTimezoneOffset());
+
     $('#adding').on('click', 'button', function () {
         var form = $(this).next('form');
         form.slideToggle();
@@ -25,9 +24,11 @@ $(document).ready(function () {
             }
         });
     });
-    $('#incomeForm [name=date]').on('focus', function () {
-        $(this).val(utc_date);
-    });
+    var now = new Date();
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+    $('#incomeForm [name=date]').val(today);
 
     function sendAjax(data, form) {
         $.ajax({

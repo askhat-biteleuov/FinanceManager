@@ -72,7 +72,6 @@
         <br/>
         <button type="submit">Перевести на другой счет</button>
         <form:form method="POST" action="/transfer" modelAttribute="transferDto" cssClass="trans">
-            <h1>Добавление расхода</h1>
             <form:select path="toAccountId">
                 <form:option value="1" disabled="true" label="--- Select ---"/>
                 <c:forEach items="${accounts}" var="acc">
