@@ -36,7 +36,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account findAccountById(long id) {
-        return accountDao.findById(id);
+        return accountDao.getById(id);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void createAccount(Account account) {
-        accountDao.create(account);
+        accountDao.add(account);
     }
 
     @Override
@@ -65,6 +65,6 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void createAccount(AccountDto accountDto, User user) {
         Account account = new Account(accountDto.getName(), new BigDecimal(accountDto.getBalance()), null, user);
-        accountDao.create(account);
+        accountDao.add(account);
     }
 }

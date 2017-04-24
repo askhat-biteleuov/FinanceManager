@@ -53,7 +53,7 @@ public class AccountController {
         User loggedUser = userService.getLoggedUser();
         if (!result.hasErrors() && loggedUser != null) {
             accountService.createAccount(accountDto, loggedUser);
-            LOGGER.info("New account was create:" + accountDto.getName());
+            LOGGER.info("New account was add:" + accountDto.getName());
             return new ModelAndView("redirect:" + "/index");
         }
         return new ModelAndView("account");

@@ -20,12 +20,12 @@ public class GenericDaoTest extends AbstractTestNGSpringContextTests {
     @BeforeMethod
     public void setUp() throws Exception {
         user = new User("email1", "pass", new UserInfo("firstName", "lastName"));
-        genericDao.create(user);
+        genericDao.add(user);
     }
 
     @AfterMethod
     public void cleanUp() throws Exception {
-        User reload = genericDao.findById(user.getId());
+        User reload = genericDao.getById(user.getId());
         if (reload != null) {
             genericDao.delete(user);
         }
@@ -34,7 +34,7 @@ public class GenericDaoTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testCreate() throws Exception {
         Assert.assertNotNull(user.getId());
-        User reloaded = genericDao.findById(user.getId());
+        User reloaded = genericDao.getById(user.getId());
         Assert.assertEquals(user.getId(), reloaded.getId());
         Assert.assertEquals(user.getEmail(), reloaded.getEmail());
     }
@@ -45,7 +45,7 @@ public class GenericDaoTest extends AbstractTestNGSpringContextTests {
         user.setInfo(newUserInfo);
         genericDao.update(user);
         Assert.assertNotNull(user.getId());
-        User reloaded = genericDao.findById(user.getId());
+        User reloaded = genericDao.getById(user.getId());
         Assert.assertNotNull(reloaded);
         Assert.assertEquals(user.getInfo().getFirstName(), reloaded.getInfo().getFirstName());
         Assert.assertEquals(user.getInfo().getLastName(), reloaded.getInfo().getLastName());
@@ -54,7 +54,7 @@ public class GenericDaoTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testDelete() throws Exception {
         genericDao.delete(user);
-        User reload = genericDao.findById(user.getId());
+        User reload = genericDao.getById(user.getId());
         Assert.assertNull(reload);
     }
 

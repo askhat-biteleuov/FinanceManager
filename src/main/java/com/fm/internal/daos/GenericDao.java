@@ -26,12 +26,12 @@ public class GenericDao<T> {
     }
 
     @Transactional
-    public void create(T entity) {
+    public void add(T entity) {
         sessionFactory.getCurrentSession().save(entity);
     }
 
     @Transactional(readOnly = true)
-    public T findById(long id) {
+    public T getById(long id) {
         return sessionFactory.getCurrentSession().get(type, id);
     }
 

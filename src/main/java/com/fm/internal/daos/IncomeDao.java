@@ -17,7 +17,7 @@ public class IncomeDao extends GenericDao<Income> {
     }
 
     @Transactional
-    public List<Income> getAccountsIncomes(Account account) {
+    public List<Income> getAccountIncomes(Account account) {
         Session session = getSessionFactory().getCurrentSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<Income> query = criteriaBuilder.createQuery(Income.class);
@@ -27,7 +27,7 @@ public class IncomeDao extends GenericDao<Income> {
     }
 
     @Transactional
-    public List<Income> getIncomesInAccountByDate(Account account, LocalDate start, LocalDate end) {
+    public List<Income> getAccountIncomesByDate(Account account, LocalDate start, LocalDate end) {
         Session session = getSessionFactory().getCurrentSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<Income> query = criteriaBuilder.createQuery(Income.class);
@@ -39,7 +39,7 @@ public class IncomeDao extends GenericDao<Income> {
     }
 
     @Transactional
-    public Long getAmountOfIncomesInAccount(Account account) {
+    public Long getAccountIncomeAmount(Account account) {
         Session session = getSessionFactory().getCurrentSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<Long> query = criteriaBuilder.createQuery(Long.class);
@@ -50,7 +50,7 @@ public class IncomeDao extends GenericDao<Income> {
     }
 
     @Transactional
-    public List<Income> getPageOfIncomes(Account account, int offset, int limit) {
+    public List<Income> getIncomesPage(Account account, int offset, int limit) {
         Session session = getSessionFactory().getCurrentSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<Income> query = criteriaBuilder.createQuery(Income.class);

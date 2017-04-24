@@ -18,7 +18,7 @@ public class OutcomeDao extends GenericDao<Outcome> {
     }
 
     @Transactional
-    public List<Outcome> getAllAccountsOutcomes(Account account) {
+    public List<Outcome> getAccountOutcomes(Account account) {
         Session session = getSessionFactory().getCurrentSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<Outcome> query = criteriaBuilder.createQuery(Outcome.class);
@@ -28,7 +28,7 @@ public class OutcomeDao extends GenericDao<Outcome> {
     }
 
     @Transactional
-    public List<Outcome> getOutcomeInAccountByDate(Account account, LocalDate start, LocalDate end) {
+    public List<Outcome> getAccountOutcomesByDate(Account account, LocalDate start, LocalDate end) {
         Session session = getSessionFactory().getCurrentSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<Outcome> query = criteriaBuilder.createQuery(Outcome.class);
@@ -40,7 +40,7 @@ public class OutcomeDao extends GenericDao<Outcome> {
     }
 
     @Transactional
-    public Long getAmountOfOutcomesInAccount(Account account) {
+    public Long getAccountOutcomeAmount(Account account) {
         Session session = getSessionFactory().getCurrentSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<Long> query = criteriaBuilder.createQuery(Long.class);
@@ -51,7 +51,7 @@ public class OutcomeDao extends GenericDao<Outcome> {
     }
 
     @Transactional
-    public List<Outcome> getPageOfOutcomes(Account account, int offset, int limit) {
+    public List<Outcome> getOutcomesPage(Account account, int offset, int limit) {
         Session session = getSessionFactory().getCurrentSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<Outcome> query = criteriaBuilder.createQuery(Outcome.class);
@@ -61,7 +61,7 @@ public class OutcomeDao extends GenericDao<Outcome> {
     }
 
     @Transactional
-    public void deleteOutcomesByType(OutcomeType outcomeType) {
+    public void deleteOutcomeByType(OutcomeType outcomeType) {
         Session session = getSessionFactory().getCurrentSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaDelete<Outcome> delete = criteriaBuilder.createCriteriaDelete(Outcome.class);
@@ -71,7 +71,7 @@ public class OutcomeDao extends GenericDao<Outcome> {
     }
 
     @Transactional
-    public void updateOutcomesByType(OutcomeType oldOutcomeType, OutcomeType newOutcomeType) {
+    public void updateOutcomeByType(OutcomeType oldOutcomeType, OutcomeType newOutcomeType) {
         Session session = getSessionFactory().getCurrentSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaUpdate<Outcome> update = criteriaBuilder.createCriteriaUpdate(Outcome.class);

@@ -18,7 +18,7 @@ public class OutcomeServiceImpl implements OutcomeService {
 
     @Override
     public void addOutcome(Outcome outcome) {
-        dao.create(outcome);
+        dao.add(outcome);
     }
 
     @Override
@@ -33,27 +33,27 @@ public class OutcomeServiceImpl implements OutcomeService {
 
     @Override
     public Outcome findById(long id) {
-        return dao.findById(id);
+        return dao.getById(id);
     }
 
     @Override
     public List<Outcome> findAllOutcomesInAccount(Account account) {
-        return dao.getAllAccountsOutcomes(account);
+        return dao.getAccountOutcomes(account);
     }
 
     @Override
     public List<Outcome> findOutcomesInAccountByDate(Account account, LocalDate start, LocalDate end) {
-        return dao.getOutcomeInAccountByDate(account, start, end);
+        return dao.getAccountOutcomesByDate(account, start, end);
     }
 
     @Override
     public List<Outcome> getPageOfOutcomes(Account account, int first, int limit) {
-        return dao.getPageOfOutcomes(account, first, limit);
+        return dao.getOutcomesPage(account, first, limit);
     }
 
     @Override
     public Long getAmountOfOutcomesInAccount(Account account) {
-        return dao.getAmountOfOutcomesInAccount(account);
+        return dao.getAccountOutcomeAmount(account);
     }
 
     @Override

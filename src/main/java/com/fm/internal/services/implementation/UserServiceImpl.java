@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void createUser(User user) {
         user.setPassword(encoder.encode(user.getPassword()));
-        dao.create(user);
+        dao.add(user);
         Account initAccount = new Account("Кошелек", BigDecimal.ZERO, null, user);
         accountService.createAccount(initAccount);
         OutcomeType[] initOutcomeTypes = {

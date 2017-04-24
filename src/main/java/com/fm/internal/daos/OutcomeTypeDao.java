@@ -18,7 +18,7 @@ public class OutcomeTypeDao extends GenericDao<OutcomeType> {
     }
 
     @Transactional
-    public List<Outcome> getOutcomesOfType(OutcomeType outcomeType, int offset, int limit) {
+    public List<Outcome> getOutcomesByType(OutcomeType outcomeType, int offset, int limit) {
         Session session = getSessionFactory().getCurrentSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<Outcome> query = criteriaBuilder.createQuery(Outcome.class);
@@ -28,7 +28,7 @@ public class OutcomeTypeDao extends GenericDao<OutcomeType> {
     }
 
     @Transactional
-    public Long getSizeOutcomesOfType(OutcomeType outcomeType) {
+    public Long getOutcomesNumberByType(OutcomeType outcomeType) {
         Session session = getSessionFactory().getCurrentSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<Long> query = criteriaBuilder.createQuery(Long.class);

@@ -20,7 +20,7 @@ public class IncomeServiceImpl implements IncomeService {
 
     @Override
     public void addIncome(Income income) {
-        dao.create(income);
+        dao.add(income);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class IncomeServiceImpl implements IncomeService {
         LocalDate das = LocalDate.parse(incomeDto.getDate());
         Income income = new Income(new BigDecimal(incomeDto.getAmount()), LocalDate.parse(incomeDto.getDate()), LocalTime.now(), account);
         income.setNote(incomeDto.getNote());
-        dao.create(income);
+        dao.add(income);
     }
 
     @Override
@@ -43,32 +43,32 @@ public class IncomeServiceImpl implements IncomeService {
 
     @Override
     public Income findById(long id) {
-        return dao.findById(id);
+        return dao.getById(id);
     }
 
     @Override
     public List<Income> findAllIncomesInAccount(Account account) {
-        return dao.getAccountsIncomes(account);
+        return dao.getAccountIncomes(account);
     }
 
     @Override
     public List<Income> findIncomesInAccountByDate(Account account, LocalDate start, LocalDate end) {
-        return dao.getIncomesInAccountByDate(account, start, end);
+        return dao.getAccountIncomesByDate(account, start, end);
     }
 
     @Override
     public List<Income> getPageOfIncomes(Account account, int first, int limit) {
-        return dao.getPageOfIncomes(account, first, limit);
+        return dao.getIncomesPage(account, first, limit);
     }
 
     @Override
     public Long getAmountOfIncomesInAccount(Account account) {
-        return dao.getAmountOfIncomesInAccount(account);
+        return dao.getAccountIncomeAmount(account);
     }
 
     @Override
     public PagedListHolder<Income> getPagedIncomeList(Account account, int pageSize) {
-        List<Income> allIncomesInAccount = dao.getAccountsIncomes(account);
+        List<Income> allIncomesInAccount = dao.getAccountIncomes(account);
         PagedListHolder<Income> pagedList = new PagedListHolder<>(allIncomesInAccount);
         pagedList.setPageSize(pageSize);
         return pagedList;
