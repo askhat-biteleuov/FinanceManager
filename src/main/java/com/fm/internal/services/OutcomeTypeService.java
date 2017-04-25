@@ -1,11 +1,14 @@
 package com.fm.internal.services;
 
 import com.fm.internal.dtos.OutcomeTypeDto;
+import com.fm.internal.models.Account;
 import com.fm.internal.models.Outcome;
 import com.fm.internal.models.OutcomeType;
 import com.fm.internal.models.User;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 public interface OutcomeTypeService {
     void addOutcomeType(OutcomeType type);
@@ -25,4 +28,6 @@ public interface OutcomeTypeService {
     List<Outcome> getOutcomesOfType(OutcomeType outcomeType, int first, int limit);
 
     Long getSizeOutcomesOfType(OutcomeType outcomeType);
+
+    Map<String, Double> countOutcomeTypesValueByDate(Account account, LocalDate start, LocalDate end);
 }

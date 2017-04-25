@@ -3,6 +3,7 @@ package com.fm.internal.services.implementation;
 import com.fm.internal.daos.OutcomeDao;
 import com.fm.internal.daos.OutcomeTypeDao;
 import com.fm.internal.dtos.OutcomeTypeDto;
+import com.fm.internal.models.Account;
 import com.fm.internal.models.Outcome;
 import com.fm.internal.models.OutcomeType;
 import com.fm.internal.models.User;
@@ -10,7 +11,9 @@ import com.fm.internal.services.OutcomeTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 public class OutcomeTypeServiceImpl implements OutcomeTypeService {
 
@@ -66,5 +69,10 @@ public class OutcomeTypeServiceImpl implements OutcomeTypeService {
     @Override
     public Long getSizeOutcomesOfType(OutcomeType outcomeType) {
         return outcomeTypeDao.getOutcomesNumberByType(outcomeType);
+    }
+
+    @Override
+    public Map<String, Double> countOutcomeTypesValueByDate(Account account, LocalDate start, LocalDate end) {
+        return outcomeTypeDao.countOutcomeTypesValueByDate(account, start, end);
     }
 }
