@@ -41,7 +41,7 @@ public class OutcomeController {
     @RequestMapping(value = "/addoutcome", method = RequestMethod.POST)
     @ResponseBody
     public void addOutcome(@Valid @RequestBody OutcomeDto outcomeDto,
-                                   BindingResult result) {
+                                  BindingResult result) {
         User user = userService.getLoggedUser();
         if (!result.hasErrors() && user != null) {
             saveNewOutcome(outcomeDto);

@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,14 +31,6 @@ public class IncomeController {
     private IncomeService incomeService;
     @Autowired
     private PaginationServiceImpl paginationService;
-
-    @RequestMapping(value = "/addincome", method = RequestMethod.GET)
-    public ModelAndView newIncome(WebRequest request) {
-        String accountId = request.getParameter("accountId");
-        IncomeDto incomeDto = new IncomeDto();
-        incomeDto.setAccountId(Long.parseLong(accountId));
-        return new ModelAndView("newincome", "incomeDto", incomeDto);
-    }
 
     @RequestMapping(value = "/addincome", method = RequestMethod.POST)
     @ResponseBody
