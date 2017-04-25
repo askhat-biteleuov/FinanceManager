@@ -1,6 +1,7 @@
 $(document).ready(function () {
     $('#adding').on('submit', 'form', function (event) {
         event.preventDefault();
+        $(this).validator();
         var form = $(this);
         var data = form.serializeArray();
         var objectifyData = objectifyForm(data);

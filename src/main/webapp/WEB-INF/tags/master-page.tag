@@ -21,6 +21,8 @@
     <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+    <!-- Bootstrap Validator Plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-default">

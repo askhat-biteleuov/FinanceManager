@@ -32,39 +32,54 @@
     <h2>Счёт ${account.name}</h2>
     <div id="adding">
         <button type="button">Добавить доход</button>
-        <form:form method="POST" action="/addincome" modelAttribute="incomeDto" id="incomeForm" cssClass="trans">
-            <div>
-                <form:input path="note" placeholder="Note"/><br/>
+        <form method="POST" action="<c:url value="/account/income/add"/>" id="incomeForm" class="trans" role="form">
+            <div class="form-group">
+                <input type="text" id="incomeNote" name="note" placeholder="Note" class="form-control" maxlength="256"/><br/>
+                <div class="help-block with-errors"></div>
             </div>
-            <div>
-                <form:input path="amount" placeholder="Amount"/><br/>
+            <div class="form-group">
+                <input type="text" id="incomeAmount" name="amount" placeholder="Amount" class="form-control"
+                       pattern="^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$" required/><br/>
+                <div class="help-block with-errors"></div>
             </div>
-            <form:errors id="incerror" path="amount" cssStyle="color: red"/><br/>
-            <div>
-                <form:input path="date" type="date"/><br/>
+            <div class="form-group">
+                <label for="incomeDate">Дата дохода:<br/></label>
+                <input id="incomeDate" name="date" type="date" required/><br/>
+                <div class="help-block with-errors"></div>
             </div>
-            <form:errors id="incerror" path="date" cssStyle="color: red"/><br/>
             <input type="hidden" id="accountId" name="accountId" value="${account.id}">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            <form:button type="submit">Добавить</form:button>
-        </form:form>
+            <button type="submit" class="btn btn-default">Добавить</button>
+        </form>
         <br/>
         <br/>
         <button type="button">Добавить расход</button>
-        <form:form method="POST" action="/addoutcome" modelAttribute="outcomeDto" id="outcomeForm" cssClass="trans">
-            <form:select path="outcomeTypeId">
-                <form:option value="0" disabled="true" label="--- Select ---"/>
-                <form:options items="${types}" itemValue="id" itemLabel="name"/>
-            </form:select><br/>
-            <form:errors path="outcomeTypeId" cssStyle="color: red"/><br/>
-            <form:input path="note" placeholder="Note"/><br/>
-            <form:input path="amount" placeholder="Amount"/><br/>
-            <form:errors path="amount" cssStyle="color: red"/><br/>
-            <form:input path="date" type="date"/><br/>
-            <form:errors path="date" cssStyle="color: red"/><br/>
+        <form:form method="POST" action="/outcome/add" modelAttribute="outcomeDto" id="outcomeForm" class="trans"
+                   role="form">
+            <div class="form-group">
+                <form:select path="outcomeTypeId" cssClass="form-control">
+                    <form:option value="0" disabled="true" label="--- Select ---"/>
+                    <form:options items="${types}" itemValue="id" itemLabel="name"/>
+                </form:select><br/>
+            </div>
+            <div class="form-group">
+                <input type="text" id="outcomeNote" name="note" placeholder="Note" class="form-control"
+                       maxlength="256"/><br/>
+                <div class="help-block with-errors"></div>
+            </div>
+            <div class="form-group">
+                <input type="text" id="outcomeAmount" name="amount" placeholder="Amount" class="form-control"
+                       pattern="^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$" required/><br/>
+                <div class="help-block with-errors"></div>
+            </div>
+            <div class="form-group">
+                <label for="outcomeDate">Дата дохода:<br/></label>
+                <input id="outcomeDate" name="date" type="date" required/><br/>
+                <div class="help-block with-errors"></div>
+            </div>
             <input type="hidden" name="accountId" value="${account.id}">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            <form:button type="submit">Добавить</form:button>
+            <button type="submit" class="btn btn-default">Добавить</button>
             <br/>
         </form:form>
         <br/>
