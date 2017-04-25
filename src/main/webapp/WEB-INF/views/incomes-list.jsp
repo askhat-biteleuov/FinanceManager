@@ -12,7 +12,7 @@
             <th>Дата</th>
             <th>Сумма</th>
             <th>Счет</th>
-            <th></th>
+            <th>Заметка</th>
             <th></th>
         </tr>
         <tbody>

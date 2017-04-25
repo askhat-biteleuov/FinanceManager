@@ -12,8 +12,8 @@
             <th>Дата</th>
             <th>Сумма</th>
             <th>Счет</th>
-            <th></th>
-            <th></th>
+            <th>Заметка</th>
+            <th>Категория</th>
         </tr>
         <tbody>
         <c:forEach var="outcome" items="${accountDto.outcomes}">
@@ -29,6 +29,9 @@
                 </td>
                 <td>
                         ${outcome.note}
+                </td>
+                <td>
+                        ${outcome.outcomeType.name}
                 </td>
                 <td>
                     <form action="<c:url value="/outcome/delete"/>" method="POST">
