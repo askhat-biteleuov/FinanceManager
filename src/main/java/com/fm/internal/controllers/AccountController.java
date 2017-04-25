@@ -24,6 +24,7 @@ import java.util.Map;
 
 
 @Controller
+@RequestMapping("/account")
 public class AccountController {
     private static final Logger LOGGER = Logger.getLogger(LoginController.class);
 
@@ -42,12 +43,12 @@ public class AccountController {
     @Autowired
     private AccountValidator accountValidator;
 
-    @RequestMapping(value = "/add-account", method = RequestMethod.GET)
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
     public ModelAndView getList() {
         return new ModelAndView("account", "accountDto", new AccountDto());
     }
 
-    @RequestMapping(value = "/add-account", method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ModelAndView submit(@Valid @ModelAttribute("accountDto") AccountDto accountDto, BindingResult result) {
         accountValidator.validate(accountDto, result);
         User loggedUser = userService.getLoggedUser();
@@ -59,14 +60,14 @@ public class AccountController {
         return new ModelAndView("account");
     }
 
-    @RequestMapping(value = "/account/page", method = RequestMethod.GET)
+    @RequestMapping(value = "/page", method = RequestMethod.GET)
     public ModelAndView getAccountPage(@RequestParam("name") String nameOfAccount) {
         ModelAndView modelAndView = setDefaultMavForAccountByName(nameOfAccount);
         modelAndView.setViewName("accountpage");
         return modelAndView;
     }
 
-    @RequestMapping(value = "/account/page", method = RequestMethod.POST)
+    @RequestMapping(value = "/page", method = RequestMethod.POST)
     public ModelAndView setPieChart(@ModelAttribute("rangeDto") RangeDto rangeDto, BindingResult result) {
         Account accountByName = accountService.findUserAccountByName(userService.getLoggedUser(), rangeDto.getAccountName());
         List<Outcome> outcomes = outcomeService.findOutcomesInAccountByDate(accountByName,
@@ -78,7 +79,7 @@ public class AccountController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/account/pagejson", method = RequestMethod.POST)
+    @RequestMapping(value = "/pagejson", method = RequestMethod.POST)
     @ResponseBody
     public Object getPieChartJson(@RequestBody RangeDto rangeDto, BindingResult result) {
         Account accountByName = accountService.findUserAccountByName(userService.getLoggedUser(), rangeDto.getAccountName());

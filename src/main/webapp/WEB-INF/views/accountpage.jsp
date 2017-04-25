@@ -84,13 +84,13 @@
             <form:errors path="amount" cssStyle="color: red"/><br/>
             <input type="hidden" name="accountId" value="${account.id}">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            <form:button type="submit">Добавить</form:button>
+            <button type="submit" class="btn"
             <br>
         </form:form>
         <br/>
         <br/>
     </div>
-    <form action="<c:url value="/income/page"/>" method="GET">
+    <form action="<c:url value="/account/income/page"/>" method="GET">
         <input type="hidden" name="itemId" value="${account.id}">
         <button type="submit">Посмотреть все доходы</button>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

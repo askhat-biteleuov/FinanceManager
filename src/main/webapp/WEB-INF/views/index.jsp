@@ -19,7 +19,7 @@
         <c:if test="${user != null}">
             <div align="center">
                 <h2>Счета</h2>
-                <form action="/add-account" method="GET">
+                <form action="/account/add" method="GET">
                     <button type="submit">Добавить счет</button>
                 </form>
                 <table border="1" class="table">

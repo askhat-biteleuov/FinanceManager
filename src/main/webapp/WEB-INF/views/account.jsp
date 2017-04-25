@@ -6,7 +6,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <t:master-page title="Добавить счет">
-    <c:url var="accountURL" value="/add-account"/>
+    <c:url var="accountURL" value="/account/add"/>
 
     <form:form method="POST" action="${accountURL}" commandName="accountDto">
         <h1>Новый счет</h1>

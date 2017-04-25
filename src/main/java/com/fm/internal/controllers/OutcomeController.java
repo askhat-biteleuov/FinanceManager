@@ -24,6 +24,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
+@RequestMapping("/outcome")
 public class OutcomeController {
     private static final Logger LOGGER = Logger.getLogger(OutcomeController.class);
 
@@ -38,7 +39,7 @@ public class OutcomeController {
     @Autowired
     private PaginationServiceImpl paginationService;
 
-    @RequestMapping(value = "/addoutcome", method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public void addOutcome(@Valid @RequestBody OutcomeDto outcomeDto,
                                   BindingResult result) {
@@ -64,7 +65,7 @@ public class OutcomeController {
         accountService.updateAccount(account);
     }
 
-    @RequestMapping(value = "/outcome/page", method = RequestMethod.GET)
+    @RequestMapping(value = "/page", method = RequestMethod.GET)
     public ModelAndView listOfIncomes(@RequestParam("itemId") Long accountId,
                                       @RequestParam(value = "pageId", required = false) Integer pageId) {
         if (pageId == null) {
@@ -83,7 +84,7 @@ public class OutcomeController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/outcome/delete", method = RequestMethod.POST)
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public ModelAndView deleteOutcome(Long outcomeId, final HttpServletRequest request) {
         Outcome outcome = outcomeService.findById(outcomeId);
         outcomeService.deleteOutcome(outcome);

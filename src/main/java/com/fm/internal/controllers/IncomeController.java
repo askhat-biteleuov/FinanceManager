@@ -22,6 +22,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
+@RequestMapping("/account/income")
 public class IncomeController {
     @Autowired
     private UserService userService;
@@ -32,7 +33,7 @@ public class IncomeController {
     @Autowired
     private PaginationServiceImpl paginationService;
 
-    @RequestMapping(value = "/addincome", method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public void addIncome(@Valid @RequestBody IncomeDto incomeDto, BindingResult result) {
         User user = userService.getLoggedUser();
@@ -46,7 +47,7 @@ public class IncomeController {
         }
     }
 
-    @RequestMapping(value = "/income/page", method = RequestMethod.GET)
+    @RequestMapping(value = "/page", method = RequestMethod.GET)
     public ModelAndView listOfIncomes(@RequestParam("itemId") Long accountId,
                                       @RequestParam(value = "pageId", required = false) Integer pageId) {
         if (pageId == null) {
@@ -65,7 +66,7 @@ public class IncomeController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/income/delete", method = RequestMethod.POST)
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public ModelAndView deleteIncomeById(@RequestParam("incomeId") Long incomeId,
                                          final HttpServletRequest request) {
         incomeService.deleteIncome(incomeService.findById(incomeId));
