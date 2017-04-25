@@ -16,10 +16,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,16 +39,13 @@ public class OutcomeController {
     private PaginationServiceImpl paginationService;
 
     @RequestMapping(value = "/addoutcome", method = RequestMethod.POST)
-    public ModelAndView addOutcome(@Valid @ModelAttribute("outcomeDto") OutcomeDto outcomeDto,
+    @ResponseBody
+    public void addOutcome(@Valid @RequestBody OutcomeDto outcomeDto,
                                    BindingResult result) {
         User user = userService.getLoggedUser();
         if (!result.hasErrors() && user != null) {
             saveNewOutcome(outcomeDto);
-            return new ModelAndView("redirect:" + "/index");
         }
-        ModelAndView modelAndView = new ModelAndView("newoutcome");
-        modelAndView.addObject("types", outcomeTypeService.getAvailableOutcomeTypes(user));
-        return modelAndView;
     }
 
     private void saveNewOutcome(OutcomeDto outcomeDto) {

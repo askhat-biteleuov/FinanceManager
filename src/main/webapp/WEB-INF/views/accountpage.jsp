@@ -9,7 +9,8 @@
 </script>
 
 <t:master-page title="${account.name}">
-    <script src="<c:url value="/resources/js/addIncome.js"/>"></script>
+    <script src="<c:url value="/resources/js/formSlideAndDefaultDate.js"/>"></script>
+    <script src="<c:url value="/resources/js/sendFormViaAjax.js"/>"></script>
 
     <style>
         .trans {
@@ -50,7 +51,7 @@
         <br/>
         <br/>
         <button type="button">Добавить расход</button>
-        <form:form method="POST" action="/addoutcome" modelAttribute="outcomeDto" cssClass="trans">
+        <form:form method="POST" action="/addoutcome" modelAttribute="outcomeDto" id="outcomeForm" cssClass="trans">
             <form:select path="outcomeTypeId">
                 <form:option value="0" disabled="true" label="--- Select ---"/>
                 <form:options items="${types}" itemValue="id" itemLabel="name"/>
