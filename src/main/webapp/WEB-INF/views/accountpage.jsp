@@ -99,7 +99,7 @@
             <form:errors path="amount" cssStyle="color: red"/><br/>
             <input type="hidden" name="accountId" value="${account.id}">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            <button type="submit" class="btn"
+            <button type="submit" class="btn btn-default">Перевести</button>
             <br>
         </form:form>
         <br/>

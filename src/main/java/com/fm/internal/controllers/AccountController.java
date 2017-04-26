@@ -67,25 +67,24 @@ public class AccountController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/page", method = RequestMethod.POST)
-    public ModelAndView setPieChart(@ModelAttribute("rangeDto") RangeDto rangeDto, BindingResult result) {
-        Account accountByName = accountService.findUserAccountByName(userService.getLoggedUser(), rangeDto.getAccountName());
-        List<Outcome> outcomes = outcomeService.findOutcomesInAccountByDate(accountByName,
-                LocalDate.parse(rangeDto.getStart()), LocalDate.parse(rangeDto.getEnd()));
-        Map<String, Double> outcomeSum = countTypeAmount(outcomes);
-        ModelAndView modelAndView = setDefaultMavForAccountByName(rangeDto.getAccountName());
-        modelAndView.addObject("outcomes", outcomeSum);
-        modelAndView.setViewName("accountpage");
-        return modelAndView;
-    }
+//    @RequestMapping(value = "/page", method = RequestMethod.POST)
+//    public ModelAndView setPieChart(@ModelAttribute("rangeDto") RangeDto rangeDto, BindingResult result) {
+//        Account accountByName = accountService.findUserAccountByName(userService.getLoggedUser(), rangeDto.getAccountName());
+//        List<Outcome> outcomes = outcomeService.findOutcomesInAccountByDate(accountByName,
+//                LocalDate.parse(rangeDto.getStart()), LocalDate.parse(rangeDto.getEnd()));
+//        Map<String, Double> outcomeSum = countTypeAmount(outcomes);
+//        ModelAndView modelAndView = setDefaultMavForAccountByName(rangeDto.getAccountName());
+//        modelAndView.addObject("outcomes", outcomeSum);
+//        modelAndView.setViewName("accountpage");
+//        return modelAndView;
+//    }
 
     @RequestMapping(value = "/pagejson", method = RequestMethod.POST)
     @ResponseBody
     public Object getPieChartJson(@RequestBody RangeDto rangeDto, BindingResult result) {
         Account accountByName = accountService.findUserAccountByName(userService.getLoggedUser(), rangeDto.getAccountName());
-        List<Outcome> outcomes = outcomeService.findOutcomesInAccountByDate(accountByName,
-                LocalDate.parse(rangeDto.getStart()), LocalDate.parse(rangeDto.getEnd()));
-        return countTypeAmount(outcomes);
+        return outcomeTypeService.countOutcomeTypesValueByDate(accountByName,LocalDate.parse(rangeDto.getStart()),
+                LocalDate.parse(rangeDto.getEnd()));
     }
 
 
@@ -112,16 +111,4 @@ public class AccountController {
         return accountService.findUserAccountByName(userService.getLoggedUser(), accountName);
     }
 
-    private Map<String, Double> countTypeAmount(List<Outcome> outcomes) {
-        Map<String, Double> outcomeSum = new HashMap<>();
-        for (Outcome outcome : outcomes) {
-            if (!outcomeSum.containsKey(outcome.getOutcomeType().getName())) {
-                outcomeSum.put(outcome.getOutcomeType().getName(), outcome.getAmount().doubleValue());
-            } else {
-                Double oldValue = outcomeSum.get(outcome.getOutcomeType().getName());
-                outcomeSum.replace(outcome.getOutcomeType().getName(), oldValue + outcome.getAmount().doubleValue());
-            }
-        }
-        return outcomeSum;
-    }
 }
