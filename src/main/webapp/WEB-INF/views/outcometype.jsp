@@ -53,7 +53,8 @@
             </c:otherwise>
         </c:choose>
         <div>
-            <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#myModal">Удалить категорию
+            <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#outcometype-delete">
+                Удалить категорию
             </button>
             <jsp:include page="outcometype-delete.jsp"/>
         </div>

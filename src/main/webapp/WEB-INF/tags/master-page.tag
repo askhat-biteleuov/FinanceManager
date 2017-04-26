@@ -27,30 +27,40 @@
 <body>
 <nav class="navbar navbar-default">
     <div class="container-fluid">
-        <ul class="nav navbar-nav">
-            <li class="active"><a class="navbar-brand" href="/">Главная</a></li>
-            <c:if test="${userName == null}">
-                <li><a href="/login">Войти в аккаунт</a></li>
-                <li><a href="/registration">Пройти регистрацию</a></li>
-            </c:if>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <c:if test="${userName != null}">
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" role="button"
-                       aria-haspopup="true" aria-expanded="false">Добрый день, ${userName}!<span
-                            class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <form action="${pageContext.request.contextPath}/logout" method="post">
-                                <button class="btn-link" type="submit">Выход</button>
-                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                            </form>
-                        </li>
-                    </ul>
-                </li>
-            </c:if>
-        </ul>
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-toogle"
+                    aria-expanded="false">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Главная</a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-toogle">
+            <ul class="nav navbar-nav">
+                <c:if test="${userName == null}">
+                    <li><a href="/login">Войти в аккаунт</a></li>
+                    <li><a href="/registration">Пройти регистрацию</a></li>
+                </c:if>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <c:if test="${userName != null}">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-haspopup="true" aria-expanded="false">Добрый день, ${userName}!<span
+                                class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <form action="${pageContext.request.contextPath}/logout" method="post">
+                                    <button class="btn-link" type="submit">Выход</button>
+                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                </c:if>
+            </ul>
+        </div>
     </div>
 </nav>
 

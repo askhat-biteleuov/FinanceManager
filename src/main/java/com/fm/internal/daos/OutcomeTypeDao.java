@@ -7,14 +7,11 @@ import com.fm.internal.models.Outcome_;
 import org.hibernate.Session;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.NoResultException;
+import javax.persistence.criteria.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -64,5 +61,27 @@ public class OutcomeTypeDao extends GenericDao<OutcomeType> {
             outcomeTypesValue.put(outcomeType.getName(), value.doubleValue());
         }
         return outcomeTypesValue;
+    }
+
+    @Transactional
+    public BigDecimal getSumOfOutcomesInTypeForMonth(OutcomeType outcomeType) {
+        Session session = getSessionFactory().getCurrentSession();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<BigDecimal> query = criteriaBuilder.createQuery(BigDecimal.class);
+        Root<Outcome> root = query.from(Outcome.class);
+        query.select(criteriaBuilder.sum(root.get(Outcome_.amount)));
+        Expression month = criteriaBuilder.function("month", Integer.class, root.get(Outcome_.date));
+        Expression year = criteriaBuilder.function("year", Integer.class, root.get(Outcome_.date));
+        Predicate equalMonth = criteriaBuilder.equal(month, LocalDate.now().getMonthValue());
+        Predicate equalYear = criteriaBuilder.equal(year, LocalDate.now().getYear());
+        Predicate equalType = criteriaBuilder.equal(root.get(Outcome_.outcomeType), outcomeType);
+        query.where(equalType, equalMonth, equalYear);
+        query.groupBy(root.get(Outcome_.outcomeType));
+        try {
+            BigDecimal sum = session.createQuery(query).getSingleResult();
+            return sum;
+        } catch (NoResultException e) {
+            return BigDecimal.valueOf(0);
+        }
     }
 }

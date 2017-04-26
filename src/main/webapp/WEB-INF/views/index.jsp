@@ -20,51 +20,69 @@
             <div align="center">
                 <h2>Счета</h2>
                 <form action="/account/add" method="GET">
-                    <button type="submit">Добавить счет</button>
+                    <button class="btn btn-default" type="submit">Добавить счет</button>
                 </form>
-                <table border="1" class="table">
-                    <tr>
-                        <th>Название</th>
-                        <th>Баланс</th>
-                    </tr>
-                    <tbody>
+                <br>
+                <div class="container">
+                    <div class="row">
                     <c:forEach var="account" items="${user.accounts}">
-                        <tr>
-                            <td>
+                        <div class="col-sm-3">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
                                 <a href="<c:url value="/account/page?name=${account.name}"/>">
                                     <c:out value="${account.name}"/>
                                 </a>
-                            </td>
-                            <td><fmt:formatNumber type="currency" value="${account.balance}"/></td>
-                        </tr>
+                                </div>
+                                <div class="panel-body">
+                                    <fmt:formatNumber type="currency" value="${account.balance}"/>
+                                </div>
+                            </div>
+                        </div>
                     </c:forEach>
-                    </tbody>
-                </table>
+                    </div>
+                </div>
                 <h2>Категории расходов</h2>
-                <form action="/outcometype/add" method="GET">
-                    <button class="btn btn-default" type="submit">Добавить категорию расходов</button>
+
+                <form action="/outcometype/add" method="POST">
+                    <button class="btn btn-default" type="button" data-toggle="modal" data-target="#outcometype-add">
+                        Добавить категорию расходов
+                    </button>
+                    <jsp:include page="outcometype-add.jsp"/>
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 </form>
                 <br>
-                <table border="1" class="table">
-                    <tr>
-                        <th>Название</th>
-                        <th>Лимит</th>
-                    </tr>
-                    <tbody>
-                    <c:forEach var="outcomeType" items="${user.outcomeTypes}">
-                        <tr>
-                            <td>
-                                <c:url value="/outcometype/page" var="outcomeTypeUrl">
-                                    <c:param name="itemId" value="${outcomeType.id}"/>
-                                </c:url>
-                                <a href="<c:out value="${outcomeTypeUrl}"/>"><c:out value="${outcomeType.name}"/></a>
-                            </td>
-                            <td><fmt:formatNumber type="currency" value="${outcomeType.limit}"/></td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
+                <div class="container">
+                    <div class="row">
+                        <c:forEach var="outcomeType" items="${outcomeTypes}">
+                            <div class="col-sm-3">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <c:url value="/outcometype/page" var="outcomeTypeUrl">
+                                            <c:param name="itemId" value="${outcomeType.key.id}"/>
+                                        </c:url>
+                                        <a href="<c:out value="${outcomeTypeUrl}"/>"><c:out
+                                                value="${outcomeType.key.name}"/></a>
+                                    </div>
+                                    <div class="panel-body">
+                                        <c:choose>
+                                            <c:when test="${outcomeType.value > outcomeType.key.limit}">
+                                                <span style="color:red">
+                                                    <fmt:formatNumber type="currency"
+                                                                      value="${outcomeType.value}"/> / <fmt:formatNumber
+                                                        type="currency" value="${outcomeType.key.limit}"/>
+                                                </span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <fmt:formatNumber type="currency" value="${outcomeType.value}"/> /
+                                                <fmt:formatNumber type="currency" value="${outcomeType.key.limit}"/>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </div>
             </div>
         </c:if>
     </div>

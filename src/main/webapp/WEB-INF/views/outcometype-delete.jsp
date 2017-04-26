@@ -3,7 +3,7 @@
 <%--@elvariable id="outcomeTypeDto" type="com.fm.internal.dtos.OutcomeTypeDto"--%>
 
 <%--First modal dialog--%>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+<div class="modal fade" id="outcometype-delete" tabindex="-1" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -17,21 +17,23 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-primary btn-block" type="button" data-dismiss="modal" data-toggle="modal"
-                        data-target="#moveOutcomes">
+                        data-target="#outcometype-move-outcomes">
                     Переместить все операции в другую категорию
                 </button>
+                <br>
                 <form action="<c:url value="/outcometype/delete/all"/>" method="POST">
                     <input type="hidden" name="currentOutcomeTypeId" value="${outcomeTypeDto.id}">
                     <button class="btn btn-primary btn-block" type="submit">Стереть все операции</button>
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 </form>
+                <br>
                 <button class="btn btn-default btn-block" type="button" data-dismiss="modal">Отмена</button>
             </div>
         </div>
     </div>
 </div>
 <%--Second modal dialog--%>
-<div class="modal fade" id="moveOutcomes" tabindex="-1" role="dialog">
+<div class="modal fade" id="outcometype-move-outcomes" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-content">
         <div class="modal-header">
             <button class="close" type="button" data-dismiss="modal">×</button>
@@ -52,8 +54,9 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-success btn-block" type="submit">Принять</button>
+                <br>
                 <button class="btn btn-default btn-block" type="button" data-dismiss="modal" data-toggle="modal"
-                        data-target="#myModal">
+                        data-target="#outcometype-delete">
                     Отмена
                 </button>
             </div>

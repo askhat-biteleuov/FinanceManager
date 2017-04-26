@@ -6,6 +6,7 @@ import com.fm.internal.models.Outcome;
 import com.fm.internal.models.OutcomeType;
 import com.fm.internal.models.User;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -30,4 +31,6 @@ public interface OutcomeTypeService {
     Long getSizeOutcomesOfType(OutcomeType outcomeType);
 
     Map<String, Double> countOutcomeTypesValueByDate(Account account, LocalDate start, LocalDate end);
+
+    BigDecimal getSumOfOutcomesInTypeForMonth(OutcomeType outcomeType);
 }

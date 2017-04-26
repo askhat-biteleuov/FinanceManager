@@ -75,4 +75,9 @@ public class OutcomeTypeServiceImpl implements OutcomeTypeService {
     public Map<String, Double> countOutcomeTypesValueByDate(Account account, LocalDate start, LocalDate end) {
         return outcomeTypeDao.countOutcomeTypesValueByDate(account, start, end);
     }
+
+    @Override
+    public BigDecimal getSumOfOutcomesInTypeForMonth(OutcomeType outcomeType) {
+        return outcomeTypeDao.getSumOfOutcomesInTypeForMonth(outcomeType);
+    }
 }

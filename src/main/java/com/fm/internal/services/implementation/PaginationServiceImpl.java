@@ -12,6 +12,8 @@ public class PaginationServiceImpl {
             endPage = pageCount;
             if (endPage > 10) {
                 startPage = startPage - (5 - (endPage - selectedPage));
+            } else {
+                startPage = 1;
             }
         }
         return new PaginationDto(itemId, firstItem, pageCount, startPage, endPage, selectedPage, url);
