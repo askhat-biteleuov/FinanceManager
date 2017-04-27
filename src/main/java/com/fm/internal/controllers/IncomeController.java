@@ -11,6 +11,8 @@ import com.fm.internal.services.IncomeService;
 import com.fm.internal.services.UserService;
 import com.fm.internal.services.implementation.PaginationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +37,7 @@ public class IncomeController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public void addIncome(@Valid @RequestBody IncomeDto incomeDto, BindingResult result) {
+    public Object addIncome(@Valid @RequestBody IncomeDto incomeDto, BindingResult result) {
         User user = userService.getLoggedUser();
         if (!result.hasErrors() && user != null) {
             Account account = accountService.findAccountById(incomeDto.getAccountId());
@@ -43,8 +45,10 @@ public class IncomeController {
                 incomeService.addIncome(incomeDto, account);
                 account.setBalance(account.getBalance().add(new BigDecimal(incomeDto.getAmount())));
                 accountService.updateAccount(account);
+                return new ResponseEntity<>(HttpStatus.OK);
             }
         }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @RequestMapping(value = "/page", method = RequestMethod.GET)
