@@ -83,7 +83,6 @@ public class IncomeController {
         accountDto.setIncomes(pageOfIncomes);
         ModelAndView modelAndView = new ModelAndView("incomes-list", "accountDto", accountDto);
         modelAndView.addObject("paginationDto", paginationDto);
-        modelAndView.addObject("incomes", pageOfIncomes);
         return modelAndView;
     }
 

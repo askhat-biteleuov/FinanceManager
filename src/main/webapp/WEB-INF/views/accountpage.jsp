@@ -16,6 +16,7 @@
         .trans {
             display: none;
         }
+
         .fail {
             color: red;
         }
@@ -105,16 +106,16 @@
         <br/>
         <br/>
     </div>
-    <form action="<c:url value="/account/income/page"/>" method="GET">
-        <input type="hidden" name="itemId" value="${account.id}">
-        <button type="submit">Посмотреть все доходы</button>
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-    </form>
-    <form action="<c:url value="/outcome/page"/>" method="GET">
-        <input type="hidden" name="itemId" value="${account.id}">
-        <button type="submit">Посмотреть все расходы</button>
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-    </form>
+    <a href="<c:url value="/account/income/page?itemId=${account.id}"/>">
+        <button class="btn btn-default">
+            Посмотреть все доходы
+        </button>
+    </a>
+    <a href="<c:url value="/outcome/page?itemId=${account.id}"/>">
+        <button class="btn btn-default">
+            Посмотреть все расходы
+        </button>
+    </a>
     <form id="rangeForm">
         <input type="date" name="start"/><br/>
         <input type="date" name="end"/><br/>
@@ -122,26 +123,26 @@
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <button type="submit">Submit</button>
     </form>
-        <script>
-            function drawDefaultChart() {
-                $('#piechart').hide();
-                // Define the chart to be drawn.
-                var data = new google.visualization.DataTable();
-                data.addColumn('string', 'Type');
-                data.addColumn('number', 'Amount');
-                <c:forEach items="${outcomes}" var="outcome">
-                data.addRow(["${outcome.key}", ${outcome.value}]);
-                </c:forEach>
-                // Set chart options
-                var options = {
-                    'title': 'Статистика за текущий месяц'
-                };
-                // Instantiate and draw the chart.
-                var chart = new google.visualization.PieChart(document.getElementById('defaultPiechart'));
-                chart.draw(data, options);
-            }
-            google.charts.setOnLoadCallback(drawDefaultChart);
-        </script>
+    <script>
+        function drawDefaultChart() {
+            $('#piechart').hide();
+            // Define the chart to be drawn.
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Type');
+            data.addColumn('number', 'Amount');
+            <c:forEach items="${outcomes}" var="outcome">
+            data.addRow(["${outcome.key}", ${outcome.value}]);
+            </c:forEach>
+            // Set chart options
+            var options = {
+                'title': 'Статистика за текущий месяц'
+            };
+            // Instantiate and draw the chart.
+            var chart = new google.visualization.PieChart(document.getElementById('defaultPiechart'));
+            chart.draw(data, options);
+        }
+        google.charts.setOnLoadCallback(drawDefaultChart);
+    </script>
     <script src="<c:url value="/resources/js/outcomesPiechart.js"/>"></script>
     <script src="<c:url value="/resources/js/drawOutcomesPiechart.js"/>"></script>
     <div id="defaultPiechart" style="width: 580px; height: 430px; margin: 0 auto"></div>

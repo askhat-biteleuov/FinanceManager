@@ -98,7 +98,6 @@ public class OutcomeController {
         accountDto.setOutcomes(pageOfOutcomes);
         ModelAndView modelAndView = new ModelAndView("outcomes-list", "accountDto", accountDto);
         modelAndView.addObject("paginationDto", paginationDto);
-        modelAndView.addObject("outcomes", pageOfOutcomes);
         return modelAndView;
     }
 
