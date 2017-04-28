@@ -4,6 +4,28 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <t:master-page title="Список доходов">
+    <style>
+        [contenteditable]:hover:after {
+            content: ' click to edit';
+            font-style: italic;
+            font-size: 12px;
+            font-family: sans-serif;
+            color: #ccc;
+        .text-stroke(0);
+        }
+
+        [contenteditable]:hover, [contenteditable]:focus {
+            background: #FFFFD3;
+        }
+
+        [contenteditable]:focus {
+            padding: 5px;
+        }
+
+        [contenteditable]:focus:after {
+            content: '';
+        }
+    </style>
     <div align="center">
     <h2>Доходы</h2>
     <jsp:include page="../fragments/pagination.jsp"/>
@@ -27,13 +49,15 @@
                 <td>
                         ${income.account.name}
                 </td>
-                <td>
+                <td contenteditable="true">
                         ${income.note}
                 </td>
                 <td>
                     <form action="<c:url value="/account/income/delete"/>" method="POST">
                         <input type="hidden" name="incomeId" value="${income.id}">
-                        <button type="submit">Удалить доход</button>
+                        <button type="submit">
+                            <span class="glyphicons glyphicons-bin"></span>
+                        </button>
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     </form>
                 </td>
