@@ -30,6 +30,8 @@ public interface OutcomeTypeService {
 
     Long getSizeOutcomesOfType(OutcomeType outcomeType);
 
+    Map<String, Double> defaultOutcomeTypesValue(Account account);
+
     Map<String, Double> countOutcomeTypesValueByDate(Account account, LocalDate start, LocalDate end);
 
     BigDecimal getSumOfOutcomesInTypeForMonth(OutcomeType outcomeType);

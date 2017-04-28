@@ -1,6 +1,8 @@
 $(document).ready(function () {
     $('#rangeForm').submit(function (event) {
         event.preventDefault();
+        $('#defaultPiechart').hide();
+        $('#piechart').show();
         $.ajax({
             type: 'POST',
             beforeSend: function (request) {
@@ -9,14 +11,13 @@ $(document).ready(function () {
                 request.setRequestHeader(header, token);
             },
             contentType: 'application/json; charset=UTF-8',
-            url: '/account/pagejson',
+            url: '/account/page',
             data: JSON.stringify({
                 "start": $("#rangeForm [name=start]").val(),
                 "end": $("#rangeForm [name=end]").val(),
                 "accountName": $('#rangeForm [name=accountName]').val()
             })
         }).done(function (data) {
-            alert(data);
             drawChart(data);
         }).fail(function (error) {
             alert('FAIL ' + error);

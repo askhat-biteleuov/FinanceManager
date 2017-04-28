@@ -1,10 +1,10 @@
-function drawChart(data2) {
+function drawChart(data) {
     // Define the chart to be drawn.
-    var data = new google.visualization.DataTable();
-    data.addColumn('string', 'Type');
-    data.addColumn('number', 'Amount');
-    for (var key in data2) {
-        data.addRow([key, data2[key]]);
+    var dataTable = new google.visualization.DataTable();
+    dataTable.addColumn('string', 'Type');
+    dataTable.addColumn('number', 'Amount');
+    for (var key in data) {
+        dataTable.addRow([key, data[key]]);
     }
     // Set chart options
     var options = {
@@ -14,7 +14,7 @@ function drawChart(data2) {
     };
 
     // Instantiate and draw the chart.
-    var chart = new google.visualization.PieChart(document.getElementById('container'));
-    chart.draw(data, options);
+    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+    chart.draw(dataTable, options);
 }
 google.charts.setOnLoadCallback(drawChart);

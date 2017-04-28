@@ -67,19 +67,7 @@ public class AccountController {
         return modelAndView;
     }
 
-//    @RequestMapping(value = "/page", method = RequestMethod.POST)
-//    public ModelAndView setPieChart(@ModelAttribute("rangeDto") RangeDto rangeDto, BindingResult result) {
-//        Account accountByName = accountService.findUserAccountByName(userService.getLoggedUser(), rangeDto.getAccountName());
-//        List<Outcome> outcomes = outcomeService.findOutcomesInAccountByDate(accountByName,
-//                LocalDate.parse(rangeDto.getStart()), LocalDate.parse(rangeDto.getEnd()));
-//        Map<String, Double> outcomeSum = countTypeAmount(outcomes);
-//        ModelAndView modelAndView = setDefaultMavForAccountByName(rangeDto.getAccountName());
-//        modelAndView.addObject("outcomes", outcomeSum);
-//        modelAndView.setViewName("accountpage");
-//        return modelAndView;
-//    }
-
-    @RequestMapping(value = "/pagejson", method = RequestMethod.POST)
+    @RequestMapping(value = "/page", method = RequestMethod.POST)
     @ResponseBody
     public Object getPieChartJson(@RequestBody RangeDto rangeDto, BindingResult result) {
         Account accountByName = accountService.findUserAccountByName(userService.getLoggedUser(), rangeDto.getAccountName());
@@ -104,6 +92,7 @@ public class AccountController {
         modelAndView.addObject("types", outcomeTypeService.getAvailableOutcomeTypes(userService.getLoggedUser()));
         modelAndView.addObject("accounts",
                 accountService.findAllUserAccounts(accountService.findAccountById(transferDto.getAccountId()).getUser()));
+        modelAndView.addObject("outcomes", outcomeTypeService.defaultOutcomeTypesValue(account));
         return modelAndView;
     }
 
