@@ -4,6 +4,7 @@ import com.fm.internal.daos.OutcomeDao;
 import com.fm.internal.dtos.OutcomeDto;
 import com.fm.internal.models.Account;
 import com.fm.internal.models.Outcome;
+import com.fm.internal.models.User;
 import com.fm.internal.services.OutcomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -63,5 +64,10 @@ public class OutcomeServiceImpl implements OutcomeService {
         outcome.setDate(LocalDate.parse(outcomeDto.getDate()));
         outcome.setTime(LocalTime.now());
         return outcome;
+    }
+
+    @Override
+    public List<Outcome> getUserOutcomes(User user) {
+        return dao.getUserOutcomes(user);
     }
 }

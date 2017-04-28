@@ -1,9 +1,7 @@
 package com.fm.internal.daos;
 
-import com.fm.internal.models.Account;
-import com.fm.internal.models.Outcome;
-import com.fm.internal.models.OutcomeType;
-import com.fm.internal.models.Outcome_;
+import com.fm.internal.models.*;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +23,18 @@ public class OutcomeDao extends GenericDao<Outcome> {
         Root<Outcome> root = query.from(Outcome.class);
         query.where(criteriaBuilder.equal(root.get(Outcome_.account), account));
         return session.createQuery(query).getResultList();
+    }
+
+    @Transactional
+    public List<Outcome> getUserOutcomes(User user){
+        Session currentSession = getSessionFactory().getCurrentSession();
+        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
+        CriteriaQuery<Outcome> query = builder.createQuery(Outcome.class);
+        Root<Outcome> outcomeRoot = query.from(Outcome.class);
+        Join<Outcome, Account> accountJoin = outcomeRoot.join(Outcome_.account);
+        query.orderBy(builder.asc(accountJoin.getParent().get(Outcome_.date)));
+        query.where(builder.equal(accountJoin.get(Account_.user), user));
+        return currentSession.createQuery(query).getResultList();
     }
 
     @Transactional

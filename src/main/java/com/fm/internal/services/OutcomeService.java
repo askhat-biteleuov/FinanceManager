@@ -3,6 +3,7 @@ package com.fm.internal.services;
 import com.fm.internal.dtos.OutcomeDto;
 import com.fm.internal.models.Account;
 import com.fm.internal.models.Outcome;
+import com.fm.internal.models.User;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -25,4 +26,6 @@ public interface OutcomeService {
     Long getAmountOfOutcomesInAccount(Account account);
 
     Outcome createOutcomeFromDto(OutcomeDto outcomeDto);
+
+    List<Outcome> getUserOutcomes(User user);
 }
