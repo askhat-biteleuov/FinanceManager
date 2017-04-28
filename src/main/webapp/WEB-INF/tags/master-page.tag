@@ -35,6 +35,8 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="/">Главная</a>
+            <a class="navbar-brand" href="<c:url value="/outcome/all"/>">Расходы</a>
+            <a class="navbar-brand" href="<c:url value="/account/income/all"/>">Доходы</a>
         </div>
         <div class="collapse navbar-collapse" id="navbar-toogle">
             <ul class="nav navbar-nav">

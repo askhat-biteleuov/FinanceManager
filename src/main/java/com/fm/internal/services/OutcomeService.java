@@ -21,6 +21,10 @@ public interface OutcomeService {
 
     List<Outcome> findOutcomesInAccountByDate(Account account, LocalDate start, LocalDate end);
 
+    List<Outcome> getUserOutcomesPage(User user, int first, int limit);
+
+    Long getUserOutcomesNumber(User user);
+
     List<Outcome> getPageOfOutcomes(Account account, int first, int limit);
 
     Long getAmountOfOutcomesInAccount(Account account);

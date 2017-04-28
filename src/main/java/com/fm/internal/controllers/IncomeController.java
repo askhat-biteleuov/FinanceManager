@@ -51,6 +51,23 @@ public class IncomeController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public ModelAndView userIncomes(@RequestParam(value = "pageId", required = false) Integer pageId) {
+        if (pageId == null) {
+            pageId = 1;
+        }
+        User user = userService.getLoggedUser();
+        Long userIncomesNumber = incomeService.getUserIncomesNumber(user);
+        int pageSize = 10;
+        PaginationDto paginationDto = paginationService.createPagination(user.getId(), pageId, pageSize,
+                userIncomesNumber, "/account/income/all");
+        List<Income> incomesPage = incomeService.getUserIncomesPage(user, paginationDto.getFirstItem(), pageSize);
+        ModelAndView modelAndView = new ModelAndView("user-incomes");
+        modelAndView.addObject("paginationDto", paginationDto);
+        modelAndView.addObject("incomes", incomesPage);
+        return modelAndView;
+    }
+
     @RequestMapping(value = "/page", method = RequestMethod.GET)
     public ModelAndView listOfIncomes(@RequestParam("itemId") Long accountId,
                                       @RequestParam(value = "pageId", required = false) Integer pageId) {

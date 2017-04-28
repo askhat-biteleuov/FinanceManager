@@ -3,9 +3,9 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<t:master-page title="Список доходов">
+<t:master-page title="Список расходов">
     <div align="center">
-    <h2>Доходы</h2>
+    <h2>Расходы</h2>
     <jsp:include page="../fragments/pagination.jsp"/>
     <table class="table">
         <tr>
@@ -13,27 +13,34 @@
             <th>Сумма</th>
             <th>Счет</th>
             <th>Заметка</th>
-            <th></th>
+            <th>Категория</th>
+            <th>Счёт</th>
         </tr>
         <tbody>
-        <c:forEach var="income" items="${accountDto.incomes}">
+        <c:forEach var="outcome" items="${outcomes}">
             <tr>
                 <td>
-                        ${income.date} ${income.time}
+                        ${outcome.date} ${outcome.time}
                 </td>
                 <td>
-                        ${income.amount}
+                        ${outcome.amount}
                 </td>
                 <td>
-                        ${income.account.name}
+                        ${outcome.account.name}
                 </td>
                 <td>
-                        ${income.note}
+                        ${outcome.note}
                 </td>
                 <td>
-                    <form action="<c:url value="/account/income/delete"/>" method="POST">
-                        <input type="hidden" name="incomeId" value="${income.id}">
-                        <button type="submit">Удалить доход</button>
+                        ${outcome.outcomeType.name}
+                </td>
+                <td>
+                        ${outcome.account.name}
+                </td>
+                <td>
+                    <form action="<c:url value="/outcome/delete"/>" method="POST">
+                        <input type="hidden" name="outcomeId" value="${outcome.id}">
+                        <button type="submit">Удалить расход</button>
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     </form>
                 </td>
@@ -41,6 +48,4 @@
         </c:forEach>
         </tbody>
     </table>
-    <button type="submit" onclick="history.back()" class="btn">Назад</button>
 </t:master-page>
-

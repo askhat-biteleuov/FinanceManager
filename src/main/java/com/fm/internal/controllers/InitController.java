@@ -49,12 +49,12 @@ public class InitController {
 
         Outcome[] outcomes = {
                 new Outcome(new BigDecimal(2122), LocalDate.now(), LocalTime.now(), accounts[0], types[0]),
-                new Outcome(new BigDecimal(332), LocalDate.now(), LocalTime.now(), accounts[0], types[0]),
+                new Outcome(new BigDecimal(332), LocalDate.now(), LocalTime.now(), accounts[2], types[0]),
                 new Outcome(new BigDecimal(4144), LocalDate.now(), LocalTime.now(), accounts[0], types[1]),
-                new Outcome(new BigDecimal(9999), LocalDate.now(), LocalTime.now(), accounts[0], types[1]),
-                new Outcome(new BigDecimal(50), LocalDate.now(), LocalTime.now(), accounts[0], types[2]),
-                new Outcome(new BigDecimal(1234), LocalDate.now(), LocalTime.now(), accounts[0], types[2]),
-                new Outcome(new BigDecimal(2222), LocalDate.now(), LocalTime.now(), accounts[0], types[0]),
+                new Outcome(new BigDecimal(9999), LocalDate.now(), LocalTime.now(), accounts[1], types[1]),
+                new Outcome(new BigDecimal(50), LocalDate.now(), LocalTime.now(), accounts[2], types[2]),
+                new Outcome(new BigDecimal(1234), LocalDate.now(), LocalTime.now(), accounts[1], types[2]),
+                new Outcome(new BigDecimal(2222), LocalDate.now(), LocalTime.now(), accounts[2], types[0]),
                 new Outcome(new BigDecimal(3999), LocalDate.now(), LocalTime.now(), accounts[0], types[0]),
         };
         for (int i = 0; i < 10; i++) {

@@ -48,6 +48,16 @@ public class OutcomeServiceImpl implements OutcomeService {
     }
 
     @Override
+    public List<Outcome> getUserOutcomesPage(User user, int first, int limit) {
+        return dao.getUserOutcomesPage(user, first, limit);
+    }
+
+    @Override
+    public Long getUserOutcomesNumber(User user) {
+        return dao.getUserOutcomesNumber(user);
+    }
+
+    @Override
     public List<Outcome> getPageOfOutcomes(Account account, int first, int limit) {
         return dao.getOutcomesPage(account, first, limit);
     }

@@ -1,8 +1,6 @@
 package com.fm.internal.daos;
 
-import com.fm.internal.models.Account;
-import com.fm.internal.models.Income;
-import com.fm.internal.models.Income_;
+import com.fm.internal.models.*;
 import org.hibernate.Session;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -57,6 +55,42 @@ public class IncomeDao extends GenericDao<Income> {
         Root<Income> root = query.from(Income.class);
         query.where(criteriaBuilder.equal(root.get(Income_.account), account));
         return session.createQuery(query).setFirstResult(offset).setMaxResults(limit).getResultList();
+    }
+
+    @Transactional
+    public List<Income> getUserIncomes(User user){
+        Session currentSession = getSessionFactory().getCurrentSession();
+        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
+        CriteriaQuery<Income> query = builder.createQuery(Income.class);
+        Root<Income> IncomeRoot = query.from(Income.class);
+        Join<Income, Account> accountJoin = IncomeRoot.join(Income_.account);
+        query.orderBy(builder.asc(accountJoin.getParent().get(Income_.date)));
+        query.where(builder.equal(accountJoin.get(Account_.user), user));
+        return currentSession.createQuery(query).getResultList();
+    }
+
+    @Transactional
+    public Long getUserIncomesNumber(User user){
+        Session currentSession = getSessionFactory().getCurrentSession();
+        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
+        CriteriaQuery<Long> query = builder.createQuery(Long.class);
+        Root<Income> IncomeRoot = query.from(Income.class);
+        Join<Income, Account> accountJoin = IncomeRoot.join(Income_.account);
+        query.select(builder.count(IncomeRoot));
+        query.where(builder.equal(accountJoin.get(Account_.user), user));
+        return currentSession.createQuery(query).uniqueResult();
+    }
+
+    @Transactional
+    public List<Income> getUserIncomesPage(User user, int offset, int limit){
+        Session currentSession = getSessionFactory().getCurrentSession();
+        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
+        CriteriaQuery<Income> query = builder.createQuery(Income.class);
+        Root<Income> IncomeRoot = query.from(Income.class);
+        Join<Income, Account> accountJoin = IncomeRoot.join(Income_.account);
+        query.orderBy(builder.asc(accountJoin.getParent().get(Income_.date)));
+        query.where(builder.equal(accountJoin.get(Account_.user), user));
+        return currentSession.createQuery(query).setFirstResult(offset).setMaxResults(limit).getResultList();
     }
 
 }

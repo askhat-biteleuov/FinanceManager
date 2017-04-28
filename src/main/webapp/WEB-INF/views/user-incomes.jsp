@@ -16,7 +16,7 @@
             <th></th>
         </tr>
         <tbody>
-        <c:forEach var="income" items="${accountDto.incomes}">
+        <c:forEach var="income" items="${incomes}">
             <tr>
                 <td>
                         ${income.date} ${income.time}

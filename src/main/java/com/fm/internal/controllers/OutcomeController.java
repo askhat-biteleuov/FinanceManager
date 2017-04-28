@@ -12,6 +12,7 @@ import com.fm.internal.services.OutcomeService;
 import com.fm.internal.services.OutcomeTypeService;
 import com.fm.internal.services.UserService;
 import com.fm.internal.services.implementation.PaginationServiceImpl;
+import com.sun.org.apache.regexp.internal.RE;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -63,6 +64,23 @@ public class OutcomeController {
         outcomeService.addOutcome(outcome);
         account.setBalance(account.getBalance().subtract(outcome.getAmount()));
         accountService.updateAccount(account);
+    }
+
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public ModelAndView userOutcomes(@RequestParam(value = "pageId", required = false) Integer pageId) {
+        if (pageId == null) {
+            pageId = 1;
+        }
+        User user = userService.getLoggedUser();
+        Long userOutcomesNumber = outcomeService.getUserOutcomesNumber(user);
+        int pageSize = 10;
+        PaginationDto paginationDto = paginationService.createPagination(user.getId(), pageId, pageSize,
+                userOutcomesNumber, "/outcome/all");
+        List<Outcome> outcomesPage = outcomeService.getUserOutcomesPage(user, paginationDto.getFirstItem(), pageSize);
+        ModelAndView modelAndView = new ModelAndView("user-outcomes");
+        modelAndView.addObject("paginationDto", paginationDto);
+        modelAndView.addObject("outcomes", outcomesPage);
+        return modelAndView;
     }
 
     @RequestMapping(value = "/page", method = RequestMethod.GET)

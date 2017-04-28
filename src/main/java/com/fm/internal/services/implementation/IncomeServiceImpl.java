@@ -4,6 +4,7 @@ import com.fm.internal.daos.IncomeDao;
 import com.fm.internal.dtos.IncomeDto;
 import com.fm.internal.models.Account;
 import com.fm.internal.models.Income;
+import com.fm.internal.models.User;
 import com.fm.internal.services.IncomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
@@ -59,6 +60,16 @@ public class IncomeServiceImpl implements IncomeService {
     @Override
     public List<Income> getPageOfIncomes(Account account, int first, int limit) {
         return dao.getIncomesPage(account, first, limit);
+    }
+
+    @Override
+    public List<Income> getUserIncomesPage(User user, int first, int limit) {
+        return dao.getUserIncomesPage(user, first, limit);
+    }
+
+    @Override
+    public Long getUserIncomesNumber(User user) {
+        return dao.getUserIncomesNumber(user);
     }
 
     @Override

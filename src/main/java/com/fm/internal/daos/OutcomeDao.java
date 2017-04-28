@@ -38,6 +38,30 @@ public class OutcomeDao extends GenericDao<Outcome> {
     }
 
     @Transactional
+    public Long getUserOutcomesNumber(User user){
+        Session currentSession = getSessionFactory().getCurrentSession();
+        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
+        CriteriaQuery<Long> query = builder.createQuery(Long.class);
+        Root<Outcome> outcomeRoot = query.from(Outcome.class);
+        Join<Outcome, Account> accountJoin = outcomeRoot.join(Outcome_.account);
+        query.select(builder.count(outcomeRoot));
+        query.where(builder.equal(accountJoin.get(Account_.user), user));
+        return currentSession.createQuery(query).uniqueResult();
+    }
+
+    @Transactional
+    public List<Outcome> getUserOutcomesPage(User user, int offset, int limit){
+        Session currentSession = getSessionFactory().getCurrentSession();
+        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
+        CriteriaQuery<Outcome> query = builder.createQuery(Outcome.class);
+        Root<Outcome> outcomeRoot = query.from(Outcome.class);
+        Join<Outcome, Account> accountJoin = outcomeRoot.join(Outcome_.account);
+        query.orderBy(builder.asc(accountJoin.getParent().get(Outcome_.date)));
+        query.where(builder.equal(accountJoin.get(Account_.user), user));
+        return currentSession.createQuery(query).setFirstResult(offset).setMaxResults(limit).getResultList();
+    }
+
+    @Transactional
     public List<Outcome> getAccountOutcomesByDate(Account account, LocalDate start, LocalDate end) {
         Session session = getSessionFactory().getCurrentSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
