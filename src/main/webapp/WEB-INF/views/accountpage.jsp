@@ -16,6 +16,9 @@
         .trans {
             display: none;
         }
+        .fail {
+            color: red;
+        }
     </style>
 
     <button type="submit" onclick="history.back()" class="btn">Назад</button>

@@ -17,12 +17,20 @@ $(document).ready(function () {
                 url: form.attr('action'),
                 data: jsonData
             }).done(function (data) {
-                form.hide('slow');
+                form.find(".with-errors").each(function () {
+                    if ($(this).hasClass("fail")) {
+                        $(this).removeClass("fail");
+                    }
+                });
                 form.each(function () {
                     this.reset();
                 });
+                form.hide('slow');
             }).fail(function (error) {
-                alert('FAIL ' + error);
+                form.find(".with-errors").each(function () {
+                    $(this).addClass("fail");
+                    $(this).text("Введите корректные данные");
+                });
             });
         } else {
             event.preventDefault();
