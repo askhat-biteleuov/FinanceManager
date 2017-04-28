@@ -4,6 +4,7 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <t:master-page title="Список доходов">
+    <script src="<c:url value="/resources/js/editNotes.js"/>"></script>
     <style>
         [contenteditable]:hover:after {
             content: ' click to edit';
@@ -29,7 +30,7 @@
     <div align="center">
     <h2>Доходы</h2>
     <jsp:include page="../fragments/pagination.jsp"/>
-    <table class="table">
+    <table id="incomes" class="table">
         <tr>
             <th>Дата</th>
             <th>Сумма</th>
@@ -39,7 +40,7 @@
         </tr>
         <tbody>
         <c:forEach var="income" items="${accountDto.incomes}">
-            <tr>
+            <tr id="row">
                 <td>
                         ${income.date} ${income.time}
                 </td>
@@ -49,14 +50,19 @@
                 <td>
                         ${income.account.name}
                 </td>
-                <td contenteditable="true">
+                <td id="incomeNote" contenteditable="false">
                         ${income.note}
+                </td>
+                <td>
+                    <button id="editBtn">
+                        <span class="glyphicon glyphicon-edit"></span>
+                    </button>
                 </td>
                 <td>
                     <form action="<c:url value="/account/income/delete"/>" method="POST">
                         <input type="hidden" name="incomeId" value="${income.id}">
                         <button type="submit">
-                            <span class="glyphicons glyphicons-bin"></span>
+                            <span class="glyphicon glyphicon-trash"></span>
                         </button>
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     </form>
