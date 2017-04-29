@@ -3,13 +3,12 @@ package com.fm.internal.dtos;
 import com.fm.internal.models.Outcome;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.List;
 
 public class OutcomeTypeDto {
     private long id;
-    @NotNull
+
     @NotEmpty
     private String name;
     @Pattern(regexp = "^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\\.[0-9]{2})?$")

@@ -17,20 +17,20 @@ $(document).ready(function () {
                 url: form.attr('action'),
                 data: jsonData
             }).done(function (data) {
-                form.find(".with-errors").each(function () {
-                    if ($(this).hasClass("fail")) {
-                        $(this).removeClass("fail");
-                    }
+                form.find(".formFieldError.alert.alert-danger").each(function () {
+                    $(this).remove();
                 });
                 form.each(function () {
                     this.reset();
                 });
                 form.hide('slow');
             }).fail(function (error) {
-                form.find(".with-errors").each(function () {
-                    $(this).addClass("fail");
-                    $(this).text("Введите корректные данные");
-                });
+                var errors = error.responseJSON;
+                for (var key in errors) { //foreach map
+                    var formFieldError = "<div class=\"formFieldError alert alert-danger\" id=\"" + key + "Id\">" +
+                        errors[key] + "</div>"; //new div
+                    form.find("[name^='" + key + "']").after(formFieldError); //put div before input
+                }
             });
         }
     });

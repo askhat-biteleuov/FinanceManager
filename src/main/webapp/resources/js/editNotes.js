@@ -17,7 +17,7 @@ $(document).ready(function () {
     $('#incomes').on('submit', '#saveIncome', function (event) {
         event.preventDefault();
         var newNote = $(this).closest('.incomeRow').find('.incomeNote').innerHTML;
-        $(this).find('[name=note]').val(newNote);
+        $(this).find('[name=note]').attr('value', newNote);
         var form = $(this);
         var data = form.serializeArray();
         var objectifyData = objectifyForm(data);

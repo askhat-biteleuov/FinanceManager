@@ -1,6 +1,6 @@
 $(document).ready(function () {
-    $('#accountAdding').find('form').validator().on('submit', function (event) {
-        $(".formFieldError").remove();
+    $('#add').find('form').on('submit', function (event) {
+        $(".formFieldError").remove(); //delete errors div
         if (!event.isDefaultPrevented()) {
             event.preventDefault();
             var form = $(this);
@@ -18,15 +18,10 @@ $(document).ready(function () {
                 url: form.attr('action'),
                 data: jsonData
             }).done(function (data) {
-                form.find(".with-errors").each(function () {
-                    if ($(this).hasClass("fail")) {
-                        $(this).removeClass("fail");
-                    }
-                });
+                $('.modal').modal('hide');//close modal window
                 form.each(function () {
                     this.reset();
                 });
-                $('#accountAdd').modal('hide');
                 location.reload();
             }).fail(function (error) {
                 var errors = error.responseJSON;

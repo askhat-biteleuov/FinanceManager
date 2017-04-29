@@ -2,15 +2,17 @@ package com.fm.internal.controllers;
 
 import com.fm.internal.dtos.*;
 import com.fm.internal.models.Account;
-import com.fm.internal.models.Outcome;
 import com.fm.internal.models.User;
 import com.fm.internal.services.AccountService;
 import com.fm.internal.services.OutcomeService;
 import com.fm.internal.services.OutcomeTypeService;
 import com.fm.internal.services.UserService;
 import com.fm.internal.validation.AccountValidator;
+import com.fm.internal.validation.util.ValidErrors;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,8 +22,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -45,6 +45,10 @@ public class AccountController {
     @Autowired
     private AccountValidator accountValidator;
 
+    @Qualifier("messageSource")
+    @Autowired
+    private MessageSource messages;
+
 //    @RequestMapping(value = "/add", method = RequestMethod.GET)
 //    public ModelAndView getList() {
 //        return new ModelAndView("account", "accountDto", new AccountDto());
@@ -56,7 +60,8 @@ public class AccountController {
         accountValidator.validate(accountDto, result);
         User loggedUser = userService.getLoggedUser();
         if (result.hasErrors() || loggedUser == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            Map<String, String> errors = ValidErrors.getMapOfMessagesAndErrors(result, messages);
+            return new ResponseEntity<>(errors, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         accountService.createAccount(accountDto, loggedUser);
         LOGGER.info("New account was added:" + accountDto.getName());

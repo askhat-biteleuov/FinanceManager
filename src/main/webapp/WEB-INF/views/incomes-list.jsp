@@ -20,7 +20,8 @@
             <th>Сумма</th>
             <th>Счет</th>
             <th>Заметка</th>
-            <th></th>
+            <th>Редактировать заметку</th>
+            <th>Удалить доход</th>
         </tr>
         <tbody>
         <c:forEach var="income" items="${accountDto.incomes}">
@@ -38,19 +39,25 @@
                         ${income.note}
                 </td>
                 <td>
-                    <form id="saveIncome" action="<c:url value="/account/income/update"/>" method="POST">
-                        <input type="hidden" name="accountId" value="${income.account.id}">
-                        <input type="hidden" name="amount" value="${income.amount}">
-                        <input type="hidden" name="date" value="${income.date}">
-                        <input type="hidden" name="note" value="">
-                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                        <button type="submit" id="saveBtn">
-                            <span class="glyphicon glyphicon-ok"></span>
-                        </button>
-                    </form>
-                    <button id="editBtn">
-                        <span class="glyphicon glyphicon-edit"></span>
-                    </button>
+                    <div class="row">
+                        <div class="col-xs-1">
+                            <form id="saveIncome" action="<c:url value="/account/income/update"/>" method="POST">
+                                <input type="hidden" name="accountId" value="${income.account.id}">
+                                <input type="hidden" name="amount" value="${income.amount}">
+                                <input type="hidden" name="date" value="${income.date}">
+                                <input type="hidden" name="note">
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                <button type="submit" id="saveBtn">
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                </button>
+                            </form>
+                        </div>
+                        <div class="col-xs-1">
+                            <button id="editBtn">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </button>
+                        </div>
+                    </div>
                 </td>
                 <td>
                     <form action="<c:url value="/account/income/delete"/>" method="POST">

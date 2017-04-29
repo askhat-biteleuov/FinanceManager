@@ -33,7 +33,6 @@
                     <div class="form-group">
                         <input type="text" id="incomeNote" name="note" placeholder="Note" class="form-control"
                                maxlength="256"/><br/>
-                        <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group">
                         <input type="text" id="incomeAmount" name="amount" placeholder="Amount" class="form-control"
@@ -64,7 +63,6 @@
                     <div class="form-group">
                         <input type="text" id="outcomeNote" name="note" placeholder="Note" class="form-control"
                                maxlength="256"/><br/>
-                        <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group">
                         <input type="text" id="outcomeAmount" name="amount" placeholder="Amount" class="form-control"
