@@ -42,7 +42,7 @@
                         <input type="hidden" name="accountId" value="${income.account.id}">
                         <input type="hidden" name="amount" value="${income.amount}">
                         <input type="hidden" name="date" value="${income.date}">
-                        <input type="hidden" name="note" value="">
+                        <input type="hidden" name="note">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         <button type="submit" id="saveBtn">
                             <span class="glyphicon glyphicon-ok"></span>

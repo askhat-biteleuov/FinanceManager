@@ -31,8 +31,6 @@ $(document).ready(function () {
                     form.find("[name^='" + key + "']").before(formFieldError); //put div before input
                 }
             });
-        } else {
-            event.preventDefault();
         }
     });
     function objectifyForm(formArray) {  //serialize data function
