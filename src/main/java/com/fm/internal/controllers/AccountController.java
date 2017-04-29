@@ -11,6 +11,8 @@ import com.fm.internal.services.UserService;
 import com.fm.internal.validation.AccountValidator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -43,21 +45,22 @@ public class AccountController {
     @Autowired
     private AccountValidator accountValidator;
 
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public ModelAndView getList() {
-        return new ModelAndView("account", "accountDto", new AccountDto());
-    }
+//    @RequestMapping(value = "/add", method = RequestMethod.GET)
+//    public ModelAndView getList() {
+//        return new ModelAndView("account", "accountDto", new AccountDto());
+//    }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ModelAndView submit(@Valid @ModelAttribute("accountDto") AccountDto accountDto, BindingResult result) {
+    @ResponseBody
+    public Object addAccount(@Valid @RequestBody AccountDto accountDto, BindingResult result) {
         accountValidator.validate(accountDto, result);
         User loggedUser = userService.getLoggedUser();
-        if (!result.hasErrors() && loggedUser != null) {
-            accountService.createAccount(accountDto, loggedUser);
-            LOGGER.info("New account was add:" + accountDto.getName());
-            return new ModelAndView("redirect:" + "/index");
+        if (result.hasErrors() || loggedUser == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return new ModelAndView("account");
+        accountService.createAccount(accountDto, loggedUser);
+        LOGGER.info("New account was added:" + accountDto.getName());
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/page", method = RequestMethod.GET)

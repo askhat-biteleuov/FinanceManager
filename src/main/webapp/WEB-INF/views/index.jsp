@@ -5,23 +5,30 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <t:master-page title="Главная">
+    <script src="<c:url value="/resources/js/sendAccountFormViaAjax.js"/>"></script>
     <div class="container">
         <c:if test="${user == null}">
             <h2>Добрый день!</h2>
             <p>Вы можете войти в свой аккаунт или пройти регистрацию.</p>
-            <form action="/login" method="GET">
+            <form action="<c:url value="/login"/>" method="GET">
                 <button type="submit">Войти в аккаунт</button>
             </form>
-            <form action="/registration" method="GET">
+            <form action="<c:url value="/registration"/>" method="GET">
                 <button type="submit">Пройти регистрацию</button>
             </form>
         </c:if>
         <c:if test="${user != null}">
             <div align="center">
                 <h2>Счета</h2>
-                <form action="/account/add" method="GET">
-                    <button class="btn btn-default" type="submit">Добавить счет</button>
+                <div id="accountAdding">
+                <form action="<c:url value="/account/add"/>" method="POST">
+                    <button class="btn btn-default" type="button" data-toggle="modal" data-target="#accountAdd">
+                        Добавить аккаунт
+                    </button>
+                    <jsp:include page="account-add.jsp"/>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 </form>
+                </div>
                 <br>
                 <div class="container">
                     <div class="row">
