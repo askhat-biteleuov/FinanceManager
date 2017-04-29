@@ -12,8 +12,13 @@ import com.fm.internal.services.OutcomeService;
 import com.fm.internal.services.OutcomeTypeService;
 import com.fm.internal.services.UserService;
 import com.fm.internal.services.implementation.PaginationServiceImpl;
+import com.fm.internal.validation.util.ValidErrors;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.MessageSource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/outcome")
@@ -38,15 +44,21 @@ public class OutcomeController {
     private AccountService accountService;
     @Autowired
     private PaginationServiceImpl paginationService;
+    @Qualifier("messageSource")
+    @Autowired
+    private MessageSource messages;
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public void addOutcome(@Valid @RequestBody OutcomeDto outcomeDto,
+    public Object addOutcome(@Valid @RequestBody OutcomeDto outcomeDto,
                                   BindingResult result) {
         User user = userService.getLoggedUser();
-        if (!result.hasErrors() && user != null) {
-            saveNewOutcome(outcomeDto);
+        if (result.hasErrors() || user == null) {
+            Map<String, String> errors = ValidErrors.getMapOfMessagesAndErrors(result, messages);
+            return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
         }
+        saveNewOutcome(outcomeDto);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     private void saveNewOutcome(OutcomeDto outcomeDto) {

@@ -9,6 +9,7 @@ import com.fm.internal.services.OutcomeTypeService;
 import com.fm.internal.services.UserService;
 import com.fm.internal.services.implementation.PaginationServiceImpl;
 import com.fm.internal.validation.OutcomeTypeValidator;
+import com.fm.internal.validation.util.ValidErrors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
@@ -16,7 +17,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,9 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 @Controller
@@ -73,13 +71,7 @@ public class OutcomeTypesController {
             typeService.addOutcomeType(outcomeTypeDto, loggedUser);
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
-            Map<String, String> errors = new HashMap<>();
-            for (FieldError fieldError : result.getFieldErrors()) {
-                String[] resolveMessageCodes = result.resolveMessageCodes(fieldError.getCode());
-                String string = resolveMessageCodes[0];
-                String message = messages.getMessage(string + "." + fieldError.getField(), new Object[]{fieldError.getRejectedValue()}, Locale.getDefault());
-                errors.put(fieldError.getField(), message);
-            }
+            Map<String, String> errors = ValidErrors.getMapOfMessagesAndErrors(result, messages);
             return new ResponseEntity<>(errors, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
