@@ -5,7 +5,6 @@ import com.fm.internal.models.Income;
 import com.fm.internal.models.User;
 import com.fm.internal.models.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.support.PagedListHolder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
@@ -78,19 +77,6 @@ public class IncomeServiceTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(incomeService.findAllIncomesInAccount
                 (accountService.findUserAccountByName
                         (userService.findByEmail(USER_EMAIL), "visa")).size(), 0);
-    }
-
-    @Test
-    public void testIncomesPaging() throws Exception {
-        PagedListHolder<Income> pagedList = incomeService.getPagedIncomeList
-                (accountService.findUserAccountByName
-                        (userService.findByEmail(USER_EMAIL), "visa"), 3);
-        pagedList.setPage(0);
-        Assert.assertEquals(pagedList.getPageList().size(), 3);
-        pagedList.setPage(1);
-        Assert.assertEquals(pagedList.getPageList().size(), 1);
-        Assert.assertEquals(pagedList.getPageCount(), 2);
-
     }
 
 }

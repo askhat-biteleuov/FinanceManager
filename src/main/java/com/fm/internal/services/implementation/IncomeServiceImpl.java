@@ -7,7 +7,6 @@ import com.fm.internal.models.Income;
 import com.fm.internal.models.User;
 import com.fm.internal.services.IncomeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.support.PagedListHolder;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -21,14 +20,6 @@ public class IncomeServiceImpl implements IncomeService {
 
     @Override
     public void addIncome(Income income) {
-        dao.add(income);
-    }
-
-    @Override
-    public void addIncome(IncomeDto incomeDto, Account account) {
-        LocalDate das = LocalDate.parse(incomeDto.getDate());
-        Income income = new Income(new BigDecimal(incomeDto.getAmount()), LocalDate.parse(incomeDto.getDate()), LocalTime.now(), account);
-        income.setNote(incomeDto.getNote());
         dao.add(income);
     }
 
@@ -78,10 +69,13 @@ public class IncomeServiceImpl implements IncomeService {
     }
 
     @Override
-    public PagedListHolder<Income> getPagedIncomeList(Account account, int pageSize) {
-        List<Income> allIncomesInAccount = dao.getAccountIncomes(account);
-        PagedListHolder<Income> pagedList = new PagedListHolder<>(allIncomesInAccount);
-        pagedList.setPageSize(pageSize);
-        return pagedList;
+    public Income createIncomeFromDto(IncomeDto incomeDto) {
+        Income income = new Income();
+        income.setNote(incomeDto.getNote());
+        income.setAmount(new BigDecimal(incomeDto.getAmount()));
+        income.setDate(LocalDate.parse(incomeDto.getDate()));
+        income.setTime(LocalTime.now());
+        return income;
     }
+
 }
