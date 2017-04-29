@@ -46,17 +46,21 @@ public class IncomeController {
     @ResponseBody
     public Object addIncome(@Valid @RequestBody IncomeDto incomeDto, BindingResult result) {
         User user = userService.getLoggedUser();
-        if (!result.hasErrors() && user != null) {
-            Account account = accountService.findAccountById(incomeDto.getAccountId());
-            if (account != null) {
-                incomeService.addIncome(incomeDto, account);
-                account.setBalance(account.getBalance().add(new BigDecimal(incomeDto.getAmount())));
-                accountService.updateAccount(account);
-                return new ResponseEntity<>(HttpStatus.OK);
-            }
+        if (result.hasErrors() || user == null) {
+            Map<String, String> errors = ValidErrors.getMapOfMessagesAndErrors(result, messages);
+            return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
         }
-        Map<String, String> errors = ValidErrors.getMapOfMessagesAndErrors(result, messages);
-        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+        saveNewIncome(incomeDto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    private void saveNewIncome(IncomeDto incomeDto) {
+        Account account = accountService.findAccountById(incomeDto.getAccountId());
+        Income newIncomeFromDto = incomeService.createIncomeFromDto(incomeDto);
+        newIncomeFromDto.setAccount(account);
+        incomeService.addIncome(newIncomeFromDto);
+        account.setBalance(account.getBalance().add(new BigDecimal(incomeDto.getAmount())));
+        accountService.updateAccount(account);
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
