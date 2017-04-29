@@ -22,7 +22,7 @@ public class TestCbrInfo {
 
         onDate = port.getLatestDateTime();
         GetCursOnDateXMLResponse.GetCursOnDateXMLResult result = port.getCursOnDateXML(onDate);
-        GetCursOnDateResultParser.Valute list = null;
+        GetCursOnDateResultParser.Currency list = null;
 
         try {
             list = GetCursOnDateResultParser.getValuteByValuteCh("EUR", result);

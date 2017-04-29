@@ -14,18 +14,18 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 public class GetCursOnDateResultParser {
-    public static class Valute{
+    public static class Currency {
         public String name;
         public String chCode;
         public int code;
         public BigDecimal nom;
         public BigDecimal curs;
 
-        public Valute(){
+        public Currency(){
 
         }
 
-        public Valute(String vname, String vchcode, int vcode, BigDecimal vnom, BigDecimal vcurs){
+        public Currency(String vname, String vchcode, int vcode, BigDecimal vnom, BigDecimal vcurs){
             this.name = vname;
             this.chCode = vchcode;
             this.code = vcode;
@@ -34,9 +34,9 @@ public class GetCursOnDateResultParser {
         }
     }
 
-    public static Valute getValuteByValuteCh(String valuteCh, GetCursOnDateXMLResponse.GetCursOnDateXMLResult result) throws Exception{
+    public static Currency getValuteByValuteCh(String valuteCh, GetCursOnDateXMLResponse.GetCursOnDateXMLResult result) throws Exception{
 
-        Valute answer = new Valute();
+        Currency answer = new Currency();
 
         List<Object> list = result.getContent();
         ElementNSImpl e = (ElementNSImpl) list.get(0);
@@ -50,9 +50,9 @@ public class GetCursOnDateResultParser {
 
     }
 
-    public static Valute getValuteByValuteCode(String valuteCode, GetCursOnDateXMLResponse.GetCursOnDateXMLResult result) throws Exception{
+    public static Currency getValuteByValuteCode(String valuteCode, GetCursOnDateXMLResponse.GetCursOnDateXMLResult result) throws Exception{
 
-        Valute answer = new Valute();
+        Currency answer = new Currency();
 
         List<Object> list = result.getContent();
         ElementNSImpl e = (ElementNSImpl) list.get(0);
@@ -66,7 +66,7 @@ public class GetCursOnDateResultParser {
 
     }
 
-    private static void namesOfFields(String valuteCode, Valute answer, NodeList chCodeList, int length, boolean isFound) {
+    private static void namesOfFields(String valuteCode, Currency answer, NodeList chCodeList, int length, boolean isFound) {
         for (int i = 0; i< length; i++){
             if (isFound) break;
 
