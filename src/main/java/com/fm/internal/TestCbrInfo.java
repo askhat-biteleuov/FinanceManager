@@ -20,20 +20,20 @@ public class TestCbrInfo {
         EnumValutesResponse.EnumValutesResult en = port.enumValutes(false);
         GetCursOnDateResponse.GetCursOnDateResult curs = port.getCursOnDate(onDate);
 
-        onDate =port.getLatestDateTime();
+        onDate = port.getLatestDateTime();
         GetCursOnDateXMLResponse.GetCursOnDateXMLResult result = port.getCursOnDateXML(onDate);
         GetCursOnDateResultParser.Valute list = null;
 
-        try{
+        try {
             list = GetCursOnDateResultParser.getValuteByValuteCh("EUR", result);
-        } catch (Exception e){
+        } catch (Exception e) {
 
         }
         System.out.println(list.curs);
 
-        try{
+        try {
             list = GetCursOnDateResultParser.getValuteByValuteCode("840", result);
-        } catch (Exception e){
+        } catch (Exception e) {
 
         }
         System.out.println(list.curs);

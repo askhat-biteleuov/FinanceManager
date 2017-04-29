@@ -44,43 +44,7 @@ public class GetCursOnDateResultParser {
         int length = chCodeList.getLength();
 
         boolean isFound = false;
-        for (int i = 0; i< length; i++){
-            if (isFound) break;
-
-            Node valuteChNode = chCodeList.item(i);
-            TextImpl textimpl = (TextImpl)valuteChNode.getFirstChild();
-            String chVal = textimpl.getData();
-
-            if (chVal.equalsIgnoreCase(valuteCh)){
-                isFound = true;
-                Node parent = valuteChNode.getParentNode();
-                NodeList nodeList = parent.getChildNodes();
-                int paramLength = nodeList.getLength();
-
-                for (int j=0; j<paramLength; j++){
-                    Node currentNode = nodeList.item(j);
-
-                    String name = currentNode.getNodeName();
-                    Node currentValue = currentNode.getFirstChild();
-                    String value = currentValue.getNodeValue();
-                    if (name.equalsIgnoreCase("Vname")){
-                        answer.name = value;
-                    }
-                    if (name.equalsIgnoreCase("Vnom")){
-                        answer.nom = new BigDecimal(value);
-                    }
-                    if (name.equalsIgnoreCase("Vcurs")){
-                        answer.curs = new BigDecimal(value);
-                    }
-                    if (name.equalsIgnoreCase("Vcode")){
-                        answer.code = Integer.parseInt(value);
-                    }
-                    if (name.equalsIgnoreCase("VchCode")){
-                        answer.chCode = value;
-                    }
-                }
-            }
-        }
+        namesOfFields(valuteCh, answer, chCodeList, length, isFound);
 
         return answer;
 
@@ -96,6 +60,13 @@ public class GetCursOnDateResultParser {
         int length = chCodeList.getLength();
 
         boolean isFound = false;
+        namesOfFields(valuteCode, answer, chCodeList, length, isFound);
+
+        return answer;
+
+    }
+
+    private static void namesOfFields(String valuteCode, Valute answer, NodeList chCodeList, int length, boolean isFound) {
         for (int i = 0; i< length; i++){
             if (isFound) break;
 
@@ -133,9 +104,6 @@ public class GetCursOnDateResultParser {
                 }
             }
         }
-
-        return answer;
-
     }
 
 
