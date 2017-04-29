@@ -1,4 +1,4 @@
-package com.fm.internal;
+package com.fm.internal.currency;
 
 import javax.xml.bind.annotation.*;
 import java.math.BigDecimal;

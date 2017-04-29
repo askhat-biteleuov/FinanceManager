@@ -1,7 +1,7 @@
 
 package ru.cbr.web;
 
-import com.fm.internal.CurrencyData;
+import com.fm.internal.currency.CurrencyData;
 
 import javax.xml.bind.annotation.*;
 
@@ -86,33 +86,6 @@ public class GetCursOnDateResponse {
             "any"
     })
     public static class GetCursOnDateResult {
-
-        //        @XmlAnyElement(lax = true)
-//        protected Object any;
-//
-//        /**
-//         * Gets the value of the any property.
-//         *
-//         * @return
-//         *     possible object is
-//         *     {@link Object }
-//         *
-//         */
-//        public Object getAny() {
-//            return any;
-//        }
-//
-//        /**
-//         * Sets the value of the any property.
-//         *
-//         * @param value
-//         *     allowed object is
-//         *     {@link Object }
-//         *
-//         */
-//        public void setAny(Object value) {
-//            this.any = value;
-//        }
         @XmlElement(name = "diffgram", namespace = "urn:schemas-microsoft-com:xml-diffgram-v1")
         protected CurrencyData any;
 
