@@ -93,4 +93,15 @@ public class IncomeController {
         String referer = request.getHeader("referer");
         return new ModelAndView("redirect:" + referer);
     }
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public Object updateIncome(@RequestBody IncomeDto incomeDto) {
+        Income incomeById = incomeService.findById(incomeDto.getAccountId());
+        if (incomeById != null) {
+            incomeById.setNote(incomeDto.getNote());
+            incomeService.updateIncome(incomeById);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
 }

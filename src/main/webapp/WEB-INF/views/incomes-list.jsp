@@ -6,25 +6,9 @@
 <t:master-page title="Список доходов">
     <script src="<c:url value="/resources/js/editNotes.js"/>"></script>
     <style>
-        [contenteditable]:hover:after {
-            content: ' click to edit';
-            font-style: italic;
-            font-size: 12px;
-            font-family: sans-serif;
-            color: #ccc;
-        .text-stroke(0);
-        }
-
-        [contenteditable]:hover, [contenteditable]:focus {
-            background: #FFFFD3;
-        }
-
         [contenteditable]:focus {
+            background: #FFFFD3;
             padding: 5px;
-        }
-
-        [contenteditable]:focus:after {
-            content: '';
         }
     </style>
     <div align="center">
@@ -40,7 +24,7 @@
         </tr>
         <tbody>
         <c:forEach var="income" items="${accountDto.incomes}">
-            <tr id="row">
+            <tr class="incomeRow">
                 <td>
                         ${income.date} ${income.time}
                 </td>
@@ -50,10 +34,20 @@
                 <td>
                         ${income.account.name}
                 </td>
-                <td id="incomeNote" contenteditable="false">
+                <td class="incomeNote" data-name="tableNote" contenteditable="false">
                         ${income.note}
                 </td>
                 <td>
+                    <form id="saveIncome" action="<c:url value="/account/income/update"/>" method="POST">
+                        <input type="hidden" name="accountId" value="${income.account.id}">
+                        <input type="hidden" name="amount" value="${income.amount}">
+                        <input type="hidden" name="date" value="${income.date}">
+                        <input type="hidden" name="note" value="">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        <button type="submit" id="saveBtn">
+                            <span class="glyphicon glyphicon-ok"></span>
+                        </button>
+                    </form>
                     <button id="editBtn">
                         <span class="glyphicon glyphicon-edit"></span>
                     </button>

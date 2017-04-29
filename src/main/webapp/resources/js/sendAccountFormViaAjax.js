@@ -33,8 +33,6 @@ $(document).ready(function () {
                     $(this).text("Введите корректные данные");
                 });
             });
-        } else {
-            event.preventDefault();
         }
     });
     function objectifyForm(formArray) {  //serialize data function
