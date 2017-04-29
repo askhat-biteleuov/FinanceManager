@@ -49,14 +49,12 @@
                     </div>
                 </div>
                 <h2>Категории расходов</h2>
-
-                <form action="/outcometype/add" method="POST">
+                <div>
                     <button class="btn btn-default" type="button" data-toggle="modal" data-target="#outcometype-add">
                         Добавить категорию расходов
                     </button>
                     <jsp:include page="outcometype-add.jsp"/>
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                </form>
+                </div>
                 <br>
                 <div class="container">
                     <div class="row">

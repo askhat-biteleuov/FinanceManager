@@ -34,6 +34,6 @@ public class OutcomeTypeValidator implements Validator {
                 .map(OutcomeType::getName)
                 .anyMatch(typeName -> typeName.equals(dto.getName()));
         LOGGER.info(anyMatch);
-        if (anyMatch) errors.rejectValue("name", "Exist.outcomeTypeDto.name");
+        if (anyMatch) errors.rejectValue("name", "Exist");
     }
 }
