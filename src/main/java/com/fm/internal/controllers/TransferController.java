@@ -3,17 +3,20 @@ package com.fm.internal.controllers;
 import com.fm.internal.dtos.TransferDto;
 import com.fm.internal.services.AccountService;
 import com.fm.internal.services.UserService;
+import com.fm.internal.validation.util.ValidErrors;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.Map;
 
 @Controller
 public class TransferController {
@@ -22,6 +25,8 @@ public class TransferController {
 
     @Autowired
     private AccountService accountService;
+    @Autowired
+    private MessageSource messages;
 
     @RequestMapping(value = "/transfer", method = RequestMethod.GET)
     public ModelAndView getTransferList(WebRequest request) {
@@ -36,16 +41,15 @@ public class TransferController {
     }
 
     @RequestMapping(value = "/transfer", method =  RequestMethod.POST)
-    public ModelAndView submitTransfer(@Valid @ModelAttribute("transferDto") TransferDto transferDto, BindingResult result) {
+    @ResponseBody
+    public Object submitTransfer(@Valid @RequestBody TransferDto transferDto, BindingResult result) {
         if (!result.hasErrors()) {
             accountService.makeTransfer(accountService.findAccountById(transferDto.getAccountId()),
                     accountService.findAccountById(transferDto.getToAccountId()), transferDto.getAmount());
-            return new ModelAndView("redirect:" + "/index");
+            return new ResponseEntity<>(HttpStatus.OK);
         }
-        ModelAndView modelAndView = new ModelAndView("transfer");
-        modelAndView.addObject("accounts",
-                accountService.findAllUserAccounts(accountService.findAccountById(transferDto.getAccountId()).getUser()));
-        return modelAndView;
+        Map<String, String> errors = ValidErrors.getMapOfMessagesAndErrors(result, messages);
+        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 
 }
