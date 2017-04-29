@@ -10,6 +10,7 @@ import com.fm.internal.services.UserService;
 import com.fm.internal.services.implementation.PaginationServiceImpl;
 import com.fm.internal.validation.OutcomeTypeValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +41,7 @@ public class OutcomeTypesController {
     private OutcomeTypeValidator validator;
     @Autowired
     private PaginationServiceImpl paginationService;
+    @Qualifier("messageSource")
     @Autowired
     private MessageSource messages;
 

@@ -1,5 +1,6 @@
 $(document).ready(function () {
     $('#accountAdding').find('form').validator().on('submit', function (event) {
+        $(".formFieldError").remove();
         if (!event.isDefaultPrevented()) {
             event.preventDefault();
             var form = $(this);
@@ -28,10 +29,12 @@ $(document).ready(function () {
                 $('#accountAdd').modal('hide');
                 location.reload();
             }).fail(function (error) {
-                form.find(".with-errors").each(function () {
-                    $(this).addClass("fail");
-                    $(this).text("Введите корректные данные");
-                });
+                var errors = error.responseJSON;
+                for (var key in errors) { //foreach map
+                    var formFieldError = "<div class=\"formFieldError alert alert-danger\" id=\"" + key + "Id\">" +
+                        errors[key] + "</div>"; //new div
+                    form.find("[name^='" + key + "']").before(formFieldError); //put div before input
+                }
             });
         }
     });

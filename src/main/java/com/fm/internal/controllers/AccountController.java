@@ -11,10 +11,13 @@ import com.fm.internal.services.UserService;
 import com.fm.internal.validation.AccountValidator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,6 +25,7 @@ import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 
@@ -45,6 +49,10 @@ public class AccountController {
     @Autowired
     private AccountValidator accountValidator;
 
+    @Qualifier("messageSource")
+    @Autowired
+    private MessageSource messages;
+
 //    @RequestMapping(value = "/add", method = RequestMethod.GET)
 //    public ModelAndView getList() {
 //        return new ModelAndView("account", "accountDto", new AccountDto());
@@ -56,7 +64,15 @@ public class AccountController {
         accountValidator.validate(accountDto, result);
         User loggedUser = userService.getLoggedUser();
         if (result.hasErrors() || loggedUser == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            Map<String, String> errors = new HashMap<>();
+            for (FieldError fieldError : result.getFieldErrors()) {
+                String[] resolveMessageCodes = result.resolveMessageCodes(fieldError.getCode());
+                String string = resolveMessageCodes[0];
+                String message = messages.getMessage(string + "." + fieldError.getField(),
+                        new Object[]{fieldError.getRejectedValue()}, Locale.getDefault());
+                errors.put(fieldError.getField(), message);
+            }
+            return new ResponseEntity<>(errors, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         accountService.createAccount(accountDto, loggedUser);
         LOGGER.info("New account was added:" + accountDto.getName());

@@ -29,7 +29,7 @@ public class AccountValidator implements Validator {
         List<Account> accounts = accountService.findAllUserAccounts(userService.getLoggedUser());
         for (Account acc : accounts) {
             if (acc.getName().equals(accountDto.getName())) {
-                errors.rejectValue("name", "Exist.accountDto.name");
+                errors.rejectValue("name", "Exist");
             }
         }
     }
