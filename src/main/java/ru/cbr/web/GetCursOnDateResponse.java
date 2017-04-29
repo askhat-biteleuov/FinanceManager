@@ -1,19 +1,16 @@
 
 package ru.cbr.web;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAnyElement;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import com.fm.internal.CurrencyData;
+
+import javax.xml.bind.annotation.*;
 
 
 /**
  * <p>Java class for anonymous complex type.
- * 
+ * <p>
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ * <p>
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -35,12 +32,10 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "getCursOnDateResult"
+        "getCursOnDateResult"
 })
 @XmlRootElement(name = "GetCursOnDateResponse")
 public class GetCursOnDateResponse {
@@ -50,11 +45,9 @@ public class GetCursOnDateResponse {
 
     /**
      * Gets the value of the getCursOnDateResult property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link GetCursOnDateResponse.GetCursOnDateResult }
-     *     
+     *
+     * @return possible object is
+     * {@link GetCursOnDateResponse.GetCursOnDateResult }
      */
     public GetCursOnDateResponse.GetCursOnDateResult getGetCursOnDateResult() {
         return getCursOnDateResult;
@@ -62,11 +55,9 @@ public class GetCursOnDateResponse {
 
     /**
      * Sets the value of the getCursOnDateResult property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link GetCursOnDateResponse.GetCursOnDateResult }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link GetCursOnDateResponse.GetCursOnDateResult }
      */
     public void setGetCursOnDateResult(GetCursOnDateResponse.GetCursOnDateResult value) {
         this.getCursOnDateResult = value;
@@ -75,9 +66,9 @@ public class GetCursOnDateResponse {
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     * <p>
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     * <p>
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -89,42 +80,49 @@ public class GetCursOnDateResponse {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "any"
+            "any"
     })
     public static class GetCursOnDateResult {
 
-        @XmlAnyElement(lax = true)
-        protected Object any;
+        //        @XmlAnyElement(lax = true)
+//        protected Object any;
+//
+//        /**
+//         * Gets the value of the any property.
+//         *
+//         * @return
+//         *     possible object is
+//         *     {@link Object }
+//         *
+//         */
+//        public Object getAny() {
+//            return any;
+//        }
+//
+//        /**
+//         * Sets the value of the any property.
+//         *
+//         * @param value
+//         *     allowed object is
+//         *     {@link Object }
+//         *
+//         */
+//        public void setAny(Object value) {
+//            this.any = value;
+//        }
+        @XmlElement(name = "diffgram", namespace = "urn:schemas-microsoft-com:xml-diffgram-v1")
+        protected CurrencyData any;
 
-        /**
-         * Gets the value of the any property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link Object }
-         *     
-         */
-        public Object getAny() {
+        public CurrencyData getAny() {
             return any;
         }
 
-        /**
-         * Sets the value of the any property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link Object }
-         *     
-         */
-        public void setAny(Object value) {
-            this.any = value;
+        public void setAny(CurrencyData any) {
+            this.any = any;
         }
-
     }
 
 }
