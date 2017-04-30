@@ -119,4 +119,15 @@ public class OutcomeController {
         String referer = request.getHeader("referer");
         return new ModelAndView("redirect:" + referer);
     }
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public Object updateIncome(@RequestBody Outcome outcomeDto) {
+        Outcome outcome = outcomeService.findById(outcomeDto.getId());
+        if (outcome != null) {
+            outcome.setNote(outcomeDto.getNote());
+            outcomeService.updateOutcome(outcome);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
 }
