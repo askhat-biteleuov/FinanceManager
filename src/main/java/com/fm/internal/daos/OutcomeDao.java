@@ -1,11 +1,12 @@
 package com.fm.internal.daos;
 
 import com.fm.internal.models.*;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -113,5 +114,28 @@ public class OutcomeDao extends GenericDao<Outcome> {
         update.set(Outcome_.outcomeType, newOutcomeType);
         update.where(criteriaBuilder.equal(root.get(Outcome_.outcomeType), oldOutcomeType));
         session.createQuery(update).executeUpdate();
+    }
+
+    @Transactional
+    public BigDecimal getSumOfAllOutcomesForMonthForUser(User user) {
+        Session session = getSessionFactory().getCurrentSession();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<BigDecimal> query = criteriaBuilder.createQuery(BigDecimal.class);
+        Root<Outcome> root = query.from(Outcome.class);
+        query.select(criteriaBuilder.sum(root.get(Outcome_.amount)));
+        Expression month = criteriaBuilder.function("month", Integer.class, root.get(Outcome_.date));
+        Expression year = criteriaBuilder.function("year", Integer.class, root.get(Outcome_.date));
+        Predicate equalMonth = criteriaBuilder.equal(month, LocalDate.now().getMonthValue());
+        Predicate equalYear = criteriaBuilder.equal(year, LocalDate.now().getYear());
+        Join<Outcome, Account> accountJoin = root.join(Outcome_.account);
+        query.orderBy(criteriaBuilder.asc(accountJoin.getParent().get(Outcome_.date)));
+        Predicate equalUser = criteriaBuilder.equal(accountJoin.get(Account_.user), user);
+        query.where(equalUser, equalMonth, equalYear);
+        query.groupBy(accountJoin.get(Account_.user));
+        try {
+            return session.createQuery(query).getSingleResult();
+        } catch (NoResultException e) {
+            return BigDecimal.valueOf(0);
+        }
     }
 }

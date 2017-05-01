@@ -4,6 +4,8 @@ import com.fm.internal.currency.scheduler.GetCurrencyTask;
 import com.fm.internal.dtos.OutcomeTypeDto;
 import com.fm.internal.models.OutcomeType;
 import com.fm.internal.models.User;
+import com.fm.internal.services.AccountService;
+import com.fm.internal.services.OutcomeService;
 import com.fm.internal.services.OutcomeTypeService;
 import com.fm.internal.services.implementation.UserServiceImpl;
 import org.apache.log4j.Logger;
@@ -24,6 +26,10 @@ public class LoginController {
 
     @Autowired
     private UserServiceImpl userService;
+    @Autowired
+    private AccountService accountService;
+    @Autowired
+    private OutcomeService outcomeService;
     @Autowired
     private OutcomeTypeService typeService;
     @Autowired
@@ -47,9 +53,10 @@ public class LoginController {
                 outcomeTypes.put(outcomeType, typeService.getSumOfOutcomesInTypeForMonth(outcomeType));
             }
             modelAndView.addObject("outcomeTypes", outcomeTypes);
-
+            modelAndView.addObject("sumOfAllOutcomes", outcomeService.getSumOfAllOutcomesForMonthForUser(loggedUser));
+            modelAndView.addObject("sumOfAllLimits", typeService.getSumOfAllLimitsForUser(loggedUser));
+            modelAndView.addObject("sumOfBalances", accountService.getSumOfAllBalancesOfAccounts(loggedUser));
         }
         return modelAndView;
     }
-
 }

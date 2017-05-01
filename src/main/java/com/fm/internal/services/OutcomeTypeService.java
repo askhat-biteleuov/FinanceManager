@@ -35,4 +35,6 @@ public interface OutcomeTypeService {
     Map<String, Double> countOutcomeTypesValueByDate(Account account, LocalDate start, LocalDate end);
 
     BigDecimal getSumOfOutcomesInTypeForMonth(OutcomeType outcomeType);
+
+    BigDecimal getSumOfAllLimitsForUser(User user);
 }

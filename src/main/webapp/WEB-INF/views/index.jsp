@@ -10,15 +10,18 @@
         <c:if test="${user == null}">
             <h2>Добрый день!</h2>
             <p>Вы можете войти в свой аккаунт или пройти регистрацию.</p>
-            <form action="<c:url value="/login"/>" method="GET">
-                <button type="submit">Войти в аккаунт</button>
-            </form>
-            <form action="<c:url value="/registration"/>" method="GET">
-                <button type="submit">Пройти регистрацию</button>
-            </form>
+            <a class="btn btn-success" href="<c:url value="/login"/>" type="submit">Войти в аккаунт</a>
+            <a class="btn btn-default" href="<c:url value="/registration"/>" type="submit">Пройти регистрацию</a>
         </c:if>
         <c:if test="${user != null}">
             <div align="center">
+                <div class="panel panel-collapse">
+                    <span class="lead">
+                        Баланс:  <fmt:formatNumber type="currency" value="${sumOfBalances}"/>
+                        Расходы:  <fmt:formatNumber type="currency" value="${sumOfAllOutcomes}"/>
+                        В планах:   <fmt:formatNumber type="currency" value="${sumOfAllLimits-sumOfAllOutcomes}"/>
+                    </span>
+                </div>
                 <h2>Счета</h2>
                 <div id="accountAdding">
                 <form action="<c:url value="/account/add"/>" method="POST">
