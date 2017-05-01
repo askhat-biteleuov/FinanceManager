@@ -21,6 +21,9 @@
                 <input class="form-control" type="password" id="password" name="password" placeholder="Enter Password"
                        required>
             </div>
+            <div class="checkbox">
+                <label><input type="checkbox" name="remember-me" />Remember me</label>
+            </div>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <div class="form-group">
                 <a href="/registration">Пройти регистрацию</a>

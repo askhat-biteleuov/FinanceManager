@@ -5,6 +5,7 @@
          id="WebApp_ID" version="2.4">
 
     <display-name>Archetype Created Web Application</display-name>
+
     <filter>
         <filter-name>CharacterEncodingFilter</filter-name>
         <filter-class>

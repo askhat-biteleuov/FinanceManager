@@ -14,13 +14,18 @@
         <sec:intercept-url pattern="/account" access="isAuthenticated()" requires-channel="https"/>
         <sec:intercept-url pattern="/outcome/all" access="isAuthenticated()" requires-channel="https"/>
         <sec:intercept-url pattern="/account/income/all" access="isAuthenticated()" requires-channel="https"/>
-        <!--sec:intercept-url pattern="/**" access="isAuthenticated()"/-->
+        <sec:intercept-url pattern="/" requires-channel="https"/>
         <sec:form-login login-page="/login" default-target-url="/index"
                         username-parameter="email"
                         password-parameter="password"
                         authentication-failure-url="/login?error"/>
         <sec:logout logout-url="/logout" logout-success-url="/login?logout"/>
+
         <sec:csrf/>
+
+        <!-- Remember me mechanism -->
+        <sec:remember-me key="uniqueAndSecret"/>
+
         <sec:port-mappings>
             <!-- Default ports -->
             <sec:port-mapping http="80" https="443"/>
