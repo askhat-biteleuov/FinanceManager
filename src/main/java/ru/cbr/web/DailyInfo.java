@@ -15,7 +15,7 @@ import java.net.URL;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "DailyInfo", targetNamespace = "http://web.cbr.ru/", wsdlLocation = "file:/D:/Programming/Projects/Java%20Lessons/epam/FinanceManager/cbrInfo.wsdl")
+@WebServiceClient(name = "DailyInfo", targetNamespace = "http://web.cbr.ru/", wsdlLocation = "classpath:cbrInfo.wsdl")
 public class DailyInfo
     extends Service
 {
