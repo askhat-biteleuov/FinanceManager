@@ -20,7 +20,7 @@ public class GetCurrencyTaskImpl implements GetCurrencyTask {
         List<CurrencyData.ValuteCursOnDate> allCurrencyCursForNow = client.getAllCurrencyCursForNow();
         allCurrencyCursForNow.forEach(currencyData -> {
             Currency currency = getCurrencyFromCurrencyData(currencyData);
-            currencyDao.add(currency);
+            currencyDao.saveOrUpdate(currency);
         });
     }
 
