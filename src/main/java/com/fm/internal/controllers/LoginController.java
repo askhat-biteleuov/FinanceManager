@@ -49,13 +49,19 @@ public class LoginController {
         if (loggedUser != null) {
             modelAndView.addObject("user", loggedUser);
             Map<OutcomeType, BigDecimal> outcomeTypes = new TreeMap<>(Comparator.comparing(OutcomeType::getName));
+            BigDecimal plannedToSpend = BigDecimal.valueOf(0);
             for (OutcomeType outcomeType : loggedUser.getOutcomeTypes()) {
-                outcomeTypes.put(outcomeType, typeService.getSumOfOutcomesInTypeForMonth(outcomeType));
+                BigDecimal sumOfOutcomesInTypeForMonth = typeService.getSumOfOutcomesInTypeForMonth(outcomeType);
+                BigDecimal plannedToSpendForType = outcomeType.getLimit().subtract(sumOfOutcomesInTypeForMonth);
+                if (plannedToSpendForType.compareTo(BigDecimal.ZERO) > 0) {
+                    plannedToSpend = plannedToSpend.add(plannedToSpendForType);
+                }
+                outcomeTypes.put(outcomeType, sumOfOutcomesInTypeForMonth);
             }
             modelAndView.addObject("outcomeTypes", outcomeTypes);
-            modelAndView.addObject("sumOfAllOutcomes", outcomeService.getSumOfAllOutcomesForMonthForUser(loggedUser));
-            modelAndView.addObject("sumOfAllLimits", typeService.getSumOfAllLimitsForUser(loggedUser));
             modelAndView.addObject("sumOfBalances", accountService.getSumOfAllBalancesOfAccounts(loggedUser));
+            modelAndView.addObject("sumOfAllOutcomes", outcomeService.getSumOfAllOutcomesForMonthForUser(loggedUser));
+            modelAndView.addObject("plannedToSpend", plannedToSpend);
         }
         return modelAndView;
     }

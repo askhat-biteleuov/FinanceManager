@@ -47,8 +47,8 @@
                 </table>
             </c:when>
             <c:otherwise>
-                <div>
-                    <span class="lead">Пока нет расходов по данной категории.</span>
+                <div class="alert alert-info">
+                    <span class="glyphicon glyphicon-info-sign"></span> Пока нет расходов по данной категории.
                 </div>
             </c:otherwise>
         </c:choose>

@@ -1,6 +1,9 @@
 package com.fm.internal.daos;
 
-import com.fm.internal.models.*;
+import com.fm.internal.models.Account;
+import com.fm.internal.models.Outcome;
+import com.fm.internal.models.OutcomeType;
+import com.fm.internal.models.Outcome_;
 import org.hibernate.Session;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -77,22 +80,6 @@ public class OutcomeTypeDao extends GenericDao<OutcomeType> {
         try {
             BigDecimal sum = session.createQuery(query).getSingleResult();
             return sum;
-        } catch (NoResultException e) {
-            return BigDecimal.valueOf(0);
-        }
-    }
-
-    @Transactional
-    public BigDecimal getSumOfAllLimitsForUser(User user) {
-        Session session = getSessionFactory().getCurrentSession();
-        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-        CriteriaQuery<BigDecimal> query = criteriaBuilder.createQuery(BigDecimal.class);
-        Root<OutcomeType> root = query.from(OutcomeType.class);
-        query.select(criteriaBuilder.sum(root.get(OutcomeType_.limit)));
-        query.where(criteriaBuilder.equal(root.get(OutcomeType_.user), user));
-        query.groupBy(root.get(OutcomeType_.user));
-        try {
-            return session.createQuery(query).getSingleResult();
         } catch (NoResultException e) {
             return BigDecimal.valueOf(0);
         }
