@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $('#incomes').on('click', '#editBtn', function () {
+    $('#incomes').on('click', '.editBtn', function () {
         var note = $(this).closest('.incomeRow').find(".incomeNote");
         note.attr('contenteditable', 'true');
         note.focus();
@@ -14,9 +14,9 @@ $(document).ready(function () {
         }
     });
 
-    $('.saveIncome').on('submit', function (event) {
+    $('#incomes').on('submit', '.saveIncome', function (event) {
         event.preventDefault();
-        var newNote = $(this).closest('.incomeRow').find('.incomeNote').innerHTML;
+        var newNote = $(this).closest('.incomeRow').find('.incomeNote').innerText;
         $(this).find('[name=note]').attr('value', newNote);
         var form = $(this);
         var data = form.serializeArray();

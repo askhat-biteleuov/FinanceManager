@@ -47,13 +47,13 @@
                                 <input type="hidden" name="date" value="${income.date}">
                                 <input type="hidden" name="note">
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                <button type="submit" id="saveBtn">
+                                <button type="submit" class="saveBtn">
                                     <span class="glyphicon glyphicon-ok"></span>
                                 </button>
                             </form>
                         </div>
                         <div class="col-xs-1">
-                            <button id="editBtn">
+                            <button class="editBtn">
                                 <span class="glyphicon glyphicon-edit"></span>
                             </button>
                         </div>
