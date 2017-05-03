@@ -5,6 +5,8 @@ import com.fm.internal.currency.model.Currency;
 import com.fm.internal.services.CurrencyService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 public class CurrencyServiceImpl implements CurrencyService {
     @Autowired
     CurrencyDao currencyDao;
@@ -27,5 +29,10 @@ public class CurrencyServiceImpl implements CurrencyService {
     @Override
     public void deleteCurrency(Currency currency) {
         currencyDao.delete(currency);
+    }
+
+    @Override
+    public List<Currency> getCurrencies() {
+        return currencyDao.getAll();
     }
 }

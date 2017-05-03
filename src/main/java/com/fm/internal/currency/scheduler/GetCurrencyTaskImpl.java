@@ -7,6 +7,7 @@ import com.fm.internal.currency.model.Currency;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class GetCurrencyTaskImpl implements GetCurrencyTask {
@@ -20,6 +21,8 @@ public class GetCurrencyTaskImpl implements GetCurrencyTask {
     @Override
     public void execute() {
         List<CurrencyData.ValuteCursOnDate> allCurrencyCursForNow = client.getAllCurrencyCursForNow();
+        currencyDao.saveOrUpdate(new Currency("Российский рубль", BigDecimal.ONE, BigDecimal.ONE,
+                643, "RUB"));
         allCurrencyCursForNow.forEach(currencyData -> {
             Currency currency = getCurrencyFromCurrencyData(currencyData);
             currencyDao.saveOrUpdate(currency);

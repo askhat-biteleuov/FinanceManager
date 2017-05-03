@@ -4,9 +4,6 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <html>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">
-    google.charts.load('current', {packages: ['corechart']});
-</script>
 
 <t:master-page title="${account.name}">
     <script src="<c:url value="/resources/js/formSlideAndDefaultDate.js"/>"></script>
@@ -126,8 +123,8 @@
     <br/>
     <div id="chart" align="center">
         <form id="rangeForm">
-            <input type="date" name="start"/><br/>
-            <input type="date" name="end"/><br/>
+            <input type="date" name="start" id="start"/><br/>
+            <input type="date" name="end" id="end"/><br/>
             <input type="hidden" name="accountName" value="${account.name}"/>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <button type="submit">Submit</button>

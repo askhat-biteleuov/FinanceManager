@@ -17,6 +17,14 @@
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group">
+                        <select class="form-control" name="currency">
+                            <option disabled>--- Select ---</option>
+                            <c:forEach items="${currencies}" var="currency">
+                                    <option value="${currency.characterCode}" id="accountCurrency">${currency.name}</option>
+                            </c:forEach>
+                        </select><br/>
+                    </div>
+                    <div class="form-group">
                         <input type="text" id="accountBalance" name="balance" placeholder="Balance" class="form-control"
                                pattern="^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$" required/><br/>
                         <div class="help-block with-errors"></div>

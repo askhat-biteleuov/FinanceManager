@@ -5,6 +5,7 @@ import com.fm.internal.dtos.OutcomeTypeDto;
 import com.fm.internal.models.OutcomeType;
 import com.fm.internal.models.User;
 import com.fm.internal.services.AccountService;
+import com.fm.internal.services.CurrencyService;
 import com.fm.internal.services.OutcomeService;
 import com.fm.internal.services.OutcomeTypeService;
 import com.fm.internal.services.implementation.UserServiceImpl;
@@ -34,6 +35,8 @@ public class LoginController {
     private OutcomeTypeService typeService;
     @Autowired
     private GetCurrencyTask currencyTask;
+    @Autowired
+    private CurrencyService currencyService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView init() {
@@ -62,6 +65,7 @@ public class LoginController {
             modelAndView.addObject("sumOfBalances", accountService.getSumOfAllBalancesOfAccounts(loggedUser));
             modelAndView.addObject("sumOfAllOutcomes", outcomeService.getSumOfAllOutcomesForMonthForUser(loggedUser));
             modelAndView.addObject("plannedToSpend", plannedToSpend);
+            modelAndView.addObject("currencies", currencyService.getCurrencies());
         }
         return modelAndView;
     }

@@ -1,3 +1,4 @@
+google.charts.load('current', {packages: ['corechart']});
 function drawChart(data) {
     // Define the chart to be drawn.
     var dataTable = new google.visualization.DataTable();

@@ -6,15 +6,20 @@ import com.fm.internal.dtos.AccountDto;
 import com.fm.internal.models.Account;
 import com.fm.internal.models.User;
 import com.fm.internal.services.AccountService;
+import com.fm.internal.services.CurrencyService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
+import java.util.Currency;
 import java.util.List;
 
 public class AccountServiceImpl implements AccountService {
 
     @Autowired
     private AccountDao accountDao;
+
+    @Autowired
+    private CurrencyService currencyService;
 
     @Override
     public List<Account> findAllUserAccounts(User user) {
@@ -64,7 +69,8 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void createAccount(AccountDto accountDto, User user) {
-        Account account = new Account(accountDto.getName(), new BigDecimal(accountDto.getBalance()), null, user);
+        Account account = new Account(accountDto.getName(), new BigDecimal(accountDto.getBalance()), null, user,
+                currencyService.findCurrencyByCharCode(accountDto.getCurrency()));
         accountDao.add(account);
     }
 

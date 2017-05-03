@@ -15,6 +15,8 @@ public class AccountDto {
     @Pattern(regexp = "^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\\.[0-9]{2})?$")
     private String balance;
 
+    private String currency;
+
     private List<Income> incomes;
     private List<Outcome> outcomes;
 
@@ -22,9 +24,10 @@ public class AccountDto {
 
     }
 
-    public AccountDto(String name, String balance) {
+    public AccountDto(String name, String balance, String currency) {
         this.name = name;
         this.balance = balance;
+        this.currency = currency;
     }
 
     public AccountDto(long id, String name, String balance) {
@@ -72,5 +75,13 @@ public class AccountDto {
 
     public void setOutcomes(List<Outcome> outcomes) {
         this.outcomes = outcomes;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 }

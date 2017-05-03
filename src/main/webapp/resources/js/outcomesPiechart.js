@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    LoadChart("2017-05-01", "2017-05-31", $('#rangeForm [name=accountName]').val())
+    LoadChart($("#rangeForm [name=start]").val(), $("#rangeForm [name=end]").val(), $('#rangeForm [name=accountName]').val());
     $('#rangeForm').submit(function (event) {
         event.preventDefault();
         $('#piechart').show();
