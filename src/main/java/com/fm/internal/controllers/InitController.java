@@ -39,9 +39,9 @@ public class InitController {
         }
 
         OutcomeType[] types = {
-                new OutcomeType("Еда вне дома", new BigDecimal(3000), user),
-                new OutcomeType("ФФСБ", new BigDecimal(2323), user),
-                new OutcomeType("dfsfsd", new  BigDecimal(3242), user)
+                new OutcomeType("Еда вне дома", new BigDecimal(87000), user),
+                new OutcomeType("Бензин", new BigDecimal(141000), user),
+                new OutcomeType("Кварплата", new BigDecimal(13000), user)
         };
         for (OutcomeType type : types) {
             outcomeTypeService.addOutcomeType(type);

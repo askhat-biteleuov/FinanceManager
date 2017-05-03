@@ -19,13 +19,18 @@ public class GetCurrencyTaskImpl implements GetCurrencyTask {
     public void execute() {
         List<CurrencyData.ValuteCursOnDate> allCurrencyCursForNow = client.getAllCurrencyCursForNow();
         allCurrencyCursForNow.forEach(currencyData -> {
-            Currency currency = new Currency();
-            currency.setCharacterCode(currencyData.getChCode());
-            currency.setCode(currencyData.getCode());
-            currency.setCurs(currencyData.getCurs());
-            currency.setName(currencyData.getName());
-            currency.setNominal(currencyData.getNom());
-            currencyDao.add(currency);
+            Currency currency = getCurrencyFromCurrencyData(currencyData);
+            currencyDao.saveOrUpdate(currency);
         });
+    }
+
+    private Currency getCurrencyFromCurrencyData(CurrencyData.ValuteCursOnDate currencyData) {
+        Currency currency = new Currency();
+        currency.setCharacterCode(currencyData.getChCode());
+        currency.setCode(currencyData.getCode());
+        currency.setCurs(currencyData.getCurs());
+        currency.setName(currencyData.getName());
+        currency.setNominal(currencyData.getNom());
+        return currency;
     }
 }

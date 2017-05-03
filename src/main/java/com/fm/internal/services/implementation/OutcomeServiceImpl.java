@@ -80,4 +80,9 @@ public class OutcomeServiceImpl implements OutcomeService {
     public List<Outcome> getUserOutcomes(User user) {
         return dao.getUserOutcomes(user);
     }
+
+    @Override
+    public BigDecimal getSumOfAllOutcomesForMonthForUser(User user) {
+        return dao.getSumOfAllOutcomesForMonthForUser(user);
+    }
 }

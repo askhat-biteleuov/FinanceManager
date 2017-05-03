@@ -41,6 +41,11 @@ public class GenericDao<T> {
     }
 
     @Transactional
+    public void saveOrUpdate(T entity) {
+        sessionFactory.getCurrentSession().saveOrUpdate(entity);
+    }
+
+    @Transactional
     public void delete(T entity) {
         sessionFactory.getCurrentSession().delete(entity);
     }

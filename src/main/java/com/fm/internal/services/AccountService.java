@@ -4,6 +4,7 @@ import com.fm.internal.dtos.AccountDto;
 import com.fm.internal.models.Account;
 import com.fm.internal.models.User;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface AccountService {
@@ -23,4 +24,6 @@ public interface AccountService {
     void deleteAccount(Account account);
 
     void createAccount(AccountDto accountDto, User user);
+
+    BigDecimal getSumOfAllBalancesOfAccounts(User user);
 }

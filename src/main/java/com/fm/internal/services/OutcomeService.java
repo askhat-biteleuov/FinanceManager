@@ -5,6 +5,7 @@ import com.fm.internal.models.Account;
 import com.fm.internal.models.Outcome;
 import com.fm.internal.models.User;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -32,4 +33,7 @@ public interface OutcomeService {
     Outcome createOutcomeFromDto(OutcomeDto outcomeDto);
 
     List<Outcome> getUserOutcomes(User user);
+
+    BigDecimal getSumOfAllOutcomesForMonthForUser(User user);
+
 }

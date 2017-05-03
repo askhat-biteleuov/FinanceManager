@@ -35,14 +35,17 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="/">Главная</a>
-            <a class="navbar-brand" href="<c:url value="/outcome/all"/>">Расходы</a>
-            <a class="navbar-brand" href="<c:url value="/account/income/all"/>">Доходы</a>
+
         </div>
         <div class="collapse navbar-collapse" id="navbar-toogle">
             <ul class="nav navbar-nav">
                 <c:if test="${userName == null}">
                     <li><a href="/login">Войти в аккаунт</a></li>
                     <li><a href="/registration">Пройти регистрацию</a></li>
+                </c:if>
+                <c:if test="${userName != null}">
+                    <li><a href="<c:url value="/outcome/all"/>">Расходы</a></li>
+                    <li><a href="<c:url value="/account/income/all"/>">Доходы</a></li>
                 </c:if>
             </ul>
             <ul class="nav navbar-nav navbar-right">

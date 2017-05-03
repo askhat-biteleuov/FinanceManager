@@ -35,7 +35,7 @@
                             </td>
                             <td>
                                 <form action="<c:url value="/outcome/delete"/>" method="POST"
-                                      onsubmit="return confirm('После удаления, категория будет удалена! Вы хотите продолжить?')">
+                                      onsubmit="return confirm('Операция будет удалена! Вы хотите продолжить?')">
                                     <input type="hidden" name="outcomeId" value="${outcome.id}">
                                     <button class="btn btn-danger" type="submit">Удалить расход</button>
                                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -47,8 +47,8 @@
                 </table>
             </c:when>
             <c:otherwise>
-                <div>
-                    <span class="lead">Пока нет расходов по данной категории.</span>
+                <div class="alert alert-info">
+                    <span class="glyphicon glyphicon-info-sign"></span> Пока нет расходов по данной категории.
                 </div>
             </c:otherwise>
         </c:choose>

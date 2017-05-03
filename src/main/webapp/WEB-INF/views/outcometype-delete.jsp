@@ -16,14 +16,14 @@
                 Удаляя "${outcomeTypeDto.name}", вы хотите:
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary btn-block" type="button" data-dismiss="modal" data-toggle="modal"
+                <button class="btn btn-warning btn-block" type="button" data-dismiss="modal" data-toggle="modal"
                         data-target="#outcometype-move-outcomes">
                     Переместить все операции в другую категорию
                 </button>
                 <br>
                 <form action="<c:url value="/outcometype/delete/all"/>" method="POST">
                     <input type="hidden" name="currentOutcomeTypeId" value="${outcomeTypeDto.id}">
-                    <button class="btn btn-primary btn-block" type="submit">Стереть все операции</button>
+                    <button class="btn btn-danger btn-block" type="submit">Стереть все операции</button>
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 </form>
                 <br>

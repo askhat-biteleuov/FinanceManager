@@ -4,6 +4,8 @@ import com.fm.internal.currency.scheduler.GetCurrencyTask;
 import com.fm.internal.dtos.OutcomeTypeDto;
 import com.fm.internal.models.OutcomeType;
 import com.fm.internal.models.User;
+import com.fm.internal.services.AccountService;
+import com.fm.internal.services.OutcomeService;
 import com.fm.internal.services.OutcomeTypeService;
 import com.fm.internal.services.implementation.UserServiceImpl;
 import org.apache.log4j.Logger;
@@ -25,6 +27,10 @@ public class LoginController {
     @Autowired
     private UserServiceImpl userService;
     @Autowired
+    private AccountService accountService;
+    @Autowired
+    private OutcomeService outcomeService;
+    @Autowired
     private OutcomeTypeService typeService;
     @Autowired
     private GetCurrencyTask currencyTask;
@@ -43,13 +49,20 @@ public class LoginController {
         if (loggedUser != null) {
             modelAndView.addObject("user", loggedUser);
             Map<OutcomeType, BigDecimal> outcomeTypes = new TreeMap<>(Comparator.comparing(OutcomeType::getName));
+            BigDecimal plannedToSpend = BigDecimal.valueOf(0);
             for (OutcomeType outcomeType : loggedUser.getOutcomeTypes()) {
-                outcomeTypes.put(outcomeType, typeService.getSumOfOutcomesInTypeForMonth(outcomeType));
+                BigDecimal sumOfOutcomesInTypeForMonth = typeService.getSumOfOutcomesInTypeForMonth(outcomeType);
+                BigDecimal plannedToSpendForType = outcomeType.getLimit().subtract(sumOfOutcomesInTypeForMonth);
+                if (plannedToSpendForType.compareTo(BigDecimal.ZERO) > 0) {
+                    plannedToSpend = plannedToSpend.add(plannedToSpendForType);
+                }
+                outcomeTypes.put(outcomeType, sumOfOutcomesInTypeForMonth);
             }
             modelAndView.addObject("outcomeTypes", outcomeTypes);
-
+            modelAndView.addObject("sumOfBalances", accountService.getSumOfAllBalancesOfAccounts(loggedUser));
+            modelAndView.addObject("sumOfAllOutcomes", outcomeService.getSumOfAllOutcomesForMonthForUser(loggedUser));
+            modelAndView.addObject("plannedToSpend", plannedToSpend);
         }
         return modelAndView;
     }
-
 }

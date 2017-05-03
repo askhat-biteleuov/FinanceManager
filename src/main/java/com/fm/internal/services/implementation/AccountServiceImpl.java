@@ -67,4 +67,9 @@ public class AccountServiceImpl implements AccountService {
         Account account = new Account(accountDto.getName(), new BigDecimal(accountDto.getBalance()), null, user);
         accountDao.add(account);
     }
+
+    @Override
+    public BigDecimal getSumOfAllBalancesOfAccounts(User user) {
+        return accountDao.getSumOfAllBalancesOfAccounts(user);
+    }
 }
