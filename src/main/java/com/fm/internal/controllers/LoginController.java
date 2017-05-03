@@ -1,6 +1,5 @@
 package com.fm.internal.controllers;
 
-import com.fm.internal.currency.scheduler.GetCurrencyTask;
 import com.fm.internal.dtos.OutcomeTypeDto;
 import com.fm.internal.models.OutcomeType;
 import com.fm.internal.models.User;
@@ -34,8 +33,6 @@ public class LoginController {
     @Autowired
     private OutcomeTypeService typeService;
     @Autowired
-    private GetCurrencyTask currencyTask;
-    @Autowired
     private CurrencyService currencyService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -45,7 +42,6 @@ public class LoginController {
 
     @RequestMapping({"/index", "/"})
     public ModelAndView index() {
-        currencyTask.execute();
         ModelAndView modelAndView = new ModelAndView("index");
         modelAndView.addObject("outcometypeDto", new OutcomeTypeDto());
         User loggedUser = userService.getLoggedUser();
