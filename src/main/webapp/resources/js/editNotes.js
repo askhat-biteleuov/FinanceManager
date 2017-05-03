@@ -14,7 +14,7 @@ $(document).ready(function () {
         }
     });
 
-    $('#incomes').on('submit', '#saveIncome', function (event) {
+    $('.saveIncome').on('submit', function (event) {
         event.preventDefault();
         var newNote = $(this).closest('.incomeRow').find('.incomeNote').innerHTML;
         $(this).find('[name=note]').attr('value', newNote);

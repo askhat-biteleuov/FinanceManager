@@ -41,7 +41,7 @@
                 <td>
                     <div class="row">
                         <div class="col-xs-1">
-                            <form id="saveIncome" action="<c:url value="/account/income/update"/>" method="POST">
+                            <form class="saveIncome" action="<c:url value="/account/income/update"/>" method="POST">
                                 <input type="hidden" name="accountId" value="${income.account.id}">
                                 <input type="hidden" name="amount" value="${income.amount}">
                                 <input type="hidden" name="date" value="${income.date}">

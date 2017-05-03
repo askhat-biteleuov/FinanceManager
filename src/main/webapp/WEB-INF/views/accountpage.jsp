@@ -132,29 +132,8 @@
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <button type="submit">Submit</button>
         </form>
-        <script>
-            function drawDefaultChart() {
-                $('#piechart').hide();
-                // Define the chart to be drawn.
-                var data = new google.visualization.DataTable();
-                data.addColumn('string', 'Type');
-                data.addColumn('number', 'Amount');
-                <c:forEach items="${outcomes}" var="outcome">
-                data.addRow(["${outcome.key}", ${outcome.value}]);
-                </c:forEach>
-                // Set chart options
-                var options = {
-                    'title': 'Статистика за текущий месяц'
-                };
-                // Instantiate and draw the chart.
-                var chart = new google.visualization.PieChart(document.getElementById('defaultPiechart'));
-                chart.draw(data, options);
-            }
-            google.charts.setOnLoadCallback(drawDefaultChart);
-        </script>
         <script src="<c:url value="/resources/js/outcomesPiechart.js"/>"></script>
         <script src="<c:url value="/resources/js/drawOutcomesPiechart.js"/>"></script>
-        <div id="defaultPiechart" style="width: 580px; height: 430px; margin: 0 auto"></div>
         <div id="piechart" style="width: 550px; height: 400px; margin: 0 auto"></div>
     </div>
 </t:master-page>
