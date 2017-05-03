@@ -43,14 +43,6 @@ public class Account implements Serializable {
     public Account() {
     }
 
-    public Account(String name, BigDecimal balance, AccountType type, User user) {
-        this.name = name;
-        this.balance = balance;
-        this.type = type;
-        this.user = user;
-        this.currency = new Currency("Заглушка", BigDecimal.ONE, BigDecimal.ONE, 999999, "ZZZ");
-    }
-
     public Account(String name, BigDecimal balance, AccountType type, User user, Currency currency){
         this.name = name;
         this.balance = balance;

@@ -1,5 +1,6 @@
 package com.fm.internal.services;
 
+import com.fm.internal.currency.model.Currency;
 import com.fm.internal.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -30,6 +31,9 @@ public class OutcomeTypeServiceTest extends AbstractTestNGSpringContextTests {
     @Autowired
     private OutcomeService outcomeService;
 
+    @Autowired
+    private CurrencyService currencyService;
+
     private final static String FIRST_USER_EMAIL = "user@email";
     private final static String FIRST_USER_PASSWORD = "password";
     private final static String SECOND_USER_EMAIL = "user2@email";
@@ -46,10 +50,14 @@ public class OutcomeTypeServiceTest extends AbstractTestNGSpringContextTests {
         userService.createUser(user);
         userService.createUser(secondUser);
         Account[] accounts = {
-                new Account(FIRST_ACCOUNT_NAME, new BigDecimal(29999), null, user),
-                new Account(SECOND_ACCOUNT_NAME, new BigDecimal(3000), null, user),
-                new Account(THIRD_ACCOUNT_NAME, new BigDecimal(5752), null, user),
-                new Account(THIRD_ACCOUNT_NAME, new BigDecimal(1111), null, secondUser)
+                new Account(FIRST_ACCOUNT_NAME, new BigDecimal(29999), null, user,
+                        currencyService.findCurrencyByCharCode("RUB")),
+                new Account(SECOND_ACCOUNT_NAME, new BigDecimal(3000), null, user,
+                        currencyService.findCurrencyByCharCode("RUB")),
+                new Account(THIRD_ACCOUNT_NAME, new BigDecimal(5752), null, user,
+                        currencyService.findCurrencyByCharCode("RUB")),
+                new Account(THIRD_ACCOUNT_NAME, new BigDecimal(1111), null, secondUser,
+                        currencyService.findCurrencyByCharCode("RUB"))
         };
         for (Account account : accounts) {
             accountService.createAccount(account);

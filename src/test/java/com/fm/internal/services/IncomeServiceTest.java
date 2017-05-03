@@ -1,5 +1,6 @@
 package com.fm.internal.services;
 
+import com.fm.internal.currency.model.Currency;
 import com.fm.internal.models.Account;
 import com.fm.internal.models.Income;
 import com.fm.internal.models.User;
@@ -28,6 +29,9 @@ public class IncomeServiceTest extends AbstractTestNGSpringContextTests {
     @Autowired
     private AccountService accountService;
 
+    @Autowired
+    private CurrencyService currencyService;
+
     private final static String USER_EMAIL = "user@email";
 
     private final static LocalDateTime DATE = LocalDateTime.now();
@@ -36,7 +40,8 @@ public class IncomeServiceTest extends AbstractTestNGSpringContextTests {
     public void setUp() throws Exception {
         User user = new User(USER_EMAIL, "password", new UserInfo("name", "surname"));
         userService.createUser(user);
-        Account acc1 = new Account("visa", BigDecimal.valueOf(1234), null, userService.findByEmail(USER_EMAIL));
+        Account acc1 = new Account("visa", BigDecimal.valueOf(1234), null, userService.findByEmail(USER_EMAIL),
+                currencyService.findCurrencyByCharCode("RUB"));
         accountService.createAccount(acc1);
         Income inc1 = new Income(BigDecimal.valueOf(1234), DATE.toLocalDate(), DATE.toLocalTime() ,acc1);
         Income inc2 = new Income(BigDecimal.valueOf(111), DATE.toLocalDate(), DATE.toLocalTime(), acc1);

@@ -28,14 +28,19 @@ public class AccountServiceTest extends AbstractTestNGSpringContextTests {
     @Autowired
     private SessionFactory sessionFactory;
 
+    @Autowired
+    private CurrencyService currencyService;
+
     private final static String USER_EMAIL = "user@email";
 
     @BeforeMethod
     public void setUp() throws Exception {
         User user = new User(USER_EMAIL, "password", new UserInfo("name", "surname"));
         userService.createUser(user);
-        Account acc1 = new Account("visa", BigDecimal.valueOf(1234), null, userService.findByEmail(USER_EMAIL));
-        Account acc2 = new Account("mastercard", BigDecimal.valueOf(4321), null, userService.findByEmail(USER_EMAIL));
+        Account acc1 = new Account("visa", BigDecimal.valueOf(1234), null, userService.findByEmail(USER_EMAIL),
+                currencyService.findCurrencyByCharCode("RUB"));
+        Account acc2 = new Account("mastercard", BigDecimal.valueOf(4321), null, userService.findByEmail(USER_EMAIL),
+                currencyService.findCurrencyByCharCode("RUB"));
         accountService.createAccount(acc1);
         accountService.createAccount(acc2);
     }

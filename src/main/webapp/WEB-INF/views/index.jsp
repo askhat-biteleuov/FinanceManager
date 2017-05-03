@@ -44,7 +44,7 @@
                                 </a>
                                 </div>
                                 <div class="panel-body">
-                                    <fmt:formatNumber type="currency" value="${account.balance}"/>
+                                    <fmt:formatNumber type="currency" currencySymbol="${account.currency.characterCode}" value="${account.balance}"/>
                                 </div>
                             </div>
                         </div>

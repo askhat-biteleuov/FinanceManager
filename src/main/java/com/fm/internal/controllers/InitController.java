@@ -23,6 +23,8 @@ public class InitController {
     private OutcomeService outcomeService;
     @Autowired
     private IncomeService incomeService;
+    @Autowired
+    private CurrencyService currencyService;
 
     @RequestMapping("/init")
     public ModelAndView init() {
@@ -30,9 +32,9 @@ public class InitController {
         userService.createUser(user);
 
         Account[] accounts = {
-                new Account("Visa", new BigDecimal(29999), null, user),
-                new Account("Mastercard", new BigDecimal(3000), null, user),
-                new Account("Альфа", new BigDecimal(5752), null, user)
+                new Account("Visa", new BigDecimal(29999), null, user, currencyService.findCurrencyByCharCode("KZT")),
+                new Account("Mastercard", new BigDecimal(3000), null, user, currencyService.findCurrencyByCharCode("USD")),
+                new Account("Альфа", new BigDecimal(5752), null, user, currencyService.findCurrencyByCharCode("EUR"))
         };
         for (Account account : accounts) {
             accountService.createAccount(account);

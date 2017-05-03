@@ -7,6 +7,7 @@ import com.fm.internal.models.OutcomeType;
 import com.fm.internal.models.User;
 import com.fm.internal.models.UserInfo;
 import com.fm.internal.services.AccountService;
+import com.fm.internal.services.CurrencyService;
 import com.fm.internal.services.OutcomeTypeService;
 import com.fm.internal.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ public class UserServiceImpl implements UserService {
     private AccountService accountService;
     @Autowired
     private OutcomeTypeService outcomeTypeService;
+    @Autowired
+    private CurrencyService currencyService;
     @Autowired
     private PasswordEncoder encoder;
 
@@ -49,7 +52,7 @@ public class UserServiceImpl implements UserService {
     public void createUser(User user) {
         user.setPassword(encoder.encode(user.getPassword()));
         dao.add(user);
-        Account initAccount = new Account("Кошелек", BigDecimal.ZERO, null, user);
+        Account initAccount = new Account("Кошелек", BigDecimal.ZERO, null, user, currencyService.findCurrencyByCharCode("RUB"));
         accountService.createAccount(initAccount);
         OutcomeType[] initOutcomeTypes = {
                 new OutcomeType("Еда", new BigDecimal(5000), user),
