@@ -5,6 +5,7 @@ import com.fm.internal.currency.CurrencyData;
 import com.fm.internal.currency.dao.CurrencyDao;
 import com.fm.internal.currency.model.Currency;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class GetCurrencyTaskImpl implements GetCurrencyTask {
     @Autowired
     private CbrClient client;
 
+    @Scheduled(fixedDelay = 5000)
     @Override
     public void execute() {
         List<CurrencyData.ValuteCursOnDate> allCurrencyCursForNow = client.getAllCurrencyCursForNow();
