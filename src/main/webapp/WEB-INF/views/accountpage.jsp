@@ -48,14 +48,16 @@
             </div>
             <div id="outcomeAdd" class="col-xs-4">
                 <button type="button" class="btn btn-default">Добавить расход</button>
-                <form:form method="POST" action="/outcome/add" modelAttribute="outcomeDto" id="outcomeForm"
-                           class="trans"
-                           role="form">
+                <form method="POST" action="<c:url value="/outcome/add"/>" id="outcomeForm"
+                      class="trans"
+                      role="form">
                     <div class="form-group">
-                        <form:select path="outcomeTypeId" cssClass="form-control">
-                            <form:option value="0" disabled="true" label="--- Select ---"/>
-                            <form:options items="${types}" itemValue="id" itemLabel="name"/>
-                        </form:select><br/>
+                        <select name="outcomeTypeId" class="form-control">
+                            <option disabled>--- Select ---</option>
+                            <c:forEach items="${types}" var="type">
+                                <option value="${type.id}">${type.name}</option>
+                            </c:forEach>
+                        </select><br/>
                     </div>
                     <div class="form-group">
                         <input type="text" id="outcomeNote" name="note" placeholder="Note" class="form-control"
@@ -75,20 +77,20 @@
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <button type="submit" class="btn btn-default">Добавить</button>
                     <br/>
-                </form:form>
+                </form>
             </div>
             <div id="transfer" class="col-xs-4">
                 <button type="submit" class="btn btn-default">Перевести на другой счет</button>
                 <form:form method="POST" action="/transfer" modelAttribute="transferDto" cssClass="trans">
                     <div class="form-group">
-                    <form:select path="toAccountId" cssClass="form-control">
-                        <form:option value="1" disabled="true" label="--- Select ---"/>
-                        <c:forEach items="${accounts}" var="acc">
-                            <c:if test="${acc.id != transferDto.accountId}">
-                                <form:option value="${acc.id}" label="${acc.name}"/>
-                            </c:if>
-                        </c:forEach>
-                    </form:select><br/>
+                        <form:select path="toAccountId" cssClass="form-control">
+                            <form:option value="1" disabled="true" label="--- Select ---"/>
+                            <c:forEach items="${accounts}" var="acc">
+                                <c:if test="${acc.id != transferDto.accountId}">
+                                    <form:option value="${acc.id}" label="${acc.name}"/>
+                                </c:if>
+                            </c:forEach>
+                        </form:select><br/>
                     </div>
                     <div class="form-group">
                         <input type="text" id="transferAmount" name="amount" placeholder="Amount" class="form-control"
