@@ -1,5 +1,7 @@
 package com.fm.internal.models;
 
+import com.fm.internal.currency.model.Currency;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -19,6 +21,10 @@ public class Account implements Serializable {
 
     @Column(nullable = false)
     private BigDecimal balance;
+
+    @ManyToOne(cascade=CascadeType.ALL)
+    @JoinColumn(nullable = false, name = "currency_character_code", foreignKey = @ForeignKey(name = "fk_currency_character_code"))
+    private Currency currency;
 
     @OneToOne
     @JoinColumn(nullable = true, name = "account_type_id", foreignKey = @ForeignKey(name = "fk_account_type_id"))
@@ -42,6 +48,15 @@ public class Account implements Serializable {
         this.balance = balance;
         this.type = type;
         this.user = user;
+        this.currency = new Currency("Заглушка", BigDecimal.ONE, BigDecimal.ONE, 999999, "ZZZ");
+    }
+
+    public Account(String name, BigDecimal balance, AccountType type, User user, Currency currency){
+        this.name = name;
+        this.balance = balance;
+        this.type = type;
+        this.user = user;
+        this.currency = currency;
     }
 
     public long getId() {
@@ -84,7 +99,14 @@ public class Account implements Serializable {
         this.user = user;
     }
 
-//    public List<Income> getIncomeTransactions() {
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
+    }
+    //    public List<Income> getIncomeTransactions() {
 //        return incomeTransactions;
 //    }
 //
