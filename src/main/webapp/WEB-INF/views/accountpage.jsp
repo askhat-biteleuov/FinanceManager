@@ -8,7 +8,7 @@
 <t:master-page title="${account.name}">
     <script src="<c:url value="/resources/js/formSlideAndDefaultDate.js"/>"></script>
     <script src="<c:url value="/resources/js/sendFormViaAjax.js"/>"></script>
-
+    <link href="<c:url value="/resources/css/back-button.css"/>" rel="stylesheet"/>
     <style>
         .trans {
             display: none;
@@ -17,9 +17,15 @@
         .fail {
             color: red;
         }
+
+
     </style>
 
-    <button type="submit" onclick="history.back()" class="btn">Назад</button>
+
+    <div id="scroiller">
+        <div id="back" onclick="history.back()">◄ Назад</div>
+    </div>
+
     <h2 align="center">Счёт ${account.name}</h2>
     <div id="adding" class="container" align="center">
         <div class="row">
@@ -80,6 +86,7 @@
                                pattern="^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$" required/><br/>
                         <div class="help-block with-errors"></div>
                     </div>
+
                     <div class="form-group">
                         <label for="outcomeDate">Дата дохода:<br/></label>
                         <input id="outcomeDate" name="date" type="date" required/><br/>
@@ -137,15 +144,28 @@
     <br/>
     <div id="chart" align="center">
         <form id="rangeForm">
-            <input type="date" name="start" id="start"/><br/>
-            <input type="date" name="end" id="end"/><br/>
+            <div class="input-daterange input-group col-xs-2" id="datepicker-range">
+                <input type="text" class="input-sm form-control" name="start" id="start" readonly/>
+                <span class="input-group-addon">to</span>
+                <input type="text" class="input-sm form-control" name="end" id="end" readonly/>
+            </div>
+            <br/>
+           <button type="submit" class="btn btn-default">Submit</button>
             <input type="hidden" name="accountName" value="${account.name}"/>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            <button type="submit">Submit</button>
+            <script>
+                $('#datepicker-range').datepicker({
+                    format: "yyyy-mm-dd",
+                    todayBtn: "linked",
+                    clearBtn: true
+                });
+            </script>
         </form>
+
         <script src="<c:url value="/resources/js/outcomesPiechart.js"/>"></script>
         <script src="<c:url value="/resources/js/drawOutcomesPiechart.js"/>"></script>
         <div id="piechart" style="width: 550px; height: 400px; margin: 0 auto"></div>
     </div>
+
 </t:master-page>
 </html>

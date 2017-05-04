@@ -10,8 +10,8 @@
         <c:if test="${user == null}">
             <h2>Добрый день!</h2>
             <p>Вы можете войти в свой аккаунт или пройти регистрацию.</p>
-            <a class="btn btn-success" href="<c:url value="/login"/>" type="submit">Войти в аккаунт</a>
             <a class="btn btn-default" href="<c:url value="/registration"/>" type="submit">Пройти регистрацию</a>
+            <a class="btn btn-primary" href="<c:url value="/login"/>" type="submit">Войти в аккаунт</a>
         </c:if>
         <c:if test="${user != null}">
             <div align="center">

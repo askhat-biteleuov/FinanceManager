@@ -16,6 +16,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>${title}</title>
     <link href="<c:url value="/resources/css/design.css" />" rel="stylesheet">
+
     <!-- Bootstrap -->
     <link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -24,9 +25,14 @@
     <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
     <!-- Bootstrap Validator Plugin -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
+    <%--Bootstrap Datepicker--%>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+    <link href="<c:url value="/resources/css/navbar-custom.css"/>" rel="stylesheet"/>
+
 </head>
 <body>
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default navbar-custom">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-toogle"

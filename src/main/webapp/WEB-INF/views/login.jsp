@@ -28,8 +28,8 @@
                 </div>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <div class="form-group" align="right">
-                    <a href="/registration">Пройти регистрацию</a>
-                    <input class="btn btn-success" type="submit" value="Войти">
+                    <input class="btn btn-default" type="button" value="Пройти регистрацию" onclick="location.href ='/registration';">
+                    <input class="btn btn-primary" type="submit" value="Войти">
                 </div>
             </form>
         </div>

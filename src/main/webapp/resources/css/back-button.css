@@ -1,0 +1,27 @@
+#scroiller{
+    position:fixed;
+    height:100%;
+    width:100px;
+    top:52px;
+    left:0px;
+    cursor:pointer;
+    z-index:10000;
+}
+#scroiller div{
+    padding:3px 0px 0px 2px;
+}
+
+#scroiller div{
+    height:100%;
+    display:block;
+    background:#fff;
+    opacity: 0.3;
+}
+#scroiller div:hover{
+    opacity:0.85;
+    background:#e2eef2;
+}
+#scroiller div{
+    font:bold 1.1em Verdana;
+    color: #2476cc;
+}
