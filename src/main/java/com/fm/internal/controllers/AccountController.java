@@ -3,10 +3,7 @@ package com.fm.internal.controllers;
 import com.fm.internal.dtos.*;
 import com.fm.internal.models.Account;
 import com.fm.internal.models.User;
-import com.fm.internal.services.AccountService;
-import com.fm.internal.services.OutcomeService;
-import com.fm.internal.services.OutcomeTypeService;
-import com.fm.internal.services.UserService;
+import com.fm.internal.services.*;
 import com.fm.internal.validation.AccountValidator;
 import com.fm.internal.validation.util.ValidErrors;
 import org.apache.log4j.Logger;
@@ -48,6 +45,10 @@ public class AccountController {
     @Qualifier("messageSource")
     @Autowired
     private MessageSource messages;
+    @Autowired
+    private StatusBarService statusBarService;
+    @Autowired
+    private CurrencyService currencyService;
 
 //    @RequestMapping(value = "/add", method = RequestMethod.GET)
 //    public ModelAndView getList() {
@@ -72,6 +73,8 @@ public class AccountController {
     public ModelAndView getAccountPage(@RequestParam("name") String nameOfAccount) {
         ModelAndView modelAndView = setDefaultMavForAccountByName(nameOfAccount);
         modelAndView.setViewName("accountpage");
+        modelAndView.addObject("currencies", currencyService.getCurrencies());
+        modelAndView.addObject("statusBarDto", statusBarService.getStatusBar(userService.getLoggedUser()));
         return modelAndView;
     }
 

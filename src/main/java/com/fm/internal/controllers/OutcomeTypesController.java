@@ -6,6 +6,7 @@ import com.fm.internal.models.Outcome;
 import com.fm.internal.models.OutcomeType;
 import com.fm.internal.models.User;
 import com.fm.internal.services.OutcomeTypeService;
+import com.fm.internal.services.StatusBarService;
 import com.fm.internal.services.UserService;
 import com.fm.internal.services.implementation.PaginationServiceImpl;
 import com.fm.internal.validation.OutcomeTypeValidator;
@@ -42,6 +43,8 @@ public class OutcomeTypesController {
     @Qualifier("messageSource")
     @Autowired
     private MessageSource messages;
+    @Autowired
+    private StatusBarService statusBarService;
 
     @RequestMapping(value = "/page", method = RequestMethod.GET)
     public ModelAndView showOutcomeType(Long itemId, Integer pageId) {
@@ -57,8 +60,10 @@ public class OutcomeTypesController {
         OutcomeTypeDto outcomeTypeDto = new OutcomeTypeDto(itemId, outcomeType.getName(), outcomeType.getLimit().toString(), outcomes);
         ModelAndView modelAndView = new ModelAndView("outcometype", "outcomeTypeDto", outcomeTypeDto);
         modelAndView.addObject("paginationDto", paginationDto);
+        User loggedUser = userService.getLoggedUser();
+        modelAndView.addObject("user", loggedUser);
+        modelAndView.addObject("statusBarDto", statusBarService.getStatusBar(loggedUser));
 
-        modelAndView.addObject("user", userService.getLoggedUser());
         return modelAndView;
     }
 

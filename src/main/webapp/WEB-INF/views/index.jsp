@@ -15,13 +15,6 @@
         </c:if>
         <c:if test="${user != null}">
             <div align="center">
-                <div class="panel panel-collapse">
-                    <span class="lead">
-                        Баланс:  <fmt:formatNumber type="currency" value="${sumOfBalances}"/>
-                        Расходы:  <fmt:formatNumber type="currency" value="${sumOfAllOutcomes}"/>
-                        В планах:   <fmt:formatNumber type="currency" value="${plannedToSpend}"/>
-                    </span>
-                </div>
                 <h2>Счета</h2>
                 <div id="accountAdding">
                 <form action="<c:url value="/account/add"/>" method="POST">

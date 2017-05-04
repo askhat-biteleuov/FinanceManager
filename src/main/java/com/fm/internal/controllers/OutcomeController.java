@@ -7,10 +7,7 @@ import com.fm.internal.models.Account;
 import com.fm.internal.models.Outcome;
 import com.fm.internal.models.OutcomeType;
 import com.fm.internal.models.User;
-import com.fm.internal.services.AccountService;
-import com.fm.internal.services.OutcomeService;
-import com.fm.internal.services.OutcomeTypeService;
-import com.fm.internal.services.UserService;
+import com.fm.internal.services.*;
 import com.fm.internal.services.implementation.PaginationServiceImpl;
 import com.fm.internal.validation.util.ValidErrors;
 import org.apache.log4j.Logger;
@@ -47,6 +44,8 @@ public class OutcomeController {
     @Qualifier("messageSource")
     @Autowired
     private MessageSource messages;
+    @Autowired
+    private StatusBarService statusBarService;
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
@@ -91,6 +90,7 @@ public class OutcomeController {
         ModelAndView modelAndView = new ModelAndView("user-outcomes");
         modelAndView.addObject("paginationDto", paginationDto);
         modelAndView.addObject("outcomes", outcomesPage);
+        modelAndView.addObject("statusBarDto", statusBarService.getStatusBar(user));
         return modelAndView;
     }
 
@@ -109,6 +109,7 @@ public class OutcomeController {
         accountDto.setOutcomes(pageOfOutcomes);
         ModelAndView modelAndView = new ModelAndView("outcomes-list", "accountDto", accountDto);
         modelAndView.addObject("paginationDto", paginationDto);
+        modelAndView.addObject("statusBarDto", statusBarService.getStatusBar(userService.getLoggedUser()));
         return modelAndView;
     }
 

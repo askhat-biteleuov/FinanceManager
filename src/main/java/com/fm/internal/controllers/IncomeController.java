@@ -8,6 +8,7 @@ import com.fm.internal.models.Income;
 import com.fm.internal.models.User;
 import com.fm.internal.services.AccountService;
 import com.fm.internal.services.IncomeService;
+import com.fm.internal.services.StatusBarService;
 import com.fm.internal.services.UserService;
 import com.fm.internal.services.implementation.PaginationServiceImpl;
 import com.fm.internal.validation.util.ValidErrors;
@@ -23,7 +24,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -41,6 +41,8 @@ public class IncomeController {
     @Qualifier("messageSource")
     @Autowired
     private MessageSource messages;
+    @Autowired
+    private StatusBarService statusBarService;
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
@@ -50,17 +52,8 @@ public class IncomeController {
             Map<String, String> errors = ValidErrors.getMapOfMessagesAndErrors(result, messages);
             return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
         }
-        saveNewIncome(incomeDto);
+        incomeService.addIncome(incomeService.createIncomeFromDto(incomeDto));
         return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    private void saveNewIncome(IncomeDto incomeDto) {
-        Account account = accountService.findAccountById(incomeDto.getAccountId());
-        Income newIncomeFromDto = incomeService.createIncomeFromDto(incomeDto);
-        newIncomeFromDto.setAccount(account);
-        incomeService.addIncome(newIncomeFromDto);
-        account.setBalance(account.getBalance().add(new BigDecimal(incomeDto.getAmount())));
-        accountService.updateAccount(account);
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
@@ -77,6 +70,7 @@ public class IncomeController {
         ModelAndView modelAndView = new ModelAndView("user-incomes");
         modelAndView.addObject("paginationDto", paginationDto);
         modelAndView.addObject("incomes", incomesPage);
+        modelAndView.addObject("statusBarDto", statusBarService.getStatusBar(user));
         return modelAndView;
     }
 
@@ -95,6 +89,7 @@ public class IncomeController {
         accountDto.setIncomes(pageOfIncomes);
         ModelAndView modelAndView = new ModelAndView("incomes-list", "accountDto", accountDto);
         modelAndView.addObject("paginationDto", paginationDto);
+        modelAndView.addObject("statusBarDto", statusBarService.getStatusBar(userService.getLoggedUser()));
         return modelAndView;
     }
 

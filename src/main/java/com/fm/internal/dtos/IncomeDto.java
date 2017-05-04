@@ -11,15 +11,17 @@ public class IncomeDto {
     private String date;
     private String note;
     private long accountId;
+    private String currency;
 
     public IncomeDto() {
     }
 
-    public IncomeDto(String amount, String date, String note, long accountId) {
+    public IncomeDto(String amount, String date, String note, long accountId, String currency) {
         this.amount = amount;
         this.date = date;
         this.note = note;
         this.accountId = accountId;
+        this.currency = currency;
     }
 
     public String getAmount() {
@@ -52,5 +54,13 @@ public class IncomeDto {
 
     public void setAccountId(long accountId) {
         this.accountId = accountId;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 }

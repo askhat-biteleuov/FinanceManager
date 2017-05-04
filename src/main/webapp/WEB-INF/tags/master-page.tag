@@ -15,6 +15,7 @@
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>${title}</title>
+    <link href="<c:url value="/resources/css/design.css" />" rel="stylesheet">
     <!-- Bootstrap -->
     <link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -46,10 +47,21 @@
                 <c:if test="${userName != null}">
                     <li><a href="<c:url value="/outcome/all"/>">Расходы</a></li>
                     <li><a href="<c:url value="/account/income/all"/>">Доходы</a></li>
+
                 </c:if>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <c:if test="${userName != null}">
+            <c:if test="${userName != null}">
+                <ul class="nav navbar-nav navbar-center">
+                    <li>
+                        <a>
+                            Баланс: <fmt:formatNumber type="currency"
+                                                      value="${statusBarDto.sumOfAllBalancesOfAccounts}"/>
+                            Расходы: <fmt:formatNumber type="currency"
+                                                       value="${statusBarDto.sumOfAllOutcomesForMonthForUser}"/>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" role="button"
                            aria-haspopup="true" aria-expanded="false">Добрый день, ${userName}!<span
@@ -63,8 +75,8 @@
                             </li>
                         </ul>
                     </li>
-                </c:if>
-            </ul>
+                </ul>
+            </c:if>
         </div>
     </div>
 </nav>

@@ -1,5 +1,7 @@
 package com.fm.internal.models;
 
+import com.fm.internal.currency.model.Currency;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -32,14 +34,19 @@ public class Income implements Serializable {
     @JoinColumn(nullable = false, name = "account_id", foreignKey = @ForeignKey(name = "fk_account_id"))
     private Account account;
 
+    @ManyToOne
+    @JoinColumn(nullable = false, name = "currency_character_code", foreignKey = @ForeignKey(name = "fk_currency_character_code"))
+    private Currency currency;
+
     public Income() {
     }
 
-    public Income(BigDecimal amount, LocalDate date, LocalTime time, Account account) {
+    public Income(BigDecimal amount, LocalDate date, LocalTime time, Account account, Currency currency) {
         this.amount = amount;
         this.date = date;
         this.time = time;
         this.account = account;
+        this.currency = currency;
     }
 
     public long getId() {
@@ -88,5 +95,13 @@ public class Income implements Serializable {
 
     public void setTime(LocalTime time) {
         this.time = time;
+    }
+
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
     }
 }

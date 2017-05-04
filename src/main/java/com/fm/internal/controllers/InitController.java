@@ -66,13 +66,13 @@ public class InitController {
         }
 
         Income[] incomes = {
-                new Income(BigDecimal.valueOf(13423), LocalDate.now(), LocalTime.now(), accounts[0]),
-                new Income(BigDecimal.valueOf(4324), LocalDate.now(), LocalTime.now(), accounts[0]),
-                new Income(BigDecimal.valueOf(13242), LocalDate.now(), LocalTime.now(), accounts[0]),
-                new Income(BigDecimal.valueOf(1345435), LocalDate.now(), LocalTime.now(), accounts[0]),
-                new Income(BigDecimal.valueOf(234234), LocalDate.now(), LocalTime.now(), accounts[0]),
-                new Income(BigDecimal.valueOf(6346), LocalDate.now(), LocalTime.now(), accounts[0]),
-                new Income(BigDecimal.valueOf(2356), LocalDate.now(), LocalTime.now(), accounts[0]),
+                new Income(BigDecimal.valueOf(13423), LocalDate.now(), LocalTime.now(), accounts[0], currencyService.findCurrencyByCharCode("KZT")),
+                new Income(BigDecimal.valueOf(4324), LocalDate.now(), LocalTime.now(), accounts[0], currencyService.findCurrencyByCharCode("KZT")),
+                new Income(BigDecimal.valueOf(13242), LocalDate.now(), LocalTime.now(), accounts[0], currencyService.findCurrencyByCharCode("KZT")),
+                new Income(BigDecimal.valueOf(1345435), LocalDate.now(), LocalTime.now(), accounts[0], currencyService.findCurrencyByCharCode("KZT")),
+                new Income(BigDecimal.valueOf(234234), LocalDate.now(), LocalTime.now(), accounts[0], currencyService.findCurrencyByCharCode("KZT")),
+                new Income(BigDecimal.valueOf(6346), LocalDate.now(), LocalTime.now(), accounts[0], currencyService.findCurrencyByCharCode("KZT")),
+                new Income(BigDecimal.valueOf(2356), LocalDate.now(), LocalTime.now(), accounts[0], currencyService.findCurrencyByCharCode("KZT")),
         };
 
         for (Income income : incomes) {
