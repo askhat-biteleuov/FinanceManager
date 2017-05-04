@@ -5,7 +5,10 @@ import com.fm.internal.dtos.OutcomeDto;
 import com.fm.internal.models.Account;
 import com.fm.internal.models.Outcome;
 import com.fm.internal.models.User;
+import com.fm.internal.services.AccountService;
+import com.fm.internal.services.CurrencyService;
 import com.fm.internal.services.OutcomeService;
+import com.fm.internal.services.OutcomeTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
@@ -16,9 +19,26 @@ import java.util.List;
 public class OutcomeServiceImpl implements OutcomeService {
     @Autowired
     private OutcomeDao dao;
+    @Autowired
+    private AccountService accountService;
+    @Autowired
+    private CurrencyService currencyService;
+    @Autowired
+    private OutcomeTypeService outcomeTypeService;
 
     @Override
     public void addOutcome(Outcome outcome) {
+        BigDecimal balance;
+        if (outcome.getCurrency().getCode() == outcome.getAccount().getCurrency().getCode()) {
+            balance = outcome.getAccount().getBalance().add(outcome.getAmount());
+        } else {
+            BigDecimal incomeCurs = outcome.getCurrency().getCurs();
+            BigDecimal accountCurs = outcome.getAccount().getCurrency().getCurs();
+            BigDecimal coefficient = incomeCurs.divide(accountCurs, 2, BigDecimal.ROUND_HALF_UP);
+            balance = outcome.getAccount().getBalance().subtract(outcome.getAmount().multiply(coefficient));
+        }
+        outcome.getAccount().setBalance(balance);
+        accountService.updateAccount(outcome.getAccount());
         dao.add(outcome);
     }
 
@@ -69,10 +89,15 @@ public class OutcomeServiceImpl implements OutcomeService {
 
     @Override
     public Outcome createOutcomeFromDto(OutcomeDto outcomeDto) {
+        Account account = accountService.findAccountById(outcomeDto.getAccountId());
         Outcome outcome = new Outcome();
+        outcome.setAccount(account);
         outcome.setAmount(new BigDecimal(outcomeDto.getAmount()));
         outcome.setDate(LocalDate.parse(outcomeDto.getDate()));
         outcome.setTime(LocalTime.now());
+        outcome.setNote(outcomeDto.getNote());
+        outcome.setOutcomeType(outcomeTypeService.findTypeById(outcomeDto.getOutcomeTypeId()));
+        outcome.setCurrency(currencyService.findCurrencyByCharCode(outcomeDto.getCurrency()));
         return outcome;
     }
 

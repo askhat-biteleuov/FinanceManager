@@ -5,9 +5,11 @@ import com.fm.internal.dtos.OutcomeDto;
 import com.fm.internal.dtos.PaginationDto;
 import com.fm.internal.models.Account;
 import com.fm.internal.models.Outcome;
-import com.fm.internal.models.OutcomeType;
 import com.fm.internal.models.User;
-import com.fm.internal.services.*;
+import com.fm.internal.services.AccountService;
+import com.fm.internal.services.OutcomeService;
+import com.fm.internal.services.StatusBarService;
+import com.fm.internal.services.UserService;
 import com.fm.internal.services.implementation.PaginationServiceImpl;
 import com.fm.internal.validation.util.ValidErrors;
 import org.apache.log4j.Logger;
@@ -32,8 +34,6 @@ public class OutcomeController {
     private static final Logger LOGGER = Logger.getLogger(OutcomeController.class);
 
     @Autowired
-    private OutcomeTypeService outcomeTypeService;
-    @Autowired
     private OutcomeService outcomeService;
     @Autowired
     private UserService userService;
@@ -56,24 +56,8 @@ public class OutcomeController {
             Map<String, String> errors = ValidErrors.getMapOfMessagesAndErrors(result, messages);
             return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
         }
-        saveNewOutcome(outcomeDto);
+        outcomeService.addOutcome(outcomeService.createOutcomeFromDto(outcomeDto));
         return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    private void saveNewOutcome(OutcomeDto outcomeDto) {
-        Account account = accountService.findAccountById(outcomeDto.getAccountId());
-        OutcomeType outcomeType = outcomeTypeService.findTypeById(outcomeDto.getOutcomeTypeId());
-        Outcome newOutcome = outcomeService.createOutcomeFromDto(outcomeDto);
-        newOutcome.setAccount(account);
-        newOutcome.setOutcomeType(outcomeType);
-        newOutcome.setNote(outcomeDto.getNote());
-        saveNewOutcome(newOutcome, account);
-    }
-
-    private void saveNewOutcome(Outcome outcome, Account account) {
-        outcomeService.addOutcome(outcome);
-        account.setBalance(account.getBalance().subtract(outcome.getAmount()));
-        accountService.updateAccount(account);
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)

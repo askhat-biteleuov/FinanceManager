@@ -65,6 +65,12 @@
                             </c:forEach>
                         </select><br/>
                     </div>
+                    <select class="form-control" name="currency">
+                        <option disabled>--- Select ---</option>
+                        <c:forEach items="${currencies}" var="currency">
+                            <option value="${currency.characterCode}" id="accountCurrency">${currency.name}</option>
+                        </c:forEach>
+                    </select><br/>
                     <div class="form-group">
                         <input type="text" id="outcomeNote" name="note" placeholder="Note" class="form-control"
                                maxlength="256"/><br/>

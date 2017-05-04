@@ -20,6 +20,7 @@ public class OutcomeDto {
     private long outcomeTypeId;
     private List<OutcomeType> outcomeTypes;
     private OutcomeType outcomeType;
+    private String currency;
 
     public OutcomeDto() {
     }
@@ -78,5 +79,13 @@ public class OutcomeDto {
 
     public void setOutcomeType(OutcomeType outcomeType) {
         this.outcomeType = outcomeType;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 }

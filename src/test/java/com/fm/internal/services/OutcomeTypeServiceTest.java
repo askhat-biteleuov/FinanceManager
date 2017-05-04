@@ -1,6 +1,5 @@
 package com.fm.internal.services;
 
-import com.fm.internal.currency.model.Currency;
 import com.fm.internal.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -14,7 +13,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.Map;
 
 @ContextConfiguration("classpath:spring-utils.xml")
 public class OutcomeTypeServiceTest extends AbstractTestNGSpringContextTests {
@@ -74,16 +72,16 @@ public class OutcomeTypeServiceTest extends AbstractTestNGSpringContextTests {
         }
 
         Outcome[] outcomes = {
-                new Outcome(new BigDecimal(1), LocalDate.now(), LocalTime.now(), accounts[0], types[0]),
-                new Outcome(new BigDecimal(2), LocalDate.now(), LocalTime.now(), accounts[0], types[0]),
-                new Outcome(new BigDecimal(3), LocalDate.now(), LocalTime.now(), accounts[0], types[2]),
-                new Outcome(new BigDecimal(4), LocalDate.now(), LocalTime.now(), accounts[0], types[2]),
-                new Outcome(new BigDecimal(5), LocalDate.now(), LocalTime.now(), accounts[0], types[2]),
-                new Outcome(new BigDecimal(6), LocalDate.of(2017, 04, 20), LocalTime.now(), accounts[0], types[0]),
-                new Outcome(new BigDecimal(7), LocalDate.of(2017, 04, 20), LocalTime.now(), accounts[0], types[1]),
-                new Outcome(new BigDecimal(8), LocalDate.of(2017, 04, 20), LocalTime.now(), accounts[0], types[1]),
-                new Outcome(new BigDecimal(9), LocalDate.now(), LocalTime.now(), accounts[3], types[3]),
-                new Outcome(new BigDecimal(10), LocalDate.now(), LocalTime.now(), accounts[3], types[3])
+                new Outcome(new BigDecimal(1), LocalDate.now(), LocalTime.now(), accounts[0], types[0], currencyService.findCurrencyByCharCode("RUB")),
+                new Outcome(new BigDecimal(2), LocalDate.now(), LocalTime.now(), accounts[0], types[0], currencyService.findCurrencyByCharCode("RUB")),
+                new Outcome(new BigDecimal(3), LocalDate.now(), LocalTime.now(), accounts[0], types[2], currencyService.findCurrencyByCharCode("RUB")),
+                new Outcome(new BigDecimal(4), LocalDate.now(), LocalTime.now(), accounts[0], types[2], currencyService.findCurrencyByCharCode("RUB")),
+                new Outcome(new BigDecimal(5), LocalDate.now(), LocalTime.now(), accounts[0], types[2], currencyService.findCurrencyByCharCode("RUB")),
+                new Outcome(new BigDecimal(6), LocalDate.of(2017, 04, 20), LocalTime.now(), accounts[0], types[0], currencyService.findCurrencyByCharCode("RUB")),
+                new Outcome(new BigDecimal(7), LocalDate.of(2017, 04, 20), LocalTime.now(), accounts[0], types[1], currencyService.findCurrencyByCharCode("RUB")),
+                new Outcome(new BigDecimal(8), LocalDate.of(2017, 04, 20), LocalTime.now(), accounts[0], types[1], currencyService.findCurrencyByCharCode("RUB")),
+                new Outcome(new BigDecimal(9), LocalDate.now(), LocalTime.now(), accounts[3], types[3], currencyService.findCurrencyByCharCode("RUB")),
+                new Outcome(new BigDecimal(10), LocalDate.now(), LocalTime.now(), accounts[3], types[3], currencyService.findCurrencyByCharCode("RUB"))
         };
         for (Outcome outcome : outcomes) {
             outcomeService.addOutcome(outcome);
