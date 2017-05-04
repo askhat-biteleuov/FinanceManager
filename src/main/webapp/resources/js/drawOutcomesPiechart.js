@@ -1,4 +1,5 @@
 google.charts.load('current', {packages: ['corechart']});
+google.charts.setOnLoadCallback(refreshChart);
 function drawChart(data) {
     // Define the chart to be drawn.
     var dataTable = new google.visualization.DataTable();
@@ -18,4 +19,8 @@ function drawChart(data) {
     var chart = new google.visualization.PieChart(document.getElementById('piechart'));
     chart.draw(dataTable, options);
 }
-google.charts.setOnLoadCallback(drawChart);
+
+function refreshChart() {
+    LoadChart($("#rangeForm [name=start]").val(), $("#rangeForm [name=end]").val(),
+        $('#rangeForm [name=accountName]').val());
+}

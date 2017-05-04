@@ -1,11 +1,10 @@
 $(document).ready(function () {
-    LoadChart($("#rangeForm [name=start]").val(), $("#rangeForm [name=end]").val(), $('#rangeForm [name=accountName]').val());
     $('#rangeForm').submit(function (event) {
         event.preventDefault();
-        $('#piechart').show();
-        LoadChart($("#rangeForm [name=start]").val(), $("#rangeForm [name=end]").val(), $('#rangeForm [name=accountName]').val());
+        refreshChart();
     });
 });
+
 
 
 function LoadChart(start, end, account) {
