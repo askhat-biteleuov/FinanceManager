@@ -27,6 +27,7 @@
                 <button type="button" class="btn btn-default">Добавить доход</button>
                 <form method="POST" action="<c:url value="/account/income/add"/>" id="incomeForm" class="trans"
                       role="form">
+                    <br/>
                     <div class="form-group">
                         <input type="text" id="incomeNote" name="note" placeholder="Note" class="form-control"
                                maxlength="256"/><br/>
@@ -51,6 +52,7 @@
                 <form method="POST" action="<c:url value="/outcome/add"/>" id="outcomeForm"
                       class="trans"
                       role="form">
+                    <br/>
                     <div class="form-group">
                         <select name="outcomeTypeId" class="form-control">
                             <option disabled>--- Select ---</option>
@@ -83,6 +85,7 @@
             <div id="transfer" class="col-xs-4">
                 <button type="submit" class="btn btn-default">Перевести на другой счет</button>
                 <form:form method="POST" action="/transfer" modelAttribute="transferDto" cssClass="trans">
+                    <br/>
                     <div class="form-group">
                         <form:select path="toAccountId" cssClass="form-control">
                             <form:option value="1" disabled="true" label="--- Select ---"/>
