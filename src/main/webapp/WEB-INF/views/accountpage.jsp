@@ -42,12 +42,6 @@
                                pattern="^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$" required/><br/>
                         <div class="help-block with-errors"></div>
                     </div>
-                    <select class="form-control" name="currency">
-                        <option disabled>--- Select ---</option>
-                        <c:forEach items="${currencies}" var="currency">
-                            <option value="${currency.characterCode}" id="accountCurrency">${currency.name}</option>
-                        </c:forEach>
-                    </select><br/>
                     <div class="form-group">
                         <label for="incomeDate">Дата дохода:<br/></label>
                         <input id="incomeDate" name="date" type="date" required/><br/>
@@ -71,12 +65,6 @@
                             </c:forEach>
                         </select><br/>
                     </div>
-                    <select class="form-control" name="currency">
-                        <option disabled>--- Select ---</option>
-                        <c:forEach items="${currencies}" var="currency">
-                            <option value="${currency.characterCode}" id="accountCurrency">${currency.name}</option>
-                        </c:forEach>
-                    </select><br/>
                     <div class="form-group">
                         <input type="text" id="outcomeNote" name="note" placeholder="Note" class="form-control"
                                maxlength="256"/><br/>

@@ -1,7 +1,5 @@
 package com.fm.internal.models;
 
-import com.fm.internal.currency.model.Currency;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -22,6 +20,9 @@ public class Outcome implements Serializable {
     private BigDecimal amount;
 
     @Column(nullable = false)
+    private BigDecimal defaultAmount;
+
+    @Column(nullable = false)
     private LocalDate date;
 
     @Column(nullable = false)
@@ -37,20 +38,16 @@ public class Outcome implements Serializable {
     @JoinColumn(nullable = false, name = "outcome_type_id", foreignKey = @ForeignKey(name = "fk_outcome_type_id"))
     private OutcomeType outcomeType;
 
-    @ManyToOne
-    @JoinColumn(nullable = false, name = "currency_character_code", foreignKey = @ForeignKey(name = "fk_currency_character_code"))
-    private Currency currency;
-
     public Outcome() {
     }
 
-    public Outcome(BigDecimal amount, LocalDate date, LocalTime time, Account account, OutcomeType outcomeType, Currency currency) {
+    public Outcome(BigDecimal amount, BigDecimal defaultAmount, LocalDate date, LocalTime time, Account account, OutcomeType outcomeType) {
         this.amount = amount;
+        this.defaultAmount = defaultAmount;
         this.date = date;
         this.time = time;
         this.account = account;
         this.outcomeType = outcomeType;
-        this.currency = currency;
     }
 
     public long getId() {
@@ -109,11 +106,11 @@ public class Outcome implements Serializable {
         this.time = time;
     }
 
-    public Currency getCurrency() {
-        return currency;
+    public BigDecimal getDefaultAmount() {
+        return defaultAmount;
     }
 
-    public void setCurrency(Currency currency) {
-        this.currency = currency;
+    public void setDefaultAmount(BigDecimal defaultAmount) {
+        this.defaultAmount = defaultAmount;
     }
 }

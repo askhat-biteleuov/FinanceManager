@@ -13,9 +13,10 @@
                 <table class="table">
                     <tr>
                         <th>Дата</th>
-                        <th>Сумма</th>
-                        <th>Счет</th>
                         <th></th>
+                        <th></th>
+                        <th>Счет</th>
+                        <th>Заметка</th>
                         <th></th>
                     </tr>
                     <tbody>
@@ -25,7 +26,14 @@
                                     ${outcome.date} ${outcome.time}
                             </td>
                             <td>
-                                    ${outcome.amount}
+                                <fmt:formatNumber type="currency"
+                                                  currencySymbol="${outcome.account.currency.characterCode}"
+                                                  value="${outcome.amount}"/>
+                            </td>
+                            <td>
+                                <fmt:formatNumber type="currency"
+                                                  currencySymbol="${outcome.account.user.info.currency.characterCode}"
+                                                  value="${outcome.defaultAmount}"/>
                             </td>
                             <td>
                                     ${outcome.account.name}

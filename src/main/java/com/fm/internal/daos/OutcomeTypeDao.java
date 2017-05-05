@@ -69,7 +69,7 @@ public class OutcomeTypeDao extends GenericDao<OutcomeType> {
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<BigDecimal> query = criteriaBuilder.createQuery(BigDecimal.class);
         Root<Outcome> root = query.from(Outcome.class);
-        query.select(criteriaBuilder.sum(root.get(Outcome_.amount)));
+        query.select(criteriaBuilder.sum(root.get(Outcome_.defaultAmount)));
         Expression month = criteriaBuilder.function("month", Integer.class, root.get(Outcome_.date));
         Expression year = criteriaBuilder.function("year", Integer.class, root.get(Outcome_.date));
         Predicate equalMonth = criteriaBuilder.equal(month, LocalDate.now().getMonthValue());

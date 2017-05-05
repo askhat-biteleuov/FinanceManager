@@ -42,10 +42,10 @@ public class IncomeServiceTest extends AbstractTestNGSpringContextTests {
         Account acc1 = new Account("visa", BigDecimal.valueOf(1234), null, userService.findByEmail(USER_EMAIL),
                 currencyService.findCurrencyByCharCode("RUB"));
         accountService.createAccount(acc1);
-        Income inc1 = new Income(BigDecimal.valueOf(1234), DATE.toLocalDate(), DATE.toLocalTime(), acc1, currencyService.findCurrencyByCharCode("RUB"));
-        Income inc2 = new Income(BigDecimal.valueOf(111), DATE.toLocalDate(), DATE.toLocalTime(), acc1, currencyService.findCurrencyByCharCode("RUB"));
-        Income inc3 = new Income(BigDecimal.valueOf(2222), DATE.toLocalDate(), DATE.toLocalTime(), acc1, currencyService.findCurrencyByCharCode("RUB"));
-        Income inc4 = new Income(BigDecimal.valueOf(2222), DATE.toLocalDate(), DATE.toLocalTime(), acc1, currencyService.findCurrencyByCharCode("RUB"));
+        Income inc1 = new Income(BigDecimal.valueOf(1234), DATE.toLocalDate(), DATE.toLocalTime(), acc1);
+        Income inc2 = new Income(BigDecimal.valueOf(111), DATE.toLocalDate(), DATE.toLocalTime(), acc1);
+        Income inc3 = new Income(BigDecimal.valueOf(2222), DATE.toLocalDate(), DATE.toLocalTime(), acc1);
+        Income inc4 = new Income(BigDecimal.valueOf(2222), DATE.toLocalDate(), DATE.toLocalTime(), acc1);
         incomeService.addIncome(inc1);
         incomeService.addIncome(inc2);
         incomeService.addIncome(inc3);

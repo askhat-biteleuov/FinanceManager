@@ -6,7 +6,6 @@ import com.fm.internal.models.Account;
 import com.fm.internal.models.Income;
 import com.fm.internal.models.User;
 import com.fm.internal.services.AccountService;
-import com.fm.internal.services.CurrencyService;
 import com.fm.internal.services.IncomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,25 +18,15 @@ public class IncomeServiceImpl implements IncomeService {
 
     @Autowired
     private IncomeDao dao;
-    @Autowired
-    private CurrencyService currencyService;
+
     @Autowired
     private AccountService accountService;
 
     @Override
     public void addIncome(Income income) {
-        BigDecimal balance;
-        if (income.getCurrency().getCode() == income.getAccount().getCurrency().getCode()) {
-            balance = income.getAccount().getBalance().add(income.getAmount());
-        } else {
-            BigDecimal incomeCurs = income.getCurrency().getCurs();
-            BigDecimal accountCurs = income.getAccount().getCurrency().getCurs();
-            BigDecimal coefficient = incomeCurs.divide(accountCurs, 2, BigDecimal.ROUND_HALF_UP);
-            balance = income.getAccount().getBalance().add(income.getAmount().multiply(coefficient));
-        }
-        income.getAccount().setBalance(balance);
-        accountService.updateAccount(income.getAccount());
         dao.add(income);
+        income.getAccount().setBalance(income.getAccount().getBalance().add(income.getAmount()));
+        accountService.updateAccount(income.getAccount());
     }
 
     @Override
@@ -94,7 +83,6 @@ public class IncomeServiceImpl implements IncomeService {
         income.setAmount(new BigDecimal(incomeDto.getAmount()));
         income.setDate(LocalDate.parse(incomeDto.getDate()));
         income.setTime(LocalTime.now());
-        income.setCurrency(currencyService.findCurrencyByCharCode(incomeDto.getCurrency()));
         return income;
     }
 

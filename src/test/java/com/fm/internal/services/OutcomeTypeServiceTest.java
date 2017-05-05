@@ -72,16 +72,16 @@ public class OutcomeTypeServiceTest extends AbstractTestNGSpringContextTests {
         }
 
         Outcome[] outcomes = {
-                new Outcome(new BigDecimal(1), LocalDate.now(), LocalTime.now(), accounts[0], types[0], currencyService.findCurrencyByCharCode("RUB")),
-                new Outcome(new BigDecimal(2), LocalDate.now(), LocalTime.now(), accounts[0], types[0], currencyService.findCurrencyByCharCode("RUB")),
-                new Outcome(new BigDecimal(3), LocalDate.now(), LocalTime.now(), accounts[0], types[2], currencyService.findCurrencyByCharCode("RUB")),
-                new Outcome(new BigDecimal(4), LocalDate.now(), LocalTime.now(), accounts[0], types[2], currencyService.findCurrencyByCharCode("RUB")),
-                new Outcome(new BigDecimal(5), LocalDate.now(), LocalTime.now(), accounts[0], types[2], currencyService.findCurrencyByCharCode("RUB")),
-                new Outcome(new BigDecimal(6), LocalDate.of(2017, 04, 20), LocalTime.now(), accounts[0], types[0], currencyService.findCurrencyByCharCode("RUB")),
-                new Outcome(new BigDecimal(7), LocalDate.of(2017, 04, 20), LocalTime.now(), accounts[0], types[1], currencyService.findCurrencyByCharCode("RUB")),
-                new Outcome(new BigDecimal(8), LocalDate.of(2017, 04, 20), LocalTime.now(), accounts[0], types[1], currencyService.findCurrencyByCharCode("RUB")),
-                new Outcome(new BigDecimal(9), LocalDate.now(), LocalTime.now(), accounts[3], types[3], currencyService.findCurrencyByCharCode("RUB")),
-                new Outcome(new BigDecimal(10), LocalDate.now(), LocalTime.now(), accounts[3], types[3], currencyService.findCurrencyByCharCode("RUB"))
+                new Outcome(new BigDecimal(1), currencyService.getOutcomeAmountForDefaultCurrency(accounts[0], new BigDecimal(1)), LocalDate.now(), LocalTime.now(), accounts[0], types[0]),
+                new Outcome(new BigDecimal(2), currencyService.getOutcomeAmountForDefaultCurrency(accounts[0], new BigDecimal(2)), LocalDate.now(), LocalTime.now(), accounts[0], types[0]),
+                new Outcome(new BigDecimal(3), currencyService.getOutcomeAmountForDefaultCurrency(accounts[0], new BigDecimal(3)), LocalDate.now(), LocalTime.now(), accounts[0], types[2]),
+                new Outcome(new BigDecimal(4), currencyService.getOutcomeAmountForDefaultCurrency(accounts[0], new BigDecimal(4)), LocalDate.now(), LocalTime.now(), accounts[0], types[2]),
+                new Outcome(new BigDecimal(5), currencyService.getOutcomeAmountForDefaultCurrency(accounts[0], new BigDecimal(5)), LocalDate.now(), LocalTime.now(), accounts[0], types[2]),
+                new Outcome(new BigDecimal(6), currencyService.getOutcomeAmountForDefaultCurrency(accounts[0], new BigDecimal(6)), LocalDate.of(2017, 04, 20), LocalTime.now(), accounts[0], types[0]),
+                new Outcome(new BigDecimal(7), currencyService.getOutcomeAmountForDefaultCurrency(accounts[0], new BigDecimal(7)), LocalDate.of(2017, 04, 20), LocalTime.now(), accounts[0], types[1]),
+                new Outcome(new BigDecimal(8), currencyService.getOutcomeAmountForDefaultCurrency(accounts[0], new BigDecimal(8)), LocalDate.of(2017, 04, 20), LocalTime.now(), accounts[0], types[1]),
+                new Outcome(new BigDecimal(9), currencyService.getOutcomeAmountForDefaultCurrency(accounts[3], new BigDecimal(9)), LocalDate.now(), LocalTime.now(), accounts[3], types[3]),
+                new Outcome(new BigDecimal(10), currencyService.getOutcomeAmountForDefaultCurrency(accounts[3], new BigDecimal(10)), LocalDate.now(), LocalTime.now(), accounts[3], types[3])
         };
         for (Outcome outcome : outcomes) {
             outcomeService.addOutcome(outcome);

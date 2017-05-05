@@ -47,8 +47,6 @@ public class AccountController {
     private MessageSource messages;
     @Autowired
     private StatusBarService statusBarService;
-    @Autowired
-    private CurrencyService currencyService;
 
 //    @RequestMapping(value = "/add", method = RequestMethod.GET)
 //    public ModelAndView getList() {
@@ -73,7 +71,6 @@ public class AccountController {
     public ModelAndView getAccountPage(@RequestParam("name") String nameOfAccount) {
         ModelAndView modelAndView = setDefaultMavForAccountByName(nameOfAccount);
         modelAndView.setViewName("accountpage");
-        modelAndView.addObject("currencies", currencyService.getCurrencies());
         modelAndView.addObject("statusBarDto", statusBarService.getStatusBar(userService.getLoggedUser()));
         return modelAndView;
     }

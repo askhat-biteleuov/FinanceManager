@@ -1,7 +1,9 @@
 package com.fm.internal.services;
 
 import com.fm.internal.currency.model.Currency;
+import com.fm.internal.models.Account;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface CurrencyService {
@@ -14,4 +16,6 @@ public interface CurrencyService {
     void deleteCurrency(Currency currency);
 
     List<Currency> getCurrencies();
+
+    BigDecimal getOutcomeAmountForDefaultCurrency(Account account, BigDecimal amount);
 }

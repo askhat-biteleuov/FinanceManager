@@ -22,24 +22,15 @@ public class OutcomeServiceImpl implements OutcomeService {
     @Autowired
     private AccountService accountService;
     @Autowired
-    private CurrencyService currencyService;
-    @Autowired
     private OutcomeTypeService outcomeTypeService;
+    @Autowired
+    private CurrencyService currencyService;
 
     @Override
     public void addOutcome(Outcome outcome) {
-        BigDecimal balance;
-        if (outcome.getCurrency().getCode() == outcome.getAccount().getCurrency().getCode()) {
-            balance = outcome.getAccount().getBalance().add(outcome.getAmount());
-        } else {
-            BigDecimal incomeCurs = outcome.getCurrency().getCurs();
-            BigDecimal accountCurs = outcome.getAccount().getCurrency().getCurs();
-            BigDecimal coefficient = incomeCurs.divide(accountCurs, 2, BigDecimal.ROUND_HALF_UP);
-            balance = outcome.getAccount().getBalance().subtract(outcome.getAmount().multiply(coefficient));
-        }
-        outcome.getAccount().setBalance(balance);
-        accountService.updateAccount(outcome.getAccount());
         dao.add(outcome);
+        outcome.getAccount().setBalance(outcome.getAccount().getBalance().subtract(outcome.getAmount()));
+        accountService.updateAccount(outcome.getAccount());
     }
 
     @Override
@@ -97,7 +88,7 @@ public class OutcomeServiceImpl implements OutcomeService {
         outcome.setTime(LocalTime.now());
         outcome.setNote(outcomeDto.getNote());
         outcome.setOutcomeType(outcomeTypeService.findTypeById(outcomeDto.getOutcomeTypeId()));
-        outcome.setCurrency(currencyService.findCurrencyByCharCode(outcomeDto.getCurrency()));
+        outcome.setDefaultAmount(currencyService.getOutcomeAmountForDefaultCurrency(account, new BigDecimal(outcomeDto.getAmount())));
         return outcome;
     }
 
