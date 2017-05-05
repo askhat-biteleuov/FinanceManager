@@ -15,17 +15,20 @@
                 <form method="POST" action="<c:url value="/outcometype/add"/>" role="form">
                     <div class="modal-body">
                         <div class="form-group">
-                            <input type="text" name="name" placeholder="Name" class="form-control"/>
+                            <input type="text" name="name" placeholder="Название категории" class="form-control"
+                                   maxlength="256" required/>
                         </div>
                         <div class="form-group">
-                            <input type="text" name="limit" placeholder="Limit" class="form-control"/>
+                            <input type="text" name="limit" placeholder="Планирую тратить" class="form-control"
+                                   pattern="^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$" required/>
                             <br/>
                         </div>
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-success">Добавить</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                        <button type="submit" class="btn btn-success btn-block">Добавить</button>
+                        <br/>
+                        <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Отмена</button>
                     </div>
                 </form>
             </div>

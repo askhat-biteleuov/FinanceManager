@@ -43,8 +43,8 @@ public class OutcomeTypeServiceTest extends AbstractTestNGSpringContextTests {
 
     @BeforeMethod
     public void setUp() throws Exception {
-        User user = new User(FIRST_USER_EMAIL, FIRST_USER_PASSWORD, new UserInfo("name", "surname"));
-        User secondUser = new User(SECOND_USER_EMAIL, SECOND_USER_PASSWORD, new UserInfo("name", "surname"));
+        User user = new User(FIRST_USER_EMAIL, FIRST_USER_PASSWORD, new UserInfo("name", "surname", currencyService.findCurrencyByCharCode("RUS")));
+        User secondUser = new User(SECOND_USER_EMAIL, SECOND_USER_PASSWORD, new UserInfo("name", "surname", currencyService.findCurrencyByCharCode("RUS")));
         userService.createUser(user);
         userService.createUser(secondUser);
         Account[] accounts = {

@@ -28,7 +28,7 @@ public class InitController {
 
     @RequestMapping("/init")
     public ModelAndView init() {
-        User user = new User("user@email", "password", new UserInfo("name", "lastname"));
+        User user = new User("user@email", "password", new UserInfo("name", "lastname", currencyService.findCurrencyByCharCode("RUB")));
         userService.createUser(user);
 
         Account[] accounts = {

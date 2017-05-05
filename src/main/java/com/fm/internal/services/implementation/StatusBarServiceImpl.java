@@ -17,6 +17,6 @@ public class StatusBarServiceImpl implements StatusBarService {
     @Override
     public StatusBarDto getStatusBar(User user) {
         return new StatusBarDto(accountService.getSumOfAllBalancesOfAccounts(user),
-                outcomeService.getSumOfAllOutcomesForMonthForUser(user));
+                outcomeService.getSumOfAllOutcomesForMonthForUser(user), user.getInfo());
     }
 }

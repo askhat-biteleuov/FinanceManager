@@ -2,6 +2,7 @@ package com.fm.internal.daos;
 
 import com.fm.internal.models.User;
 import com.fm.internal.models.UserInfo;
+import com.fm.internal.services.CurrencyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -15,11 +16,14 @@ public class GenericDaoTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
     private GenericDao<User> genericDao;
+    @Autowired
+    private CurrencyService currencyService;
+
     private User user;
 
     @BeforeMethod
     public void setUp() throws Exception {
-        user = new User("email1", "pass", new UserInfo("firstName", "lastName"));
+        user = new User("email1", "pass", new UserInfo("firstName", "lastName", currencyService.findCurrencyByCharCode("RUB")));
         genericDao.add(user);
     }
 
@@ -41,7 +45,7 @@ public class GenericDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testUpdate() throws Exception {
-        UserInfo newUserInfo = new UserInfo("newName", "newLastName");
+        UserInfo newUserInfo = new UserInfo("newName", "newLastName", currencyService.findCurrencyByCharCode("RUB"));
         user.setInfo(newUserInfo);
         genericDao.update(user);
         Assert.assertNotNull(user.getId());

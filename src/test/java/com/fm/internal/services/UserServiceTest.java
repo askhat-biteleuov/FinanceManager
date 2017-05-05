@@ -19,6 +19,8 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests {
     private AccountService accountService;
     @Autowired
     private OutcomeTypeService outcomeTypeService;
+    @Autowired
+    private CurrencyService currencyService;
 
     private static User user;
     private static User user2;
@@ -30,9 +32,9 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests {
 
     @BeforeMethod
     public void setUp() throws Exception {
-        user = new User(USER_EMAIL, USER_PASS, new UserInfo("name", "surname"));
+        user = new User(USER_EMAIL, USER_PASS, new UserInfo("name", "surname", currencyService.findCurrencyByCharCode("RUB")));
         userService.createUser(user);
-        user2 = new User(SECOND_USER_EMAIL, SECOND_USER_PASS, new UserInfo("name", "surname"));
+        user2 = new User(SECOND_USER_EMAIL, SECOND_USER_PASS, new UserInfo("name", "surname", currencyService.findCurrencyByCharCode("RUB")));
         userService.createUser(user2);
     }
 

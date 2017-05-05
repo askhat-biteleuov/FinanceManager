@@ -1,5 +1,7 @@
 package com.fm.internal.models;
 
+import com.fm.internal.currency.model.Currency;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -19,12 +21,17 @@ public class UserInfo implements Serializable {
     @Column
     private String lastName;
 
+    @ManyToOne
+    @JoinColumn(nullable = false, name = "currency_character_code", foreignKey = @ForeignKey(name = "fk_currency_character_code"))
+    private Currency currency;
+
     public UserInfo() {
     }
 
-    public UserInfo(String firstName, String lastName) {
+    public UserInfo(String firstName, String lastName, Currency currency) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.currency = currency;
     }
 
     public long getId() {
@@ -49,5 +56,13 @@ public class UserInfo implements Serializable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
     }
 }

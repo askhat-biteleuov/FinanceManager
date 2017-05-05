@@ -69,13 +69,20 @@
                                             <c:when test="${outcomeType.value > outcomeType.key.limit}">
                                                 <span style="color:red">
                                                     <fmt:formatNumber type="currency"
-                                                                      value="${outcomeType.value}"/> / <fmt:formatNumber
-                                                        type="currency" value="${outcomeType.key.limit}"/>
+                                                                      currencySymbol="${user.info.currency.characterCode}"
+                                                                      value="${outcomeType.value}"/>/
+                                                    <fmt:formatNumber type="currency"
+                                                                      currencySymbol="${user.info.currency.characterCode}"
+                                                                      value="${outcomeType.key.limit}"/>
                                                 </span>
                                             </c:when>
                                             <c:otherwise>
-                                                <fmt:formatNumber type="currency" value="${outcomeType.value}"/> /
-                                                <fmt:formatNumber type="currency" value="${outcomeType.key.limit}"/>
+                                                <fmt:formatNumber type="currency"
+                                                                  currencySymbol="${user.info.currency.characterCode}"
+                                                                  value="${outcomeType.value}"/> /
+                                                <fmt:formatNumber type="currency"
+                                                                  currencySymbol="${user.info.currency.characterCode}"
+                                                                  value="${outcomeType.key.limit}"/>
                                             </c:otherwise>
                                         </c:choose>
                                     </div>

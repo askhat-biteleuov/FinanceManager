@@ -1,6 +1,7 @@
 package com.fm.internal.controllers;
 
 import com.fm.internal.dtos.RegistrationDto;
+import com.fm.internal.services.CurrencyService;
 import com.fm.internal.services.UserService;
 import com.fm.internal.validation.UserValidator;
 import org.apache.log4j.Logger;
@@ -24,16 +25,23 @@ public class RegistrationController {
     @Autowired
     private UserValidator userValidator;
 
+    @Autowired
+    private CurrencyService currencyService;
+
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public ModelAndView init() {
-        return new ModelAndView("registration", "registrationDto", new RegistrationDto());
+        ModelAndView modelAndView = new ModelAndView("registration", "registrationDto", new RegistrationDto());
+        modelAndView.addObject("currencies", currencyService.getCurrencies());
+        return modelAndView;
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public ModelAndView submit(@Valid @ModelAttribute("registrationDto") RegistrationDto registrationDto, BindingResult result) {
         userValidator.validate(registrationDto, result);
         if (result.hasErrors()) {
-            return new ModelAndView("registration");
+            ModelAndView modelAndView = new ModelAndView("registration");
+            modelAndView.addObject("currencies", currencyService.getCurrencies());
+            return modelAndView;
         } else {
             userService.createUser(registrationDto);
             LOGGER.info("New user was registered:" + registrationDto.getEmail());

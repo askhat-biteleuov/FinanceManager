@@ -31,6 +31,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder encoder;
 
+
     @Override
     public User findByEmail(String email) {
         return dao.getUserByEmail(email);
@@ -88,7 +89,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void createUser(RegistrationDto registrationDto) {
-        UserInfo userInfo = new UserInfo(registrationDto.getFirstName(), registrationDto.getLastName());
+        UserInfo userInfo = new UserInfo(registrationDto.getFirstName(), registrationDto.getLastName(),
+                currencyService.findCurrencyByCharCode(registrationDto.getCurrency()));
         User user = new User(registrationDto.getEmail(), registrationDto.getPassword(), userInfo);
         createUser(user);
     }

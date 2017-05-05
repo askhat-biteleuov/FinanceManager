@@ -61,8 +61,10 @@
                     <li>
                         <a>
                             Баланс: <fmt:formatNumber type="currency"
+                                                      currencySymbol="${statusBarDto.info.currency.characterCode}"
                                                       value="${statusBarDto.sumOfAllBalancesOfAccounts}"/>
                             Расходы: <fmt:formatNumber type="currency"
+                                                       currencySymbol="${statusBarDto.info.currency.characterCode}"
                                                        value="${statusBarDto.sumOfAllOutcomesForMonthForUser}"/>
                         </a>
                     </li>

@@ -37,7 +37,7 @@ public class IncomeServiceTest extends AbstractTestNGSpringContextTests {
 
     @BeforeMethod
     public void setUp() throws Exception {
-        User user = new User(USER_EMAIL, "password", new UserInfo("name", "surname"));
+        User user = new User(USER_EMAIL, "password", new UserInfo("name", "surname", currencyService.findCurrencyByCharCode("RUS")));
         userService.createUser(user);
         Account acc1 = new Account("visa", BigDecimal.valueOf(1234), null, userService.findByEmail(USER_EMAIL),
                 currencyService.findCurrencyByCharCode("RUB"));

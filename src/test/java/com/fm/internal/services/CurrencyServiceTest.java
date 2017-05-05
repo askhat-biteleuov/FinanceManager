@@ -32,7 +32,7 @@ public class CurrencyServiceTest extends AbstractTestNGSpringContextTests{
 
     @BeforeMethod
     public void setUp() throws Exception {
-        User user = new User(USER_EMAIL, USER_PASS, new UserInfo("name", "surname"));
+        User user = new User(USER_EMAIL, USER_PASS, new UserInfo("name", "surname", currencyService.findCurrencyByCharCode("RUS")));
         userService.createUser(user);
         Currency currency = new Currency("Nuka-Cola Bottle caps", BigDecimal.ONE, BigDecimal.TEN, 1000, "NCC");
         currencyDao.saveOrUpdate(currency);
