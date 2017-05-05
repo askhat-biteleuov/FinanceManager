@@ -3,7 +3,6 @@ package com.fm.internal.services.implementation;
 import com.fm.internal.daos.OutcomeDao;
 import com.fm.internal.dtos.OutcomeDto;
 import com.fm.internal.models.Account;
-import com.fm.internal.models.Income;
 import com.fm.internal.models.Outcome;
 import com.fm.internal.models.User;
 import com.fm.internal.services.*;
@@ -22,11 +21,9 @@ public class OutcomeServiceImpl implements OutcomeService {
     @Autowired
     private OutcomeTypeService outcomeTypeService;
     @Autowired
-    private OutcomeService outcomeService;
-    @Autowired
-    private IncomeService incomeService;
-    @Autowired
     private CurrencyService currencyService;
+    @Autowired
+    private UtilServiceImpl utilService;
 
     @Override
     public void addOutcome(Outcome outcome) {
@@ -36,11 +33,8 @@ public class OutcomeServiceImpl implements OutcomeService {
     }
 
     private BigDecimal getBalanceAfterAddingOutcome(Outcome outcome) {
-        List<Outcome> allOutcomesInAccount = outcomeService.findAllOutcomesInAccount(outcome.getAccount());
-        List<Income> allIncomesInAccount = incomeService.findAllIncomesInAccount(outcome.getAccount());
-        BigDecimal sumOfIncomes = incomeService.sumOfAllIncomes(allIncomesInAccount);
-        BigDecimal sumOfOutcomes = outcomeService.sumOfAllOutcomes(allOutcomesInAccount);
-        return sumOfIncomes.subtract(sumOfOutcomes);
+        Account account = outcome.getAccount();
+        return utilService.recountAccountBalance(account);
     }
 
     @Override

@@ -21,12 +21,19 @@ public class IncomeServiceImpl implements IncomeService {
 
     @Autowired
     private AccountService accountService;
+    @Autowired
+    private UtilServiceImpl utilService;
 
     @Override
     public void addIncome(Income income) {
         dao.add(income);
-        income.getAccount().setBalance(income.getAccount().getBalance().add(income.getAmount()));
+        income.getAccount().setBalance(getBalanceAfterAddingIncome(income));
         accountService.updateAccount(income.getAccount());
+    }
+
+    private BigDecimal getBalanceAfterAddingIncome(Income income) {
+        Account account = income.getAccount();
+        return utilService.recountAccountBalance(account);
     }
 
     @Override

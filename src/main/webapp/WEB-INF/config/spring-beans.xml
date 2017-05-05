@@ -30,6 +30,7 @@
     <bean class="com.fm.internal.services.implementation.PaginationServiceImpl"/>
     <bean class="com.fm.internal.services.implementation.CurrencyServiceImpl"/>
     <bean class="com.fm.internal.services.implementation.StatusBarServiceImpl"/>
+    <bean class="com.fm.internal.services.implementation.UtilServiceImpl"/>
 
     <bean class="com.fm.internal.validation.UserValidator"/>
     <bean class="com.fm.internal.validation.AccountValidator"/>
