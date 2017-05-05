@@ -70,7 +70,12 @@
                                pattern="^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$" required/><br/>
                         <div class="help-block with-errors"></div>
                     </div>
-
+                    <script type="text/javascript" src="/resources/js/isCheckBox.js"></script>
+                    <div class="form-group">
+                        <input name="checkbox" type="checkbox">
+                        <input type="text" name="currency" class="form-control" value="${account.currency.curs/account.currency.nominal}" disabled/>
+                        <label name = defaultAmmount></label>
+                    </div>
                     <div class="form-group">
                         <label for="outcomeDate">Дата дохода:<br/></label>
                         <input id="outcomeDate" name="date" type="date" required/><br/>

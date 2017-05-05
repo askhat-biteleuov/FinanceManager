@@ -45,7 +45,7 @@
                                 <form action="<c:url value="/outcome/delete"/>" method="POST"
                                       onsubmit="return confirm('Операция будет удалена! Вы хотите продолжить?')">
                                     <input type="hidden" name="outcomeId" value="${outcome.id}">
-                                    <button class="btn btn-danger" type="submit">Удалить расход</button>
+                                    <button class="btn btn-danger" type="submit"><span class="glyphicon glyphicon-trash"></span></button>
                                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                 </form>
                             </td>

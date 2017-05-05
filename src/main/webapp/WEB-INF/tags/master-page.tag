@@ -59,14 +59,14 @@
             <c:if test="${userName != null}">
                 <ul class="nav navbar-nav navbar-center">
                     <li>
-                        <a>
+                        <p class="navbar-text text-white">
                             Баланс: <fmt:formatNumber type="currency"
                                                       currencySymbol="${statusBarDto.info.currency.characterCode}"
                                                       value="${statusBarDto.sumOfAllBalancesOfAccounts}"/>
                             Расходы: <fmt:formatNumber type="currency"
                                                        currencySymbol="${statusBarDto.info.currency.characterCode}"
                                                        value="${statusBarDto.sumOfAllOutcomesForMonthForUser}"/>
-                        </a>
+                        </p>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">

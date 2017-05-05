@@ -1,14 +1,18 @@
 .navbar-custom {
-    background-color: #337ab7;
+    /*background-color: #337ab7;*/
+    background-color: rgba(10, 11, 22, 0.91);
+    text-transform: uppercase;
     color:#ffffff;
 }
 
 .navbar-custom .navbar-nav > li > a {
     color:#fff;
+
 }
 
 .navbar-custom .navbar-brand {
     color:#fff;
+
 }
 
 .navbar-custom .navbar-nav > li > a:hover,

@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $('#add').find('form').on('submit', function (event) {
+    $('#add').find('form').validator().on('submit', function (event) {
         $(".formFieldError").remove(); //delete errors div
         if (!event.isDefaultPrevented()) {
             event.preventDefault();

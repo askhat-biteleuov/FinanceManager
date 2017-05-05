@@ -32,7 +32,7 @@ public class OutcomeTypeValidator implements Validator {
         availableOutcomeTypes.forEach(outcomeType -> LOGGER.info(outcomeType.getName()));
         boolean anyMatch = availableOutcomeTypes.stream()
                 .map(OutcomeType::getName)
-                .anyMatch(typeName -> typeName.equals(dto.getName()));
+                .anyMatch(typeName -> typeName.equalsIgnoreCase(dto.getName()));
         LOGGER.info(anyMatch);
         if (anyMatch) errors.rejectValue("name", "Exist");
     }

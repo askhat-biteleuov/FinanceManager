@@ -15,11 +15,11 @@
         </c:if>
         <c:if test="${user != null}">
             <div align="center">
-                <h2>Счета</h2>
+                <h2 class="page-header">Счета</h2>
                 <div id="accountAdding">
                 <form action="<c:url value="/account/add"/>" method="POST">
                     <button class="btn btn-default" type="button" data-toggle="modal" data-target="#accountAdd">
-                        Добавить аккаунт
+                        Добавить счет
                     </button>
                     <jsp:include page="account-add.jsp"/>
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -29,22 +29,25 @@
                 <div class="container">
                     <div class="row">
                     <c:forEach var="account" items="${user.accounts}">
-                        <div class="col-sm-3">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                <a href="<c:url value="/account/page?name=${account.name}"/>">
-                                    <c:out value="${account.name}"/>
-                                </a>
+                        <div class="col-sm-4 col-lg-3 ">
+                            <a href="<c:url value="/account/page?name=${account.name}"/>">
+
+                            <div class="panel panel-default panel-shadow-1">
+                                <div class="panel-heading dark-green">
+                                    <span class="text-white">
+                                        <c:out value="${account.name}"/>
+                                    </span>
                                 </div>
                                 <div class="panel-body">
                                     <fmt:formatNumber type="currency" currencySymbol="${account.currency.characterCode}" value="${account.balance}"/>
                                 </div>
                             </div>
+                            </a>
                         </div>
                     </c:forEach>
                     </div>
                 </div>
-                <h2>Категории расходов</h2>
+                <h2 class="page-header">Категории расходов</h2>
                 <div>
                     <button class="btn btn-default" type="button" data-toggle="modal" data-target="#outcometype-add">
                         Добавить категорию расходов
@@ -55,14 +58,16 @@
                 <div class="container">
                     <div class="row">
                         <c:forEach var="outcomeType" items="${outcomeTypes}">
-                            <div class="col-sm-3">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <c:url value="/outcometype/page" var="outcomeTypeUrl">
-                                            <c:param name="itemId" value="${outcomeType.key.id}"/>
-                                        </c:url>
-                                        <a href="<c:out value="${outcomeTypeUrl}"/>"><c:out
-                                                value="${outcomeType.key.name}"/></a>
+                            <div class="col-sm-4 col-lg-3 ">
+                                <c:url value="/outcometype/page" var="outcomeTypeUrl">
+                                    <c:param name="itemId" value="${outcomeType.key.id}"/>
+                                </c:url>
+                                <a href="<c:out value="${outcomeTypeUrl}"/>">
+                                <div class="panel panel-default panel-shadow-1">
+                                    <div class="panel-heading blue">
+                                        <span class="text-white">
+                                            <c:out value="${outcomeType.key.name}"/>
+                                        </span>
                                     </div>
                                     <div class="panel-body">
                                         <c:choose>
@@ -87,6 +92,7 @@
                                         </c:choose>
                                     </div>
                                 </div>
+                                </a>
                             </div>
                         </c:forEach>
                     </div>
