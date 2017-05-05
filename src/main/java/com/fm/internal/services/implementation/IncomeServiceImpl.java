@@ -86,4 +86,12 @@ public class IncomeServiceImpl implements IncomeService {
         return income;
     }
 
+    @Override
+    public BigDecimal sumOfAllIncomes(List<Income> incomes) {
+        if (incomes.size() == 0) {
+            return BigDecimal.ZERO;
+        }
+        return incomes.stream().map(Income::getAmount).reduce(BigDecimal::add).get();
+    }
+
 }

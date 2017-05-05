@@ -1,6 +1,6 @@
 package com.fm.internal.services;
 
-import com.fm.internal.currency.model.Currency;
+import com.fm.internal.models.Currency;
 import com.fm.internal.models.Account;
 
 import java.math.BigDecimal;

@@ -1,5 +1,6 @@
 package com.fm.internal.services;
 
+import com.fm.internal.currency.GetCurrency;
 import com.fm.internal.models.Account;
 import com.fm.internal.models.Income;
 import com.fm.internal.models.User;
@@ -15,6 +16,7 @@ import org.testng.annotations.Test;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @ContextConfiguration("classpath:spring-utils.xml")
 public class IncomeServiceTest extends AbstractTestNGSpringContextTests {
@@ -31,13 +33,22 @@ public class IncomeServiceTest extends AbstractTestNGSpringContextTests {
     @Autowired
     private CurrencyService currencyService;
 
+    @Autowired
+    private GetCurrency getCurrency;
+
     private final static String USER_EMAIL = "user@email";
 
     private final static LocalDateTime DATE = LocalDateTime.now();
 
+    private final static BigDecimal SUM_OF_INCOMES = BigDecimal.valueOf(1234)
+            .add(BigDecimal.valueOf(111))
+            .add(BigDecimal.valueOf(2222))
+            .add(BigDecimal.valueOf(2222));
+
     @BeforeMethod
     public void setUp() throws Exception {
-        User user = new User(USER_EMAIL, "password", new UserInfo("name", "surname", currencyService.findCurrencyByCharCode("RUS")));
+        getCurrency.execute();
+        User user = new User(USER_EMAIL, "password", new UserInfo("name", "surname", currencyService.findCurrencyByCharCode("RUB")));
         userService.createUser(user);
         Account acc1 = new Account("visa", BigDecimal.valueOf(1234), null, userService.findByEmail(USER_EMAIL),
                 currencyService.findCurrencyByCharCode("RUB"));
@@ -81,6 +92,14 @@ public class IncomeServiceTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(incomeService.findAllIncomesInAccount
                 (accountService.findUserAccountByName
                         (userService.findByEmail(USER_EMAIL), "visa")).size(), 0);
+    }
+
+    @Test
+    public void testSumOfAllIncomes() throws Exception {
+        List<Income> allIncomesInAccount = incomeService.findAllIncomesInAccount(accountService.findAccountById(2));
+        BigDecimal sumOfAllIncomes = incomeService.sumOfAllIncomes(allIncomesInAccount);
+        Assert.assertNotNull(sumOfAllIncomes);
+        Assert.assertEquals(sumOfAllIncomes.doubleValue(), SUM_OF_INCOMES.doubleValue());
     }
 
 }

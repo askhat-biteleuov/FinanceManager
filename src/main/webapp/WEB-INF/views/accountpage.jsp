@@ -13,12 +13,6 @@
         .trans {
             display: none;
         }
-
-        .fail {
-            color: red;
-        }
-
-
     </style>
 
 

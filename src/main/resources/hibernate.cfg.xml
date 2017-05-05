@@ -14,6 +14,6 @@
         <mapping class="com.fm.internal.models.Income"/>
         <mapping class="com.fm.internal.models.OutcomeType"/>
         <mapping class="com.fm.internal.models.Outcome"/>
-        <mapping class="com.fm.internal.currency.model.Currency"/>
+        <mapping class="com.fm.internal.models.Currency"/>
     </session-factory>
 </hibernate-configuration>

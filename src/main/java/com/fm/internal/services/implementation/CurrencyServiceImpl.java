@@ -1,7 +1,7 @@
 package com.fm.internal.services.implementation;
 
-import com.fm.internal.currency.dao.CurrencyDao;
-import com.fm.internal.currency.model.Currency;
+import com.fm.internal.daos.CurrencyDao;
+import com.fm.internal.models.Currency;
 import com.fm.internal.models.Account;
 import com.fm.internal.services.CurrencyService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -3,7 +3,6 @@ package ru.cbr.web;
 
 import javax.xml.namespace.QName;
 import javax.xml.ws.*;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 
@@ -27,11 +26,8 @@ public class DailyInfo
     static {
         URL url = null;
         WebServiceException e = null;
-        try {
-            url = new URL("classpath:cbrInfo.wsdl");
-        } catch (MalformedURLException ex) {
-            e = new WebServiceException(ex);
-        }
+        url = DailyInfo.class.getClassLoader().getResource("cbrInfo.wsdl");
+            /*new URL("classpath:cbrInfo.wsdl");*/
         DAILYINFO_WSDL_LOCATION = url;
         DAILYINFO_EXCEPTION = e;
     }

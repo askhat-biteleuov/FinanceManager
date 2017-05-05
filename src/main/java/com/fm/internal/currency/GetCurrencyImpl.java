@@ -1,16 +1,14 @@
-package com.fm.internal.currency.scheduler;
+package com.fm.internal.currency;
 
-import com.fm.internal.currency.CbrClient;
-import com.fm.internal.currency.CurrencyData;
-import com.fm.internal.currency.dao.CurrencyDao;
-import com.fm.internal.currency.model.Currency;
+import com.fm.internal.daos.CurrencyDao;
+import com.fm.internal.models.Currency;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-public class GetCurrencyTaskImpl implements GetCurrencyTask {
+public class GetCurrencyImpl implements GetCurrency {
 
     @Autowired
     private CurrencyDao currencyDao;

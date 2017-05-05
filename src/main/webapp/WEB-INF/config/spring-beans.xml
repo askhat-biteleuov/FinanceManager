@@ -13,14 +13,14 @@
     <task:scheduler id="scheduler" pool-size="1"/>
 
     <bean class="com.fm.internal.currency.CbrClient"/>
-    <bean class="com.fm.internal.currency.scheduler.GetCurrencyTaskImpl"/>
+    <bean class="com.fm.internal.currency.GetCurrencyImpl"/>
 
     <bean class="com.fm.internal.daos.UserDao"/>
     <bean class="com.fm.internal.daos.AccountDao"/>
     <bean class="com.fm.internal.daos.IncomeDao"/>
     <bean class="com.fm.internal.daos.OutcomeDao"/>
     <bean class="com.fm.internal.daos.OutcomeTypeDao"/>
-    <bean class="com.fm.internal.currency.dao.CurrencyDao"/>
+    <bean class="com.fm.internal.daos.CurrencyDao"/>
 
     <bean class="com.fm.internal.services.implementation.AccountServiceImpl"/>
     <bean class="com.fm.internal.services.implementation.UserServiceImpl"/>

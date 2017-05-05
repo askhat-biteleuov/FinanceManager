@@ -5,6 +5,7 @@ import com.fm.internal.models.Account;
 import com.fm.internal.models.Income;
 import com.fm.internal.models.User;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -30,5 +31,7 @@ public interface IncomeService {
     Long getAmountOfIncomesInAccount(Account account);
 
     Income createIncomeFromDto(IncomeDto incomeDto);
+
+    BigDecimal sumOfAllIncomes(List<Income> incomes);
 
 }

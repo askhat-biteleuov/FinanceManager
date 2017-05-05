@@ -3,12 +3,10 @@ package com.fm.internal.services.implementation;
 import com.fm.internal.daos.OutcomeDao;
 import com.fm.internal.dtos.OutcomeDto;
 import com.fm.internal.models.Account;
+import com.fm.internal.models.Income;
 import com.fm.internal.models.Outcome;
 import com.fm.internal.models.User;
-import com.fm.internal.services.AccountService;
-import com.fm.internal.services.CurrencyService;
-import com.fm.internal.services.OutcomeService;
-import com.fm.internal.services.OutcomeTypeService;
+import com.fm.internal.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
@@ -24,13 +22,25 @@ public class OutcomeServiceImpl implements OutcomeService {
     @Autowired
     private OutcomeTypeService outcomeTypeService;
     @Autowired
+    private OutcomeService outcomeService;
+    @Autowired
+    private IncomeService incomeService;
+    @Autowired
     private CurrencyService currencyService;
 
     @Override
     public void addOutcome(Outcome outcome) {
         dao.add(outcome);
-        outcome.getAccount().setBalance(outcome.getAccount().getBalance().subtract(outcome.getAmount()));
+        outcome.getAccount().setBalance(getBalanceAfterAddingOutcome(outcome));
         accountService.updateAccount(outcome.getAccount());
+    }
+
+    private BigDecimal getBalanceAfterAddingOutcome(Outcome outcome) {
+        List<Outcome> allOutcomesInAccount = outcomeService.findAllOutcomesInAccount(outcome.getAccount());
+        List<Income> allIncomesInAccount = incomeService.findAllIncomesInAccount(outcome.getAccount());
+        BigDecimal sumOfIncomes = incomeService.sumOfAllIncomes(allIncomesInAccount);
+        BigDecimal sumOfOutcomes = outcomeService.sumOfAllOutcomes(allOutcomesInAccount);
+        return sumOfIncomes.subtract(sumOfOutcomes);
     }
 
     @Override
@@ -100,5 +110,13 @@ public class OutcomeServiceImpl implements OutcomeService {
     @Override
     public BigDecimal getSumOfAllOutcomesForMonthForUser(User user) {
         return dao.getSumOfAllOutcomesForMonthForUser(user);
+    }
+
+    @Override
+    public BigDecimal sumOfAllOutcomes(List<Outcome> outcomes) {
+        if (outcomes.size() == 0) {
+            return BigDecimal.ZERO;
+        }
+        return outcomes.stream().map(Outcome::getAmount).reduce(BigDecimal::add).get();
     }
 }

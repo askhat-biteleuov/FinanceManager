@@ -1,7 +1,5 @@
 package com.fm.internal.models;
 
-import com.fm.internal.currency.model.Currency;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;

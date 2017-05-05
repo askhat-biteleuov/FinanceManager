@@ -1,4 +1,4 @@
-package com.fm.internal.currency.model;
+package com.fm.internal.models;
 
 import javax.persistence.*;
 import java.io.Serializable;

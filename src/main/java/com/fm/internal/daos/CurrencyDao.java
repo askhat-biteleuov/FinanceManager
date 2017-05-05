@@ -1,8 +1,7 @@
-package com.fm.internal.currency.dao;
+package com.fm.internal.daos;
 
-import com.fm.internal.currency.model.Currency;
-import com.fm.internal.currency.model.Currency_;
-import com.fm.internal.daos.GenericDao;
+import com.fm.internal.models.Currency;
+import com.fm.internal.models.Currency_;
 import org.hibernate.Session;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -36,4 +36,6 @@ public interface OutcomeService {
 
     BigDecimal getSumOfAllOutcomesForMonthForUser(User user);
 
+    BigDecimal sumOfAllOutcomes(List<Outcome> outcomes);
+
 }
