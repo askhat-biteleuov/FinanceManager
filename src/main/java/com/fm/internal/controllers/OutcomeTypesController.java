@@ -5,10 +5,12 @@ import com.fm.internal.dtos.PaginationDto;
 import com.fm.internal.models.Outcome;
 import com.fm.internal.models.OutcomeType;
 import com.fm.internal.models.User;
+import com.fm.internal.services.AccountService;
 import com.fm.internal.services.OutcomeTypeService;
 import com.fm.internal.services.StatusBarService;
 import com.fm.internal.services.UserService;
 import com.fm.internal.services.implementation.PaginationServiceImpl;
+import com.fm.internal.services.implementation.UtilServiceImpl;
 import com.fm.internal.validation.OutcomeTypeValidator;
 import com.fm.internal.validation.util.ValidErrors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -37,6 +40,8 @@ public class OutcomeTypesController {
     @Autowired
     private UserService userService;
     @Autowired
+    private AccountService accountService;
+    @Autowired
     private OutcomeTypeValidator validator;
     @Autowired
     private PaginationServiceImpl paginationService;
@@ -45,6 +50,8 @@ public class OutcomeTypesController {
     private MessageSource messages;
     @Autowired
     private StatusBarService statusBarService;
+    @Autowired
+    private UtilServiceImpl utilService;
 
     @RequestMapping(value = "/page", method = RequestMethod.GET)
     public ModelAndView showOutcomeType(Long itemId, Integer pageId) {
@@ -85,6 +92,11 @@ public class OutcomeTypesController {
     public ModelAndView deleteOutcomeTypeWithOutcomes(Long currentOutcomeTypeId) {
         OutcomeType outcomeType = typeService.findTypeById(currentOutcomeTypeId);
         typeService.deleteOutcomeType(outcomeType);
+        accountService.findAllUserAccounts(userService.getLoggedUser()).forEach(account -> {
+            BigDecimal balance = utilService.recountAccountBalance(account);
+            account.setBalance(balance);
+            accountService.updateAccount(account);
+        });
         return new ModelAndView("redirect:" + "/index");
     }
 
