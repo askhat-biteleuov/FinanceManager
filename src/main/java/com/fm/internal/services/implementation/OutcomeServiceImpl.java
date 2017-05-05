@@ -28,23 +28,25 @@ public class OutcomeServiceImpl implements OutcomeService {
     @Override
     public void addOutcome(Outcome outcome) {
         dao.add(outcome);
-        outcome.getAccount().setBalance(getBalanceAfterAddingOutcome(outcome));
+        outcome.getAccount().setBalance(getBalanceAfterOutcomeOperation(outcome));
         accountService.updateAccount(outcome.getAccount());
-    }
-
-    private BigDecimal getBalanceAfterAddingOutcome(Outcome outcome) {
-        Account account = outcome.getAccount();
-        return utilService.recountAccountBalance(account);
     }
 
     @Override
     public void deleteOutcome(Outcome outcome) {
         dao.delete(outcome);
+        outcome.getAccount().setBalance(getBalanceAfterOutcomeOperation(outcome));
+        accountService.updateAccount(outcome.getAccount());
     }
 
     @Override
     public void updateOutcome(Outcome outcome) {
         dao.update(outcome);
+    }
+
+    private BigDecimal getBalanceAfterOutcomeOperation(Outcome outcome) {
+        Account account = outcome.getAccount();
+        return utilService.recountAccountBalance(account);
     }
 
     @Override

@@ -27,13 +27,8 @@ public class IncomeServiceImpl implements IncomeService {
     @Override
     public void addIncome(Income income) {
         dao.add(income);
-        income.getAccount().setBalance(getBalanceAfterAddingIncome(income));
+        income.getAccount().setBalance(getBalanceAfterIncomeOperation(income));
         accountService.updateAccount(income.getAccount());
-    }
-
-    private BigDecimal getBalanceAfterAddingIncome(Income income) {
-        Account account = income.getAccount();
-        return utilService.recountAccountBalance(account);
     }
 
     @Override
@@ -44,6 +39,13 @@ public class IncomeServiceImpl implements IncomeService {
     @Override
     public void deleteIncome(Income income) {
         dao.delete(income);
+        income.getAccount().setBalance(getBalanceAfterIncomeOperation(income));
+        accountService.updateAccount(income.getAccount());
+    }
+
+    private BigDecimal getBalanceAfterIncomeOperation(Income income) {
+        Account account = income.getAccount();
+        return utilService.recountAccountBalance(account);
     }
 
     @Override
