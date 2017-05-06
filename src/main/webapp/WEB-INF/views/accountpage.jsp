@@ -70,11 +70,26 @@
                                pattern="^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$" required/><br/>
                         <div class="help-block with-errors"></div>
                     </div>
-                    <script type="text/javascript" src="/resources/js/isCheckBox.js"></script>
+                    <script type="text/javascript" src="/resources/js/changeCurrency.js"></script>
                     <div class="form-group">
-                        <input name="checkbox" type="checkbox">
-                        <input type="text" name="currency" class="form-control" value="${account.currency.curs/account.currency.nominal}" disabled/>
-                        <label name = defaultAmmount></label>
+                        <input type="hidden" value="${account.currency.nominal}" id="fromNominal">
+                        <input type="hidden" value="${account.currency.curs}" id="fromCurs">
+                        <input type="hidden" value="${account.user.info.currency.nominal}" id="toNominal">
+                        <input type="hidden" value="${account.user.info.currency.curs}" id="toCurs">
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <input name="checkbox" type="checkbox" />
+                            </div>
+                            <input  type="text" name="customCurs" class="form-control" disabled/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon">${account.user.info.currency.characterCode}</div>
+                            <input type="text" id="defaultAmount" name="defaultAmount"  class="form-control" readonly />
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="outcomeDate">Дата дохода:<br/></label>

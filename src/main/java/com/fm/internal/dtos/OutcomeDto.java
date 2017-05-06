@@ -11,6 +11,7 @@ import java.util.List;
 public class OutcomeDto {
     @Pattern(regexp = "^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\\.[0-9]{2})?$")
     private String amount;
+    private String defaultAmount;
     @NotEmpty
     private String date;
     private String note;
@@ -30,6 +31,14 @@ public class OutcomeDto {
 
     public void setAmount(String amount) {
         this.amount = amount;
+    }
+
+    public String getDefaultAmount() {
+        return defaultAmount;
+    }
+
+    public void setDefaultAmount(String defaultAmount) {
+        this.defaultAmount = defaultAmount;
     }
 
     public String getDate() {

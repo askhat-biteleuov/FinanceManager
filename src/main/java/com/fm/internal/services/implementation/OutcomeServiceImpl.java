@@ -99,7 +99,7 @@ public class OutcomeServiceImpl implements OutcomeService {
         outcome.setTime(LocalTime.now());
         outcome.setNote(outcomeDto.getNote());
         outcome.setOutcomeType(outcomeTypeService.findTypeById(outcomeDto.getOutcomeTypeId()));
-        outcome.setDefaultAmount(currencyService.getOutcomeAmountForDefaultCurrency(account, new BigDecimal(outcomeDto.getAmount())));
+        outcome.setDefaultAmount(new BigDecimal(outcomeDto.getDefaultAmount()));
         return outcome;
     }
 
