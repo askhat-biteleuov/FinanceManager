@@ -21,24 +21,39 @@ public class OutcomeTypeDao extends GenericDao<OutcomeType> {
         super(OutcomeType.class);
     }
 
+//    @Transactional
+//    public List<Outcome> getOutcomesByType(OutcomeType outcomeType, int offset, int limit) {
+//        Session session = getSessionFactory().getCurrentSession();
+//        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+//        CriteriaQuery<Outcome> query = criteriaBuilder.createQuery(Outcome.class);
+//        Root<Outcome> root = query.from(Outcome.class);
+//        query.where(criteriaBuilder.equal(root.get(Outcome_.outcomeType), outcomeType));
+//        return session.createQuery(query).setFirstResult(offset).setMaxResults(limit).getResultList();
+//    }
+
     @Transactional
-    public List<Outcome> getOutcomesByType(OutcomeType outcomeType, int offset, int limit) {
+    public List<Outcome> getOutcomesByTypeByDate(OutcomeType outcomeType, int offset, int limit,
+                                                 LocalDate start, LocalDate end) {
         Session session = getSessionFactory().getCurrentSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<Outcome> query = criteriaBuilder.createQuery(Outcome.class);
         Root<Outcome> root = query.from(Outcome.class);
-        query.where(criteriaBuilder.equal(root.get(Outcome_.outcomeType), outcomeType));
+        Predicate equalDate = criteriaBuilder.between(root.get(Outcome_.date), start, end);
+        Predicate equalOutcomeType = criteriaBuilder.equal(root.get(Outcome_.outcomeType), outcomeType);
+        query.where(criteriaBuilder.and(equalDate,equalOutcomeType));
         return session.createQuery(query).setFirstResult(offset).setMaxResults(limit).getResultList();
     }
 
     @Transactional
-    public Long getOutcomesNumberByType(OutcomeType outcomeType) {
+    public Long getOutcomesNumberByTypeByDate(OutcomeType outcomeType, LocalDate start, LocalDate end) {
         Session session = getSessionFactory().getCurrentSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<Long> query = criteriaBuilder.createQuery(Long.class);
         Root<Outcome> root = query.from(Outcome.class);
         query.select(criteriaBuilder.count(root));
-        query.where(criteriaBuilder.equal(root.get(Outcome_.outcomeType), outcomeType));
+        Predicate equalDate = criteriaBuilder.between(root.get(Outcome_.date), start, end);
+        Predicate equalOutcomeType = criteriaBuilder.equal(root.get(Outcome_.outcomeType), outcomeType);
+        query.where(criteriaBuilder.and(equalDate,equalOutcomeType));
         return session.createQuery(query).uniqueResult();
     }
 

@@ -6,6 +6,8 @@ public class RangeDto {
 
     private String end;
 
+    private long id;
+
     private String accountName;
 
     public String getStart() {
@@ -30,5 +32,13 @@ public class RangeDto {
 
     public void setAccountName(String accountName) {
         this.accountName = accountName;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

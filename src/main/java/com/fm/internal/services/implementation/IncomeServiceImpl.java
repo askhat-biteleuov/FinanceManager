@@ -64,23 +64,28 @@ public class IncomeServiceImpl implements IncomeService {
     }
 
     @Override
+    public List<Income> getAccountIncomesPageByDate(Account account, int first, int limit, LocalDate start, LocalDate end) {
+        return dao.getAccountIncomesPageByDate(account, first, limit, start, end);
+    }
+
+    @Override
     public List<Income> getPageOfIncomes(Account account, int first, int limit) {
         return dao.getIncomesPage(account, first, limit);
     }
 
     @Override
-    public List<Income> getUserIncomesPage(User user, int first, int limit) {
-        return dao.getUserIncomesPage(user, first, limit);
+    public List<Income> getUserIncomesPageByDate(User user, int first, int limit, LocalDate start, LocalDate end) {
+        return dao.getUserIncomesPageByDate(user, first, limit, start, end);
     }
 
     @Override
-    public Long getUserIncomesNumber(User user) {
-        return dao.getUserIncomesNumber(user);
+    public Long getUserIncomesNumberByDate(User user, LocalDate start, LocalDate end) {
+        return dao.getUserIncomesNumberByDate(user, start, end);
     }
 
     @Override
-    public Long getAmountOfIncomesInAccount(Account account) {
-        return dao.getAccountIncomeAmount(account);
+    public Long getAccountIncomesNumberByDate(Account account, LocalDate start, LocalDate end) {
+        return dao.getAccountIncomeNumberByDate(account, start, end);
     }
 
     @Override

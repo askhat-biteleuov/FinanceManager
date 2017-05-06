@@ -65,13 +65,18 @@ public class OutcomeServiceImpl implements OutcomeService {
     }
 
     @Override
-    public List<Outcome> getUserOutcomesPage(User user, int first, int limit) {
-        return dao.getUserOutcomesPage(user, first, limit);
+    public List<Outcome> getAccountOutcomesPageByDate(Account account, int first, int limit, LocalDate start, LocalDate end) {
+        return dao.getAccountOutcomesPageByDate(account, first, limit, start, end);
     }
 
     @Override
-    public Long getUserOutcomesNumber(User user) {
-        return dao.getUserOutcomesNumber(user);
+    public List<Outcome> getUserOutcomesPageByDate(User user, int first, int limit, LocalDate start, LocalDate end) {
+        return dao.getUserOutcomesPageByDate(user, first, limit, start, end);
+    }
+
+    @Override
+    public Long getUserOutcomesNumberByDate(User user, LocalDate start, LocalDate end) {
+        return dao.getUserOutcomesNumberByDate(user, start, end);
     }
 
     @Override
@@ -80,8 +85,8 @@ public class OutcomeServiceImpl implements OutcomeService {
     }
 
     @Override
-    public Long getAmountOfOutcomesInAccount(Account account) {
-        return dao.getAccountOutcomeAmount(account);
+    public Long getAccountOutcomesNumberByDate(Account account, LocalDate start, LocalDate end) {
+        return dao.getAccountOutcomeNumberByDate(account, start, end);
     }
 
     @Override

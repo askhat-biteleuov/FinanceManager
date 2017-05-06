@@ -26,9 +26,9 @@ public interface OutcomeTypeService {
 
     List<OutcomeType> getAvailableOutcomeTypes(User user);
 
-    List<Outcome> getOutcomesOfType(OutcomeType outcomeType, int first, int limit);
+    List<Outcome> getOutcomesOfTypeByDate(OutcomeType outcomeType, int first, int limit, LocalDate start, LocalDate end);
 
-    Long getSizeOutcomesOfType(OutcomeType outcomeType);
+    Long getSizeOutcomesOfTypeByDate(OutcomeType outcomeType, LocalDate start, LocalDate end);
 
     Map<String, Double> defaultOutcomeTypesValue(Account account);
 

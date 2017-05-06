@@ -22,13 +22,15 @@ public interface OutcomeService {
 
     List<Outcome> findOutcomesInAccountByDate(Account account, LocalDate start, LocalDate end);
 
-    List<Outcome> getUserOutcomesPage(User user, int first, int limit);
+    List<Outcome> getAccountOutcomesPageByDate(Account account, int first, int limit, LocalDate start, LocalDate end);
 
-    Long getUserOutcomesNumber(User user);
+    List<Outcome> getUserOutcomesPageByDate(User user, int first, int limit, LocalDate start, LocalDate end);
+
+    Long getUserOutcomesNumberByDate(User user, LocalDate start, LocalDate end);
 
     List<Outcome> getPageOfOutcomes(Account account, int first, int limit);
 
-    Long getAmountOfOutcomesInAccount(Account account);
+    Long getAccountOutcomesNumberByDate(Account account, LocalDate start, LocalDate end);
 
     Outcome createOutcomeFromDto(OutcomeDto outcomeDto);
 

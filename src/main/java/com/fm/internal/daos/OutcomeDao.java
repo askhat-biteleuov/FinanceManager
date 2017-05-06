@@ -38,27 +38,42 @@ public class OutcomeDao extends GenericDao<Outcome> {
         return currentSession.createQuery(query).getResultList();
     }
 
+//    No need of this method
+//    @Transactional
+//    public List<Outcome> getUserOutcomesPage(User user, int offset, int limit){
+//        Session currentSession = getSessionFactory().getCurrentSession();
+//        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
+//        CriteriaQuery<Outcome> query = builder.createQuery(Outcome.class);
+//        Root<Outcome> outcomeRoot = query.from(Outcome.class);
+//        Join<Outcome, Account> accountJoin = outcomeRoot.join(Outcome_.account);
+//        query.orderBy(builder.asc(accountJoin.getParent().get(Outcome_.date)));
+//        query.where(builder.equal(accountJoin.get(Account_.user), user));
+//        return currentSession.createQuery(query).setFirstResult(offset).setMaxResults(limit).getResultList();
+//    }
+
     @Transactional
-    public Long getUserOutcomesNumber(User user){
-        Session currentSession = getSessionFactory().getCurrentSession();
-        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
-        CriteriaQuery<Long> query = builder.createQuery(Long.class);
+    public List<Outcome> getAccountOutcomesPageByDate(Account account, int offset, int limit, LocalDate start, LocalDate end) {
+        Session session = getSessionFactory().getCurrentSession();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<Outcome> query = criteriaBuilder.createQuery(Outcome.class);
         Root<Outcome> outcomeRoot = query.from(Outcome.class);
-        Join<Outcome, Account> accountJoin = outcomeRoot.join(Outcome_.account);
-        query.select(builder.count(outcomeRoot));
-        query.where(builder.equal(accountJoin.get(Account_.user), user));
-        return currentSession.createQuery(query).uniqueResult();
+        Predicate equalAccount = criteriaBuilder.equal(outcomeRoot.get(Outcome_.account), account);
+        Predicate equalDate = criteriaBuilder.between(outcomeRoot.get(Outcome_.date), start, end);
+        query.where(criteriaBuilder.and(equalAccount, equalDate));
+        return session.createQuery(query).setFirstResult(offset).setMaxResults(limit).getResultList();
     }
 
     @Transactional
-    public List<Outcome> getUserOutcomesPage(User user, int offset, int limit){
+    public List<Outcome> getUserOutcomesPageByDate(User user, int offset, int limit, LocalDate start, LocalDate end) {
         Session currentSession = getSessionFactory().getCurrentSession();
         CriteriaBuilder builder = currentSession.getCriteriaBuilder();
         CriteriaQuery<Outcome> query = builder.createQuery(Outcome.class);
         Root<Outcome> outcomeRoot = query.from(Outcome.class);
         Join<Outcome, Account> accountJoin = outcomeRoot.join(Outcome_.account);
         query.orderBy(builder.asc(accountJoin.getParent().get(Outcome_.date)));
-        query.where(builder.equal(accountJoin.get(Account_.user), user));
+        Predicate equalUser = builder.equal(accountJoin.get(Account_.user), user);
+        Predicate equalDate = builder.between(outcomeRoot.get(Outcome_.date), start, end);
+        query.where(builder.and(equalUser,equalDate));
         return currentSession.createQuery(query).setFirstResult(offset).setMaxResults(limit).getResultList();
     }
 
@@ -75,13 +90,29 @@ public class OutcomeDao extends GenericDao<Outcome> {
     }
 
     @Transactional
-    public Long getAccountOutcomeAmount(Account account) {
+    public Long getUserOutcomesNumberByDate(User user, LocalDate start, LocalDate end){
+        Session currentSession = getSessionFactory().getCurrentSession();
+        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
+        CriteriaQuery<Long> query = builder.createQuery(Long.class);
+        Root<Outcome> outcomeRoot = query.from(Outcome.class);
+        Join<Outcome, Account> accountJoin = outcomeRoot.join(Outcome_.account);
+        query.select(builder.count(outcomeRoot));
+        Predicate equalDate = builder.between(outcomeRoot.get(Outcome_.date), start, end);
+        Predicate equalUser = builder.equal(accountJoin.get(Account_.user), user);
+        query.where(builder.and(equalDate,equalUser));
+        return currentSession.createQuery(query).uniqueResult();
+    }
+
+    @Transactional
+    public Long getAccountOutcomeNumberByDate(Account account, LocalDate start, LocalDate end) {
         Session session = getSessionFactory().getCurrentSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<Long> query = criteriaBuilder.createQuery(Long.class);
-        Root<Outcome> root = query.from(Outcome.class);
-        query.select(criteriaBuilder.count(root));
-        query.where(criteriaBuilder.equal(root.get(Outcome_.account), account));
+        Root<Outcome> outcomeRoot = query.from(Outcome.class);
+        query.select(criteriaBuilder.count(outcomeRoot));
+        Predicate equalDate = criteriaBuilder.between(outcomeRoot.get(Outcome_.date), start, end);
+        Predicate equalAccount = criteriaBuilder.equal(outcomeRoot.get(Outcome_.account), account);
+        query.where(criteriaBuilder.and(equalAccount, equalDate));
         return session.createQuery(query).uniqueResult();
     }
 

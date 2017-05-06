@@ -22,13 +22,15 @@ public interface IncomeService {
 
     List<Income> findIncomesInAccountByDate(Account account, LocalDate start, LocalDate end);
 
-    List<Income> getUserIncomesPage(User user, int first, int limit);
+    List<Income> getAccountIncomesPageByDate(Account account, int first, int limit, LocalDate start, LocalDate end);
 
-    Long getUserIncomesNumber(User user);
+    List<Income> getUserIncomesPageByDate(User user, int first, int limit, LocalDate start, LocalDate end);
+
+    Long getUserIncomesNumberByDate(User user, LocalDate start, LocalDate end);
 
     List<Income> getPageOfIncomes(Account account, int first, int limit);
 
-    Long getAmountOfIncomesInAccount(Account account);
+    Long getAccountIncomesNumberByDate(Account account, LocalDate start, LocalDate end);
 
     Income createIncomeFromDto(IncomeDto incomeDto);
 

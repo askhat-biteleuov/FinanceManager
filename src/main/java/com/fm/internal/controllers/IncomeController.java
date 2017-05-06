@@ -3,6 +3,7 @@ package com.fm.internal.controllers;
 import com.fm.internal.dtos.AccountDto;
 import com.fm.internal.dtos.IncomeDto;
 import com.fm.internal.dtos.PaginationDto;
+import com.fm.internal.dtos.RangeDto;
 import com.fm.internal.models.Account;
 import com.fm.internal.models.Income;
 import com.fm.internal.models.User;
@@ -11,6 +12,7 @@ import com.fm.internal.services.IncomeService;
 import com.fm.internal.services.StatusBarService;
 import com.fm.internal.services.UserService;
 import com.fm.internal.services.implementation.PaginationServiceImpl;
+import com.fm.internal.services.implementation.RangeService;
 import com.fm.internal.validation.util.ValidErrors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -24,6 +26,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -43,6 +47,8 @@ public class IncomeController {
     private MessageSource messages;
     @Autowired
     private StatusBarService statusBarService;
+    @Autowired
+    private RangeService rangeService;
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
@@ -57,16 +63,20 @@ public class IncomeController {
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
-    public ModelAndView userIncomes(@RequestParam(value = "pageId", required = false) Integer pageId) {
+    public ModelAndView userIncomes(@RequestParam(value = "pageId", required = false) Integer pageId,
+                                    @ModelAttribute("rangeDto") RangeDto rangeDto) {
         if (pageId == null) {
             pageId = 1;
         }
+        LocalDate start = rangeService.setupStart(rangeDto);
+        LocalDate end = rangeService.setupEnd(rangeDto);
         User user = userService.getLoggedUser();
-        Long userIncomesNumber = incomeService.getUserIncomesNumber(user);
+        Long userIncomesNumber = incomeService.getUserIncomesNumberByDate(user, start, end);
         int pageSize = 10;
         PaginationDto paginationDto = paginationService.createPagination(user.getId(), pageId, pageSize,
                 userIncomesNumber, "/account/income/all");
-        List<Income> incomesPage = incomeService.getUserIncomesPage(user, paginationDto.getFirstItem(), pageSize);
+        List<Income> incomesPage = incomeService.getUserIncomesPageByDate(user, paginationDto.getFirstItem(),
+                pageSize, start, end);
         ModelAndView modelAndView = new ModelAndView("user-incomes");
         modelAndView.addObject("paginationDto", paginationDto);
         modelAndView.addObject("incomes", incomesPage);
@@ -76,18 +86,23 @@ public class IncomeController {
 
     @RequestMapping(value = "/page", method = RequestMethod.GET)
     public ModelAndView listOfIncomes(@RequestParam("itemId") Long accountId,
-                                      @RequestParam(value = "pageId", required = false) Integer pageId) {
+                                      @RequestParam(value = "pageId", required = false) Integer pageId,
+                                      @ModelAttribute("rangeDto") RangeDto rangeDto) {
         if (pageId == null) {
             pageId = 1;
         }
+        LocalDate start = rangeService.setupStart(rangeDto);
+        LocalDate end = rangeService.setupEnd(rangeDto);
         Account accountById = accountService.findAccountById(accountId);
-        Long sizeOfIncomesInAccount = incomeService.getAmountOfIncomesInAccount(accountById);
+        Long sizeOfIncomesInAccount = incomeService.getAccountIncomesNumberByDate(accountById, start, end);
         int pageSize = 10;
-        PaginationDto paginationDto = paginationService.createPagination(accountId, pageId, pageSize, sizeOfIncomesInAccount, "/account/income/page");
-        List<Income> pageOfIncomes = incomeService.getPageOfIncomes(accountById, paginationDto.getFirstItem(), pageSize);
-        AccountDto accountDto = new AccountDto(accountId, accountById.getName(), accountById.getBalance().toString());
-        accountDto.setIncomes(pageOfIncomes);
-        ModelAndView modelAndView = new ModelAndView("incomes-list", "accountDto", accountDto);
+        PaginationDto paginationDto = paginationService.createPagination(accountId, pageId, pageSize,
+                sizeOfIncomesInAccount, "/account/income/page");
+        List<Income> incomesPage = incomeService.getAccountIncomesPageByDate(accountById, paginationDto.getFirstItem(),
+                pageSize, start, end);
+        rangeDto.setId(accountId);
+        ModelAndView modelAndView = new ModelAndView("incomes-list");
+        modelAndView.addObject("incomes", incomesPage);
         modelAndView.addObject("paginationDto", paginationDto);
         modelAndView.addObject("statusBarDto", statusBarService.getStatusBar(userService.getLoggedUser()));
         return modelAndView;
@@ -111,4 +126,6 @@ public class IncomeController {
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+
 }
+

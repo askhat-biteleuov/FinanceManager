@@ -62,13 +62,14 @@ public class OutcomeTypeServiceImpl implements OutcomeTypeService {
     }
 
     @Override
-    public List<Outcome> getOutcomesOfType(OutcomeType outcomeType, int first, int limit) {
-        return outcomeTypeDao.getOutcomesByType(outcomeType, first, limit);
+    public List<Outcome> getOutcomesOfTypeByDate(OutcomeType outcomeType, int first, int limit,
+                                                 LocalDate start, LocalDate end) {
+        return outcomeTypeDao.getOutcomesByTypeByDate(outcomeType, first, limit, start, end);
     }
 
     @Override
-    public Long getSizeOutcomesOfType(OutcomeType outcomeType) {
-        return outcomeTypeDao.getOutcomesNumberByType(outcomeType);
+    public Long getSizeOutcomesOfTypeByDate(OutcomeType outcomeType, LocalDate start, LocalDate end) {
+        return outcomeTypeDao.getOutcomesNumberByTypeByDate(outcomeType, start, end);
     }
 
     @Override

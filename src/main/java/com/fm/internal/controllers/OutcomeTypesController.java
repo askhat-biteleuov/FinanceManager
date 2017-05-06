@@ -2,6 +2,7 @@ package com.fm.internal.controllers;
 
 import com.fm.internal.dtos.OutcomeTypeDto;
 import com.fm.internal.dtos.PaginationDto;
+import com.fm.internal.dtos.RangeDto;
 import com.fm.internal.models.Outcome;
 import com.fm.internal.models.OutcomeType;
 import com.fm.internal.models.User;
@@ -10,6 +11,7 @@ import com.fm.internal.services.OutcomeTypeService;
 import com.fm.internal.services.StatusBarService;
 import com.fm.internal.services.UserService;
 import com.fm.internal.services.implementation.PaginationServiceImpl;
+import com.fm.internal.services.implementation.RangeService;
 import com.fm.internal.services.implementation.UtilServiceImpl;
 import com.fm.internal.validation.OutcomeTypeValidator;
 import com.fm.internal.validation.util.ValidErrors;
@@ -20,14 +22,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -52,19 +52,25 @@ public class OutcomeTypesController {
     private StatusBarService statusBarService;
     @Autowired
     private UtilServiceImpl utilService;
+    @Autowired
+    private RangeService rangeService;
 
     @RequestMapping(value = "/page", method = RequestMethod.GET)
-    public ModelAndView showOutcomeType(Long itemId, Integer pageId) {
+    public ModelAndView showOutcomeType(Long itemId, Integer pageId, @ModelAttribute("rangeDto")RangeDto rangeDto) {
         if (pageId == null) {
             pageId = 1;
         }
+        LocalDate start = rangeService.setupStart(rangeDto);
+        LocalDate end = rangeService.setupEnd(rangeDto);
         OutcomeType outcomeType = typeService.findTypeById(itemId);
-        long sizeOutcomesOfType = typeService.getSizeOutcomesOfType(outcomeType);
+        long sizeOutcomesOfType = typeService.getSizeOutcomesOfTypeByDate(outcomeType, start, end);
         int pageSize = 5;
-        PaginationDto paginationDto = paginationService.createPagination(itemId, pageId, pageSize, sizeOutcomesOfType, "/outcometype/page");
-        List<Outcome> outcomes = typeService.getOutcomesOfType(outcomeType, paginationDto.getFirstItem(), pageSize);
-
-        OutcomeTypeDto outcomeTypeDto = new OutcomeTypeDto(itemId, outcomeType.getName(), outcomeType.getLimit().toString(), outcomes);
+        PaginationDto paginationDto = paginationService.createPagination(itemId, pageId, pageSize,
+                sizeOutcomesOfType, "/outcometype/page");
+        List<Outcome> outcomes = typeService.getOutcomesOfTypeByDate(outcomeType, paginationDto.getFirstItem(),
+                pageSize, start, end);
+        OutcomeTypeDto outcomeTypeDto = new OutcomeTypeDto(itemId, outcomeType.getName(),
+                outcomeType.getLimit().toString(), outcomes);
         ModelAndView modelAndView = new ModelAndView("outcometype", "outcomeTypeDto", outcomeTypeDto);
         modelAndView.addObject("paginationDto", paginationDto);
         User loggedUser = userService.getLoggedUser();
