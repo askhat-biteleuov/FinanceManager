@@ -98,7 +98,7 @@ public class OutcomeTypesController {
     public ModelAndView deleteOutcomeTypeWithOutcomes(Long currentOutcomeTypeId) {
         OutcomeType outcomeType = typeService.findTypeById(currentOutcomeTypeId);
         typeService.deleteOutcomeType(outcomeType);
-        updateAccountBalanceAfterDeltingOfMoving();
+        updateAccountBalanceAfterDeletingOfMoving();
         return new ModelAndView("redirect:" + "/index");
     }
 
@@ -107,11 +107,11 @@ public class OutcomeTypesController {
         OutcomeType currentOutcomeType = typeService.findTypeById(currentOutcomeTypeId);
         OutcomeType newOutcomeType = typeService.findTypeById(newOutcomeTypeId);
         typeService.deleteTypeAndUpdateOutcomes(currentOutcomeType, newOutcomeType);
-        updateAccountBalanceAfterDeltingOfMoving();
+        updateAccountBalanceAfterDeletingOfMoving();
         return new ModelAndView("redirect:" + "/index");
     }
 
-    private void updateAccountBalanceAfterDeltingOfMoving() {
+    private void updateAccountBalanceAfterDeletingOfMoving() {
         accountService.findAllUserAccounts(userService.getLoggedUser()).forEach(account -> {
             BigDecimal balance = utilService.recountAccountBalance(account);
             account.setBalance(balance);

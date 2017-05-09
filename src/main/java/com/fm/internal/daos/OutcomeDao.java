@@ -183,4 +183,19 @@ public class OutcomeDao extends GenericDao<Outcome> {
         query.orderBy(builder.desc(root.get(Outcome_.date)));
         return currentSession.createQuery(query).getResultList();
     }
+
+    @Transactional
+    public BigDecimal getSumOfOutcomesInAccount(Account account) {
+        Session currentSession = getSessionFactory().getCurrentSession();
+        CriteriaBuilder criteriaBuilder = currentSession.getCriteriaBuilder();
+        CriteriaQuery<BigDecimal> query = criteriaBuilder.createQuery(BigDecimal.class);
+        Root<Outcome> root = query.from(Outcome.class);
+        query.select(criteriaBuilder.sum(root.get(Outcome_.amount)));
+        query.where(criteriaBuilder.equal(root.get(Outcome_.account), account));
+        try {
+            return currentSession.createQuery(query).getSingleResult();
+        } catch (NoResultException e) {
+            return BigDecimal.valueOf(0);
+        }
+    }
 }

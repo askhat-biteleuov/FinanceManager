@@ -4,7 +4,9 @@ import com.fm.internal.models.*;
 import org.hibernate.Session;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -124,4 +126,18 @@ public class IncomeDao extends GenericDao<Income> {
         return session.createQuery(query).setFirstResult(offset).setMaxResults(limit).getResultList();
     }
 
+    @Transactional
+    public BigDecimal getSumOfIncomesInAccount(Account account) {
+        Session currentSession = getSessionFactory().getCurrentSession();
+        CriteriaBuilder criteriaBuilder = currentSession.getCriteriaBuilder();
+        CriteriaQuery<BigDecimal> query = criteriaBuilder.createQuery(BigDecimal.class);
+        Root<Income> root = query.from(Income.class);
+        query.select(criteriaBuilder.sum(root.get(Income_.amount)));
+        query.where(criteriaBuilder.equal(root.get(Income_.account), account));
+        try {
+            return currentSession.createQuery(query).getSingleResult();
+        } catch (NoResultException e) {
+            return BigDecimal.valueOf(0);
+        }
+    }
 }
