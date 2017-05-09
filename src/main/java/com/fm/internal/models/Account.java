@@ -20,7 +20,7 @@ public class Account implements Serializable {
     @Column(nullable = false)
     private BigDecimal balance;
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(nullable = false, name = "currency_character_code", foreignKey = @ForeignKey(name = "fk_currency_character_code"))
     private Currency currency;
 
