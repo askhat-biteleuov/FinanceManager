@@ -92,7 +92,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="outcomeDate">Дата дохода:<br/></label>
+                        <label for="outcomeDate">Дата расхода:<br/></label>
                         <input id="outcomeDate" name="date" type="date" required/><br/>
                         <div class="help-block with-errors"></div>
                     </div>
@@ -104,28 +104,64 @@
             </div>
             <div id="transfer" class="col-xs-4">
                 <button type="submit" class="btn btn-default">Перевести на другой счет</button>
-                <form:form method="POST" action="/transfer" modelAttribute="transferDto" cssClass="trans">
+                <form method="POST" action="/transfer/add" modelAttribute="transferDto" class="trans">
                     <br/>
                     <div class="form-group">
-                        <form:select path="toAccountId" cssClass="form-control">
-                            <form:option value="1" disabled="true" label="--- Select ---"/>
+                        <select id="accountSelect" name="toAccountId" class="form-control">
+                            <option value="1" disabled>--- Select ---</option>
                             <c:forEach items="${accounts}" var="acc">
-                                <c:if test="${acc.id != transferDto.accountId}">
-                                    <form:option value="${acc.id}" label="${acc.name}"/>
+                                <c:if test="${acc.id != account.id}">
+                                    <option value="${acc.id}">${acc.name}</option>
                                 </c:if>
                             </c:forEach>
-                        </form:select><br/>
+                        </select><br/>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="transferAmount" name="amount" placeholder="Amount" class="form-control"
+                        <input type="text" id="outcomeTransferAmount" name="outcomeAmount" placeholder="Amount" class="form-control"
                                pattern="^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$" required/><br/>
                         <div class="help-block with-errors"></div>
                     </div>
+                    <script type = "text/javascript" src="/resources/js/accountAndCurrencySelection.js"></script>
+                    <div class="form-group">
+                        <input type="hidden" value="${account.currency.nominal}" id="fromAccountNominal">
+                        <input type="hidden" value="${account.currency.curs}" id="fromAccountCurs">
+                        <input type="hidden" value="${account.user.info.currency.nominal}" id="userCurrencyNominal">
+                        <input type="hidden" value="${account.user.info.currency.curs}" id="userCurrencyCurs">
+                        <c:forEach items="${accounts}" var="acc">
+                            <c:if test="${acc.id != account.id}">
+                                <div class="form-group" id="${acc.id}">
+                                    <input type="hidden" value="${acc.currency.curs}" id="curs">
+                                    <input type="hidden" value="${acc.currency.nominal}" id="nominal">
+                                    <input type="hidden" value="${acc.currency.characterCode}" id="characterCode">
+                                </div>
+                            </c:if>
+                        </c:forEach>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <input id="changeCursCheckBox" type="checkbox" />
+                            </div>
+                            <input  type="text" name="customCurs" class="form-control" disabled/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div name = "currencyCharacterCode" class="input-group-addon"></div>
+                            <input type="text" id="incomeTransferAmount" name="incomeAmount" class="form-control" readonly />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="transferDate">Дата перевода:<br/></label>
+                        <input id="transferDate" name="date" type="date" required/><br/>
+                        <div class="help-block with-errors"></div>
+                    </div>
                     <input type="hidden" name="accountId" value="${account.id}">
+                    <input type="hidden" name="defaultAmount">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <button type="submit" class="btn btn-default">Перевести</button>
                     <br>
-                </form:form>
+                </form>
             </div>
         </div>
     </div>

@@ -1,6 +1,7 @@
 package com.fm.internal.services;
 
 import com.fm.internal.dtos.AccountDto;
+import com.fm.internal.dtos.TransferDto;
 import com.fm.internal.models.Account;
 import com.fm.internal.models.User;
 
@@ -15,7 +16,7 @@ public interface AccountService {
 
     Account findAccountById(long id);
 
-    void makeTransfer(Account from, Account to, String amount);
+    void makeTransfer(TransferDto transferDto);
 
     void createAccount(Account account);
 

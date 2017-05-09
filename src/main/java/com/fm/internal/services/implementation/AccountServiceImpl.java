@@ -3,12 +3,9 @@ package com.fm.internal.services.implementation;
 
 import com.fm.internal.daos.AccountDao;
 import com.fm.internal.dtos.AccountDto;
-import com.fm.internal.models.Account;
-import com.fm.internal.models.Income;
-import com.fm.internal.models.User;
-import com.fm.internal.services.AccountService;
-import com.fm.internal.services.CurrencyService;
-import com.fm.internal.services.IncomeService;
+import com.fm.internal.dtos.TransferDto;
+import com.fm.internal.models.*;
+import com.fm.internal.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
@@ -23,10 +20,18 @@ public class AccountServiceImpl implements AccountService {
     private AccountDao accountDao;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private CurrencyService currencyService;
 
     @Autowired
     private IncomeService incomeService;
+
+    @Autowired
+    private OutcomeService outcomeService;
+    @Autowired
+    private OutcomeTypeService outcomeTypeService;
 
     @Override
     public List<Account> findAllUserAccounts(User user) {
@@ -52,11 +57,17 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void makeTransfer(Account from, Account to, String amount) {
-        from.setBalance(from.getBalance().subtract(new BigDecimal(amount)));
-        accountDao.update(from);
-        to.setBalance(to.getBalance().add(new BigDecimal(amount)));
-        accountDao.update(to);
+    public void makeTransfer(TransferDto transferDto) {
+        Account fromAccount = accountDao.getById(transferDto.getAccountId());
+        Account toAccount = accountDao.getById(transferDto.getToAccountId());
+        final String note = "Transfer from account "+fromAccount.getName()+" to account " + toAccount.getName();
+        Outcome transferOutcome = new Outcome(new BigDecimal(transferDto.getOutcomeAmount()), new BigDecimal(transferDto.getDefaultAmount()),
+                LocalDate.parse(transferDto.getDate()), LocalTime.MIDNIGHT, note, fromAccount,
+                outcomeTypeService.getOutcomeTypeByNameAndUser(userService.getLoggedUser(), "Переводы"));
+        outcomeService.addOutcome(transferOutcome);
+        Income transferIncome = new Income(new BigDecimal(transferDto.getIncomeAmount()), LocalDate.parse(transferDto.getDate()), LocalTime.MIDNIGHT, toAccount);
+        transferIncome.setNote(note);
+        incomeService.addIncome(transferIncome);
     }
 
     @Override

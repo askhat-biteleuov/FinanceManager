@@ -40,12 +40,13 @@ public class TransferController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/transfer", method =  RequestMethod.POST)
+    @RequestMapping(value = "/transfer/add", method =  RequestMethod.POST)
     @ResponseBody
     public Object submitTransfer(@Valid @RequestBody TransferDto transferDto, BindingResult result) {
+
+
         if (!result.hasErrors()) {
-            accountService.makeTransfer(accountService.findAccountById(transferDto.getAccountId()),
-                    accountService.findAccountById(transferDto.getToAccountId()), transferDto.getAmount());
+            accountService.makeTransfer(transferDto);
             return new ResponseEntity<>(HttpStatus.OK);
         }
         Map<String, String> errors = ValidErrors.getMapOfMessagesAndErrors(result, messages);
