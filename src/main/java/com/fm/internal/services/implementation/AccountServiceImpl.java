@@ -3,11 +3,8 @@ package com.fm.internal.services.implementation;
 
 import com.fm.internal.daos.AccountDao;
 import com.fm.internal.dtos.AccountDto;
-<<<<<<< HEAD
 import com.fm.internal.dtos.TransferDto;
-import com.fm.internal.models.*;
 import com.fm.internal.services.*;
-=======
 import com.fm.internal.models.Account;
 import com.fm.internal.models.Income;
 import com.fm.internal.models.Outcome;
@@ -16,7 +13,6 @@ import com.fm.internal.services.AccountService;
 import com.fm.internal.services.CurrencyService;
 import com.fm.internal.services.IncomeService;
 import com.fm.internal.services.OutcomeService;
->>>>>>> origin/master
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
@@ -42,14 +38,12 @@ public class AccountServiceImpl implements AccountService {
 
     @Autowired
     private OutcomeService outcomeService;
-<<<<<<< HEAD
+
     @Autowired
     private OutcomeTypeService outcomeTypeService;
-=======
 
     @Autowired
     private UtilServiceImpl utilService;
->>>>>>> origin/master
 
     @Override
     public List<Account> findAllUserAccounts(User user) {
