@@ -50,6 +50,16 @@ public class Outcome implements Serializable {
         this.outcomeType = outcomeType;
     }
 
+    public Outcome(BigDecimal amount, BigDecimal defaultAmount, LocalDate date, LocalTime time, String note, Account account, OutcomeType outcomeType) {
+        this.amount = amount;
+        this.defaultAmount = defaultAmount;
+        this.date = date;
+        this.time = time;
+        this.account = account;
+        this.outcomeType = outcomeType;
+        this.note = note;
+    }
+
     public long getId() {
         return id;
     }
