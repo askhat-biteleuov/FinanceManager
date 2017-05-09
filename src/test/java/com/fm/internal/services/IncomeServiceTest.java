@@ -1,6 +1,7 @@
 package com.fm.internal.services;
 
 import com.fm.internal.currency.GetCurrency;
+import com.fm.internal.daos.IncomeDao;
 import com.fm.internal.models.Account;
 import com.fm.internal.models.Income;
 import com.fm.internal.models.User;
@@ -32,6 +33,9 @@ public class IncomeServiceTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
     private CurrencyService currencyService;
+
+    @Autowired
+    private IncomeDao incomeDao;
 
     @Autowired
     private GetCurrency getCurrency;
@@ -100,6 +104,13 @@ public class IncomeServiceTest extends AbstractTestNGSpringContextTests {
         BigDecimal sumOfAllIncomes = incomeService.sumOfAllIncomes(allIncomesInAccount);
         Assert.assertNotNull(sumOfAllIncomes);
         Assert.assertEquals(sumOfAllIncomes.doubleValue(), SUM_OF_INCOMES.doubleValue());
+    }
+
+    @Test
+    public void testSumOfAllIncomesByDao() throws Exception {
+        BigDecimal sumOfIncomesInAccount = incomeDao.getSumOfIncomesInAccount(accountService.findAccountById(2));
+        Assert.assertNotNull(sumOfIncomesInAccount);
+        Assert.assertEquals(sumOfIncomesInAccount.doubleValue(), SUM_OF_INCOMES.doubleValue());
     }
 
 }
