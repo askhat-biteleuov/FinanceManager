@@ -89,4 +89,9 @@ public class OutcomeTypeServiceImpl implements OutcomeTypeService {
     public BigDecimal getSumOfOutcomesInTypeForMonth(OutcomeType outcomeType) {
         return outcomeTypeDao.getSumOfOutcomesInTypeForMonth(outcomeType);
     }
+
+    @Override
+    public OutcomeType getOutcomeTypeByNameAndUser(User user, String name) {
+        return outcomeTypeDao.getOutcomeTypeByNameAndUser(user, name);
+    }
 }

@@ -1,9 +1,6 @@
 package com.fm.internal.daos;
 
-import com.fm.internal.models.Account;
-import com.fm.internal.models.Outcome;
-import com.fm.internal.models.OutcomeType;
-import com.fm.internal.models.Outcome_;
+import com.fm.internal.models.*;
 import org.hibernate.Session;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +27,21 @@ public class OutcomeTypeDao extends GenericDao<OutcomeType> {
 //        query.where(criteriaBuilder.equal(root.get(Outcome_.outcomeType), outcomeType));
 //        return session.createQuery(query).setFirstResult(offset).setMaxResults(limit).getResultList();
 //    }
+
+    @Transactional
+    public OutcomeType getOutcomeTypeByNameAndUser(User user, String name){
+        Session currentSession = getSessionFactory().getCurrentSession();
+        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
+        CriteriaQuery<OutcomeType> query = builder.createQuery(OutcomeType.class);
+        Root<OutcomeType> root = query.from(OutcomeType.class);
+        Predicate getOutcomeTypeByNameAndUser = builder.and(builder.equal(root.get(OutcomeType_.name), name), builder.equal(root.get(OutcomeType_.user), user));
+        query.where(getOutcomeTypeByNameAndUser);
+        try {
+            return currentSession.createQuery(query).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 
     @Transactional
     public List<Outcome> getOutcomesByTypeByDate(OutcomeType outcomeType, int offset, int limit,
