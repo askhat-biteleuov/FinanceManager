@@ -44,7 +44,7 @@ $(document).ready(function() {
         }
 
         function countAmountInUserCurrency(amount, multiplier) {
-            $('input[name=defaultAmount]').val(amount * multiplier);
+            $('#defaultTransferAmount').val(amount * multiplier);
         }
 
         function setCursToCBCurs() {

@@ -66,32 +66,32 @@
                                maxlength="256"/><br/>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="outcomeAmount" name="amount" placeholder="Amount" class="form-control"
+                        <input type="text" id="amountOutcome" name="amount" placeholder="Amount" class="form-control"
                                pattern="^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$" required/><br/>
                         <div class="help-block with-errors"></div>
                     </div>
                     <script type="text/javascript" src="/resources/js/changeCurrency.js"></script>
-                    <div class="form-group" id="currExchange" hidden>
+                    <div class="form-group" id="currExchangeOutcome" hidden>
                         <div class="form-group">
-                            <input type="hidden" value="${account.currency.nominal}" id="fromNominal">
-                            <input type="hidden" value="${account.currency.curs}" id="fromCurs">
-                            <input type="hidden" value="${account.user.info.currency.nominal}" id="toNominal">
-                            <input type="hidden" value="${account.user.info.currency.curs}" id="toCurs">
-                            <input type="hidden" value="${account.user.info.currency.characterCode}" id="userCur">
-                            <input type="hidden" value="${account.currency.characterCode}" id="accountCur">
+                            <input type="hidden" value="${account.currency.nominal}" id="fromNominalOutcome">
+                            <input type="hidden" value="${account.currency.curs}" id="fromCursOutcome">
+                            <input type="hidden" value="${user.info.currency.nominal}" id="toNominalOutcome">
+                            <input type="hidden" value="${user.info.currency.curs}" id="toCursOutcome">
+                            <input type="hidden" value="${user.info.currency.characterCode}" id="userCurOutcome">
+                            <input type="hidden" value="${account.currency.characterCode}" id="accountCurOutcome">
                         </div>
                         <div class="form-group">
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                    <input name="checkbox" type="checkbox"/>
+                                    <input id="checkboxOutcome" type="checkbox"/>
                                 </div>
-                                <input type="text" name="customCurs" class="form-control" disabled/>
+                                <input type="text" id="customCursOutcome" class="form-control" disabled/>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="input-group">
-                                <div class="input-group-addon">${account.user.info.currency.characterCode}</div>
-                                <input type="text" id="defaultAmount" name="defaultAmount" class="form-control"
+                                <div class="input-group-addon">${user.info.currency.characterCode}</div>
+                                <input type="text" id="defaultAmountOutcome" name="defaultAmount" class="form-control"
                                        readonly/>
                             </div>
                         </div>
@@ -162,7 +162,7 @@
                         <div class="help-block with-errors"></div>
                     </div>
                     <input type="hidden" name="accountId" value="${account.id}">
-                    <input type="hidden" name="defaultAmount">
+                    <input type="hidden" id="defaultTransferAmount" name="defaultAmount">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <button type="submit" class="btn btn-default">Перевести</button>
                     <br>

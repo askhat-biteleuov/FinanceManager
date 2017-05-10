@@ -1,44 +1,44 @@
 $(document).ready(function() {
 
-    var toCurs= $("#toCurs").val();
-    var toNominal= $("#toNominal").val();
-    var fromCurs = $("#fromCurs").val();
-    var fromNominal= $("#fromNominal").val();
-    var userCur = $("#userCur").val();
-    var accountCur = $("#accountCur").val();
+    var toCurs= $("#toCursOutcome").val();
+    var toNominal= $("#toNominalOutcome").val();
+    var fromCurs = $("#fromCursOutcome").val();
+    var fromNominal= $("#fromNominalOutcome").val();
+    var userCur = $("#userCurOutcome").val();
+    var accountCur = $("#accountCurOutcome").val();
 
     if (userCur !== accountCur) {
-        $("#currExchange").show();
+        $("#currExchangeOutcome").show();
     }
 
     setCursToCBCurs();
 
-    $('input[name=checkbox]').click(function () {
+    $('#checkboxOutcome').click(function () {
         if ($(this).is(':checked')) {
-            $('input[name=customCurs]').prop('disabled', false);
+            $('#customCursOutcome').prop('disabled', false);
         } else {
             setCursToCBCurs();
-            $('input[name=customCurs]').prop('disabled', true);
+            $('#customCursOutcome').prop('disabled', true);
         }
     });
 
-    $('input[name=customCurs]').on('keyup change', function () {
-        countAmountByCurs($('#outcomeAmount').val(),$(this).val());
+    $('#customCursOutcome').on('keyup change', function () {
+        countAmountByCurs($('#amountOutcome').val(),$(this).val());
     });
 
-    $('#outcomeAmount').on('keyup change', function () {
-        var curs = $('input[name=customCurs]').val();
+    $('#amountOutcome').on('keyup change', function () {
+        var curs = $('#customCursOutcome').val();
         countAmountByCurs($(this).val(),curs);
     });
 
     function countAmountByCurs(amount,customCurs) {
         var defaultAmount=(customCurs*amount).toFixed(2);
-        $('input[name=defaultAmount]').val(defaultAmount);
+        $('#defaultAmountOutcome').val(defaultAmount);
     }
 
     function setCursToCBCurs() {
         var customCurs=(fromCurs/fromNominal)/(toCurs/toNominal);
-        $('input[name=customCurs]').val(customCurs.toFixed(4));
-        countAmountByCurs($('#outcomeAmount').val(),customCurs);
+        $('#customCursOutcome').val(customCurs.toFixed(4));
+        countAmountByCurs($('#amountOutcome').val(),customCurs);
     }
 });

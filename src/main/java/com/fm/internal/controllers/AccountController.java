@@ -71,6 +71,7 @@ public class AccountController {
     public ModelAndView getAccountPage(@RequestParam("name") String nameOfAccount) {
         ModelAndView modelAndView = setDefaultMavForAccountByName(nameOfAccount);
         modelAndView.setViewName("accountpage");
+        modelAndView.addObject("user",userService.getLoggedUser());
         modelAndView.addObject("statusBarDto", statusBarService.getStatusBar(userService.getLoggedUser()));
         return modelAndView;
     }
