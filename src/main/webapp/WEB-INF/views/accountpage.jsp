@@ -71,24 +71,29 @@
                         <div class="help-block with-errors"></div>
                     </div>
                     <script type="text/javascript" src="/resources/js/changeCurrency.js"></script>
-                    <div class="form-group">
-                        <input type="hidden" value="${account.currency.nominal}" id="fromNominal">
-                        <input type="hidden" value="${account.currency.curs}" id="fromCurs">
-                        <input type="hidden" value="${account.user.info.currency.nominal}" id="toNominal">
-                        <input type="hidden" value="${account.user.info.currency.curs}" id="toCurs">
-                    </div>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <div class="input-group-addon">
-                                <input name="checkbox" type="checkbox" />
-                            </div>
-                            <input  type="text" name="customCurs" class="form-control" disabled/>
+                    <div class="form-group" id="currExchange" hidden>
+                        <div class="form-group">
+                            <input type="hidden" value="${account.currency.nominal}" id="fromNominal">
+                            <input type="hidden" value="${account.currency.curs}" id="fromCurs">
+                            <input type="hidden" value="${account.user.info.currency.nominal}" id="toNominal">
+                            <input type="hidden" value="${account.user.info.currency.curs}" id="toCurs">
+                            <input type="hidden" value="${account.user.info.currency.characterCode}" id="userCur">
+                            <input type="hidden" value="${account.currency.characterCode}" id="accountCur">
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <div class="input-group-addon">${account.user.info.currency.characterCode}</div>
-                            <input type="text" id="defaultAmount" name="defaultAmount"  class="form-control" readonly />
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <input name="checkbox" type="checkbox"/>
+                                </div>
+                                <input type="text" name="customCurs" class="form-control" disabled/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">${account.user.info.currency.characterCode}</div>
+                                <input type="text" id="defaultAmount" name="defaultAmount" class="form-control"
+                                       readonly/>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -191,7 +196,7 @@
                 <input type="text" class="input-sm form-control" name="end" id="end" readonly/>
             </div>
             <br/>
-           <button type="submit" class="btn btn-default">Submit</button>
+            <button type="submit" class="btn btn-default">Submit</button>
             <input type="hidden" name="accountName" value="${account.name}"/>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <script>

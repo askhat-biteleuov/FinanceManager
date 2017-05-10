@@ -1,8 +1,15 @@
 $(document).ready(function() {
+
     var toCurs= $("#toCurs").val();
     var toNominal= $("#toNominal").val();
     var fromCurs = $("#fromCurs").val();
     var fromNominal= $("#fromNominal").val();
+    var userCur = $("#userCur").val();
+    var accountCur = $("#accountCur").val();
+
+    if (userCur !== accountCur) {
+        $("#currExchange").show();
+    }
 
     setCursToCBCurs();
 
