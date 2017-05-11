@@ -26,17 +26,31 @@
                 </form>
                 </div>
                 <br>
+                <script src="<c:url value="/resources/js/editAccount.js"/>"></script>
                 <div class="container">
                     <div class="row">
                     <c:forEach var="account" items="${user.accounts}">
                         <div class="col-sm-4 col-lg-3 ">
-                            <a href="<c:url value="/account/page?name=${account.name}"/>">
+                            <a href="<c:url value="/account/page?id=${account.id}"/>">
 
                             <div class="panel panel-default panel-shadow-1">
-                                <div class="panel-heading dark-green">
-                                    <span class="text-white">
+                                <div class="panel-heading dark-green editDiv">
+                                    <h5 class="text-white editField" contenteditable="false">
                                         <c:out value="${account.name}"/>
-                                    </span>
+                                    </h5>
+                                    <input type="text" hidden class="oldVal">
+                                    <input hidden class="isLink">
+                                    <input hidden class="accountId" value="${account.id}">
+                                    <input hidden class="accountBalance" value="${account.balance}">
+                                    <button hidden class="acceptBtn">
+                                        <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
+                                    </button>
+                                    <button hidden class="cancelBtn">
+                                        <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+                                    </button>
+                                    <button class="editBtn">
+                                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                    </button>
                                 </div>
                                 <div class="panel-body">
                                     <fmt:formatNumber type="currency" currencySymbol="${account.currency.characterCode}" value="${account.balance}"/>

@@ -68,8 +68,8 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/page", method = RequestMethod.GET)
-    public ModelAndView getAccountPage(@RequestParam("name") String nameOfAccount) {
-        ModelAndView modelAndView = setDefaultMavForAccountByName(nameOfAccount);
+    public ModelAndView getAccountPage(@RequestParam("id") long idOfAccount) {
+        ModelAndView modelAndView = setDefaultMavForAccountByName(idOfAccount);
         modelAndView.setViewName("accountpage");
         modelAndView.addObject("user",userService.getLoggedUser());
         modelAndView.addObject("statusBarDto", statusBarService.getStatusBar(userService.getLoggedUser()));
@@ -84,13 +84,27 @@ public class AccountController {
                 LocalDate.parse(rangeDto.getEnd()));
     }
 
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    @ResponseBody
+    public Object editAccount(@Valid @RequestBody AccountDto accountDto, BindingResult result) {
+        Account account = accountService.findAccountById(accountDto.getId());
+        accountValidator.validate(accountDto, result);
+        if (result.hasErrors()) {
+            Map<String, String> errors = ValidErrors.getMapOfMessagesAndErrors(result, messages);
+            return new ResponseEntity<>(errors, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        account.setName(accountDto.getName().trim());
+        accountService.updateAccount(account);
+        LOGGER.info("Account with id:" + accountDto.getId()+" was updated");
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 
-    private ModelAndView setDefaultMavForAccountByName(String accountName) {
+    private ModelAndView setDefaultMavForAccountByName(long id) {
         ModelAndView modelAndView = new ModelAndView();
-        Account account = getAccountByName(accountName);
+        Account account = accountService.findAccountById(id);
         RangeDto rangeDto = new RangeDto();
-        rangeDto.setAccountName(accountName);
+        rangeDto.setAccountName(account.getName());
         TransferDto transferDto = new TransferDto();
         transferDto.setAccountId(account.getId());
         modelAndView.addObject("rangeDto", rangeDto);
@@ -104,9 +118,4 @@ public class AccountController {
         modelAndView.addObject("outcomes", outcomeTypeService.defaultOutcomeTypesValue(account));
         return modelAndView;
     }
-
-    private Account getAccountByName(String accountName) {
-        return accountService.findUserAccountByName(userService.getLoggedUser(), accountName);
-    }
-
 }
