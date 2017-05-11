@@ -33,6 +33,11 @@ public class HashTagServiceImplementation implements HashTagService {
     }
 
     @Override
+    public HashTag getHashTagByUserAndText(User user, String hashTagText) {
+        return hashTagDao.getHashTagByUserAndText(user, hashTagText);
+    }
+
+    @Override
     public List<HashTag> getHashTagsByUser(User user) {
         return hashTagDao.getHashTagsByUser(user);
     }

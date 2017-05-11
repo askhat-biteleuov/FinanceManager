@@ -14,6 +14,8 @@ public interface HashTagService {
 
     HashTag getHashTagById(long id);
 
+    HashTag getHashTagByUserAndText(User user, String hashTagText);
+
     List<HashTag> getHashTagsByUser(User user);
 
     List<HashTag> getMatchingHashTags(User user, String hashTagPiece);

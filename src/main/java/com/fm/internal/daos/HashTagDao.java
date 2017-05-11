@@ -6,15 +6,33 @@ import com.fm.internal.models.User;
 import org.hibernate.Session;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.math.BigDecimal;
 import java.util.List;
 
 public class HashTagDao extends GenericDao<HashTag>{
     public HashTagDao() {
         super(HashTag.class);
+    }
+
+    @Transactional
+    public HashTag getHashTagByUserAndText(User user, String hashTagText){
+        Session currentSession = getSessionFactory().getCurrentSession();
+        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
+        CriteriaQuery<HashTag> query = builder.createQuery(HashTag.class);
+        Root<HashTag> root = query.from(HashTag.class);
+        Predicate userEquals = builder.equal(root.get(HashTag_.user), user);
+        Predicate textEquals = builder.equal(root.get(HashTag_.text), hashTagText.toLowerCase());
+        query.where(userEquals, textEquals);
+        try {
+            return currentSession.createQuery(query).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
     @Transactional
