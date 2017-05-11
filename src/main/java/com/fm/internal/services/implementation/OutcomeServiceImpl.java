@@ -3,15 +3,20 @@ package com.fm.internal.services.implementation;
 import com.fm.internal.daos.OutcomeDao;
 import com.fm.internal.dtos.OutcomeDto;
 import com.fm.internal.models.Account;
+import com.fm.internal.models.HashTag;
 import com.fm.internal.models.Outcome;
 import com.fm.internal.models.User;
 import com.fm.internal.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class OutcomeServiceImpl implements OutcomeService {
     @Autowired
@@ -24,12 +29,22 @@ public class OutcomeServiceImpl implements OutcomeService {
     private CurrencyService currencyService;
     @Autowired
     private UtilServiceImpl utilService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private HashTagService hashTagService;
 
     @Override
     public void addOutcome(Outcome outcome) {
         dao.add(outcome);
         outcome.getAccount().setBalance(getBalanceAfterOutcomeOperation(outcome));
         accountService.updateAccount(outcome.getAccount());
+        List<HashTag> outComeHashTags = parseHashTags(outcome);
+        outComeHashTags.stream().forEach(hashTag -> {
+            if (hashTagService.getHashTagByUserAndText(outcome.getAccount().getUser(), hashTag.getText()) == null){
+                hashTagService.addHashTag(hashTag);
+            }
+        });
     }
 
     @Override
@@ -98,6 +113,7 @@ public class OutcomeServiceImpl implements OutcomeService {
         outcome.setDate(LocalDate.parse(outcomeDto.getDate()));
         outcome.setTime(LocalTime.now());
         outcome.setNote(outcomeDto.getNote());
+        outcome.setHashTags(outcomeDto.getHashTags().toLowerCase());
         outcome.setOutcomeType(outcomeTypeService.findTypeById(outcomeDto.getOutcomeTypeId()));
         outcome.setDefaultAmount(new BigDecimal(outcomeDto.getDefaultAmount()));
         return outcome;
@@ -122,7 +138,17 @@ public class OutcomeServiceImpl implements OutcomeService {
     }
 
     @Override
-    public List<Outcome> getOutcomesByHashTag(Account account, String hashcode) {
-        return dao.getOutcomesByHashTag(account, hashcode);
+    public List<Outcome> getOutcomesByHashTag(Account account, String hashTag) {
+        return dao.getOutcomesByHashTag(account, hashTag);
+    }
+
+    private List<HashTag> parseHashTags(Outcome outcome) {
+        String hashTags = outcome.getHashTags().toLowerCase();
+        Matcher hashTagMatcher = hashTagPattern.matcher(hashTags);
+        List<HashTag> hashTagsList = new ArrayList<>();
+        while (hashTagMatcher.find()) {
+            hashTagsList.add(new HashTag(hashTagMatcher.group().trim(), outcome.getAccount().getUser()));
+        }
+        return hashTagsList;
     }
 }

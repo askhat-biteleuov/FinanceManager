@@ -31,6 +31,8 @@ public class OutcomeServiceTest extends AbstractTestNGSpringContextTests{
     private CurrencyService currencyService;
     @Autowired
     private CurrencyDao currencyDao;
+    @Autowired
+    private HashTagService hashTagService;
 
     private final static String USER_EMAIL = "user@email";
     private final static String USER_PASSWORD = "password";
@@ -55,8 +57,7 @@ public class OutcomeServiceTest extends AbstractTestNGSpringContextTests{
         outcomeTypeService.addOutcomeType(type);
 
         Outcome[] outcomes = {
-                new Outcome(new BigDecimal(1), currencyService.getOutcomeAmountForDefaultCurrency(accounts[0], new BigDecimal(1)), LocalDate.now(), LocalTime.now(), "blahblahblahblah blahblahblah", "#weekend", accounts[0], type),
-                new Outcome(new BigDecimal(2), currencyService.getOutcomeAmountForDefaultCurrency(accounts[0], new BigDecimal(2)), LocalDate.now(), LocalTime.now(), "blahblahblahblah blahblahblah", "#weekend #summertime", accounts[0], type),
+                new Outcome(new BigDecimal(1), currencyService.getOutcomeAmountForDefaultCurrency(accounts[0], new BigDecimal(1)), LocalDate.now(), LocalTime.now(), "blahblahblahblah blahblahblah", "#weekend # #sss# ##blablabla", accounts[0], type),
                 new Outcome(new BigDecimal(3), currencyService.getOutcomeAmountForDefaultCurrency(accounts[0], new BigDecimal(3)), LocalDate.now(), LocalTime.now(), accounts[0], type),
                 new Outcome(new BigDecimal(4), currencyService.getOutcomeAmountForDefaultCurrency(accounts[0], new BigDecimal(4)), LocalDate.now(), LocalTime.now(), accounts[0], type),
                 new Outcome(new BigDecimal(5), currencyService.getOutcomeAmountForDefaultCurrency(accounts[1], new BigDecimal(5)), LocalDate.now(), LocalTime.now(), accounts[1], type),
@@ -89,7 +90,14 @@ public class OutcomeServiceTest extends AbstractTestNGSpringContextTests{
     }
 
     @Test
-    public void hashcodeSearchTest() throws Exception{
+    public void hashTagParsing() throws Exception{
+        User user = userService.findByEmail(USER_EMAIL);
+        hashTagService.getHashTagsByUser(user).stream().forEach(hashTag -> System.out.println(hashTag.getText()));
+        Assert.assertEquals(4, hashTagService.getHashTagsByUser(user).size());
+    }
+
+    @Test
+    public void hashTagSearchTest() throws Exception{
         User user = userService.findByEmail(USER_EMAIL);
         Account account = accountService.findUserAccountByName(user, FIRST_ACCOUNT_NAME);
         Assert.assertEquals(2, outcomeService.getOutcomesByHashTag(account, "#weekend").size());
