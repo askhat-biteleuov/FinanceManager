@@ -11,7 +11,7 @@ import com.fm.internal.services.OutcomeTypeService;
 import com.fm.internal.services.StatusBarService;
 import com.fm.internal.services.UserService;
 import com.fm.internal.services.implementation.PaginationServiceImpl;
-import com.fm.internal.services.implementation.RangeService;
+import com.fm.internal.services.RangeService;
 import com.fm.internal.services.implementation.UtilServiceImpl;
 import com.fm.internal.validation.OutcomeTypeValidator;
 import com.fm.internal.validation.util.ValidErrors;

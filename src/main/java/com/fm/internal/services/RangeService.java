@@ -1,4 +1,4 @@
-package com.fm.internal.services.implementation;
+package com.fm.internal.services;
 
 import com.fm.internal.dtos.RangeDto;
 

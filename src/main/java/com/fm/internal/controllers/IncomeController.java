@@ -1,6 +1,5 @@
 package com.fm.internal.controllers;
 
-import com.fm.internal.dtos.AccountDto;
 import com.fm.internal.dtos.IncomeDto;
 import com.fm.internal.dtos.PaginationDto;
 import com.fm.internal.dtos.RangeDto;
@@ -12,7 +11,7 @@ import com.fm.internal.services.IncomeService;
 import com.fm.internal.services.StatusBarService;
 import com.fm.internal.services.UserService;
 import com.fm.internal.services.implementation.PaginationServiceImpl;
-import com.fm.internal.services.implementation.RangeService;
+import com.fm.internal.services.RangeService;
 import com.fm.internal.validation.util.ValidErrors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -27,7 +26,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
