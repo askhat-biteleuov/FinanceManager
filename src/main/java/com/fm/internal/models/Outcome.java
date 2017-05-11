@@ -50,6 +50,7 @@ public class Outcome implements Serializable {
         this.time = time;
         this.account = account;
         this.outcomeType = outcomeType;
+        this.hashTags = "";
     }
 
     public Outcome(BigDecimal amount, BigDecimal defaultAmount, LocalDate date, LocalTime time, String note, String hashTags, Account account, OutcomeType outcomeType) {
