@@ -7,7 +7,6 @@
 <t:master-page title="Список расходов">
     <div align="center">
     <h2>Расходы</h2>
-    <script src="<c:url value="/resources/js/defaultDateForRange.js"/>"></script>
     <form:form method="get" action="/outcome/page" modelAttribute="rangeDto" id="rangeForm">
         <div class="input-daterange input-group col-xs-2" id="datepicker-range">
             <form:input path="start" type="text" cssClass="input-sm form-control" name="start" id="start" readonly="true"/>

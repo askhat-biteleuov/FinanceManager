@@ -28,7 +28,7 @@ public class AccountValidator implements Validator {
         AccountDto accountDto = (AccountDto) o;
         List<Account> accounts = accountService.findAllUserAccounts(userService.getLoggedUser());
         for (Account acc : accounts) {
-            if (acc.getName().equals(accountDto.getName())) {
+            if (acc.getName().equalsIgnoreCase(accountDto.getName())) {
                 errors.rejectValue("name", "Exist");
             }
         }

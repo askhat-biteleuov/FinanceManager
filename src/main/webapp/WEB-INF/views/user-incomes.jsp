@@ -4,10 +4,9 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<t:master-page title="Список доходов">
+<t:master-page title="Список приходов">
     <div align="center">
-    <h2>Доходы</h2>
-    <script src="<c:url value="/resources/js/defaultDateForRange.js"/>"></script>
+    <h2>Приходы</h2>
     <form:form method="get" action="/account/income/all" modelAttribute="rangeDto" id="rangeForm">
         <div class="input-daterange input-group col-xs-2" id="datepicker-range">
             <form:input path="start" type="text" cssClass="input-sm form-control" name="start" id="start" readonly="true"/>
@@ -15,7 +14,7 @@
             <form:input path="end" type="text" cssClass="input-sm form-control" name="end" id="end" readonly="true"/>
         </div>
         <br/>
-        <button type="submit" class="btn btn-default">Submit</button>
+        <button type="submit" class="btn btn-default" id="submitRange">Submit</button>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <script>
             $('#datepicker-range').datepicker({

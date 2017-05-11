@@ -24,7 +24,7 @@
     <div id="adding" class="container" align="center">
         <div class="row">
             <div id="incomeAdd" class="col-xs-4">
-                <button type="button" class="btn btn-default">Добавить доход</button>
+                <button type="button" class="btn btn-default">Добавить приход</button>
                 <form method="POST" action="<c:url value="/account/income/add"/>" id="incomeForm" class="trans"
                       role="form">
                     <br/>

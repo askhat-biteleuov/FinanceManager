@@ -53,8 +53,10 @@ public class UserServiceImpl implements UserService {
     public void createUser(User user) {
         user.setPassword(encoder.encode(user.getPassword()));
         dao.add(user);
-        Account initAccount = new Account("Кошелек", BigDecimal.ZERO, null, user, currencyService.findCurrencyByCharCode("RUB"));
-        accountService.createAccount(initAccount);
+        Account initWalletAccount = new Account("Кошелек", BigDecimal.ZERO, null, user, currencyService.findCurrencyByCharCode("RUB"));
+        Account initSalaryAccount = new Account("Зарплатный", BigDecimal.ZERO, null, user, currencyService.findCurrencyByCharCode("RUB"));
+        accountService.createAccount(initWalletAccount);
+        accountService.createAccount(initSalaryAccount);
         OutcomeType[] initOutcomeTypes = {
                 new OutcomeType("Еда", new BigDecimal(5000), user),
                 new OutcomeType("Транспорт", new BigDecimal(1000), user),

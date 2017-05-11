@@ -52,7 +52,7 @@
                 </c:if>
                 <c:if test="${userName != null}">
                     <li><a href="<c:url value="/outcome/all"/>">Расходы</a></li>
-                    <li><a href="<c:url value="/account/income/all"/>">Доходы</a></li>
+                    <li><a href="<c:url value="/account/income/all"/>">Приходы</a></li>
 
                 </c:if>
             </ul>

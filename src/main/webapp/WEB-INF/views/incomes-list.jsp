@@ -4,7 +4,7 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<t:master-page title="Список доходов">
+<t:master-page title="Список приходов">
     <script src="<c:url value="/resources/js/editNotes.js"/>"></script>
     <style>
         [contenteditable]:focus {
@@ -13,8 +13,7 @@
         }
     </style>
     <div align="center">
-    <h2>Доходы</h2>
-    <script src="<c:url value="/resources/js/defaultDateForRange.js"/>"></script>
+    <h2>Приходы</h2>
     <form:form method="get" action="/account/income/page" modelAttribute="rangeDto" id="rangeForm">
         <div class="input-daterange input-group col-xs-2" id="datepicker-range">
             <form:input path="start" type="text" cssClass="input-sm form-control" name="start" id="start" readonly="true"/>
