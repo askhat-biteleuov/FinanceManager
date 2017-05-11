@@ -15,5 +15,6 @@
         <mapping class="com.fm.internal.models.OutcomeType"/>
         <mapping class="com.fm.internal.models.Outcome"/>
         <mapping class="com.fm.internal.models.Currency"/>
+        <mapping class="com.fm.internal.models.HashTag"/>
     </session-factory>
 </hibernate-configuration>

@@ -55,10 +55,10 @@ public class OutcomeServiceTest extends AbstractTestNGSpringContextTests{
         outcomeTypeService.addOutcomeType(type);
 
         Outcome[] outcomes = {
-                new Outcome(new BigDecimal(1), currencyService.getOutcomeAmountForDefaultCurrency(accounts[0], new BigDecimal(1)), LocalDate.now(), LocalTime.now(), "blahblahblahblah#weekend blahblahblah", accounts[0], type),
-                new Outcome(new BigDecimal(2), currencyService.getOutcomeAmountForDefaultCurrency(accounts[0], new BigDecimal(2)), LocalDate.now(), LocalTime.now(), "blahblahblahblah#weekend#summertime blahblahblah", accounts[0], type),
-                new Outcome(new BigDecimal(3), currencyService.getOutcomeAmountForDefaultCurrency(accounts[0], new BigDecimal(3)), LocalDate.now(), LocalTime.now(), "blahblahblahblah#weekendblahblahblah", accounts[0], type),
-                new Outcome(new BigDecimal(4), currencyService.getOutcomeAmountForDefaultCurrency(accounts[0], new BigDecimal(4)), LocalDate.now(), LocalTime.now(), "blahblahblahblah weekend blahblahblah", accounts[0], type),
+                new Outcome(new BigDecimal(1), currencyService.getOutcomeAmountForDefaultCurrency(accounts[0], new BigDecimal(1)), LocalDate.now(), LocalTime.now(), "blahblahblahblah blahblahblah", "#weekend", accounts[0], type),
+                new Outcome(new BigDecimal(2), currencyService.getOutcomeAmountForDefaultCurrency(accounts[0], new BigDecimal(2)), LocalDate.now(), LocalTime.now(), "blahblahblahblah blahblahblah", "#weekend #summertime", accounts[0], type),
+                new Outcome(new BigDecimal(3), currencyService.getOutcomeAmountForDefaultCurrency(accounts[0], new BigDecimal(3)), LocalDate.now(), LocalTime.now(), accounts[0], type),
+                new Outcome(new BigDecimal(4), currencyService.getOutcomeAmountForDefaultCurrency(accounts[0], new BigDecimal(4)), LocalDate.now(), LocalTime.now(), accounts[0], type),
                 new Outcome(new BigDecimal(5), currencyService.getOutcomeAmountForDefaultCurrency(accounts[1], new BigDecimal(5)), LocalDate.now(), LocalTime.now(), accounts[1], type),
                 new Outcome(new BigDecimal(6), currencyService.getOutcomeAmountForDefaultCurrency(accounts[1], new BigDecimal(6)), LocalDate.of(2017, 04, 20), LocalTime.now(), accounts[1], type),
                 new Outcome(new BigDecimal(7), currencyService.getOutcomeAmountForDefaultCurrency(accounts[1], new BigDecimal(7)), LocalDate.of(2017, 04, 20), LocalTime.now(), accounts[1], type),
@@ -92,7 +92,7 @@ public class OutcomeServiceTest extends AbstractTestNGSpringContextTests{
     public void hashcodeSearchTest() throws Exception{
         User user = userService.findByEmail(USER_EMAIL);
         Account account = accountService.findUserAccountByName(user, FIRST_ACCOUNT_NAME);
-        Assert.assertEquals(2, outcomeService.getOutcomesByHashCode(account, "#weekend").size());
-        outcomeService.getOutcomesByHashCode(account, "#weekend").stream().forEach(outcome -> System.out.println(outcome.getNote()));
+        Assert.assertEquals(2, outcomeService.getOutcomesByHashTag(account, "#weekend").size());
+        outcomeService.getOutcomesByHashTag(account, "#weekend").stream().forEach(outcome -> System.out.println(outcome.getHashTags()));
     }
 }

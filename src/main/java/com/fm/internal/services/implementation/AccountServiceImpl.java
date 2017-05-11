@@ -74,7 +74,7 @@ public class AccountServiceImpl implements AccountService {
         Account toAccount = accountDao.getById(transferDto.getToAccountId());
         final String note = "Transfer from account "+fromAccount.getName()+" to account " + toAccount.getName();
         Outcome transferOutcome = new Outcome(new BigDecimal(transferDto.getOutcomeAmount()), new BigDecimal(transferDto.getDefaultAmount()),
-                LocalDate.parse(transferDto.getDate()), LocalTime.MIDNIGHT, note, fromAccount,
+                LocalDate.parse(transferDto.getDate()), LocalTime.MIDNIGHT, note, "", fromAccount,
                 outcomeTypeService.getOutcomeTypeByNameAndUser(userService.getLoggedUser(), "Переводы"));
         outcomeService.addOutcome(transferOutcome);
         Income transferIncome = new Income(new BigDecimal(transferDto.getIncomeAmount()), LocalDate.parse(transferDto.getDate()), LocalTime.MIDNIGHT, toAccount);

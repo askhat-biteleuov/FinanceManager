@@ -122,7 +122,7 @@ public class OutcomeServiceImpl implements OutcomeService {
     }
 
     @Override
-    public List<Outcome> getOutcomesByHashCode(Account account, String hashcode) {
-        return dao.getOutcomesByHashcode(account, hashcode);
+    public List<Outcome> getOutcomesByHashTag(Account account, String hashcode) {
+        return dao.getOutcomesByHashTag(account, hashcode);
     }
 }

@@ -171,13 +171,13 @@ public class OutcomeDao extends GenericDao<Outcome> {
     }
 
     @Transactional
-    public List<Outcome> getOutcomesByHashcode(Account account, String hashcode){
+    public List<Outcome> getOutcomesByHashTag(Account account, String hashTag){
         Session currentSession = getSessionFactory().getCurrentSession();
         CriteriaBuilder builder = currentSession.getCriteriaBuilder();
         CriteriaQuery<Outcome> query = builder.createQuery(Outcome.class);
         Root<Outcome> root = query.from(Outcome.class);
         query.select(root);
-        Predicate hashcodeSearch = builder.or(builder.like(root.get(Outcome_.note), "%"+hashcode+" %"), builder.like(root.get(Outcome_.note), "%"+hashcode+"#%"));
+        Predicate hashcodeSearch = builder.like(root.get(Outcome_.hashTags), "%"+hashTag+" %");
         Predicate equalAccount = builder.equal(root.get(Outcome_.account), account);
         query.where(hashcodeSearch, equalAccount);
         query.orderBy(builder.desc(root.get(Outcome_.date)));
