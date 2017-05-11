@@ -144,6 +144,7 @@ public class OutcomeServiceImpl implements OutcomeService {
 
     private List<HashTag> parseHashTags(Outcome outcome) {
         String hashTags = outcome.getHashTags().toLowerCase();
+        Pattern hashTagPattern = Pattern.compile("(^|\\s)#([^#\\s]+)");//(^|\s)#[^#\s](\S+)
         Matcher hashTagMatcher = hashTagPattern.matcher(hashTags);
         List<HashTag> hashTagsList = new ArrayList<>();
         while (hashTagMatcher.find()) {

@@ -58,6 +58,7 @@ public class OutcomeServiceTest extends AbstractTestNGSpringContextTests{
 
         Outcome[] outcomes = {
                 new Outcome(new BigDecimal(1), currencyService.getOutcomeAmountForDefaultCurrency(accounts[0], new BigDecimal(1)), LocalDate.now(), LocalTime.now(), "blahblahblahblah blahblahblah", "#weekend # #sss# ##blablabla", accounts[0], type),
+                new Outcome(new BigDecimal(2), currencyService.getOutcomeAmountForDefaultCurrency(accounts[0], new BigDecimal(2)), LocalDate.now(), LocalTime.now(), "blahblahblahblah blahblahblah", "#weekend #summertime #food #drinks", accounts[0], type),
                 new Outcome(new BigDecimal(3), currencyService.getOutcomeAmountForDefaultCurrency(accounts[0], new BigDecimal(3)), LocalDate.now(), LocalTime.now(), accounts[0], type),
                 new Outcome(new BigDecimal(4), currencyService.getOutcomeAmountForDefaultCurrency(accounts[0], new BigDecimal(4)), LocalDate.now(), LocalTime.now(), accounts[0], type),
                 new Outcome(new BigDecimal(5), currencyService.getOutcomeAmountForDefaultCurrency(accounts[1], new BigDecimal(5)), LocalDate.now(), LocalTime.now(), accounts[1], type),
