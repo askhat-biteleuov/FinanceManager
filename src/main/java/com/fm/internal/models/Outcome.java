@@ -29,6 +29,8 @@ public class Outcome implements Serializable {
     private LocalTime time;
     @Column
     private String note;
+    @Column
+    private String hashTags;
 
     @ManyToOne
     @JoinColumn(nullable = false, name = "account_id", foreignKey = @ForeignKey(name = "fk_account_id"))
@@ -50,7 +52,7 @@ public class Outcome implements Serializable {
         this.outcomeType = outcomeType;
     }
 
-    public Outcome(BigDecimal amount, BigDecimal defaultAmount, LocalDate date, LocalTime time, String note, Account account, OutcomeType outcomeType) {
+    public Outcome(BigDecimal amount, BigDecimal defaultAmount, LocalDate date, LocalTime time, String note, String hashTags, Account account, OutcomeType outcomeType) {
         this.amount = amount;
         this.defaultAmount = defaultAmount;
         this.date = date;
@@ -58,6 +60,7 @@ public class Outcome implements Serializable {
         this.account = account;
         this.outcomeType = outcomeType;
         this.note = note;
+        this.hashTags = hashTags;
     }
 
     public long getId() {
@@ -122,5 +125,13 @@ public class Outcome implements Serializable {
 
     public void setDefaultAmount(BigDecimal defaultAmount) {
         this.defaultAmount = defaultAmount;
+    }
+
+    public String getHashTags() {
+        return hashTags;
+    }
+
+    public void setHashTags(String hashTags) {
+        this.hashTags = hashTags;
     }
 }

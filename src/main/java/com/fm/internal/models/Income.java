@@ -27,6 +27,8 @@ public class Income implements Serializable {
 
     @Column
     private String note;
+    @Column
+    private String hashTags;
 
     @ManyToOne
     @JoinColumn(nullable = false, name = "account_id", foreignKey = @ForeignKey(name = "fk_account_id"))
@@ -40,6 +42,15 @@ public class Income implements Serializable {
         this.date = date;
         this.time = time;
         this.account = account;
+    }
+
+    public Income(BigDecimal amount, LocalDate date, LocalTime time, String note, String hashTags, Account account) {
+        this.amount = amount;
+        this.date = date;
+        this.time = time;
+        this.account = account;
+        this.note = note;
+        this.hashTags = hashTags;
     }
 
     public long getId() {
@@ -88,5 +99,13 @@ public class Income implements Serializable {
 
     public void setTime(LocalTime time) {
         this.time = time;
+    }
+
+    public String getHashTags() {
+        return hashTags;
+    }
+
+    public void setHashTags(String hashTags) {
+        this.hashTags = hashTags;
     }
 }
