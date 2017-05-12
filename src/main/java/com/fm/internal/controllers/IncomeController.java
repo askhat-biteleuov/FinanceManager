@@ -116,7 +116,7 @@ public class IncomeController {
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public Object updateIncome(@RequestBody IncomeDto incomeDto) {
-        Income incomeById = incomeService.findById(incomeDto.getAccountId());
+        Income incomeById = incomeService.findById(incomeDto.getIncomeId());
         if (incomeById != null) {
             incomeById.setNote(incomeDto.getNote());
             incomeService.updateIncome(incomeById);

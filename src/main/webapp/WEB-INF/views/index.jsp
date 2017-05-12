@@ -65,17 +65,15 @@
                                     </a>
                                     <div class="panel-footer">
                                         <div id="incomeAdding">
-                                        <%--<form action="<c:url value="/account/income/add"/>" method="POST">--%>
-                                            <button class="btn btn-default" type="button" data-toggle="modal" data-target="#incomeAdd">
+                                            <button class="btn btn-default" type="button" data-toggle="modal"
+                                                    data-target="#incomeAdd">
                                                 Приход
                                             </button>
                                             <jsp:include page="income-add.jsp"/>
-                                            <%--<input type="hidden" id="accountId" name="accountId" value="${account.id}">--%>
-                                            <%--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
-                                        <%--</form>--%>
                                         </div>
                                         <div id="outcomeAdding">
-                                            <button class="btn btn-default" type="button" data-toggle="modal" data-target="#outcomeAdd">
+                                            <button class="btn btn-default" type="button" data-toggle="modal"
+                                                    data-target="#outcomeAdd">
                                                 Расход
                                             </button>
                                             <jsp:include page="outcome-add.jsp"/>
