@@ -42,6 +42,7 @@ public class Income implements Serializable {
         this.date = date;
         this.time = time;
         this.account = account;
+        this.hashTags = "";
     }
 
     public Income(BigDecimal amount, LocalDate date, LocalTime time, String note, String hashTags, Account account) {
