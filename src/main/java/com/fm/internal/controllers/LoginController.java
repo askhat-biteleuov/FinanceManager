@@ -30,6 +30,8 @@ public class LoginController {
     private OutcomeTypeService typeService;
     @Autowired
     private CurrencyService currencyService;
+    @Autowired
+    private OutcomeTypeService outcomeTypeService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView init() {
@@ -70,6 +72,7 @@ public class LoginController {
             }
             modelAndView.addObject("outcomeTypes", outcomeTypes);
             modelAndView.addObject("currencies", currencyService.getCurrencies());
+            modelAndView.addObject("types", outcomeTypeService.getAvailableOutcomeTypes(userService.getLoggedUser()));
             modelAndView.addObject("statusBarDto", statusBarService.getStatusBar(loggedUser));
         }
         return modelAndView;

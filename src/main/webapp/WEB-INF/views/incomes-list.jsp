@@ -40,7 +40,7 @@
             <th>Счет</th>
             <th>Заметка</th>
             <th>Редактировать заметку</th>
-            <th>Удалить доход</th>
+            <th>Удалить приход</th>
         </tr>
         <tbody>
         <c:forEach var="income" items="${incomes}">

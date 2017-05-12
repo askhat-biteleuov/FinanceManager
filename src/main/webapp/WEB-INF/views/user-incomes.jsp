@@ -51,7 +51,7 @@
                 <td>
                     <form action="<c:url value="/account/income/delete"/>" method="POST">
                         <input type="hidden" name="incomeId" value="${income.id}">
-                        <button type="submit">Удалить доход</button>
+                        <button type="submit">Удалить приход</button>
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     </form>
                 </td>

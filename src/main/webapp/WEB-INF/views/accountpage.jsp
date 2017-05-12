@@ -38,7 +38,7 @@
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group">
-                        <label for="incomeDate">Дата дохода:<br/></label>
+                        <label for="incomeDate">Дата прихода:<br/></label>
                         <input id="incomeDate" name="date" type="date" required/><br/>
                         <div class="help-block with-errors"></div>
                     </div>
@@ -70,7 +70,7 @@
                                pattern="^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$" required/><br/>
                         <div class="help-block with-errors"></div>
                     </div>
-                    <script type="text/javascript" src="/resources/js/changeCurrency.js"></script>
+                    <script type="text/javascript" src="<c:url value="/resources/js/changeCurrency.js"/>"></script>
                     <div class="form-group" id="currExchangeOutcome" hidden>
                         <div class="form-group">
                             <input type="hidden" value="${account.currency.nominal}" id="fromNominalOutcome">
@@ -176,7 +176,7 @@
     <div align="center">
         <a href="<c:url value="/account/income/page?itemId=${account.id}"/>">
             <button class="btn btn-default">
-                Посмотреть все доходы
+                Посмотреть все приходы
             </button>
         </a>
         <a href="<c:url value="/outcome/page?itemId=${account.id}"/>">
