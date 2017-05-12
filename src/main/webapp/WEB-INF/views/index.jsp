@@ -14,6 +14,10 @@
             <a class="btn btn-primary" href="<c:url value="/login"/>" type="submit">Войти в аккаунт</a>
         </c:if>
         <c:if test="${user != null}">
+            <script src="/resources/js/autocomplition.js"></script>
+            <div class="dropdown">
+                <input type="text" class="hashtagSearch" data-toggle="dropdown">
+            </div>
             <div align="center">
                 <h2 class="page-header">Счета</h2>
                 <div id="accountAdding">

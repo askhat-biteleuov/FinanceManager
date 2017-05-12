@@ -9,15 +9,14 @@ import com.fm.internal.services.StatusBarService;
 import com.fm.internal.services.implementation.UserServiceImpl;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
-import java.util.Comparator;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 @Controller
 public class LoginController {
@@ -36,6 +35,26 @@ public class LoginController {
     public ModelAndView init() {
         return new ModelAndView("login");
     }
+
+    @RequestMapping(value = "/hashtag", method = RequestMethod.GET)
+    @ResponseBody
+    public Object getHashtag(@RequestParam String str){
+        List<String> hashtags = new ArrayList<>();
+        hashtags.add("Java");
+        hashtags.add("James");
+        hashtags.add("AOP");
+        hashtags.add("Dependency Injection");
+        hashtags.add("Intuition");
+
+        List <String> subListHashtags = new ArrayList<>();
+        for (String hashtag : hashtags) {
+            if(hashtag.contains(str)){
+                subListHashtags.add(hashtag);
+            }
+        }
+        return new ResponseEntity<>(subListHashtags,HttpStatus.OK);
+    }
+
 
     @RequestMapping({"/index", "/"})
     public ModelAndView index() {
