@@ -17,18 +17,18 @@
         <c:if test="${user != null}">
             <script src="/resources/js/autocomplition.js"></script>
             <div class="dropdown">
-                <input type="text" class="hashtagSearch" data-toggle="dropdown">
+                <input type="text" class="hashtagSearchInput form-control" data-toggle="dropdown">
             </div>
             <div align="center">
                 <h2 class="page-header">Счета</h2>
                 <div id="accountAdding">
-                    <form action="<c:url value="/account/add"/>" method="POST">
+                    <%--<form action="<c:url value="/account/add"/>" method="POST">--%>
                         <button class="btn btn-default" type="button" data-toggle="modal" data-target="#accountAdd">
                             Добавить счёт
                         </button>
                         <jsp:include page="account-add.jsp"/>
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                    </form>
+                    <%--</form>--%>
                 </div>
                 <br>
                 <script src="<c:url value="/resources/js/editAccount.js"/>"></script>
@@ -66,10 +66,11 @@
                                     <div class="panel-footer">
                                         <div id="incomeAdding">
                                             <button class="btn btn-default" type="button" data-toggle="modal"
-                                                    data-target="#incomeAdd">
+                                                    data-target='#incomeAdd${account.id}'>
                                                 Приход
                                             </button>
-                                            <jsp:include page="income-add.jsp"/>
+                                            <%@include file="income-add.jsp"%>
+                                            <%--<jsp:include page="income-add.jsp"/>--%>
                                         </div>
                                         <div id="outcomeAdding">
                                             <button class="btn btn-default" type="button" data-toggle="modal"

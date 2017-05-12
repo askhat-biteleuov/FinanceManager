@@ -1,5 +1,11 @@
 $(document).ready(function () {
-    $('.hashtagSearch').on('keyup change', function () {
+
+    function selectHashtag (hashtag) {
+        $('.hashtagSearchInput').val(hashtag);
+    };
+
+    $('.hashtagSearchInput').on('keyup change', function () {
+        $('.hashtagSearchMenu').remove();
         var hashtag = $(this).val();
         $.ajax({
             type: 'GET',
@@ -7,15 +13,21 @@ $(document).ready(function () {
             url: "/hashtag",
             data: ({"str": hashtag})
         }).done(function (data) {
-            var dropdown='<ul class="dropdown-menu">';
+            var dropdown='<ul class="dropdown-menu hashtagSearchMenu">';
             var i;
             for (i = 0; i < data.length; ++i) {
-                dropdown+='<li><a href="#">'+data[i]+'</a></li>';
+                dropdown+='<li><a href="#" class="hashtagSearchLink">'+data[i]+'</a></li>';
             }
             dropdown+='</ul>';
-            $('.hashtagSearch').after(dropdown);
-            $(this).dropdown('show');
+            $('.hashtagSearchInput').after(dropdown);
+            $('.hashtagSearchInput').dropdown('toggle');
         }).fail(function (error) {
         });
+    });
+
+
+
+    $('body').on("focus click",".hashtagSearchLink",function () {
+        $('.hashtagSearchInput').val($(this).text());
     });
 });

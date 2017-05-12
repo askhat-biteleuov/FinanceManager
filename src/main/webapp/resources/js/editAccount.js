@@ -30,7 +30,7 @@ $(document).ready(function () {
                 },
                 contentType: 'application/json; charset=UTF-8',
                 url: "/account/edit",
-                data:  JSON.stringify({ "id": accountId, "name": newVal})
+                data:  JSON.stringify({ "id": accountId, "name": newVal.trim(), "balance": accountBalance})
             }).done(function (data) {
                 stopEdit(field);
             }).fail(function (error) {
