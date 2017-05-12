@@ -39,7 +39,7 @@ public class OutcomeServiceImpl implements OutcomeService {
         dao.add(outcome);
         outcome.getAccount().setBalance(getBalanceAfterOutcomeOperation(outcome));
         accountService.updateAccount(outcome.getAccount());
-        List<HashTag> outComeHashTags = parseHashTags(outcome);
+        List<HashTag> outComeHashTags = utilService.parseHashTags(outcome.getAccount().getUser(), outcome.getHashTags());
         outComeHashTags.stream().forEach(hashTag -> {
             if (hashTagService.getHashTagByUserAndText(outcome.getAccount().getUser(), hashTag.getText()) == null){
                 hashTagService.addHashTag(hashTag);
@@ -140,16 +140,5 @@ public class OutcomeServiceImpl implements OutcomeService {
     @Override
     public List<Outcome> getOutcomesByHashTag(Account account, String hashTag) {
         return dao.getOutcomesByHashTag(account, hashTag);
-    }
-
-    private List<HashTag> parseHashTags(Outcome outcome) {
-        String hashTags = outcome.getHashTags().toLowerCase();
-        Pattern hashTagPattern = Pattern.compile("(^|\\s)#([^#\\s]+)");//(^|\s)#[^#\s](\S+)
-        Matcher hashTagMatcher = hashTagPattern.matcher(hashTags);
-        List<HashTag> hashTagsList = new ArrayList<>();
-        while (hashTagMatcher.find()) {
-            hashTagsList.add(new HashTag(hashTagMatcher.group().trim(), outcome.getAccount().getUser()));
-        }
-        return hashTagsList;
     }
 }
