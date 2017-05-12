@@ -4,23 +4,15 @@ package com.fm.internal.services.implementation;
 import com.fm.internal.daos.AccountDao;
 import com.fm.internal.dtos.AccountDto;
 import com.fm.internal.dtos.TransferDto;
+import com.fm.internal.models.*;
 import com.fm.internal.services.*;
-import com.fm.internal.models.Account;
-import com.fm.internal.models.Income;
-import com.fm.internal.models.Outcome;
-import com.fm.internal.models.User;
-import com.fm.internal.services.AccountService;
-import com.fm.internal.services.CurrencyService;
-import com.fm.internal.services.IncomeService;
-import com.fm.internal.services.OutcomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 public class AccountServiceImpl implements AccountService {
 
@@ -72,7 +64,7 @@ public class AccountServiceImpl implements AccountService {
     public void makeTransfer(TransferDto transferDto) {
         Account fromAccount = accountDao.getById(transferDto.getAccountId());
         Account toAccount = accountDao.getById(transferDto.getToAccountId());
-        final String note = "Transfer from account "+fromAccount.getName()+" to account " + toAccount.getName();
+        final String note = "Transfer from account " + fromAccount.getName() + " to account " + toAccount.getName();
         Outcome transferOutcome = new Outcome(new BigDecimal(transferDto.getOutcomeAmount()), new BigDecimal(transferDto.getDefaultAmount()),
                 LocalDate.parse(transferDto.getDate()), LocalTime.MIDNIGHT, note, "", fromAccount,
                 outcomeTypeService.getOutcomeTypeByNameAndUser(userService.getLoggedUser(), "Переводы"));
@@ -109,24 +101,13 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public BigDecimal getSumOfAllBalancesOfAccounts(User user) {
-        BigDecimal sumOfIncomes = BigDecimal.ZERO;
-        Optional<BigDecimal> incBalance = findAllUserAccounts(user).stream()
-                .map(account -> incomeService.findAllIncomesInAccount(account))
-                .flatMap(Collection::stream)
-                .map(Income::getAmount)
-                .reduce(BigDecimal::add);
-        if (incBalance.isPresent()) {
-            sumOfIncomes = incBalance.get();
-        }
-        BigDecimal sumOfOutcomes = BigDecimal.ZERO;
-        Optional<BigDecimal> outBalance = findAllUserAccounts(user).stream()
-                .map(account -> outcomeService.findAllOutcomesInAccount(account))
-                .flatMap(Collection::stream)
-                .map(Outcome::getAmount)
-                .reduce(BigDecimal::add);
-        if (outBalance.isPresent()) {
-            sumOfOutcomes = outBalance.get();
-        }
-        return sumOfIncomes.subtract(sumOfOutcomes);
+        Currency defaultCurrency = user.getInfo().getCurrency();
+        return findAllUserAccounts(user).stream()
+                .map(account -> account.getBalance()
+                        .multiply(account.getCurrency().getCurs().divide(account.getCurrency().getNominal(), BigDecimal.ROUND_HALF_UP)))
+                .map(amountInRoubles -> amountInRoubles
+                        .multiply(defaultCurrency.getNominal().divide(defaultCurrency.getCurs(), RoundingMode.HALF_UP)))
+                .reduce(BigDecimal::add).get();
     }
+
 }
