@@ -2,17 +2,19 @@ package com.fm.internal.services.implementation;
 
 import com.fm.internal.daos.IncomeDao;
 import com.fm.internal.dtos.IncomeDto;
-import com.fm.internal.models.Account;
-import com.fm.internal.models.Income;
-import com.fm.internal.models.User;
+import com.fm.internal.models.*;
 import com.fm.internal.services.AccountService;
+import com.fm.internal.services.HashTagService;
 import com.fm.internal.services.IncomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class IncomeServiceImpl implements IncomeService {
 
@@ -23,12 +25,20 @@ public class IncomeServiceImpl implements IncomeService {
     private AccountService accountService;
     @Autowired
     private UtilServiceImpl utilService;
+    @Autowired
+    private HashTagService hashTagService;
 
     @Override
     public void addIncome(Income income) {
         dao.add(income);
         income.getAccount().setBalance(getBalanceAfterIncomeOperation(income));
         accountService.updateAccount(income.getAccount());
+        List<HashTag> inComeHashTags = utilService.parseHashTags(income.getAccount().getUser(), income.getHashTags());
+        inComeHashTags.stream().forEach(hashTag -> {
+            if (hashTagService.getHashTagByUserAndText(income.getAccount().getUser(), hashTag.getText()) == null){
+                hashTagService.addHashTag(hashTag);
+            }
+        });
     }
 
     @Override
@@ -97,6 +107,7 @@ public class IncomeServiceImpl implements IncomeService {
         income.setAmount(new BigDecimal(incomeDto.getAmount()));
         income.setDate(LocalDate.parse(incomeDto.getDate()));
         income.setTime(LocalTime.now());
+        income.setHashTags(incomeDto.getHashTags());
         return income;
     }
 
@@ -107,5 +118,12 @@ public class IncomeServiceImpl implements IncomeService {
         }
         return incomes.stream().map(Income::getAmount).reduce(BigDecimal::add).get();
     }
+
+    @Override
+    public List<Income> getIncomesByHashTag(Account account, String hashTag) {
+        return dao.getIncomesByHashTag(account, hashTag);
+    }
+
+
 
 }
