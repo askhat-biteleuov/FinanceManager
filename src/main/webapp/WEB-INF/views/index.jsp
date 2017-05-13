@@ -27,12 +27,12 @@
                     <div class="row">
                         <c:forEach var="account" items="${user.accounts}">
                             <div class="col-sm-4 col-lg-3 ">
+                                <a href="<c:url value="/account/page?id=${account.id}"/>">
                                 <div class="panel panel-primary panel-shadow-1">
-                                    <a href="<c:url value="/account/page?id=${account.id}"/>">
-                                        <div class="panel-heading editDiv" contenteditable="false">
-                                            <a class="text-white editField" contenteditable="false">
+                                        <div class="panel-heading editDiv">
+                                            <span class="text-white editField" contenteditable="false">
                                                 <c:out value="${account.name}"/>
-                                            </a>
+                                            </span>
                                             <input type="text" hidden class="oldVal">
                                             <input hidden class="isLink">
                                             <input hidden class="accountId" value="${account.id}">
@@ -53,21 +53,20 @@
                                                               currencySymbol="${account.currency.characterCode}"
                                                               value="${account.balance}"/>
                                         </div>
-                                    </a>
                                     <div class="panel-footer">
                                         <div class="incomeAdding">
                                             <button class="btn btn-default" type="button" data-toggle="modal"
                                                     data-target='#incomeAdd${account.id}'>
                                                 Приход
                                             </button>
-                                            <%@include file="income-add.jsp" %>
+                                            <%@include file="income-add.jsp"%>
                                         </div>
                                         <div class="outcomeAdding">
                                             <button class="btn btn-default" type="button" data-toggle="modal"
                                                     data-target="#outcomeAdd${account.id}">
                                                 Расход
                                             </button>
-                                            <%@include file="outcome-add.jsp" %>
+                                            <%@include file="outcome-add.jsp"%>
                                         </div>
                                     </div>
                                 </div>

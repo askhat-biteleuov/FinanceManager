@@ -39,7 +39,19 @@
                     </div>
                     <div class="form-group">
                         <label for="incomeDate">Дата прихода:<br/></label>
-                        <input id="incomeDate" name="date" type="date" required/><br/>
+                        <div class="input-group date" id="datepicker">
+                            <input type="text" class="form-control" id="incomeDate" name="date" required>
+                            <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-calendar"></i>
+                            </span>
+                        </div><br/>
+                        <script>
+                            $('#datepicker').datepicker({
+                                format: "yyyy-mm-dd",
+                                todayBtn: "linked",
+                                clearBtn: true
+                            });
+                        </script>
                         <div class="help-block with-errors"></div>
                     </div>
                     <input type="hidden" id="accountId" name="accountId" value="${account.id}">
@@ -122,11 +134,12 @@
                         </select><br/>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="outcomeTransferAmount" name="outcomeAmount" placeholder="Amount" class="form-control"
+                        <input type="text" id="outcomeTransferAmount" name="outcomeAmount" placeholder="Amount"
+                               class="form-control"
                                pattern="^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$" required/><br/>
                         <div class="help-block with-errors"></div>
                     </div>
-                    <script type = "text/javascript" src="/resources/js/accountAndCurrencySelection.js"></script>
+                    <script type="text/javascript" src="/resources/js/accountAndCurrencySelection.js"></script>
                     <div class="form-group">
                         <input type="hidden" value="${account.currency.nominal}" id="fromAccountNominal">
                         <input type="hidden" value="${account.currency.curs}" id="fromAccountCurs">
@@ -145,15 +158,16 @@
                     <div class="form-group">
                         <div class="input-group">
                             <div class="input-group-addon">
-                                <input id="changeCursCheckBox" type="checkbox" />
+                                <input id="changeCursCheckBox" type="checkbox"/>
                             </div>
-                            <input  type="text" name="customCurs" class="form-control" disabled/>
+                            <input type="text" name="customCurs" class="form-control" disabled/>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="input-group">
-                            <div name = "currencyCharacterCode" class="input-group-addon"></div>
-                            <input type="text" id="incomeTransferAmount" name="incomeAmount" class="form-control" readonly />
+                            <div name="currencyCharacterCode" class="input-group-addon"></div>
+                            <input type="text" id="incomeTransferAmount" name="incomeAmount" class="form-control"
+                                   readonly/>
                         </div>
                     </div>
                     <div class="form-group">
