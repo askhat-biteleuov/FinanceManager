@@ -21,5 +21,5 @@
 .navbar-custom .navbar-nav > .active > a:focus,
 .navbar-custom .navbar-nav > .open >a {
     text-decoration: none;
-    background-color: #6e90ac;
+    color: #6b696b;
 }

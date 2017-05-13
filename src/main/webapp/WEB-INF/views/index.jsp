@@ -21,27 +21,18 @@
             </div>
             <div align="center">
                 <h2 class="page-header">Счета</h2>
-                <div id="accountAdding">
-                    <%--<form action="<c:url value="/account/add"/>" method="POST">--%>
-                        <button class="btn btn-default" type="button" data-toggle="modal" data-target="#accountAdd">
-                            Добавить счёт
-                        </button>
-                        <jsp:include page="account-add.jsp"/>
-                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                    <%--</form>--%>
-                </div>
                 <br>
                 <script src="<c:url value="/resources/js/editAccount.js"/>"></script>
                 <div class="container">
                     <div class="row">
                         <c:forEach var="account" items="${user.accounts}">
                             <div class="col-sm-4 col-lg-3 ">
-                                <div class="panel panel-default panel-shadow-1">
+                                <div class="panel panel-primary panel-shadow-1">
                                     <a href="<c:url value="/account/page?id=${account.id}"/>">
-                                        <div class="panel-heading dark-green editDiv">
-                                            <h5 class="text-white editField" contenteditable="false">
+                                        <div class="panel-heading editDiv" contenteditable="false">
+                                            <a class="text-white editField" contenteditable="false">
                                                 <c:out value="${account.name}"/>
-                                            </h5>
+                                            </a>
                                             <input type="text" hidden class="oldVal">
                                             <input hidden class="isLink">
                                             <input hidden class="accountId" value="${account.id}">
@@ -69,28 +60,38 @@
                                                     data-target='#incomeAdd${account.id}'>
                                                 Приход
                                             </button>
-                                            <%@include file="income-add.jsp"%>
+                                            <%@include file="income-add.jsp" %>
                                         </div>
                                         <div class="outcomeAdding">
                                             <button class="btn btn-default" type="button" data-toggle="modal"
                                                     data-target="#outcomeAdd${account.id}">
                                                 Расход
                                             </button>
-                                            <%@include file="outcome-add.jsp"%>
+                                            <%@include file="outcome-add.jsp" %>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </c:forEach>
+                        <div class="col-sm-4 col-lg-3 ">
+                            <div class="panel panel-primary panel-shadow-1">
+                                <div class="panel-heading">
+                                    <a class="text-white">
+                                        Добавить счёт
+                                    </a>
+                                </div>
+                                <div class="panel-body">
+                                    <button class="btn btn-default" type="button" data-toggle="modal"
+                                            data-target="#accountAdd">
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                    </button>
+                                    <jsp:include page="account-add.jsp"/>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <h2 class="page-header">Категории расходов</h2>
-                <div>
-                    <button class="btn btn-default" type="button" data-toggle="modal" data-target="#outcometype-add">
-                        Добавить категорию расходов
-                    </button>
-                    <jsp:include page="outcometype-add.jsp"/>
-                </div>
                 <br>
                 <div class="container">
                     <div class="row">
@@ -100,8 +101,8 @@
                                     <c:param name="itemId" value="${outcomeType.key.id}"/>
                                 </c:url>
                                 <a href="<c:out value="${outcomeTypeUrl}"/>">
-                                    <div class="panel panel-default panel-shadow-1">
-                                        <div class="panel-heading blue">
+                                    <div class="panel panel-success panel-shadow-1">
+                                        <div class="panel-heading dark-green">
                                         <span class="text-white">
                                             <c:out value="${outcomeType.key.name}"/>
                                         </span>
@@ -132,6 +133,20 @@
                                 </a>
                             </div>
                         </c:forEach>
+                        <div class="col-sm-4 col-lg-3">
+                            <div class="panel panel-success panel-shadow-1">
+                                <div class="panel-heading dark-green text-white">
+                                        Добавить категорию
+                                </div>
+                                <div class="panel-body">
+                                    <button class="btn btn-default" type="button" data-toggle="modal"
+                                            data-target="#outcometype-add">
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                    </button>
+                                    <jsp:include page="outcometype-add.jsp"/>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
