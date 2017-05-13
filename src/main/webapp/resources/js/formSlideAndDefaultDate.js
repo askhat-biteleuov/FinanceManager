@@ -10,10 +10,7 @@ $(document).ready(function () {
     var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
     $('#start').val(firstDay);
     $('#end').val(today);
-    $('#incomeForm').find('[name=date]').on('focus', function () {
-      $(this).val(today);
-    });
-    $('#outcomeForm').find('[name=date]').on('focus', function () {
-        $(this).val(today);
-    });
+    $('#incomeDate').val(today);
+    $('#outcomeDate').val(today);
+    $('#transferDate').val(today);
 });

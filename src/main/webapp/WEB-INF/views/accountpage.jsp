@@ -30,28 +30,20 @@
                     <br/>
                     <div class="form-group">
                         <input type="text" id="incomeNote" name="note" placeholder="Note" class="form-control"
-                               maxlength="256"/><br/>
+                               maxlength="256"/>
                     </div>
                     <div class="form-group">
                         <input type="text" id="incomeAmount" name="amount" placeholder="Amount" class="form-control"
-                               pattern="^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$" required/><br/>
+                               pattern="^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$" required/>
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group">
-                        <label for="incomeDate">Дата прихода:<br/></label>
-                        <div class="input-group date" id="datepicker">
-                            <input type="text" class="form-control" id="incomeDate" name="date" required>
+                        <div class="input-group date" id="datepicker-income">
+                            <input type="text" class="form-control" id="incomeDate" name="date" readonly required>
                             <span class="input-group-addon">
-                            <i class="glyphicon glyphicon-calendar"></i>
+                                <i class="glyphicon glyphicon-calendar"></i>
                             </span>
-                        </div><br/>
-                        <script>
-                            $('#datepicker').datepicker({
-                                format: "yyyy-mm-dd",
-                                todayBtn: "linked",
-                                clearBtn: true
-                            });
-                        </script>
+                        </div>
                         <div class="help-block with-errors"></div>
                     </div>
                     <input type="hidden" id="accountId" name="accountId" value="${account.id}">
@@ -71,15 +63,15 @@
                             <c:forEach items="${types}" var="type">
                                 <option value="${type.id}">${type.name}</option>
                             </c:forEach>
-                        </select><br/>
+                        </select>
                     </div>
                     <div class="form-group">
                         <input type="text" id="outcomeNote" name="note" placeholder="Note" class="form-control"
-                               maxlength="256"/><br/>
+                               maxlength="256"/>
                     </div>
                     <div class="form-group">
                         <input type="text" id="amountOutcome" name="amount" placeholder="Amount" class="form-control"
-                               pattern="^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$" required/><br/>
+                               pattern="^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$" required/>
                         <div class="help-block with-errors"></div>
                     </div>
                     <script type="text/javascript" src="<c:url value="/resources/js/changeCurrency.js"/>"></script>
@@ -109,19 +101,22 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="outcomeDate">Дата расхода:<br/></label>
-                        <input id="outcomeDate" name="date" type="date" required/><br/>
+                        <div class="input-group date" id="datepicker-outcome">
+                            <input type="text" class="form-control" id="outcomeDate" name="date" readonly required>
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </span>
+                        </div>
                         <div class="help-block with-errors"></div>
                     </div>
                     <input type="hidden" name="accountId" value="${account.id}">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <button type="submit" class="btn btn-default">Добавить</button>
-                    <br/>
                 </form>
             </div>
             <div id="transfer" class="col-xs-4">
                 <button type="submit" class="btn btn-default">Перевести на другой счет</button>
-                <form method="POST" action="/transfer/add" modelAttribute="transferDto" class="trans">
+                <form method="POST" action="<c:url value="/transfer/add"/>" class="trans">
                     <br/>
                     <div class="form-group">
                         <select id="accountSelect" name="toAccountId" class="form-control">
@@ -131,15 +126,15 @@
                                     <option value="${acc.id}">${acc.name}</option>
                                 </c:if>
                             </c:forEach>
-                        </select><br/>
+                        </select>
                     </div>
                     <div class="form-group">
                         <input type="text" id="outcomeTransferAmount" name="outcomeAmount" placeholder="Amount"
                                class="form-control"
-                               pattern="^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$" required/><br/>
+                               pattern="^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$" required/>
                         <div class="help-block with-errors"></div>
                     </div>
-                    <script type="text/javascript" src="/resources/js/accountAndCurrencySelection.js"></script>
+                    <script type="text/javascript" src="<c:url value="/resources/js/accountAndCurrencySelection.js"/>"></script>
                     <div class="form-group">
                         <input type="hidden" value="${account.currency.nominal}" id="fromAccountNominal">
                         <input type="hidden" value="${account.currency.curs}" id="fromAccountCurs">
@@ -171,8 +166,12 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="transferDate">Дата перевода:<br/></label>
-                        <input id="transferDate" name="date" type="date" required/><br/>
+                        <div class="input-group date" id="datepicker-transfer">
+                            <input type="text" class="form-control" id="transferDate" name="date" readonly required>
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </span>
+                        </div>
                         <div class="help-block with-errors"></div>
                     </div>
                     <input type="hidden" name="accountId" value="${account.id}">
@@ -204,7 +203,7 @@
     <br/>
     <div id="chart" align="center">
         <form id="rangeForm">
-            <div class="input-daterange input-group col-xs-2" id="datepicker-range">
+            <div class="input-daterange input-group col-xs-2 datepicker" id="datepicker-range">
                 <input type="text" class="input-sm form-control" name="start" id="start" readonly/>
                 <span class="input-group-addon">to</span>
                 <input type="text" class="input-sm form-control" name="end" id="end" readonly/>
@@ -213,15 +212,8 @@
             <button type="submit" class="btn btn-default">Submit</button>
             <input type="hidden" name="accountName" value="${account.name}"/>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            <script>
-                $('#datepicker-range').datepicker({
-                    format: "yyyy-mm-dd",
-                    todayBtn: "linked",
-                    clearBtn: true
-                });
-            </script>
         </form>
-
+        <script src="/resources/js/datePickerConfig.js"></script>
         <script src="<c:url value="/resources/js/outcomesPiechart.js"/>"></script>
         <script src="<c:url value="/resources/js/drawOutcomesPiechart.js"/>"></script>
         <div id="piechart" style="width: 550px; height: 400px; margin: 0 auto"></div>
