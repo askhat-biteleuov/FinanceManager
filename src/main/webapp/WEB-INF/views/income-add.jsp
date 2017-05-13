@@ -26,6 +26,7 @@
                         <div class="help-block with-errors"></div>
                     </div>
                     <input type="hidden" id="accountId" name="accountId" value="${account.id}">
+                    <input type="hidden" id="hashTags" name="hashTags" value="">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 </div>
                 <div class="modal-footer">

@@ -64,20 +64,19 @@
                                         </div>
                                     </a>
                                     <div class="panel-footer">
-                                        <div id="incomeAdding">
+                                        <div class="incomeAdding">
                                             <button class="btn btn-default" type="button" data-toggle="modal"
                                                     data-target='#incomeAdd${account.id}'>
                                                 Приход
                                             </button>
                                             <%@include file="income-add.jsp"%>
-                                            <%--<jsp:include page="income-add.jsp"/>--%>
                                         </div>
-                                        <div id="outcomeAdding">
+                                        <div class="outcomeAdding">
                                             <button class="btn btn-default" type="button" data-toggle="modal"
-                                                    data-target="#outcomeAdd">
+                                                    data-target="#outcomeAdd${account.id}">
                                                 Расход
                                             </button>
-                                            <jsp:include page="outcome-add.jsp"/>
+                                            <%@include file="outcome-add.jsp"%>
                                         </div>
                                     </div>
                                 </div>

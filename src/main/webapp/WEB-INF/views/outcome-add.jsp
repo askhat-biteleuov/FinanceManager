@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<div class="modal fade" id="outcomeAdd" role="dialog">
+<div class="modal fade" id="outcomeAdd${account.id}" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -58,6 +58,7 @@
                             </div>
                         </div>
                     </div>
+                    <input type="hidden" id="hashTags" name="hashTags" value="">
                     <input type="hidden" id="accountId" name="accountId" value="${account.id}">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 </div>
