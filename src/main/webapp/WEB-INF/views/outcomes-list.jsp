@@ -65,17 +65,21 @@
                         ${outcome.outcomeType.name}
                 </td>
                 <td>
-                    <div class="row">
+                    <div class="row editBar">
                         <div class="col-xs-1">
                             <form class="saveNote" action="<c:url value="/outcome/update"/>" method="POST">
+                                <input type="text" hidden class="oldVal">
                                 <input type="hidden" name="accountId" value="${outcome.account.id}">
                                 <input type="hidden" name="outcomeId" value="${outcome.id}">
                                 <input type="hidden" name="note">
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                <button type="submit" id="saveBtn">
+                                <button type="submit" class="saveBtn" hidden>
                                     <span class="glyphicon glyphicon-ok"></span>
                                 </button>
                             </form>
+                            <button class="cancelBtn" hidden>
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                            </button>
                         </div>
                         <div class="col-xs-1">
                             <button class="editBtn">

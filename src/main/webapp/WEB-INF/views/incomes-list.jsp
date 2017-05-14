@@ -61,16 +61,20 @@
                         ${income.note}
                 </td>
                 <td>
-                    <div class="row">
+                    <div class="row editBar">
                         <div class="col-xs-1">
                             <form class="saveNote" action="<c:url value="/account/income/update"/>" method="POST">
+                                <input type="text" hidden class="oldVal">
                                 <input type="hidden" name="incomeId" value="${income.id}">
                                 <input type="hidden" name="note">
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                <button type="submit" class="saveBtn">
+                                <button type="submit" class="saveBtn" hidden>
                                     <span class="glyphicon glyphicon-ok"></span>
                                 </button>
                             </form>
+                            <button class="cancelBtn" hidden>
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                            </button>
                         </div>
                         <div class="col-xs-1">
                             <button class="editBtn">
