@@ -58,7 +58,7 @@ public class OutcomeTypeServiceImpl implements OutcomeTypeService {
 
     @Override
     public List<OutcomeType> getAvailableOutcomeTypes(User user) {
-        return user != null ? user.getOutcomeTypes() : null;
+        return outcomeTypeDao.getAvailableOutcomeTypesByUser(user);
     }
 
     @Override

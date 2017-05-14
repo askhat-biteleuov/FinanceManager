@@ -29,6 +29,18 @@ public class OutcomeTypeDao extends GenericDao<OutcomeType> {
 //    }
 
     @Transactional
+    public List<OutcomeType> getAvailableOutcomeTypesByUser(User user){
+        Session currentSession = getSessionFactory().getCurrentSession();
+        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
+        CriteriaQuery<OutcomeType> query = builder.createQuery(OutcomeType.class);
+        Root<OutcomeType> root = query.from(OutcomeType.class);
+        Predicate userEquals = builder.equal(root.get(OutcomeType_.user), user);
+        Predicate isAvailable = builder.isTrue(root.get(OutcomeType_.isAvailable));
+        query.where(userEquals, isAvailable);
+        return currentSession.createQuery(query).getResultList();
+    }
+
+    @Transactional
     public OutcomeType getOutcomeTypeByNameAndUser(User user, String name){
         Session currentSession = getSessionFactory().getCurrentSession();
         CriteriaBuilder builder = currentSession.getCriteriaBuilder();
