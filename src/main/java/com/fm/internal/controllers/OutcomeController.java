@@ -119,8 +119,8 @@ public class OutcomeController {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public Object updateOutcome(@RequestBody Outcome outcomeDto) {
-        Outcome outcome = outcomeService.findById(outcomeDto.getId());
+    public Object updateOutcome(@RequestBody OutcomeDto outcomeDto) {
+        Outcome outcome = outcomeService.findById(outcomeDto.getOutcomeId());
         if (outcome != null) {
             outcome.setNote(outcomeDto.getNote());
             outcomeService.updateOutcome(outcome);

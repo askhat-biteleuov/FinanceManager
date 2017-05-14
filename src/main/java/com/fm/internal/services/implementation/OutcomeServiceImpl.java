@@ -9,14 +9,10 @@ import com.fm.internal.models.User;
 import com.fm.internal.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class OutcomeServiceImpl implements OutcomeService {
     @Autowired
@@ -40,7 +36,7 @@ public class OutcomeServiceImpl implements OutcomeService {
         outcome.getAccount().setBalance(getBalanceAfterOutcomeOperation(outcome));
         accountService.updateAccount(outcome.getAccount());
         List<HashTag> outComeHashTags = utilService.parseHashTags(outcome.getAccount().getUser(), outcome.getHashTags());
-        outComeHashTags.stream().forEach(hashTag -> {
+        outComeHashTags.forEach(hashTag -> {
             if (hashTagService.getHashTagByUserAndText(outcome.getAccount().getUser(), hashTag.getText()) == null){
                 hashTagService.addHashTag(hashTag);
             }

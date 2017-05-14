@@ -18,6 +18,7 @@ public class OutcomeDto {
     private String date;
     private String note;
     private long accountId;
+    private long outcomeId;
     @NotNull
     @Min(value = 1)
     private long outcomeTypeId;
@@ -97,5 +98,13 @@ public class OutcomeDto {
 
     public void setHashTags(String hashTags) {
         this.hashTags = hashTags;
+    }
+
+    public long getOutcomeId() {
+        return outcomeId;
+    }
+
+    public void setOutcomeId(long outcomeId) {
+        this.outcomeId = outcomeId;
     }
 }

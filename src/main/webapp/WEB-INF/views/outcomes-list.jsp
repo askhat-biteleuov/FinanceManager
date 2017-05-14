@@ -5,11 +5,19 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <t:master-page title="Список расходов">
+    <script src="<c:url value="/resources/js/editNotes.js"/>"></script>
+    <style>
+        [contenteditable]:focus {
+            background: #FFFFD3;
+            padding: 5px;
+        }
+    </style>
     <div align="center">
     <h2>Расходы</h2>
     <form:form method="get" action="/outcome/page" modelAttribute="rangeDto" id="rangeForm">
         <div class="input-daterange input-group col-xs-2" id="datepicker-range">
-            <form:input path="start" type="text" cssClass="input-sm form-control" name="start" id="start" readonly="true"/>
+            <form:input path="start" type="text" cssClass="input-sm form-control" name="start" id="start"
+                        readonly="true"/>
             <span class="input-group-addon">to</span>
             <form:input path="end" type="text" cssClass="input-sm form-control" name="end" id="end" readonly="true"/>
         </div>
@@ -26,7 +34,8 @@
         </script>
     </form:form>
     <jsp:include page="../fragments/pagination.jsp"/>
-    <table id="outcomes" class="table">
+    <table id="outcomes" class="table notes">
+        <thead>
         <tr>
             <th>Дата</th>
             <th>Сумма</th>
@@ -36,9 +45,10 @@
             <th>Редактировать заметку</th>
             <th>Удалить расход</th>
         </tr>
+        </thead>
         <tbody>
         <c:forEach var="outcome" items="${outcomes}">
-            <tr class="outcomeRow">
+            <tr class="tableRow">
                 <td>
                         ${outcome.date} ${outcome.time}
                 </td>
@@ -48,7 +58,7 @@
                 <td>
                         ${outcome.account.name}
                 </td>
-                <td class="outcomeNote" contenteditable="false">
+                <td class="note" data-name="tableNote" contenteditable="false">
                         ${outcome.note}
                 </td>
                 <td>
@@ -57,10 +67,11 @@
                 <td>
                     <div class="row">
                         <div class="col-xs-1">
-                            <form id="saveOutcome" action="<c:url value="/account/income/update"/>" method="POST">
+                            <form class="saveNote" action="<c:url value="/outcome/update"/>" method="POST">
                                 <input type="hidden" name="accountId" value="${outcome.account.id}">
                                 <input type="hidden" name="amount" value="${outcome.amount}">
                                 <input type="hidden" name="date" value="${outcome.date}">
+                                <input type="hidden" name="outcomeId" value="${outcome.id}">
                                 <input type="hidden" name="note">
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                 <button type="submit" id="saveBtn">
@@ -69,7 +80,7 @@
                             </form>
                         </div>
                         <div class="col-xs-1">
-                            <button id="editBtn">
+                            <button class="editBtn">
                                 <span class="glyphicon glyphicon-edit"></span>
                             </button>
                         </div>

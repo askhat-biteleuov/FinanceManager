@@ -16,7 +16,8 @@
     <h2>Приходы</h2>
     <form:form method="get" action="/account/income/page" modelAttribute="rangeDto" id="rangeForm">
         <div class="input-daterange input-group col-xs-2" id="datepicker-range">
-            <form:input path="start" type="text" cssClass="input-sm form-control" name="start" id="start" readonly="true"/>
+            <form:input path="start" type="text" cssClass="input-sm form-control" name="start" id="start"
+                        readonly="true"/>
             <span class="input-group-addon">to</span>
             <form:input path="end" type="text" cssClass="input-sm form-control" name="end" id="end" readonly="true"/>
         </div>
@@ -33,7 +34,8 @@
         </script>
     </form:form>
     <jsp:include page="../fragments/pagination.jsp"/>
-    <table id="incomes" class="table">
+    <table id="incomes" class="table notes">
+        <thead>
         <tr>
             <th>Дата</th>
             <th>Сумма</th>
@@ -42,9 +44,10 @@
             <th>Редактировать заметку</th>
             <th>Удалить приход</th>
         </tr>
+        </thead>
         <tbody>
         <c:forEach var="income" items="${incomes}">
-            <tr class="incomeRow">
+            <tr class="tableRow">
                 <td>
                         ${income.date} ${income.time}
                 </td>
@@ -54,13 +57,13 @@
                 <td>
                         ${income.account.name}
                 </td>
-                <td class="incomeNote" data-name="tableNote" contenteditable="false">
+                <td class="note" data-name="tableNote" contenteditable="false">
                         ${income.note}
                 </td>
                 <td>
                     <div class="row">
                         <div class="col-xs-1">
-                            <form class="saveIncome" action="<c:url value="/account/income/update"/>" method="POST">
+                            <form class="saveNote" action="<c:url value="/account/income/update"/>" method="POST">
                                 <input type="hidden" name="incomeId" value="${income.id}">
                                 <input type="hidden" name="amount" value="${income.amount}">
                                 <input type="hidden" name="date" value="${income.date}">
