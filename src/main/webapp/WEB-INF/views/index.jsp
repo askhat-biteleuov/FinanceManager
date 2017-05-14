@@ -27,9 +27,9 @@
                     <div class="row">
                         <c:forEach var="account" items="${user.accounts}">
                             <div class="col-sm-4 col-lg-3 ">
-                                <a href="<c:url value="/account/page?id=${account.id}"/>">
-                                    <div class="panel panel-primary panel-shadow-1">
-                                        <div class="panel-heading editDiv">
+                                <div class="panel panel-primary panel-shadow-1">
+                                    <a href="<c:url value="/account/page?id=${account.id}"/>">
+                                        <div class="panel-heading dark-blue editDiv">
                                             <span class="text-white editField" contenteditable="false">
                                                 <c:out value="${account.name}"/>
                                             </span>
@@ -53,25 +53,24 @@
                                                               currencySymbol="${account.currency.characterCode}"
                                                               value="${account.balance}"/>
                                         </div>
-
-                                        <div class="panel-footer">
-                                            <div class="incomeAdding">
-                                                <button class="btn btn-default" type="button" data-toggle="modal"
-                                                        data-target='#incomeAdd${account.id}'>
-                                                    Приход
-                                                </button>
-                                                <%@include file="income-add.jsp" %>
-                                            </div>
-                                            <div class="outcomeAdding">
-                                                <button class="btn btn-default" type="button" data-toggle="modal"
-                                                        data-target="#outcomeAdd${account.id}">
-                                                    Расход
-                                                </button>
-                                                <%@include file="outcome-add.jsp" %>
-                                            </div>
+                                    </a>
+                                    <div class="panel-footer">
+                                        <div class="incomeAdding">
+                                            <button class="btn btn-default" type="button" data-toggle="modal"
+                                                    data-target='#incomeAdd${account.id}'>
+                                                Приход
+                                            </button>
+                                            <%@include file="income-add.jsp"%>
+                                        </div>
+                                        <div class="outcomeAdding">
+                                            <button class="btn btn-default" type="button" data-toggle="modal"
+                                                    data-target="#outcomeAdd${account.id}">
+                                                Расход
+                                            </button>
+                                            <%@include file="outcome-add.jsp"%>
                                         </div>
                                     </div>
-                                </a>
+                                </div>
                             </div>
                         </c:forEach>
                         <div class="col-sm-4 col-lg-3 ">
@@ -137,7 +136,7 @@
                         <div class="col-sm-4 col-lg-3">
                             <div class="panel panel-success panel-shadow-1">
                                 <div class="panel-heading dark-green text-white">
-                                    Добавить категорию
+                                        Добавить категорию
                                 </div>
                                 <div class="panel-body">
                                     <button class="btn btn-default" type="button" data-toggle="modal"

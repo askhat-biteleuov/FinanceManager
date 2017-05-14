@@ -18,6 +18,11 @@ a{
     /*0275d8*/
  }
 
+.dark-blue {
+    background: #337ab7 !important;
+    /*0275d8*/
+}
+
 .dark-green {
     background: #4caf50 !important;
 }
