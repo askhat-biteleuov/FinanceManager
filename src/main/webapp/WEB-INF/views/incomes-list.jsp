@@ -65,8 +65,6 @@
                         <div class="col-xs-1">
                             <form class="saveNote" action="<c:url value="/account/income/update"/>" method="POST">
                                 <input type="hidden" name="incomeId" value="${income.id}">
-                                <input type="hidden" name="amount" value="${income.amount}">
-                                <input type="hidden" name="date" value="${income.date}">
                                 <input type="hidden" name="note">
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                 <button type="submit" class="saveBtn">
