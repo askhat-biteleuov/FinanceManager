@@ -21,10 +21,10 @@
     </div>
 
     <h2 align="center">Счёт ${account.name}</h2>
-    <div id="adding" class="container" align="center">
+    <div id="addingOnPage" class="container" align="center">
         <div class="row">
-            <div id="incomeAdd" class="col-xs-4">
-                <button type="button" class="btn btn-default">Добавить приход</button>
+            <div id="incomeAdd" class="col-xs-4 adding">
+                <button type="button" class="btn btn-default showBtn">Добавить приход</button>
                 <form method="POST" action="<c:url value="/account/income/add"/>" id="incomeForm" class="trans"
                       role="form">
                     <br/>
@@ -46,13 +46,14 @@
                         </div>
                         <div class="help-block with-errors"></div>
                     </div>
+                    <input type="hidden" name="hashTags" value="">
                     <input type="hidden" id="accountId" name="accountId" value="${account.id}">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <button type="submit" class="btn btn-default">Добавить</button>
                 </form>
             </div>
-            <div id="outcomeAdd" class="col-xs-4">
-                <button type="button" class="btn btn-default">Добавить расход</button>
+            <div id="outcomeAdd" class="col-xs-4 adding">
+                <button type="button" class="btn btn-default showBtn">Добавить расход</button>
                 <form method="POST" action="<c:url value="/outcome/add"/>" id="outcomeForm"
                       class="trans"
                       role="form">
@@ -109,13 +110,14 @@
                         </div>
                         <div class="help-block with-errors"></div>
                     </div>
+                    <input type="hidden" name="hashTags" value="">
                     <input type="hidden" name="accountId" value="${account.id}">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <button type="submit" class="btn btn-default">Добавить</button>
                 </form>
             </div>
-            <div id="transfer" class="col-xs-4">
-                <button type="submit" class="btn btn-default">Перевести на другой счет</button>
+            <div id="transfer" class="col-xs-4 adding">
+                <button type="submit" class="btn btn-default showBtn">Перевести на другой счет</button>
                 <form method="POST" action="<c:url value="/transfer/add"/>" class="trans">
                     <br/>
                     <div class="form-group">

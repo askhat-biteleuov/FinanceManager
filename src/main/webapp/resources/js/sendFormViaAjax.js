@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $('#adding').find('form').validator().on('submit', function (event) {
+    $('#addingOnPage').find('form').validator().on('submit', function (event) {
         if (!event.isDefaultPrevented()) {
             event.preventDefault();
             var form = $(this);

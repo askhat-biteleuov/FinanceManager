@@ -7,6 +7,8 @@
 <t:master-page title="Главная">
     <script src="<c:url value="/resources/js/sendAccountFormViaAjax.js"/>"></script>
     <script src="<c:url value="/resources/js/sendIncomeAndOutcomeForm.js"/>"></script>
+    <script src="<c:url value="/resources/js/changeCurrency.js"/>"></script>
+    <script src="<c:url value="/resources/js/formSlideAndDefaultDate.js"/>"></script>
     <div class="container">
         <c:if test="${user == null}">
             <h2>Добрый день!</h2>
@@ -55,15 +57,15 @@
                                         </div>
                                     </a>
                                     <div class="panel-footer">
-                                        <div class="incomeAdding">
-                                            <button class="btn btn-default" type="button" data-toggle="modal"
+                                        <div class="adding">
+                                            <button class="btn btn-default showBtn" type="button" data-toggle="modal"
                                                     data-target='#incomeAdd${account.id}'>
                                                 Приход
                                             </button>
                                             <%@include file="income-add.jsp"%>
                                         </div>
-                                        <div class="outcomeAdding">
-                                            <button class="btn btn-default" type="button" data-toggle="modal"
+                                        <div class="adding">
+                                            <button class="btn btn-default showBtn" type="button" data-toggle="modal"
                                                     data-target="#outcomeAdd${account.id}">
                                                 Расход
                                             </button>

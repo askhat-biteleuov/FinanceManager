@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $('#adding').on('click', 'button', function () {
+    $('#addingOnPage').on('click', 'button', function () {
         $(this).next('form').slideToggle();
     });
 
@@ -10,7 +10,7 @@ $(document).ready(function () {
     var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
     $('#start').val(firstDay);
     $('#end').val(today);
-    $('#incomeDate').val(today);
-    $('#outcomeDate').val(today);
-    $('#transferDate').val(today);
+    $('.showBtn').on('click', function () {
+        $(this).closest('.adding').find('[name=date]').val(today);
+    });
 });
