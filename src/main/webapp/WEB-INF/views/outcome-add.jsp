@@ -24,7 +24,7 @@
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="outcomeAmount" name="amount" placeholder="Amount" class="form-control"
+                        <input type="text" name="amount" placeholder="Amount" class="form-control amount"
                                pattern="^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$" required/><br/>
                         <div class="help-block with-errors"></div>
                     </div>
@@ -33,27 +33,27 @@
                         <input id="outcomeDate" name="date" type="date" required/><br/>
                         <div class="help-block with-errors"></div>
                     </div>
-                    <div class="form-group" id="currExchangeOutcome" hidden>
+                    <div class="form-group currExchangeOutcome" hidden>
                         <div class="form-group">
-                            <input type="hidden" value="${account.currency.nominal}" id="fromNominalOutcome">
-                            <input type="hidden" value="${account.currency.curs}" id="fromCursOutcome">
-                            <input type="hidden" value="${user.info.currency.nominal}" id="toNominalOutcome">
-                            <input type="hidden" value="${user.info.currency.curs}" id="toCursOutcome">
-                            <input type="hidden" value="${user.info.currency.characterCode}" id="userCurOutcome">
-                            <input type="hidden" value="${account.currency.characterCode}" id="accountCurOutcome">
+                            <input type="hidden" value="${account.currency.nominal}" class="fromNominalOutcome">
+                            <input type="hidden" value="${account.currency.curs}" class="fromCursOutcome">
+                            <input type="hidden" value="${user.info.currency.nominal}" class="toNominalOutcome">
+                            <input type="hidden" value="${user.info.currency.curs}" class="toCursOutcome">
+                            <input type="hidden" value="${user.info.currency.characterCode}" class="userCurOutcome">
+                            <input type="hidden" value="${account.currency.characterCode}" class="accountCurOutcome">
                         </div>
                         <div class="form-group">
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                    <input id="checkboxOutcome" type="checkbox"/>
+                                    <input class="checkboxOutcome" type="checkbox"/>
                                 </div>
-                                <input type="text" id="customCursOutcome" class="form-control" disabled/>
+                                <input type="text" class="form-control customCursOutcome" disabled/>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="input-group">
                                 <div class="input-group-addon">${user.info.currency.characterCode}</div>
-                                <input type="text" id="defaultAmountOutcome" name="defaultAmount" class="form-control"
+                                <input type="text" name="defaultAmount" class="form-control defaultAmountOutcome"
                                        readonly/>
                             </div>
                         </div>

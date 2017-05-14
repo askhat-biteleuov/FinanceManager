@@ -11,6 +11,6 @@ $(document).ready(function () {
     $('#start').val(firstDay);
     $('#end').val(today);
     $('.showBtn').on('click', function () {
-        $(this).closest('.adding').find('[name=date]').val(today);
+        $(this).closest('div').find('[name=date]').val(today);
     });
 });

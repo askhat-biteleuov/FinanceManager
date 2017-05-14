@@ -53,7 +53,7 @@
                 </form>
             </div>
             <div id="outcomeAdd" class="col-xs-4 adding">
-                <button type="button" class="btn btn-default showBtn">Добавить расход</button>
+                <button type="button" class="btn btn-default showBtn outBtn">Добавить расход</button>
                 <form method="POST" action="<c:url value="/outcome/add"/>" id="outcomeForm"
                       class="trans"
                       role="form">
@@ -76,27 +76,27 @@
                         <div class="help-block with-errors"></div>
                     </div>
                     <script type="text/javascript" src="<c:url value="/resources/js/changeCurrency.js"/>"></script>
-                    <div class="form-group" id="currExchangeOutcome" hidden>
+                    <div class="form-group currExchangeOutcome" hidden>
                         <div class="form-group">
-                            <input type="hidden" value="${account.currency.nominal}" id="fromNominalOutcome">
-                            <input type="hidden" value="${account.currency.curs}" id="fromCursOutcome">
-                            <input type="hidden" value="${user.info.currency.nominal}" id="toNominalOutcome">
-                            <input type="hidden" value="${user.info.currency.curs}" id="toCursOutcome">
-                            <input type="hidden" value="${user.info.currency.characterCode}" id="userCurOutcome">
-                            <input type="hidden" value="${account.currency.characterCode}" id="accountCurOutcome">
+                            <input type="hidden" value="${account.currency.nominal}" class="fromNominalOutcome">
+                            <input type="hidden" value="${account.currency.curs}" class="fromCursOutcome">
+                            <input type="hidden" value="${user.info.currency.nominal}" class="toNominalOutcome">
+                            <input type="hidden" value="${user.info.currency.curs}" class="toCursOutcome">
+                            <input type="hidden" value="${user.info.currency.characterCode}" class="userCurOutcome">
+                            <input type="hidden" value="${account.currency.characterCode}" class="accountCurOutcome">
                         </div>
                         <div class="form-group">
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                    <input id="checkboxOutcome" type="checkbox"/>
+                                    <input class="checkboxOutcome" type="checkbox"/>
                                 </div>
-                                <input type="text" id="customCursOutcome" class="form-control" disabled/>
+                                <input type="text" class="form-control customCursOutcome" disabled/>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="input-group">
                                 <div class="input-group-addon">${user.info.currency.characterCode}</div>
-                                <input type="text" id="defaultAmountOutcome" name="defaultAmount" class="form-control"
+                                <input type="text" name="defaultAmount" class="form-control defaultAmountOutcome"
                                        readonly/>
                             </div>
                         </div>

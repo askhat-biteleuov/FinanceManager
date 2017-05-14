@@ -57,15 +57,15 @@
                                         </div>
                                     </a>
                                     <div class="panel-footer">
-                                        <div class="adding">
+                                        <div>
                                             <button class="btn btn-default showBtn" type="button" data-toggle="modal"
                                                     data-target='#incomeAdd${account.id}'>
                                                 Приход
                                             </button>
                                             <%@include file="income-add.jsp"%>
                                         </div>
-                                        <div class="adding">
-                                            <button class="btn btn-default showBtn" type="button" data-toggle="modal"
+                                        <div>
+                                            <button class="btn btn-default showBtn outBtn" type="button" data-toggle="modal"
                                                     data-target="#outcomeAdd${account.id}">
                                                 Расход
                                             </button>
