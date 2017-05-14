@@ -20,6 +20,9 @@ public class OutcomeType implements Serializable {
     @Column(nullable = false, name = "`limit`")
     private BigDecimal limit;
 
+    @Column(nullable = false)
+    private boolean isAvailable;
+
     @ManyToOne
     @JoinColumn(nullable = false, name = "user_id", foreignKey = @ForeignKey(name = "fk_user_id"))
     private User user;
@@ -31,6 +34,14 @@ public class OutcomeType implements Serializable {
         this.name = name;
         this.limit = limit;
         this.user = user;
+        this.isAvailable = true;
+    }
+
+    public OutcomeType(String name, BigDecimal limit, User user, boolean isAvailable){
+        this.name = name;
+        this.limit = limit;
+        this.user = user;
+        this.isAvailable = isAvailable;
     }
 
     public long getId() {
@@ -63,5 +74,13 @@ public class OutcomeType implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(boolean available) {
+        isAvailable = available;
     }
 }

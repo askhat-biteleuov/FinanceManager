@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
                 new OutcomeType("Мобильная связь", new BigDecimal(500), user),
                 new OutcomeType("Развлечения", new BigDecimal(3000), user),
                 new OutcomeType("Покупки", new BigDecimal(4000), user),
-                new OutcomeType("Переводы", BigDecimal.ONE, user)
+                new OutcomeType("Переводы", BigDecimal.ONE, user, false)
         };
         Arrays.stream(initOutcomeTypes).forEach((outcomeType -> outcomeTypeService.addOutcomeType(outcomeType)));
     }
