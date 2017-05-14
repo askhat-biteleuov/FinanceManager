@@ -33,8 +33,8 @@
                                maxlength="256"/>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="incomeAmount" name="amount" placeholder="Amount" class="form-control"
-                               pattern="^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$" required/>
+                        <input type="number" id="incomeAmount" name="amount" class="form-control"
+                               min="0.01" step="0.01" placeholder="Amount" required/>
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group">
@@ -71,8 +71,8 @@
                                maxlength="256"/>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="amountOutcome" name="amount" placeholder="Amount" class="form-control"
-                               pattern="^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$" required/>
+                        <input type="number" id="amountOutcome" name="amount" class="form-control"
+                               min="0.01" step="0.01" placeholder="Amount" required/>
                         <div class="help-block with-errors"></div>
                     </div>
                     <script type="text/javascript" src="<c:url value="/resources/js/changeCurrency.js"/>"></script>
@@ -131,9 +131,8 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="outcomeTransferAmount" name="outcomeAmount" placeholder="Amount"
-                               class="form-control"
-                               pattern="^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$" required/>
+                        <input type="number" id="outcomeTransferAmount" name="outcomeAmount" class="form-control"
+                               min="0.01" step="0.01" placeholder="Amount" required/>
                         <div class="help-block with-errors"></div>
                     </div>
                     <script type="text/javascript" src="<c:url value="/resources/js/accountAndCurrencySelection.js"/>"></script>

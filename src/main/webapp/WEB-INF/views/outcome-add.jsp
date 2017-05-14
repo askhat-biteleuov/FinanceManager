@@ -24,8 +24,8 @@
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="amount" placeholder="Amount" class="form-control amount"
-                               pattern="^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$" required/><br/>
+                        <input type="number" name="amount" class="form-control amount"
+                               min="0.01" step="0.01" placeholder="Amount" required/><br/>
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group">
