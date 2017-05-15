@@ -20,7 +20,7 @@ public class UserInfo implements Serializable {
     private String lastName;
 
     @Lob
-    @Column(columnDefinition = "mediumlob")
+    @Column(name = "avatar")
     private byte[] image;
 
     @ManyToOne
@@ -30,11 +30,10 @@ public class UserInfo implements Serializable {
     public UserInfo() {
     }
 
-    public UserInfo(String firstName, String lastName, Currency currency, byte[] image) {
+    public UserInfo(String firstName, String lastName, Currency currency) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.currency = currency;
-        this.image = image;
     }
 
     public long getId() {

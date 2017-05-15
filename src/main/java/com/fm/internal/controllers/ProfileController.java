@@ -1,12 +1,15 @@
 package com.fm.internal.controllers;
 
+import com.fm.internal.dtos.AvatarDto;
 import com.fm.internal.models.User;
 import com.fm.internal.services.CurrencyService;
 import com.fm.internal.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -25,5 +28,11 @@ public class ProfileController {
         modelAndView.addObject("userInfo", user.getInfo());
         modelAndView.addObject("currencies", currencyService.getCurrencies());
         return modelAndView;
+    }
+
+    @RequestMapping("/avatar")
+    @ResponseBody
+    public byte[] addNewAvatar(@RequestBody AvatarDto avatarDto) {
+        return null;
     }
 }

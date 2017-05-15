@@ -78,7 +78,7 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <form action="<c:url value="/profile"/>" method="get">
-                                    <button class="btn-link" type="submit">Профиль</button>
+                                    <button class="btn-link" type="submit">Редактировать профиль</button>
                                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                 </form>
                             </li>
