@@ -2,6 +2,7 @@ $(document).ready(function () {
 
     $('.editBtn').click(function (e) {
         e.preventDefault();
+
         $(this).closest('.editDiv').find(".acceptBtn").show();
         $(this).closest('.editDiv').find(".cancelBtn").show();
         $(this).hide();
@@ -35,7 +36,10 @@ $(document).ready(function () {
                 stopEdit(field);
             }).fail(function (error) {
                 var errors = error.responseJSON;
-                console.log(errors["name"]+"!");
+                var template = '<div class="popover alert-danger" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>';
+                field.closest('.editDiv').find(".acceptBtn").popover({placement:"bottom",template:template,trigger:"manual"});
+                field.closest('.editDiv').find(".acceptBtn").data('bs.popover').options.content =  errors["name"];
+                field.closest('.editDiv').find(".acceptBtn").popover('show');
             });
         }
     });
@@ -48,11 +52,6 @@ $(document).ready(function () {
         stopEdit(field);
     });
 
-    $('.editField').click(function (e) {
-        var isLink = $(this).closest('.editDiv').find(".isLink").val()
-        if (isLink) e.preventDefault();
-    });
-
     $('.editField').on('keyup', function (event) {
         var esc = event.which === 27;
         var element = event.target;
@@ -61,9 +60,13 @@ $(document).ready(function () {
             var oldVal = $(this).closest('.editDiv').find(".oldVal");
             element.text(oldVal.val());
         }
+    }).click(function (e) {
+        var isLink = $(this).closest('.editDiv').find(".isLink").val()
+        if (isLink) e.preventDefault();
     });
 
     function stopEdit(element) {
+        element.closest('.editDiv').find(".acceptBtn").popover('destroy');
         element.attr('contenteditable', 'false');
         element.closest('.editDiv').find(".isLink").val('true');
         element.closest('.editDiv').find(".acceptBtn").hide();

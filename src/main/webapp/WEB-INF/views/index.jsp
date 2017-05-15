@@ -17,9 +17,9 @@
             <a class="btn btn-primary" href="<c:url value="/login"/>" type="submit">Войти в аккаунт</a>
         </c:if>
         <c:if test="${user != null}">
-            <script src="/resources/js/autocomplition.js"></script>
+            <script src="/resources/js/hashtagsAutocomplete.js"></script>
             <div class="dropdown">
-                <input type="text" class="hashtagSearchInput form-control" data-toggle="dropdown">
+                <input type="text" class="hashtagSearchInput form-control" data-disabled="true" data-toggle="dropdown">
             </div>
             <div align="center">
                 <h2 class="page-header">Счета</h2>
@@ -32,9 +32,9 @@
                                 <div class="panel panel-primary panel-shadow-1">
                                     <a href="<c:url value="/account/page?id=${account.id}"/>">
                                         <div class="panel-heading dark-blue editDiv">
-                                            <span class="text-white editField" contenteditable="false">
+                                            <div class="text-white editField" contenteditable="false">
                                                 <c:out value="${account.name}"/>
-                                            </span>
+                                            </div>
                                             <input type="text" hidden class="oldVal">
                                             <input hidden class="isLink">
                                             <input hidden class="accountId" value="${account.id}">
@@ -133,6 +133,13 @@
                                         </div>
                                     </div>
                                 </a>
+                                <div>
+                                    <button class="btn btn-default showBtn outBtn" type="button" data-toggle="modal"
+                                            data-target="#outcometypeOutcomeAdd${outcomeType.key.id}">
+                                        Расход
+                                    </button>
+                                    <%@include file="outcometype-outcome-add.jsp"%>
+                                </div>
                             </div>
                         </c:forEach>
                         <div class="col-sm-4 col-lg-3">
@@ -142,7 +149,7 @@
                                 </div>
                                 <div class="panel-body">
                                     <button class="btn btn-default" type="button" data-toggle="modal"
-                                            data-target="#outcometype-add">
+                                            data-target="#outcometype-add" >
                                         <span class="glyphicon glyphicon-plus"></span>
                                     </button>
                                     <jsp:include page="outcometype-add.jsp"/>

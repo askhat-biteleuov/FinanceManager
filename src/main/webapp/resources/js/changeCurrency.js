@@ -1,4 +1,8 @@
 $(document).ready(function() {
+    $('.selectedAccount').change(function () {
+        var account = $(this).val();
+        //there need to set currency of outcome
+    });
 
     $('.outBtn').on('click', function () {
         var closestDiv = $(this).closest('div');
@@ -44,4 +48,5 @@ $(document).ready(function() {
             countAmountByCurs(closestDiv.find('.amountOutcome').val(),customCurs);
         }
     });
+
 });
