@@ -3,6 +3,7 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <t:master-page title="Личный кабинет">
+    <script src="<c:url value="/resources/js/imageUpload.js"/>"></script>
     <link href="<c:url value="/resources/css/back-button.css"/>" rel="stylesheet"/>
 
     <div id="scroiller">
@@ -18,8 +19,8 @@
                 <div class="text-center">
                     <img src="<c:url value="/resources/img/placeholder.png"/>" class="avatar img-circle" alt="avatar">
                     <h6>Upload a different photo...</h6>
-                    <form action="<c:url value="/profile/avatar"/>">
-                        <input type="file" class="form-control">
+                    <form action="<c:url value="/profile/avatar"/>" class="uploadImage">
+                        <input type="file" class="form-control" accept="image/*">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         <button type="submit" class="btn-success">Сохранить</button>
                     </form>

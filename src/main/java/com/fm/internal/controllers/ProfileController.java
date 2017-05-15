@@ -5,6 +5,8 @@ import com.fm.internal.models.User;
 import com.fm.internal.services.CurrencyService;
 import com.fm.internal.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,9 +32,9 @@ public class ProfileController {
         return modelAndView;
     }
 
-    @RequestMapping("/avatar")
+    @RequestMapping(value = "/avatar", method = RequestMethod.POST)
     @ResponseBody
-    public byte[] addNewAvatar(@RequestBody AvatarDto avatarDto) {
-        return null;
+    public Object addNewAvatar(@RequestBody AvatarDto avatarDto) {
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
