@@ -11,7 +11,7 @@ import java.util.List;
 
 public class CurrencyServiceImpl implements CurrencyService {
     @Autowired
-    CurrencyDao currencyDao;
+    private CurrencyDao currencyDao;
 
     @Override
     public Currency findCurrencyByCharCode(String charCode) {

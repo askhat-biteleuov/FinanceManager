@@ -77,6 +77,12 @@
                                 class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <form action="<c:url value="/profile"/>" method="get">
+                                    <button class="btn-link" type="submit">Профиль</button>
+                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                </form>
+                            </li>
+                            <li>
                                 <form action="${pageContext.request.contextPath}/logout" method="post">
                                     <button class="btn-link" type="submit">Выход</button>
                                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

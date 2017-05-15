@@ -19,6 +19,10 @@ public class UserInfo implements Serializable {
     @Column
     private String lastName;
 
+    @Lob
+    @Column(columnDefinition = "mediumlob")
+    private byte[] image;
+
     @ManyToOne
     @JoinColumn(nullable = false, name = "currency_character_code", foreignKey = @ForeignKey(name = "fk_currency_character_code"))
     private Currency currency;
@@ -26,10 +30,11 @@ public class UserInfo implements Serializable {
     public UserInfo() {
     }
 
-    public UserInfo(String firstName, String lastName, Currency currency) {
+    public UserInfo(String firstName, String lastName, Currency currency, byte[] image) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.currency = currency;
+        this.image = image;
     }
 
     public long getId() {
@@ -62,5 +67,13 @@ public class UserInfo implements Serializable {
 
     public void setCurrency(Currency currency) {
         this.currency = currency;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 }
