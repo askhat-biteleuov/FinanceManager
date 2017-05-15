@@ -19,7 +19,7 @@
         <c:if test="${user != null}">
             <script src="/resources/js/hashtagsAutocomplete.js"></script>
             <div class="dropdown">
-                <input type="text" class="hashtagSearchInput form-control" data-disabled="true" data-toggle="dropdown">
+                <input type="text" class="hashtagSearchInput form-control dropdown-toggle" data-toggle="dropdown">
             </div>
             <div align="center">
                 <h2 class="page-header">Счета</h2>

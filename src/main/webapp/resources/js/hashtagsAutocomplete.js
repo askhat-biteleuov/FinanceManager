@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    $('.hashtagSearchInput').on('keyup change click', function () {
+    $('.hashtagSearchInput').on('keyup click', function () {
         var hashtag = $(this).val();
         $('.hashtagSearchInput').dropdown('toggle');
         $.ajax({
@@ -10,7 +10,7 @@ $(document).ready(function () {
             data: ({"str": hashtag})
         }).done(function (data) {
             $('.hashtagSearchMenu').remove();
-            var dropdown='<ul class="dropdown-menu hashtagSearchMenu">';
+            var dropdown='<ul class="dropdown-menu scrollable-menu hashtagSearchMenu">';
             var i;
             for (i = 0; i < data.length; ++i) {
                 dropdown+='<li class="hashtagSearchLink"><a>'+data[i]+'</a></li>';
@@ -23,9 +23,8 @@ $(document).ready(function () {
         });
     });
 
-
-        $('body').on("click",".hashtagSearchLink",function () {
-            $('.hashtagSearchInput').val($(this).text());
-            $('.hashtagSearchMenu').remove();
-        });
+    $('body').on("click",".hashtagSearchLink",function () {
+        $('.hashtagSearchInput').val($(this).text());
+        $('.hashtagSearchMenu').remove();
+    });
 });
