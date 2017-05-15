@@ -9,12 +9,11 @@
                 <h4 class="modal-title">Новый расход</h4>
             </div>
             <form method="POST" action="<c:url value="/outcome/add"/>" role="form">
-                <div class="modal-body">
+                <div class="modal-body outcomeForm">
                     <div class="form-group">
                         <select class="form-control selectedAccount">
-                            <option disabled>--- Select ---</option>
                             <c:forEach items="${user.accounts}" var="account">
-                                <option value="${account}">${account.name}</option>
+                                <option value="${account.id}">${account.name}</option>
                             </c:forEach>
                         </select>
                     </div>
@@ -23,18 +22,18 @@
                                maxlength="256"/>
                     </div>
                     <div class="form-group">
-                        <input type="number" id="amountOutcome" name="amount" class="form-control"
+                        <input type="number" name="amount" class="form-control amountOutcome"
                                min="0.01" step="0.01" placeholder="Amount" required/>
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group currExchangeOutcome" hidden>
                         <div class="form-group">
-                            <input type="hidden" value="${account.currency.nominal}" class="fromNominalOutcome">
-                            <input type="hidden" value="${account.currency.curs}" class="fromCursOutcome">
+                            <input type="hidden" class="fromNominalOutcome">
+                            <input type="hidden" class="fromCursOutcome">
                             <input type="hidden" value="${user.info.currency.nominal}" class="toNominalOutcome">
                             <input type="hidden" value="${user.info.currency.curs}" class="toCursOutcome">
                             <input type="hidden" value="${user.info.currency.characterCode}" class="userCurOutcome">
-                            <input type="hidden" value="${account.currency.characterCode}" class="accountCurOutcome">
+                            <input type="hidden" class="accountCurOutcome">
                         </div>
                         <div class="form-group">
                             <div class="input-group">
@@ -47,8 +46,7 @@
                         <div class="form-group">
                             <div class="input-group">
                                 <div class="input-group-addon">${user.info.currency.characterCode}</div>
-                                <input type="text" name="defaultAmount" class="form-control defaultAmountOutcome"
-                                       readonly/>
+                                <input type="text" name="defaultAmount" class="form-control defaultAmountOutcome" readonly/>
                             </div>
                         </div>
                     </div>
@@ -62,7 +60,8 @@
                         <div class="help-block with-errors"></div>
                     </div>
                     <input type="hidden" name="hashTags" value="">
-                    <input type="hidden" name="accountId" value="${account.id}">
+                    <input type="hidden" id="accountId" name="accountId">
+                    <input type="hidden" name="outcomeTypeId" value="${outcomeType.key.id}">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 </div>
                 <div class="modal-footer">

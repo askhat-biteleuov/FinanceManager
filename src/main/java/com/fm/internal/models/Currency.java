@@ -1,11 +1,15 @@
 package com.fm.internal.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Entity
 @Table
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "name")
 public class Currency implements Serializable {
 
     private static final long serialVersionUID = 1L;

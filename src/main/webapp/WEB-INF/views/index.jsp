@@ -134,7 +134,7 @@
                                     </div>
                                 </a>
                                 <div>
-                                    <button class="btn btn-default showBtn outBtn" type="button" data-toggle="modal"
+                                    <button class="btn btn-default showBtn outBtnWithAccounts" type="button" data-toggle="modal"
                                             data-target="#outcometypeOutcomeAdd${outcomeType.key.id}">
                                         Расход
                                     </button>
