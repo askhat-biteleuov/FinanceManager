@@ -36,41 +36,43 @@
                 </div>
                 <h3>Personal info</h3>
 
-                <form class="form-horizontal" role="form">
+                <form action="/profile/update" class="form-horizontal" role="form" method="POST">
                     <div class="form-group">
                         <label class="col-lg-3 control-label">First name:</label>
                         <div class="col-lg-8">
-                            <input class="form-control" type="text" value="${userInfo.firstName}">
+                            <input class="form-control" name="firstName" type="text" value="${userInfo.firstName}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-lg-3 control-label">Last name:</label>
                         <div class="col-lg-8">
-                            <input class="form-control" type="text" value="${userInfo.lastName}">
+                            <input class="form-control" name="lastName" type="text" value="${userInfo.lastName}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-lg-3 control-label">Email:</label>
                         <div class="col-lg-8">
-                            <input class="form-control" type="text" value="${user.email}">
+                            <input class="form-control" name="email" type="text" value="${user.email}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label">New password:</label>
                         <div class="col-md-8">
-                            <input class="form-control" type="password">
+                            <input class="form-control" name="password" type="password">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label">Confirm new password:</label>
                         <div class="col-md-8">
-                            <input class="form-control" type="password">
+                            <input class="form-control" name="confirm" type="password">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label"></label>
                         <div class="col-md-8">
-                            <input type="button" class="btn btn-primary" value="Save Changes">
+                            <input type="hidden" name="currency" value="${userInfo.currency}">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            <input type="submit" class="btn btn-primary" value="Save Changes">
                             <span></span>
                             <input type="reset" class="btn btn-default" value="Cancel">
                         </div>
