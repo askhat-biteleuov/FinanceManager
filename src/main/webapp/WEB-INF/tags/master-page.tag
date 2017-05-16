@@ -76,6 +76,13 @@
                                         class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li>
+                                        <button class="btn-link" type="button">
+                                            <a href="<c:url value="/profile"/>">
+                                                Редактировать профиль
+                                            </a>
+                                        </button>
+                                    </li>
+                                    <li>
                                         <form action="${pageContext.request.contextPath}/logout" method="post">
                                             <button class="btn-link" type="submit">Выход</button>
                                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
