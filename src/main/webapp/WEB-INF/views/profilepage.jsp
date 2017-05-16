@@ -36,7 +36,7 @@
                 </div>
                 <h3>Personal info</h3>
 
-                <form action="/profile/update" class="form-horizontal" role="form" method="POST">
+                <form action="<c:url value="/profile/update"/>" class="form-horizontal" role="form" method="POST">
                     <div class="form-group">
                         <label class="col-lg-3 control-label">First name:</label>
                         <div class="col-lg-8">
