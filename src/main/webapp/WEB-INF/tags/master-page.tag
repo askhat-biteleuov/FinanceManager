@@ -29,67 +29,67 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css"
           rel="stylesheet"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
-    <link href="<c:url value="/resources/css/navbar-custom.css"/>" rel="stylesheet"/>
+    <link href="<c:url value="/resources/css/navbar.css"/>" rel="stylesheet"/>
 
 </head>
-<body>
-<nav class="navbar navbar-default navbar-custom">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-toogle"
-                    aria-expanded="false">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">Главная</a>
-
-        </div>
-        <div class="collapse navbar-collapse" id="navbar-toogle">
-            <ul class="nav navbar-nav">
-                <c:if test="${userName == null}">
-                    <li><a href="/login">Войти в аккаунт</a></li>
-                    <li><a href="/registration">Пройти регистрацию</a></li>
-                </c:if>
-                <c:if test="${userName != null}">
-                    <li><a href="<c:url value="/outcome/all"/>">Расходы</a></li>
-                    <li><a href="<c:url value="/account/income/all"/>">Приходы</a></li>
-                    <li><a href="<c:url value="/statistics"/>">Статистика</a></li>
-                </c:if>
-            </ul>
-            <c:if test="${userName != null}">
-                <ul class="nav navbar-nav navbar-center">
-                    <li>
-                        <p class="navbar-text text-white">
-                            Баланс: <fmt:formatNumber type="currency"
-                                                      currencySymbol="${statusBarDto.info.currency.characterCode}"
-                                                      value="${statusBarDto.sumOfAllBalancesOfAccounts}"/>
-                            Расходы: <fmt:formatNumber type="currency"
-                                                       currencySymbol="${statusBarDto.info.currency.characterCode}"
-                                                       value="${statusBarDto.sumOfAllOutcomesForMonthForUser}"/>
-                        </p>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" role="button"
-                           aria-haspopup="true" aria-expanded="false">Добрый день, ${userName}!<span
-                                class="caret"></span></a>
-                        <ul class="dropdown-menu">
+    <body>
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-toogle"
+                            aria-expanded="false">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">FinanceManager</a>
+                </div>
+                <div class="collapse navbar-collapse" id="navbar-toogle">
+                    <ul class="nav navbar-nav">
+                        <c:if test="${userName == null}">
+                            <li><a href="/login">Войти в аккаунт</a></li>
+                            <li><a href="/registration">Пройти регистрацию</a></li>
+                        </c:if>
+                        <c:if test="${userName != null}">
+                            <li><a href="<c:url value="/outcome/all"/>">Расходы</a></li>
+                            <li><a href="<c:url value="/account/income/all"/>">Приходы</a></li>
+                            <li><a href="<c:url value="/statistics"/>">Статистика</a></li>
+                        </c:if>
+                    </ul>
+                    <c:if test="${userName != null}">
+                        <ul class="nav navbar-nav navbar-center">
                             <li>
-                                <form action="${pageContext.request.contextPath}/logout" method="post">
-                                    <button class="btn-link" type="submit">Выход</button>
-                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                </form>
+                                <p class="navbar-text">
+                                    Баланс: <fmt:formatNumber type="currency"
+                                                              currencySymbol="${statusBarDto.info.currency.characterCode}"
+                                                              value="${statusBarDto.sumOfAllBalancesOfAccounts}"/>
+                                    Расходы: <fmt:formatNumber type="currency"
+                                                               currencySymbol="${statusBarDto.info.currency.characterCode}"
+                                                               value="${statusBarDto.sumOfAllOutcomesForMonthForUser}"/>
+                                </p>
                             </li>
                         </ul>
-                    </li>
-                </ul>
-            </c:if>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-haspopup="true" aria-expanded="false">Добрый день, ${userName}!<span
+                                        class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <form action="${pageContext.request.contextPath}/logout" method="post">
+                                            <button class="btn-link" type="submit">Выход</button>
+                                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </c:if>
+                </div>
+            </div>
+        </nav>
+        <div class="background">
+            <jsp:doBody/>
         </div>
-    </div>
-</nav>
-
-<jsp:doBody/>
-</body>
+    </body>
 </html>
