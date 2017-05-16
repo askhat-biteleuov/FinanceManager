@@ -51,6 +51,12 @@ public class OutcomeController {
     @Autowired
     private RangeService rangeService;
 
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    @ResponseBody
+    public Object addOutcome(@RequestParam long accountId) {
+        Account account = accountService.findAccountById(accountId);
+        return new ResponseEntity<>(account, HttpStatus.OK);
+    }
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public Object addOutcome(@Valid @RequestBody OutcomeDto outcomeDto,

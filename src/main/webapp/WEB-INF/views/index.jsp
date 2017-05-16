@@ -29,67 +29,56 @@
                     <div class="row">
                         <c:forEach var="account" items="${user.accounts}">
                             <div class="col-sm-4 col-lg-3 ">
-                                <div class="panel panel-primary panel-shadow-1">
+                                <div class="panel panel-shadow-1">
                                     <a href="<c:url value="/account/page?id=${account.id}"/>">
-                                        <div class="panel-heading dark-blue editDiv">
-                                            <div class="text-white editField" contenteditable="false">
+                                        <div class="editDiv">
+                                            <h3 class="editField ellipsis blue" contenteditable="false">
                                                 <c:out value="${account.name}"/>
-                                            </div>
+                                            </h3>
                                             <input type="text" hidden class="oldVal">
                                             <input hidden class="isLink">
                                             <input hidden class="accountId" value="${account.id}">
                                             <input hidden class="accountBalance" value="${account.balance}">
-                                            <button hidden class="acceptBtn">
+                                            <a href="#" hidden class="acceptBtn dark-green">
                                                 <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
-                                            </button>
-                                            <button hidden class="cancelBtn">
+                                            </a>
+                                            <a href="#" hidden class="cancelBtn red">
                                                 <span class="glyphicon glyphicon-remove-circle"
                                                       aria-hidden="true"></span>
-                                            </button>
-                                            <button class="editBtn">
+                                            </a>
+                                            <a href="#" class="editBtn dark-grey">
                                                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                            </button>
+                                            </a>
                                         </div>
-                                        <div class="panel-body">
+                                        <div class="memo">
                                             <fmt:formatNumber type="currency"
                                                               currencySymbol="${account.currency.characterCode}"
                                                               value="${account.balance}"/>
                                         </div>
                                     </a>
                                     <div class="panel-footer">
-                                        <div>
-                                            <button class="btn btn-default showBtn" type="button" data-toggle="modal"
-                                                    data-target='#incomeAdd${account.id}'>
-                                                Приход
-                                            </button>
-                                            <%@include file="income-add.jsp"%>
-                                        </div>
-                                        <div>
-                                            <button class="btn btn-default showBtn outBtn" type="button" data-toggle="modal"
-                                                    data-target="#outcomeAdd${account.id}">
-                                                Расход
-                                            </button>
-                                            <%@include file="outcome-add.jsp"%>
-                                        </div>
+                                        <button class="btn btn-default btn-green showBtn outBtn" type="button" data-toggle="modal"
+                                                data-target="#outcomeAdd${account.id}">
+                                            Расход
+                                        </button>
+                                        <%@include file="outcome-add.jsp"%>
+                                        <button class="btn btn-default btn-blue showBtn" type="button" data-toggle="modal"
+                                                data-target='#incomeAdd${account.id}'>
+                                            Приход
+                                        </button>
+                                        <%@include file="income-add.jsp"%>
                                     </div>
                                 </div>
                             </div>
                         </c:forEach>
                         <div class="col-sm-4 col-lg-3 ">
-                            <div class="panel panel-primary panel-shadow-1">
-                                <div class="panel-heading">
-                                    <a class="text-white">
-                                        Добавить счёт
-                                    </a>
+                            <a href="#" data-toggle="modal" data-target="#accountAdd">
+                                <div class="panel panel-add panel-shadow-1">
+                                    <h3>Новый счет</h3>
+                                    <h3 class="glyphicon glyphicon-plus"></h3>
                                 </div>
-                                <div class="panel-body">
-                                    <button class="btn btn-default" type="button" data-toggle="modal"
-                                            data-target="#accountAdd">
-                                        <span class="glyphicon glyphicon-plus"></span>
-                                    </button>
-                                    <jsp:include page="account-add.jsp"/>
-                                </div>
-                            </div>
+                            </a>
+                            <jsp:include page="account-add.jsp"/>
                         </div>
                     </div>
                 </div>
@@ -102,14 +91,13 @@
                                 <c:url value="/outcometype/page" var="outcomeTypeUrl">
                                     <c:param name="itemId" value="${outcomeType.key.id}"/>
                                 </c:url>
-                                <a href="<c:out value="${outcomeTypeUrl}"/>">
-                                    <div class="panel panel-success panel-shadow-1">
-                                        <div class="panel-heading dark-green">
-                                        <span class="text-white">
-                                            <c:out value="${outcomeType.key.name}"/>
-                                        </span>
-                                        </div>
+                                <div class="panel panel-shadow-1">
+                                    <a href="<c:out value="${outcomeTypeUrl}"/>">
                                         <div class="panel-body">
+                                            <h3 class="dark-green">
+                                                <c:out value="${outcomeType.key.name}"/>
+                                            </h3>
+                                            <c:if test="${outcomeType.key.limit>0}">
                                             <c:choose>
                                                 <c:when test="${outcomeType.value > outcomeType.key.limit}">
                                                 <span style="color:red">
@@ -122,39 +110,37 @@
                                                 </span>
                                                 </c:when>
                                                 <c:otherwise>
+                                                <span class="memo">
                                                     <fmt:formatNumber type="currency"
                                                                       currencySymbol="${user.info.currency.characterCode}"
                                                                       value="${outcomeType.value}"/> /
                                                     <fmt:formatNumber type="currency"
                                                                       currencySymbol="${user.info.currency.characterCode}"
                                                                       value="${outcomeType.key.limit}"/>
+                                                </span>
                                                 </c:otherwise>
                                             </c:choose>
+                                            </c:if>
                                         </div>
+                                    </a>
+                                    <div class="panel-footer">
+                                        <button class="btn btn-default btn-green showBtn outBtnWithAccounts" type="button" data-toggle="modal"
+                                                data-target="#outcometypeOutcomeAdd${outcomeType.key.id}">
+                                            Расход
+                                        </button>
+                                        <%@include file="outcometype-outcome-add.jsp"%>
                                     </div>
-                                </a>
-                                <div>
-                                    <button class="btn btn-default showBtn outBtn" type="button" data-toggle="modal"
-                                            data-target="#outcometypeOutcomeAdd${outcomeType.key.id}">
-                                        Расход
-                                    </button>
-                                    <%@include file="outcometype-outcome-add.jsp"%>
                                 </div>
                             </div>
                         </c:forEach>
                         <div class="col-sm-4 col-lg-3">
-                            <div class="panel panel-success panel-shadow-1">
-                                <div class="panel-heading dark-green text-white">
-                                        Добавить категорию
+                            <a href="#" data-toggle="modal" data-target="#outcometype-add" >
+                                <div class="panel panel-add panel-shadow-1">
+                                    <h3>Новая категория</h3>
+                                    <h3 class="glyphicon glyphicon-plus"></h3>
                                 </div>
-                                <div class="panel-body">
-                                    <button class="btn btn-default" type="button" data-toggle="modal"
-                                            data-target="#outcometype-add" >
-                                        <span class="glyphicon glyphicon-plus"></span>
-                                    </button>
-                                    <jsp:include page="outcometype-add.jsp"/>
-                                </div>
-                            </div>
+                            </a>
+                            <jsp:include page="outcometype-add.jsp"/>
                         </div>
                     </div>
                 </div>

@@ -214,7 +214,7 @@
             <input type="hidden" name="accountName" value="${account.name}"/>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
-        <script src="/resources/js/datePickerConfig.js"></script>
+        <script src="<c:url value="/resources/js/datePickerConfig.js"/>"></script>
         <script src="<c:url value="/resources/js/outcomesPiechart.js"/>"></script>
         <script src="<c:url value="/resources/js/drawOutcomesPiechart.js"/>"></script>
         <div id="piechart" style="width: 550px; height: 400px; margin: 0 auto"></div>
