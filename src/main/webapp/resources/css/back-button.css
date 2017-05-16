@@ -2,7 +2,7 @@
     position:fixed;
     height:100%;
     width:100px;
-    top:52px;
+    top:61px;
     left:0px;
     cursor:pointer;
     z-index:10000;
@@ -18,10 +18,10 @@
     opacity: 0.3;
 }
 #scroiller div:hover{
-    opacity:0.85;
-    background:#e2eef2;
+    opacity:0.7;
+    background: #ccbdc5;
 }
 #scroiller div{
     font:bold 1.1em Verdana;
-    color: #2476cc;
+    color: #8a8489;
 }
