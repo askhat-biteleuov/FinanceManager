@@ -10,9 +10,10 @@ function drawChart(data) {
     }
     // Set chart options
     var options = {
-        'title': 'Statistics',
-        'width': 550,
-        'height': 400
+        title: 'Statistics',
+        width: 550,
+        height: 400,
+        backgroundColor: 'transparent'
     };
 
     // Instantiate and draw the chart.
