@@ -51,7 +51,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="input-group date" id="datepicker-outcome">
+                        <div class="input-group date" id="datepicker-outcometype">
                             <input type="text" class="form-control" id="outcomeDate" name="date" readonly required>
                             <span class="input-group-addon">
                                     <i class="glyphicon glyphicon-calendar"></i>
@@ -70,6 +70,7 @@
                     <button class="btn btn-default btn-block" type="button" data-dismiss="modal">Отмена</button>
                 </div>
             </form>
+            <script src="<c:url value="/resources/js/datePickerConfig.js"/>"></script>
         </div>
     </div>
 </div>
