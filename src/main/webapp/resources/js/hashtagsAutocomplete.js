@@ -1,7 +1,8 @@
 $(document).ready(function () {
 
     $('.hashtagSearchInput').on('keyup click', function () {
-        var hashtag = $(this).val();
+        var hashtags = ($(this).val()).split(" ");
+        var hashtag = hashtags[hashtags.length-1];
         $('.hashtagSearchInput').dropdown('toggle');
         $.ajax({
             type: 'GET',
@@ -24,7 +25,9 @@ $(document).ready(function () {
     });
 
     $('body').on("click",".hashtagSearchLink",function () {
-        $('.hashtagSearchInput').val($(this).text());
+        var hashtags = ($('.hashtagSearchInput').val()).split(" ");
+        var oldHashtags = hashtags.slice(0,hashtags.length-1);
+        $('.hashtagSearchInput').val(oldHashtags.join(" ")+" "+$(this).text());
         $('.hashtagSearchMenu').remove();
     });
 });
