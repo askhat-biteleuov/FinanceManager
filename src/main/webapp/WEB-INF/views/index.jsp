@@ -31,29 +31,30 @@
                             <div class="col-sm-4 col-lg-3 ">
                                 <div class="panel panel-shadow-1">
                                     <a href="<c:url value="/account/page?id=${account.id}"/>">
+                                        <div>
                                         <div class="editDiv">
                                             <h3 class="editField ellipsis blue" contenteditable="false">
                                                 <c:out value="${account.name}"/>
                                             </h3>
                                             <input type="text" hidden class="oldVal">
-                                            <input hidden class="isLink">
                                             <input hidden class="accountId" value="${account.id}">
                                             <input hidden class="accountBalance" value="${account.balance}">
-                                            <a href="#" hidden class="acceptBtn dark-green">
+                                            <button href="#" hidden class="acceptBtn dark-green btn-link">
                                                 <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
-                                            </a>
-                                            <a href="#" hidden class="cancelBtn red">
+                                            </button>
+                                            <button href="#" hidden class="cancelBtn red btn-link">
                                                 <span class="glyphicon glyphicon-remove-circle"
                                                       aria-hidden="true"></span>
-                                            </a>
-                                            <a href="#" class="editBtn dark-grey">
+                                            </button>
+                                            <button href="#" class="editBtn dark-grey btn-link">
                                                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                            </a>
+                                            </button>
                                         </div>
                                         <div class="memo">
                                             <fmt:formatNumber type="currency"
                                                               currencySymbol="${account.currency.characterCode}"
                                                               value="${account.balance}"/>
+                                        </div>
                                         </div>
                                     </a>
                                     <div class="panel-footer">

@@ -5,7 +5,6 @@ $(document).ready(function () {
         $(this).closest('.editDiv').find(".acceptBtn").show();
         $(this).closest('.editDiv').find(".cancelBtn").show();
         $(this).hide();
-        $(this).closest('.editDiv').find(".isLink").val('false');
         var field = $(this).closest('.editDiv').find(".editField");
         field.removeClass('ellipsis');
         var oldVal = $(this).closest('.editDiv').find(".oldVal");
@@ -61,15 +60,17 @@ $(document).ready(function () {
             element.text(oldVal.val());
         }
     }).click(function (e) {
-        var isLink = $(this).closest('.editDiv').find(".isLink").val();
-        if (isLink) e.preventDefault();
+        var isContenteditable = $(this).attr("contenteditable");
+        if(isContenteditable==="true") {
+            e.preventDefault();
+        }
     });
+
 
     function stopEdit(element) {
         element.addClass('ellipsis');
         element.closest('.editDiv').find(".acceptBtn").popover('destroy');
         element.attr('contenteditable', 'false');
-        element.closest('.editDiv').find(".isLink").val('true');
         element.closest('.editDiv').find(".acceptBtn").hide();
         element.closest('.editDiv').find(".cancelBtn").hide();
         element.closest('.editDiv').find(".editBtn").show();
