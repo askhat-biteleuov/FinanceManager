@@ -115,6 +115,28 @@
                 </c:when>
                 <c:otherwise>
                     <div>
+                        <form:form method="get" action="/outcome/page" modelAttribute="rangeDto" id="rangeForm"
+                                   cssClass="form-inline">
+                            <div class="input-daterange input-group" id="datepicker-range">
+                                <form:input path="start" type="text" cssClass="input-sm form-control" name="start"
+                                            id="start"
+                                            readonly="true"/>
+                                <span class="input-group-addon">to</span>
+                                <form:input path="end" type="text" cssClass="input-sm form-control" name="end" id="end"
+                                            readonly="true"/>
+                            </div>
+                            <button type="submit" class="btn btn-blue">Показать</button>
+                            <input type="hidden" name="itemId" value="${rangeDto.id}">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            <script>
+                                $('#datepicker-range').datepicker({
+                                    format: "yyyy-mm-dd",
+                                    todayBtn: "linked",
+                                    clearBtn: true
+                                });
+                            </script>
+                        </form:form>
+                        <br>
                         <h3>Пока нет расходов по данному счету.</h3>
                     </div>
                 </c:otherwise>
