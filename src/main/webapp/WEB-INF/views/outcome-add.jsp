@@ -29,8 +29,12 @@
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group">
-                        <label for="outcomeDate">Дата расхода:<br/></label>
-                        <input id="outcomeDate" name="date" type="date" required/><br/>
+                        <div class="input-group date" id="datepicker-modal-outcomeadd">
+                            <input type="text" class="form-control" id="outcomeDate" name="date" readonly required>
+                            <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </span>
+                        </div>
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group currExchangeOutcome" hidden>
@@ -68,6 +72,7 @@
                     <button class="btn btn-default btn-block" type="button" data-dismiss="modal">Отмена</button>
                 </div>
             </form>
+            <script src="<c:url value="/resources/js/datePickerConfig.js"/>"></script>
         </div>
     </div>
 </div>
