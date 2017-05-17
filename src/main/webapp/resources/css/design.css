@@ -5,26 +5,21 @@
 *{
     font-size: 1.25rem;
     font-family:'oswald-regular',helvetica,sans-serif,arial;
-    /*text-transform: uppercase;*/
 }
+body {
+    padding-top: 5.8rem;
+}
+
 a{
     text-transform: uppercase;
     text-decoration: none !important;
 }
-button{
-    text-transform: uppercase !important;
-}
+
 .white {
     color: #ffffff !important;
 }
 .blue {
      color: #39c2d7 !important;
-    /*0275d8*/
- }
-
-.dark-blue {
-    background: #337ab7 !important;
-    /*0275d8*/
 }
 
 .dark-green {
@@ -65,7 +60,7 @@ button{
 }
 
 .background{
-    padding:10em 0 2em;
+    padding:3em 0 2em;
     background: linear-gradient(45deg, #EECFBA, #C5DDE8);
 }
 .memo{
@@ -73,6 +68,10 @@ button{
     text-decoration: none !important;
 }
 
+.btn{
+    text-transform: uppercase !important;
+    text-decoration: none !important;
+}
 .btn-green{
     background: #4caf50 !important;
     color: #ffffff !important;
@@ -96,9 +95,21 @@ button{
 /* Прозрачный фон для основного содержимого */
 .article {
     background:rgba(255,255,255,0.7);
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding: 20px;
     margin-bottom: 10px;
     margin-left: 20px;
     margin-right: 10px;
+}
+.pagination>li>a{
+    color: #464547 !important;
+    border: 1px solid #4caf50 !important;
+}
+.pagination>li.active>a {
+    background: #4caf50 !important;
+    color: #fff !important;
+}
+
+.range-end.active,.range-start.active{
+    background: #39c2d7 !important;
+    color: #fff !important;
 }

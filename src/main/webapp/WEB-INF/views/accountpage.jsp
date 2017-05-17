@@ -8,19 +8,12 @@
 <t:master-page title="${account.name}">
     <script src="<c:url value="/resources/js/formSlideAndDefaultDate.js"/>"></script>
     <script src="<c:url value="/resources/js/sendFormViaAjax.js"/>"></script>
-    <link href="<c:url value="/resources/css/back-button.css"/>" rel="stylesheet"/>
     <style>
         .trans {
             display: none;
         }
     </style>
-
-
-    <div id="scroiller">
-        <div id="back" onclick="history.back()">◄ Назад</div>
-    </div>
-
-
+    <jsp:include page="../fragments/back-button.jsp"/>
     <div class="container">
         <h2 align="center" class="page-header">Счёт ${account.name}</h2>
         <div class="row center">

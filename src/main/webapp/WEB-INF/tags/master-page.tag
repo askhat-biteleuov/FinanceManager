@@ -42,13 +42,13 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="/">FinanceManager</a>
+                    <a class="navbar-brand" href="<c:url value="/"/>">FinanceManager</a>
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-toogle">
                     <ul class="nav navbar-nav">
                         <c:if test="${userName == null}">
-                            <li><a href="/login">Войти в аккаунт</a></li>
-                            <li><a href="/registration">Пройти регистрацию</a></li>
+                            <li><a href="<c:url value="/login"/>">Войти в аккаунт</a></li>
+                            <li><a href="<c:url value="/registration"/>">Пройти регистрацию</a></li>
                         </c:if>
                         <c:if test="${userName != null}">
                             <li><a href="<c:url value="/outcome/all"/>">Расходы</a></li>
@@ -76,15 +76,15 @@
                                         class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <button class="btn-link" type="button">
+                                        <button class="btn btn-link" type="button">
                                             <a href="<c:url value="/profile"/>">
                                                 Редактировать профиль
                                             </a>
                                         </button>
                                     </li>
                                     <li>
-                                        <form action="${pageContext.request.contextPath}/logout" method="post">
-                                            <button class="btn-link" type="submit">Выход</button>
+                                        <form action="<c:url value="/logout"/>" method="post">
+                                            <button class="btn btn-link" type="submit">Выход</button>
                                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                         </form>
                                     </li>

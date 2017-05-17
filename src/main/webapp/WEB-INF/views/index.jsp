@@ -11,18 +11,22 @@
     <script src="<c:url value="/resources/js/formSlideAndDefaultDate.js"/>"></script>
     <div class="container">
         <c:if test="${user == null}">
-            <h2>Добрый день!</h2>
-            <p>Вы можете войти в свой аккаунт или пройти регистрацию.</p>
-            <a class="btn btn-default" href="<c:url value="/registration"/>" type="submit">Пройти регистрацию</a>
-            <a class="btn btn-primary" href="<c:url value="/login"/>" type="submit">Войти в аккаунт</a>
+            <div align="center">
+                <div class="col-sm-4">
+                    <h1 class="page-header">Добрый день!</h1>
+                    <p>Вы можете войти в свой аккаунт или пройти регистрацию.</p>
+                    <a class="btn btn-default" href="<c:url value="/registration"/>" type="submit">Пройти регистрацию</a>
+                    <a class="btn btn-green" href="<c:url value="/login"/>" type="submit">Войти в аккаунт</a>
+                </div>
+            </div>
         </c:if>
         <c:if test="${user != null}">
-            <script src="/resources/js/hashtagsAutocomplete.js"></script>
-            <div class="dropdown">
-                <input type="text" class="hashtagSearchInput form-control dropdown-toggle" data-toggle="dropdown">
-            </div>
             <div align="center">
-                <h2 class="page-header">Счета</h2>
+                <script src="<c:url value="/resources/js/hashtagsAutocomplete.js"/>"></script>
+                <div class="dropdown">
+                    <input type="text" class="hashtagSearchInput form-control dropdown-toggle" placeholder="Начните ввод хэштегов через пробел" data-toggle="dropdown">
+                </div>
+                <h1 class="page-header">Счета</h1>
                 <br>
                 <script src="<c:url value="/resources/js/editAccount.js"/>"></script>
                 <div class="container">
@@ -83,7 +87,7 @@
                         </div>
                     </div>
                 </div>
-                <h2 class="page-header">Категории расходов</h2>
+                <h1 class="page-header">Категории расходов</h1>
                 <br>
                 <div class="container">
                     <div class="row">

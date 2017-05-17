@@ -4,12 +4,14 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <t:master-page title="Вход">
-    <div class="container">
+    <div  class="container">
+        <div align="center">
         <div class="col-sm-3">
+            <h1 class="page-header">Вход</h1>
             <c:url var="loginUrl" value="/login"/>
             <form class="form-horizontal" action="${loginUrl}" method="post" class="form-inline">
                 <c:if test="${param.error != null}">
-                    <p>Invalid username and password.</p>
+                    <p class="red">Invalid username or password.</p>
                 </c:if>
                 <c:if test="${param.logout != null}">
                     <p>You have been logged out successfully.</p>
@@ -29,9 +31,10 @@
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <div class="form-group" align="right">
                     <input class="btn btn-default" type="button" value="Пройти регистрацию" onclick="location.href ='/registration';">
-                    <input class="btn btn-primary" type="submit" value="Войти">
+                    <input class="btn btn-green" type="submit" value="Войти">
                 </div>
             </form>
         </div>
+    </div>
     </div>
 </t:master-page>
