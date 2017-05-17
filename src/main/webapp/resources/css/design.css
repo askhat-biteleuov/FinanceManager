@@ -42,6 +42,7 @@ a{
 }
 .panel-body{
     height: 10rem;
+    padding: 0 !important;
 }
 
 .panel-shadow-1 {
@@ -60,7 +61,7 @@ a{
 }
 
 .background{
-    padding:3em 0 2em;
+    padding-top: 7rem;
     background: linear-gradient(45deg, #EECFBA, #C5DDE8);
 }
 .memo{
@@ -96,6 +97,7 @@ a{
 .article {
     background:rgba(255,255,255,0.7);
     padding: 20px;
+    margin-top: 10px;
     margin-bottom: 10px;
     margin-left: 20px;
     margin-right: 10px;

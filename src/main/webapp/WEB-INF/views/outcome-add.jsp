@@ -8,7 +8,7 @@
                 <button class="close" type="button" data-dismiss="modal">×</button>
                 <h4 class="modal-title">Новый расход</h4>
             </div>
-            <form class="form-horizontal" method="POST" id="outcomeForm" role="form" action="<c:url value="/outcome/add"/>">
+            <form method="POST" id="outcomeForm" role="form" action="<c:url value="/outcome/add"/>">
                 <div class="modal-body">
                     <div class="form-group">
                         <select name="outcomeTypeId" class="form-control">

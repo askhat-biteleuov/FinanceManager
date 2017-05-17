@@ -32,7 +32,7 @@
     <link href="<c:url value="/resources/css/navbar.css"/>" rel="stylesheet"/>
 
 </head>
-    <body>
+<body class="background">
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -95,7 +95,7 @@
                 </div>
             </div>
         </nav>
-        <div class="background">
+        <div>
             <jsp:doBody/>
         </div>
     </body>

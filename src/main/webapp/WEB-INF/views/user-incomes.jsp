@@ -5,60 +5,78 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <t:master-page title="Список приходов">
-    <div align="center">
-    <h2>Приходы</h2>
-    <form:form method="get" action="/account/income/all" modelAttribute="rangeDto" id="rangeForm">
-        <div class="input-daterange input-group col-xs-2" id="datepicker-range">
-            <form:input path="start" type="text" cssClass="input-sm form-control" name="start" id="start" readonly="true"/>
-            <span class="input-group-addon">по</span>
-            <form:input path="end" type="text" cssClass="input-sm form-control" name="end" id="end" readonly="true"/>
-        </div>
-        <br/>
-        <button type="submit" class="btn btn-default" id="submitRange">Показать</button>
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        <script>
-            $('#datepicker-range').datepicker({
-                format: "yyyy-mm-dd",
-                todayBtn: "linked",
-                clearBtn: true
-            });
-        </script>
-    </form:form>
-    <jsp:include page="../fragments/pagination.jsp"/>
-    <table class="table">
-        <tr>
-            <th>Дата</th>
-            <th>Сумма</th>
-            <th>Счет</th>
-            <th>Заметка</th>
-            <th></th>
-        </tr>
-        <tbody>
-        <c:forEach var="income" items="${incomes}">
-            <tr>
-                <td>
-                        ${income.date} ${income.time}
-                </td>
-                <td>
-                        ${income.amount}
-                </td>
-                <td>
-                        ${income.account.name}
-                </td>
-                <td>
-                        ${income.note}
-                </td>
-                <td>
-                    <form action="<c:url value="/account/income/delete"/>" method="POST">
-                        <input type="hidden" name="incomeId" value="${income.id}">
-                        <button type="submit">Удалить приход</button>
+    <jsp:include page="../fragments/back-button.jsp"/>
+    <div class="container">
+        <h2 align="center" class="page-header">Приходы</h2>
+        <div class="article">
+            <c:choose>
+                <c:when test="${not empty incomes}">
+                    <form:form method="get" action="/account/income/all" modelAttribute="rangeDto" id="rangeForm"
+                               cssClass="form-inline">
+                        <div class="input-daterange input-group" id="datepicker-range">
+                            <form:input path="start" type="text" cssClass="input-sm form-control" name="start"
+                                        id="start" readonly="true"/>
+                            <span class="input-group-addon">to</span>
+                            <form:input path="end" type="text" cssClass="input-sm form-control" name="end" id="end"
+                                        readonly="true"/>
+                        </div>
+                        <button type="submit" class="btn btn-blue" id="submitRange">Показать</button>
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                    </form>
-                </td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
-    <button type="submit" onclick="history.back()" class="btn">Назад</button>
+                        <script>
+                            $('#datepicker-range').datepicker({
+                                format: "yyyy-mm-dd",
+                                todayBtn: "linked",
+                                clearBtn: true
+                            });
+                        </script>
+                    </form:form>
+                    <br>
+                    <table class="table">
+                        <tr>
+                            <th>Дата</th>
+                            <th>Сумма</th>
+                            <th>Счет</th>
+                            <th>Заметка</th>
+                            <th></th>
+                        </tr>
+                        <tbody>
+                        <c:forEach var="income" items="${incomes}">
+                            <tr>
+                                <td>
+                                        ${income.date} ${income.time}
+                                </td>
+                                <td>
+                                        ${income.amount}
+                                </td>
+                                <td>
+                                        ${income.account.name}
+                                </td>
+                                <td>
+                                        ${income.note}
+                                </td>
+                                <td>
+                                    <form action="<c:url value="/account/income/delete"/>" method="POST">
+                                        <input type="hidden" name="incomeId" value="${income.id}">
+                                        <button type="submit">Удалить приход</button>
+                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                    </form>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                    <div align="center">
+                        <jsp:include page="../fragments/pagination.jsp"/>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <div>
+                        <h3>Пока нет приходов по данному счету.</h3>
+                    </div>
+                </c:otherwise>
+            </c:choose>
+        </div>
+    </div>
+    </div>
 </t:master-page>
 

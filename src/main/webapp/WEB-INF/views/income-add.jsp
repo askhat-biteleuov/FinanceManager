@@ -8,7 +8,7 @@
                 <button class="close" type="button" data-dismiss="modal">×</button>
                 <h4 class="modal-title">Новый приход</h4>
             </div>
-            <form class="form-horizontal" method="POST" id="incomeForm" role="form" action="<c:url value="/account/income/add"/>">
+            <form method="POST" id="incomeForm" role="form" action="<c:url value="/account/income/add"/>">
                 <div class="modal-body">
                     <div class="form-group">
                         <input type="text" id="incomeNote" name="note" placeholder="Заметка" class="form-control"
