@@ -116,10 +116,10 @@ $(document).ready(function() {
         });
 
         closestDiv.find('.customCursOutcome').on('keyup change', function () {
-            countAmountByCurs(closestDiv.find('.amount').val(),$(this).val());
+            countAmountByCurs(closestDiv.find('.amountOutcome').val(),$(this).val());
         });
 
-        closestDiv.find('.amount').on('keyup change', function () {
+        closestDiv.find('.amountOutcome').on('keyup change', function () {
             var curs = closestDiv.find('.customCursOutcome').val();
             countAmountByCurs($(this).val(),curs);
         });

@@ -24,7 +24,7 @@
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group">
-                        <input type="number" name="amount" class="form-control amount"
+                        <input type="number" name="amount" class="form-control amountOutcome"
                                min="0.01" step="0.01" placeholder="Amount" required/><br/>
                         <div class="help-block with-errors"></div>
                     </div>

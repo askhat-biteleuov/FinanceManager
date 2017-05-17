@@ -83,7 +83,7 @@
                                        maxlength="256"/>
                             </div>
                             <div class="form-group">
-                                <input type="number" id="amountOutcome" name="amount" class="form-control"
+                                <input type="number" name="amount" class="form-control amountOutcome"
                                        min="0.01" step="0.01" placeholder="Amount" required/>
                                 <div class="help-block with-errors"></div>
                             </div>
