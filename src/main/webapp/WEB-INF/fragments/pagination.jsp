@@ -12,7 +12,7 @@
             <li class="disabled"><a href="${firstPageUrl}">Первая</a></li>
         </c:when>
         <c:otherwise>
-            <li class=""><a href="${firstPageUrl}">First</a></li>
+            <li class=""><a href="${firstPageUrl}">Первая</a></li>
         </c:otherwise>
     </c:choose>
 
@@ -40,7 +40,7 @@
             <li class="disabled"><a href="${lastPageUrl}">Последняя</a></li>
         </c:when>
         <c:otherwise>
-            <li class=""><a href="${lastPageUrl}" name="pageId">Last</a></li>
+            <li class=""><a href="${lastPageUrl}" name="pageId">Последняя</a></li>
         </c:otherwise>
     </c:choose>
 </ul>
