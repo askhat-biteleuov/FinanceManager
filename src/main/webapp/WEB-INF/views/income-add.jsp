@@ -11,13 +11,13 @@
             <form class="form-horizontal" method="POST" id="incomeForm" role="form" action="<c:url value="/account/income/add"/>">
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="text" id="incomeNote" name="note" placeholder="Note" class="form-control"
+                        <input type="text" id="incomeNote" name="note" placeholder="Заметка" class="form-control"
                                maxlength="256"/><br/>
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group">
                         <input type="number" id="incomeAmount" name="amount" class="form-control"
-                               min="0.01" step="0.01" placeholder="Amount" required/><br/>
+                               min="0.01" step="0.01" placeholder="Сумма" required/><br/>
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group">

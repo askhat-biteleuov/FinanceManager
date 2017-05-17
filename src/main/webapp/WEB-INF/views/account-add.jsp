@@ -15,20 +15,20 @@
             <form method="POST" role="form" action="<c:url value="/account/add"/>">
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="text" id="accountName" name="name" placeholder="Name" class="form-control"
+                        <input type="text" id="accountName" name="name" placeholder="Название" class="form-control"
                                maxlength="256"/><br/>
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group">
                         <select class="form-control" name="currency">
-                            <option disabled>--- Select ---</option>
+                            <option disabled>--- Выберите валюту ---</option>
                             <c:forEach items="${currencies}" var="currency">
                                 <option value="${currency.characterCode}" id="accountCurrency">${currency.name}</option>
                             </c:forEach>
                         </select><br/>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="accountBalance" name="balance" placeholder="Balance" class="form-control"
+                        <input type="text" id="accountBalance" name="Баланс" placeholder="Balance" class="form-control"
                                pattern="^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$" required/><br/>
                         <div class="help-block with-errors"></div>
                     </div>

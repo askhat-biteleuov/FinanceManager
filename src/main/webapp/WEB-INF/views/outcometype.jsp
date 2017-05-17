@@ -15,7 +15,7 @@
                     <form:form method="get" action="/outcometype/page" modelAttribute="rangeDto" id="rangeForm" cssClass="form-inline">
                         <div class="input-daterange input-group" id="datepicker-range">
                             <form:input path="start" type="text" cssClass="input-sm form-control" name="start" id="start" readonly="true"/>
-                            <span class="input-group-addon">to</span>
+                            <span class="input-group-addon">по</span>
                             <form:input path="end" type="text" cssClass="input-sm form-control" name="end" id="end" readonly="true"/>
                         </div>
                         <button type="submit" class="btn btn-blue">Принять</button>
@@ -33,8 +33,8 @@
                     <table class="table">
                         <tr>
                             <th>Дата</th>
-                            <th></th>
-                            <th></th>
+                            <th>Сумма</th>
+                            <th>Сумма в валюте пользователя</th>
                             <th>Счет</th>
                             <th>Заметка</th>
                             <th></th>

@@ -10,7 +10,7 @@ function drawChart(data) {
     }
     // Set chart options
     var options = {
-        title: 'Statistics',
+        title: 'Статистика',
         width: 550,
         height: 400,
         backgroundColor: 'transparent'

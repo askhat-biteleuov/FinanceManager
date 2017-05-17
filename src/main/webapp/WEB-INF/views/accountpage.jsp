@@ -33,12 +33,12 @@
                         <form method="POST" action="<c:url value="/account/income/add"/>" id="incomeForm" class="trans" role="form">
                             <br/>
                             <div class="form-group">
-                                <input type="text" id="incomeNote" name="note" placeholder="Note" class="form-control"
+                                <input type="text" id="incomeNote" name="note" placeholder="Заметка" class="form-control"
                                        maxlength="256"/>
                             </div>
                             <div class="form-group">
                                 <input type="number" id="incomeAmount" name="amount" class="form-control"
-                                       min="0.01" step="0.01" placeholder="Amount" required/>
+                                       min="0.01" step="0.01" placeholder="Сумма" required/>
                                 <div class="help-block with-errors"></div>
                             </div>
                             <div class="form-group">
@@ -65,19 +65,19 @@
                             <br/>
                             <div class="form-group">
                                 <select name="outcomeTypeId" class="form-control">
-                                    <option disabled>--- Select ---</option>
+                                    <option disabled>--- Выберите категорию ---</option>
                                     <c:forEach items="${types}" var="type">
                                         <option value="${type.id}">${type.name}</option>
                                     </c:forEach>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <input type="text" id="outcomeNote" name="note" placeholder="Note" class="form-control"
+                                <input type="text" id="outcomeNote" name="note" placeholder="Заметка" class="form-control"
                                        maxlength="256"/>
                             </div>
                             <div class="form-group">
                                 <input type="number" name="amount" class="form-control amountOutcome"
-                                       min="0.01" step="0.01" placeholder="Amount" required/>
+                                       min="0.01" step="0.01" placeholder="Сумма" required/>
                                 <div class="help-block with-errors"></div>
                             </div>
                             <script type="text/javascript" src="<c:url value="/resources/js/changeCurrency.js"/>"></script>
@@ -128,7 +128,7 @@
                             <br/>
                             <div class="form-group">
                                 <select id="accountSelect" name="toAccountId" class="form-control">
-                                    <option value="1" disabled>--- Select ---</option>
+                                    <option value="1" disabled>--- Выберите аккаунт ---</option>
                                     <c:forEach items="${accounts}" var="acc">
                                         <c:if test="${acc.id != account.id}">
                                             <option value="${acc.id}">${acc.name}</option>
@@ -138,7 +138,7 @@
                             </div>
                             <div class="form-group">
                                 <input type="number" id="outcomeTransferAmount" name="outcomeAmount" class="form-control"
-                                       min="0.01" step="0.01" placeholder="Amount" required/>
+                                       min="0.01" step="0.01" placeholder="Сумма" required/>
                                 <div class="help-block with-errors"></div>
                             </div>
                             <script type="text/javascript" src="<c:url value="/resources/js/accountAndCurrencySelection.js"/>"></script>
@@ -195,7 +195,7 @@
                     <form id="rangeForm">
                         <div class="input-daterange input-group datepicker" id="datepicker-range">
                             <input type="text" class="input-sm form-control" name="start" id="start" readonly/>
-                            <span class="input-group-addon">to</span>
+                            <span class="input-group-addon">по</span>
                             <input type="text" class="input-sm form-control" name="end" id="end" readonly/>
                         </div>
                         <button type="submit" class="btn btn-blue btn-block">Показать</button>

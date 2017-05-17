@@ -10,11 +10,11 @@
     <form:form method="get" action="/account/income/all" modelAttribute="rangeDto" id="rangeForm">
         <div class="input-daterange input-group col-xs-2" id="datepicker-range">
             <form:input path="start" type="text" cssClass="input-sm form-control" name="start" id="start" readonly="true"/>
-            <span class="input-group-addon">to</span>
+            <span class="input-group-addon">по</span>
             <form:input path="end" type="text" cssClass="input-sm form-control" name="end" id="end" readonly="true"/>
         </div>
         <br/>
-        <button type="submit" class="btn btn-default" id="submitRange">Submit</button>
+        <button type="submit" class="btn btn-default" id="submitRange">Показать</button>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <script>
             $('#datepicker-range').datepicker({

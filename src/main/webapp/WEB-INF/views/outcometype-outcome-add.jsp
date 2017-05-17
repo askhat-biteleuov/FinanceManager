@@ -18,12 +18,12 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="outcomeNote" name="note" placeholder="Note" class="form-control"
+                        <input type="text" id="outcomeNote" name="note" placeholder="Заметка" class="form-control"
                                maxlength="256"/>
                     </div>
                     <div class="form-group">
                         <input type="number" name="amount" class="form-control amountOutcome"
-                               min="0.01" step="0.01" placeholder="Amount" required/>
+                               min="0.01" step="0.01" placeholder="Сумма" required/>
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group currExchangeOutcome" hidden>

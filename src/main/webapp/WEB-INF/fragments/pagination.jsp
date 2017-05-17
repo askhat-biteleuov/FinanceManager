@@ -9,7 +9,7 @@
     </c:url>
     <c:choose>
         <c:when test="${paginationDto.selectedPage == 1}">
-            <li class="disabled"><a href="${firstPageUrl}">First</a></li>
+            <li class="disabled"><a href="${firstPageUrl}">Первая</a></li>
         </c:when>
         <c:otherwise>
             <li class=""><a href="${firstPageUrl}">First</a></li>
@@ -37,7 +37,7 @@
     </c:url>
     <c:choose>
         <c:when test="${paginationDto.selectedPage == paginationDto.pageCount}">
-            <li class="disabled"><a href="${lastPageUrl}">Last</a></li>
+            <li class="disabled"><a href="${lastPageUrl}">Последняя</a></li>
         </c:when>
         <c:otherwise>
             <li class=""><a href="${lastPageUrl}" name="pageId">Last</a></li>

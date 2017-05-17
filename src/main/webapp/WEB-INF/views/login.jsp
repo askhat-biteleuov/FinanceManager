@@ -17,16 +17,16 @@
                     <p>You have been logged out successfully.</p>
                 </c:if>
                 <div class="form-group">
-                    <input class="form-control" type="text" id="username" name="email" placeholder="Enter Username"
+                    <input class="form-control" type="text" id="username" name="email" placeholder="Имя пользователя"
                            required>
                 </div>
                 <div class="form-group">
                     <input class="form-control" type="password" id="password" name="password"
-                           placeholder="Enter Password"
+                           placeholder="Пароль"
                            required>
                 </div>
                 <div class="checkbox" align="left">
-                    <label><input type="checkbox" name="remember-me"/>Remember me</label>
+                    <label><input type="checkbox" name="remember-me"/>Запомнить меня</label>
                 </div>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <div class="form-group" align="right">

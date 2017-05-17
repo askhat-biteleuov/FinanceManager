@@ -28,18 +28,6 @@ public class TransferController {
     @Autowired
     private MessageSource messages;
 
-    @RequestMapping(value = "/transfer", method = RequestMethod.GET)
-    public ModelAndView getTransferList(WebRequest request) {
-        String accountId = request.getParameter("accountId");
-        TransferDto transferDto = new TransferDto();
-        transferDto.setAccountId(Long.parseLong(accountId));
-        ModelAndView modelAndView = new ModelAndView("transfer");
-        modelAndView.addObject("transferDto", transferDto);
-        modelAndView.addObject("accounts",
-                accountService.findAllUserAccounts(accountService.findAccountById(transferDto.getAccountId()).getUser()));
-        return modelAndView;
-    }
-
     @RequestMapping(value = "/transfer/add", method =  RequestMethod.POST)
     @ResponseBody
     public Object submitTransfer(@Valid @RequestBody TransferDto transferDto, BindingResult result) {

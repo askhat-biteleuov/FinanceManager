@@ -18,7 +18,7 @@
             <div class="col-md-3">
                 <div class="text-center">
                     <img src="<c:url value="/resources/img/placeholder.png"/>" class="avatar img-circle" alt="avatar">
-                    <h6>Upload a different photo...</h6>
+                    <h6>Загрузите другое фото...</h6>
                     <form action="<c:url value="/profile/avatar"/>" class="uploadImage">
                         <input type="file" class="form-control" accept="image/*">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -29,17 +29,17 @@
 
             <!-- edit form column -->
             <div class="col-md-9 personal-info">
-                <h3>Personal info</h3>
+                <h3>Персональная информация</h3>
 
                 <form action="<c:url value="/profile/update"/>" class="form-horizontal" role="form" method="POST">
                     <div class="form-group">
-                        <label class="col-lg-3 control-label">First name:</label>
+                        <label class="col-lg-3 control-label">Имя:</label>
                         <div class="col-lg-8">
                             <input class="form-control" name="firstName" type="text" value="${userInfo.firstName}">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-lg-3 control-label">Last name:</label>
+                        <label class="col-lg-3 control-label">Фамилия:</label>
                         <div class="col-lg-8">
                             <input class="form-control" name="lastName" type="text" value="${userInfo.lastName}">
                         </div>
@@ -51,13 +51,13 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-3 control-label">New password:</label>
+                        <label class="col-md-3 control-label">Новый пароль:</label>
                         <div class="col-md-8">
                             <input class="form-control" name="password" type="password">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-3 control-label">Confirm new password:</label>
+                        <label class="col-md-3 control-label">Подтвердите новый пароль:</label>
                         <div class="col-md-8">
                             <input class="form-control" name="confirm" type="password">
                         </div>
@@ -67,9 +67,9 @@
                         <div class="col-md-8">
                             <input type="hidden" name="currency" value="${userInfo.currency}">
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                            <input type="submit" class="btn btn-primary" value="Save Changes">
+                            <input type="submit" class="btn btn-primary" value="Сохранить изменения">
                             <span></span>
-                            <input type="reset" class="btn btn-default" value="Cancel">
+                            <input type="reset" class="btn btn-default" value="Отмена">
                         </div>
                     </div>
                 </form>

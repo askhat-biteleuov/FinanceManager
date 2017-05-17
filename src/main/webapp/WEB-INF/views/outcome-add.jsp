@@ -12,20 +12,20 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <select name="outcomeTypeId" class="form-control">
-                            <option disabled>--- Select ---</option>
+                            <option disabled>--- Выберите категорию ---</option>
                             <c:forEach items="${types}" var="type">
                                 <option value="${type.id}">${type.name}</option>
                             </c:forEach>
                         </select><br/>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="outcomeNote" name="note" placeholder="Note" class="form-control"
+                        <input type="text" id="outcomeNote" name="note" placeholder="Заметка" class="form-control"
                                maxlength="256"/><br/>
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group">
                         <input type="number" name="amount" class="form-control amountOutcome"
-                               min="0.01" step="0.01" placeholder="Amount" required/><br/>
+                               min="0.01" step="0.01" placeholder="Сумма" required/><br/>
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group">
