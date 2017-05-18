@@ -4,12 +4,14 @@ import com.fm.internal.models.Income;
 import com.fm.internal.models.Outcome;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Pattern;
 import java.util.List;
 
 public class AccountDto {
     private long id;
     @NotEmpty
+    @Max(15)
     private String name;
 
     @Pattern(regexp = "^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\\.[0-9]{2})?$")

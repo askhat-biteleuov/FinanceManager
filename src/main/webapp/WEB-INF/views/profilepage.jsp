@@ -47,7 +47,7 @@
                     <div class="form-group">
                         <label class="col-lg-3 control-label">Email:</label>
                         <div class="col-lg-8">
-                            <input class="form-control" name="email" type="text" value="${user.email}">
+                            <input class="form-control" name="email" type="text" value="${user.email}" disabled>
                         </div>
                     </div>
                     <div class="form-group">
@@ -67,9 +67,9 @@
                         <div class="col-md-8">
                             <input type="hidden" name="currency" value="${userInfo.currency}">
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                            <input type="submit" class="btn btn-primary" value="Сохранить изменения">
-                            <span></span>
                             <input type="reset" class="btn btn-default" value="Отмена">
+                            <span></span>
+                            <input type="submit" class="btn btn-primary" value="Сохранить изменения">
                         </div>
                     </div>
                 </form>

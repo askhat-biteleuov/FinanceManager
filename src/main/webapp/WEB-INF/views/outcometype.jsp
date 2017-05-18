@@ -85,7 +85,7 @@
                                 <span class="input-group-addon">по</span>
                                 <form:input path="end" type="text" cssClass="input-sm form-control" name="end" id="end" readonly="true"/>
                             </div>
-                            <button type="submit" class="btn btn-blue">Принять</button>
+                            <button type="submit" class="btn btn-blue">Показать</button>
                             <input type="hidden" name="itemId" value="${outcomeTypeDto.id}">
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             <script>

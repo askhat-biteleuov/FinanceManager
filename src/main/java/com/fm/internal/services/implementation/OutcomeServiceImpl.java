@@ -72,6 +72,7 @@ public class OutcomeServiceImpl implements OutcomeService {
 
     @Override
     public List<Outcome> findOutcomesInAccountByDate(Account account, LocalDate start, LocalDate end) {
+        start.lengthOfMonth();
         return dao.getAccountOutcomesByDate(account, start, end);
     }
 

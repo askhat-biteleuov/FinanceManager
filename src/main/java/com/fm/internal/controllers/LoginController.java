@@ -50,7 +50,7 @@ public class LoginController {
 
         List <String> subListHashtags = new ArrayList<>();
         for (String hashtag : hashtags) {
-            if(hashtag.contains(str)){
+            if(hashtag.toLowerCase().contains(str.toLowerCase())){
                 subListHashtags.add(hashtag);
             }
         }

@@ -28,7 +28,7 @@
                         </select><br/>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="accountBalance" name="Баланс" placeholder="Balance" class="form-control"
+                        <input type="text" id="accountBalance" name="balance" placeholder="Баланс" class="form-control"
                                pattern="^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$" required/><br/>
                         <div class="help-block with-errors"></div>
                     </div>
