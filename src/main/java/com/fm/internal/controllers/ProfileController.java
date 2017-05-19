@@ -57,7 +57,6 @@ public class ProfileController {
         UserInfo info = loggedUser.getInfo();
         info.setFirstName(registrationDto.getFirstName());
         info.setLastName(registrationDto.getLastName());
-        info.setCurrency(currencyService.findCurrencyByCharCode(registrationDto.getCurrency()));
         loggedUser.setInfo(info);
         userService.updateUser(loggedUser);
         return getProfilePage();

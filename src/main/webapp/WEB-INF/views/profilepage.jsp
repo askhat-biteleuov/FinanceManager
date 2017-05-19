@@ -57,13 +57,6 @@
                             </label>
                         </div>
                     </div>
-                    <label class="col-lg-3 control-label">Ваша валюта:</label>
-                    <select class="form-control" name="currency">
-                        <option selected>${userInfo.currency.name}</option>
-                        <c:forEach items="${currencies}" var="currency">
-                            <option value="${currency.characterCode}" id="currency">${currency.name}</option>
-                        </c:forEach>
-                    </select>
                     <div class="form-group">
                         <label class="col-md-3 control-label"></label>
                         <div class="col-md-8">
