@@ -38,6 +38,7 @@
     <bean class="com.fm.internal.validation.UserValidator"/>
     <bean class="com.fm.internal.validation.AccountValidator"/>
     <bean class="com.fm.internal.validation.OutcomeTypeValidator"/>
+    <bean class="com.fm.internal.validation.PasswordValidator"/>
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />

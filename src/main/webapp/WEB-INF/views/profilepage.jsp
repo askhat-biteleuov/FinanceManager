@@ -4,6 +4,7 @@
 
 <t:master-page title="Личный кабинет">
     <script src="<c:url value="/resources/js/imageUpload.js"/>"></script>
+    <script src="<c:url value="/resources/js/sendPasswordViaAjax.js"/>"></script>
     <link href="<c:url value="/resources/css/back-button.css"/>" rel="stylesheet"/>
 
     <div id="scroiller">
@@ -28,38 +29,32 @@
             </div>
 
             <!-- edit form column -->
-            <div class="col-md-9 personal-info">
+            <div class="col-md-5 personal-info">
                 <h3>Персональная информация</h3>
 
                 <form action="<c:url value="/profile/update"/>" class="form-horizontal" role="form" method="POST">
                     <div class="form-group">
                         <label class="col-lg-3 control-label">Имя:</label>
                         <div class="col-lg-8">
-                            <input class="form-control" name="firstName" type="text" value="${userInfo.firstName}">
+                            <label>
+                                <input class="form-control" name="firstName" type="text" value="${userInfo.firstName}">
+                            </label>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-lg-3 control-label">Фамилия:</label>
                         <div class="col-lg-8">
-                            <input class="form-control" name="lastName" type="text" value="${userInfo.lastName}">
+                            <label>
+                                <input class="form-control" name="lastName" type="text" value="${userInfo.lastName}">
+                            </label>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-lg-3 control-label">Email:</label>
                         <div class="col-lg-8">
-                            <input class="form-control" name="email" type="text" value="${user.email}" disabled>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">Новый пароль:</label>
-                        <div class="col-md-8">
-                            <input class="form-control" name="password" type="password">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">Подтвердите новый пароль:</label>
-                        <div class="col-md-8">
-                            <input class="form-control" name="confirm" type="password">
+                            <label>
+                                <input class="form-control" name="email" type="text" value="${user.email}" disabled>
+                            </label>
                         </div>
                     </div>
                     <div class="form-group">
@@ -70,6 +65,43 @@
                             <input type="reset" class="btn btn-default" value="Отмена">
                             <span></span>
                             <input type="submit" class="btn btn-primary" value="Сохранить изменения">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4 personal-info changePassword">
+                <h3>Смена пароля</h3>
+                <form action="<c:url value="/profile/password"/>" class="form-horizontal" role="form" method="POST">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Старый пароль:</label>
+                        <div class="col-md-8">
+                            <label>
+                                <input class="form-control" name="oldPassword" type="password">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Новый пароль:</label>
+                        <div class="col-md-8">
+                            <label>
+                                <input class="form-control" name="password" type="password">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Подтвердите новый пароль:</label>
+                        <div class="col-md-8">
+                            <label>
+                                <input class="form-control" name="confirm" type="password">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"></label>
+                        <div class="col-md-8">
+                            <button type="reset" class="btn btn-default">Отмена</button>
+                            <span></span>
+                            <button type="submit" class="btn btn-primary">Сохранить новый пароль</button>
                         </div>
                     </div>
                 </form>
