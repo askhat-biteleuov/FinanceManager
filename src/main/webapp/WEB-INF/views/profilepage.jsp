@@ -34,6 +34,14 @@
 
                 <form action="<c:url value="/profile/update"/>" class="form-horizontal" role="form" method="POST">
                     <div class="form-group">
+                        <label class="col-lg-3 control-label">Email:</label>
+                        <div class="col-lg-8">
+                            <label>
+                                <input class="form-control" name="email" type="text" value="${user.email}" disabled>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-lg-3 control-label">Имя:</label>
                         <div class="col-lg-8">
                             <label>
@@ -49,18 +57,16 @@
                             </label>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-lg-3 control-label">Email:</label>
-                        <div class="col-lg-8">
-                            <label>
-                                <input class="form-control" name="email" type="text" value="${user.email}" disabled>
-                            </label>
-                        </div>
-                    </div>
+                    <label class="col-lg-3 control-label">Ваша валюта:</label>
+                    <select class="form-control" name="currency">
+                        <option selected>${userInfo.currency.name}</option>
+                        <c:forEach items="${currencies}" var="currency">
+                            <option value="${currency.characterCode}" id="currency">${currency.name}</option>
+                        </c:forEach>
+                    </select>
                     <div class="form-group">
                         <label class="col-md-3 control-label"></label>
                         <div class="col-md-8">
-                            <input type="hidden" name="currency" value="${userInfo.currency}">
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             <input type="reset" class="btn btn-default" value="Отмена">
                             <span></span>
@@ -84,7 +90,8 @@
                         <label class="col-md-3 control-label">Новый пароль:</label>
                         <div class="col-md-8">
                             <label>
-                                <input class="form-control" name="password" type="password">
+                                <input class="form-control" name="password" type="password" minlength="6"
+                                       maxlength="24">
                             </label>
                         </div>
                     </div>
@@ -92,7 +99,7 @@
                         <label class="col-md-3 control-label">Подтвердите новый пароль:</label>
                         <div class="col-md-8">
                             <label>
-                                <input class="form-control" name="confirm" type="password">
+                                <input class="form-control" name="confirm" type="password" minlength="6" maxlength="24">
                             </label>
                         </div>
                     </div>
