@@ -36,6 +36,6 @@ public interface IncomeService {
 
     BigDecimal sumOfAllIncomes(List<Income> incomes);
 
-    List<Income> getIncomesByHashTag(Account account, String hashTag);
+//    List<Income> getIncomesByHashTag(Account account, String hashTag);
 
 }

@@ -141,17 +141,17 @@ public class IncomeDao extends GenericDao<Income> {
         }
     }
 
-    @Transactional
-    public List<Income> getIncomesByHashTag(Account account, String hashTag){
-        Session currentSession = getSessionFactory().getCurrentSession();
-        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
-        CriteriaQuery<Income> query = builder.createQuery(Income.class);
-        Root<Income> root = query.from(Income.class);
-        query.select(root);
-        Predicate hashcodeSearch = builder.like(root.get(Income_.hashTags), "%"+hashTag+" %");
-        Predicate equalAccount = builder.equal(root.get(Income_.account), account);
-        query.where(hashcodeSearch, equalAccount);
-        query.orderBy(builder.desc(root.get(Income_.date)));
-        return currentSession.createQuery(query).getResultList();
-    }
+//    @Transactional
+//    public List<Income> getIncomesByHashTag(Account account, String hashTag){
+//        Session currentSession = getSessionFactory().getCurrentSession();
+//        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
+//        CriteriaQuery<Income> query = builder.createQuery(Income.class);
+//        Root<Income> root = query.from(Income.class);
+//        query.select(root);
+//        Predicate hashcodeSearch = builder.like(root.get(Income_.hashTags), "%"+hashTag+" %");
+//        Predicate equalAccount = builder.equal(root.get(Income_.account), account);
+//        query.where(hashcodeSearch, equalAccount);
+//        query.orderBy(builder.desc(root.get(Income_.date)));
+//        return currentSession.createQuery(query).getResultList();
+//    }
 }

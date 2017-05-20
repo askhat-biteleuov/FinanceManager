@@ -12,7 +12,6 @@ import org.testng.annotations.Test;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -99,11 +98,11 @@ public class OutcomeServiceTest extends AbstractTestNGSpringContextTests{
         Assert.assertEquals(4, hashTagService.getHashTagsByUser(user).size());
     }
 
-    @Test
-    public void hashTagSearchTest() throws Exception{
-        User user = userService.findByEmail(USER_EMAIL);
-        Account account = accountService.findUserAccountByName(user, FIRST_ACCOUNT_NAME);
-        Assert.assertEquals(2, outcomeService.getOutcomesByHashTag(account, "#weekend").size());
-        outcomeService.getOutcomesByHashTag(account, "#weekend").stream().forEach(outcome -> System.out.println(outcome.getHashTags()));
-    }
+//    @Test
+//    public void hashTagSearchTest() throws Exception{
+//        User user = userService.findByEmail(USER_EMAIL);
+//        Account account = accountService.findUserAccountByName(user, FIRST_ACCOUNT_NAME);
+//        Assert.assertEquals(2, outcomeService.getOutcomesByHashTag(account, "#weekend").size());
+//        outcomeService.getOutcomesByHashTag(account, "#weekend").stream().forEach(outcome -> System.out.println(outcome.getHashTags()));
+//    }
 }

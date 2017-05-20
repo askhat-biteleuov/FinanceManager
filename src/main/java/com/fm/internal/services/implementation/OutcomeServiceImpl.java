@@ -141,8 +141,8 @@ public class OutcomeServiceImpl implements OutcomeService {
         return outcomes.stream().map(Outcome::getAmount).reduce(BigDecimal::add).get();
     }
 
-    @Override
-    public List<Outcome> getOutcomesByHashTag(Account account, String hashTag) {
-        return dao.getOutcomesByHashTag(account, hashTag);
-    }
+//    @Override
+//    public List<Outcome> getOutcomesByHashTag(Account account, String hashTag) {
+//        return dao.getOutcomesByHashTag(account, hashTag);
+//    }
 }

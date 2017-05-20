@@ -40,6 +40,6 @@ public interface OutcomeService {
 
     BigDecimal sumOfAllOutcomes(List<Outcome> outcomes);
 
-    List<Outcome> getOutcomesByHashTag(Account account, String hashcode);
+//    List<Outcome> getOutcomesByHashTag(Account account, String hashcode);
 
 }
