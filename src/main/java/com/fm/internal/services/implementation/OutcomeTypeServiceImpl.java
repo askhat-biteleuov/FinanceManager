@@ -8,10 +8,12 @@ import com.fm.internal.models.Outcome;
 import com.fm.internal.models.OutcomeType;
 import com.fm.internal.models.User;
 import com.fm.internal.services.OutcomeTypeService;
+import com.fm.internal.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +24,9 @@ public class OutcomeTypeServiceImpl implements OutcomeTypeService {
 
     @Autowired
     private OutcomeTypeDao outcomeTypeDao;
+
+    @Autowired
+    private UserService userService;
 
     @Override
     public void addOutcomeType(OutcomeType type) {
@@ -83,6 +88,32 @@ public class OutcomeTypeServiceImpl implements OutcomeTypeService {
     @Override
     public Map<String, Double> countOutcomeTypesValueByDate(Account account, LocalDate start, LocalDate end) {
         return outcomeTypeDao.countOutcomeTypesValueByDate(account, start, end);
+    }
+
+    @Override
+    public Map<Integer, Map<String, Double>> countOutcomeTypesValueByMonth(Account account, LocalDate start) {
+        Map<Integer, Map<String, Double>> outcomes = outcomeTypeDao.countOutcomeTypesValueByMonth(account, start);
+        List<OutcomeType> outcomeTypes = outcomeTypeDao.getAvailableOutcomeTypesByUser(userService.getLoggedUser());
+        for (OutcomeType type : outcomeTypes) {
+            for (Integer day : outcomes.keySet()) {
+                outcomes.get(day).putIfAbsent(type.getName(), 0.0);
+            }
+        }
+        return outcomes;
+    }
+
+    @Override
+    public List<double[]> prepareChartData(Map<Integer, Map<String, Double>> data) {
+        List<double[]> preaparedData = new ArrayList<>();
+        int numOfTypes = data.get(0).size();
+        for (Integer day : data.keySet()) {
+            double[] dataArray = new double[numOfTypes];
+            for (String type : data.get(day).keySet()) {
+                dataArray[day] = data.get(day).get(type);
+            }
+            preaparedData.add(dataArray);
+        }
+        return preaparedData;
     }
 
     @Override

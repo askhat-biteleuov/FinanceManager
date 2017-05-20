@@ -29,7 +29,7 @@ public class OutcomeTypeDao extends GenericDao<OutcomeType> {
 //    }
 
     @Transactional
-    public List<OutcomeType> getAvailableOutcomeTypesByUser(User user){
+    public List<OutcomeType> getAvailableOutcomeTypesByUser(User user) {
         Session currentSession = getSessionFactory().getCurrentSession();
         CriteriaBuilder builder = currentSession.getCriteriaBuilder();
         CriteriaQuery<OutcomeType> query = builder.createQuery(OutcomeType.class);
@@ -41,7 +41,7 @@ public class OutcomeTypeDao extends GenericDao<OutcomeType> {
     }
 
     @Transactional
-    public OutcomeType getOutcomeTypeByNameAndUser(User user, String name){
+    public OutcomeType getOutcomeTypeByNameAndUser(User user, String name) {
         Session currentSession = getSessionFactory().getCurrentSession();
         CriteriaBuilder builder = currentSession.getCriteriaBuilder();
         CriteriaQuery<OutcomeType> query = builder.createQuery(OutcomeType.class);
@@ -64,7 +64,7 @@ public class OutcomeTypeDao extends GenericDao<OutcomeType> {
         Root<Outcome> root = query.from(Outcome.class);
         Predicate equalDate = criteriaBuilder.between(root.get(Outcome_.date), start, end);
         Predicate equalOutcomeType = criteriaBuilder.equal(root.get(Outcome_.outcomeType), outcomeType);
-        query.where(criteriaBuilder.and(equalDate,equalOutcomeType));
+        query.where(criteriaBuilder.and(equalDate, equalOutcomeType));
         return session.createQuery(query).setFirstResult(offset).setMaxResults(limit).getResultList();
     }
 
@@ -77,8 +77,39 @@ public class OutcomeTypeDao extends GenericDao<OutcomeType> {
         query.select(criteriaBuilder.count(root));
         Predicate equalDate = criteriaBuilder.between(root.get(Outcome_.date), start, end);
         Predicate equalOutcomeType = criteriaBuilder.equal(root.get(Outcome_.outcomeType), outcomeType);
-        query.where(criteriaBuilder.and(equalDate,equalOutcomeType));
+        query.where(criteriaBuilder.and(equalDate, equalOutcomeType));
         return session.createQuery(query).uniqueResult();
+    }
+
+    @Transactional
+    public Map<Integer, Map<String, Double>> countOutcomeTypesValueByMonth(Account account, LocalDate start) {
+        Map<Integer, Map<String, Double>> outcomeTypesValueByDay = new HashMap<>();
+        for (int i = 1; i <= start.lengthOfMonth(); i++) {
+            outcomeTypesValueByDay.put(i, null);
+        }
+        Session session = getSessionFactory().getCurrentSession();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<Object[]> query = criteriaBuilder.createQuery(Object[].class);
+        Root<Outcome> outcomeRoot = query.from(Outcome.class);
+        query.multiselect(outcomeRoot.get(Outcome_.outcomeType), criteriaBuilder.sum(outcomeRoot.get(Outcome_.amount)));
+        Predicate equalAccount = criteriaBuilder.equal(outcomeRoot.get(Outcome_.account), account);
+        for (int i = 1; i <= start.lengthOfMonth(); i++) {
+            Predicate equalDate = criteriaBuilder.equal(outcomeRoot.get(Outcome_.date),
+                    LocalDate.of(start.getYear(), start.getMonth(), i));
+            query.where(equalAccount, equalDate);
+            query.groupBy(outcomeRoot.get(Outcome_.outcomeType));
+            List<Object[]> valueArray = session.createQuery(query).getResultList();
+            Map<String, Double> outcomeTypesValue = new HashMap<>();
+            if (valueArray.size() > 0) {
+                for (Object[] values : valueArray) {
+                    final OutcomeType outcomeType = (OutcomeType) values[0];
+                    final BigDecimal value = (BigDecimal) values[1];
+                    outcomeTypesValue.put(outcomeType.getName(), value.doubleValue());
+                }
+            }
+            outcomeTypesValueByDay.put(i, outcomeTypesValue);
+        }
+        return outcomeTypesValueByDay;
     }
 
     @Transactional
@@ -93,8 +124,8 @@ public class OutcomeTypeDao extends GenericDao<OutcomeType> {
         Predicate equalDate = criteriaBuilder.between(outcomeRoot.get(Outcome_.date), start, end);
         query.where(equalAccount, equalDate);
         query.groupBy(outcomeRoot.get(Outcome_.outcomeType));
-        List<Object[]> valueArray = session.createQuery( query ).getResultList();
-        for ( Object[] values : valueArray ) {
+        List<Object[]> valueArray = session.createQuery(query).getResultList();
+        for (Object[] values : valueArray) {
             final OutcomeType outcomeType = (OutcomeType) values[0];
             final BigDecimal value = (BigDecimal) values[1];
             outcomeTypesValue.put(outcomeType.getName(), value.doubleValue());

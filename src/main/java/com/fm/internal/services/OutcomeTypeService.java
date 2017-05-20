@@ -34,6 +34,10 @@ public interface OutcomeTypeService {
 
     Map<String, Double> countOutcomeTypesValueByDate(Account account, LocalDate start, LocalDate end);
 
+    Map<Integer, Map<String, Double>> countOutcomeTypesValueByMonth(Account account, LocalDate start);
+
+    List<double[]> prepareChartData(Map<Integer, Map<String, Double>> data);
+
     BigDecimal getSumOfOutcomesInTypeForMonth(OutcomeType outcomeType);
 
     OutcomeType getOutcomeTypeByNameAndUser(User user, String name);
