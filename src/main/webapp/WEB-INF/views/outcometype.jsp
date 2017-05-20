@@ -36,6 +36,7 @@
                             <th>Сумма</th>
                             <th>Сумма в валюте пользователя</th>
                             <th>Счет</th>
+                            <th>Хэштеги</th>
                             <th>Заметка</th>
                             <th></th>
                         </tr>
@@ -57,6 +58,15 @@
                                 </td>
                                 <td>
                                         ${outcome.account.name}
+                                </td>
+                                <td>
+                                    <c:forEach var="hashtag" items="${outcome.hashTags}">
+                                        <c:url value="/hashtag/search" var="hashtagUrl">
+                                            <c:param name="hashtag" value="${hashtag.text}"/>
+                                            <c:param name="outcomeId" value="${outcome.id}"/>
+                                        </c:url>
+                                        <a class="badge" href="<c:out value="${hashtagUrl}"/>">${hashtag.text}</a>
+                                    </c:forEach>
                                 </td>
                                 <td>
                                         ${outcome.note}

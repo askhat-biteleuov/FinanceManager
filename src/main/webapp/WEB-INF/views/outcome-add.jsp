@@ -62,7 +62,7 @@
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" id="hashTags" name="hashTags" value="">
+                    <%@include file="../fragments/tags-select.jsp"%>
                     <input type="hidden" id="accountId" name="accountId" value="${account.id}">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 </div>

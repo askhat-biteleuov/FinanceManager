@@ -1,10 +1,15 @@
 package com.fm.internal.models;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table
@@ -29,8 +34,10 @@ public class Outcome implements Serializable {
     private LocalTime time;
     @Column
     private String note;
-    @Column
-    private String hashTags;
+
+    @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<HashTag> hashTags = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(nullable = false, name = "account_id", foreignKey = @ForeignKey(name = "fk_account_id"))
@@ -50,10 +57,9 @@ public class Outcome implements Serializable {
         this.time = time;
         this.account = account;
         this.outcomeType = outcomeType;
-        this.hashTags = "";
     }
 
-    public Outcome(BigDecimal amount, BigDecimal defaultAmount, LocalDate date, LocalTime time, String note, String hashTags, Account account, OutcomeType outcomeType) {
+    public Outcome(BigDecimal amount, BigDecimal defaultAmount, LocalDate date, LocalTime time, String note, List<HashTag> hashTags, Account account, OutcomeType outcomeType) {
         this.amount = amount;
         this.defaultAmount = defaultAmount;
         this.date = date;
@@ -128,11 +134,11 @@ public class Outcome implements Serializable {
         this.defaultAmount = defaultAmount;
     }
 
-    public String getHashTags() {
+    public List<HashTag> getHashTags() {
         return hashTags;
     }
 
-    public void setHashTags(String hashTags) {
+    public void setHashTags(List<HashTag> hashTags) {
         this.hashTags = hashTags;
     }
 }

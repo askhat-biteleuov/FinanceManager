@@ -6,6 +6,7 @@ import com.fm.internal.models.*;
 import com.fm.internal.services.AccountService;
 import com.fm.internal.services.HashTagService;
 import com.fm.internal.services.IncomeService;
+import com.fm.internal.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
@@ -20,7 +21,8 @@ public class IncomeServiceImpl implements IncomeService {
 
     @Autowired
     private IncomeDao dao;
-
+    @Autowired
+    private UserService userService;
     @Autowired
     private AccountService accountService;
     @Autowired
@@ -33,12 +35,6 @@ public class IncomeServiceImpl implements IncomeService {
         dao.add(income);
         income.getAccount().setBalance(getBalanceAfterIncomeOperation(income));
         accountService.updateAccount(income.getAccount());
-        List<HashTag> inComeHashTags = utilService.parseHashTags(income.getAccount().getUser(), income.getHashTags());
-        inComeHashTags.stream().forEach(hashTag -> {
-            if (hashTagService.getHashTagByUserAndText(income.getAccount().getUser(), hashTag.getText()) == null){
-                hashTagService.addHashTag(hashTag);
-            }
-        });
     }
 
     @Override
@@ -100,6 +96,7 @@ public class IncomeServiceImpl implements IncomeService {
 
     @Override
     public Income createIncomeFromDto(IncomeDto incomeDto) {
+        User user = userService.getLoggedUser();
         Account account = accountService.findAccountById(incomeDto.getAccountId());
         Income income = new Income();
         income.setAccount(account);
@@ -107,7 +104,19 @@ public class IncomeServiceImpl implements IncomeService {
         income.setAmount(new BigDecimal(incomeDto.getAmount()));
         income.setDate(LocalDate.parse(incomeDto.getDate()));
         income.setTime(LocalTime.now());
-        income.setHashTags(incomeDto.getHashTags());
+        List<HashTag> hashtags = new ArrayList<>();
+        if(!incomeDto.getHashTags().isEmpty()){
+            for(String hashtag: incomeDto.getHashTags()){
+                HashTag tag = hashTagService.getHashTagByUserAndText(user,hashtag);
+                if(tag==null && hashtag.trim().length()>0) {
+                    hashTagService.addHashTag(new HashTag(hashtag,user));
+                    hashtags.add(hashTagService.getHashTagByUserAndText(user,hashtag));
+                }else{
+                    hashtags.add(tag);
+                }
+            }
+        }
+        income.setHashTags(hashtags);
         return income;
     }
 

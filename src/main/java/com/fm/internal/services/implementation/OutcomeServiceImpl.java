@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OutcomeServiceImpl implements OutcomeService {
@@ -21,8 +22,6 @@ public class OutcomeServiceImpl implements OutcomeService {
     private AccountService accountService;
     @Autowired
     private OutcomeTypeService outcomeTypeService;
-    @Autowired
-    private CurrencyService currencyService;
     @Autowired
     private UtilServiceImpl utilService;
     @Autowired
@@ -35,12 +34,6 @@ public class OutcomeServiceImpl implements OutcomeService {
         dao.add(outcome);
         outcome.getAccount().setBalance(getBalanceAfterOutcomeOperation(outcome));
         accountService.updateAccount(outcome.getAccount());
-        List<HashTag> outComeHashTags = utilService.parseHashTags(outcome.getAccount().getUser(), outcome.getHashTags());
-        outComeHashTags.forEach(hashTag -> {
-            if (hashTagService.getHashTagByUserAndText(outcome.getAccount().getUser(), hashTag.getText()) == null){
-                hashTagService.addHashTag(hashTag);
-            }
-        });
     }
 
     @Override
@@ -103,6 +96,8 @@ public class OutcomeServiceImpl implements OutcomeService {
 
     @Override
     public Outcome createOutcomeFromDto(OutcomeDto outcomeDto) {
+        User user = userService.getLoggedUser();
+
         Account account = accountService.findAccountById(outcomeDto.getAccountId());
         Outcome outcome = new Outcome();
         outcome.setAccount(account);
@@ -110,7 +105,19 @@ public class OutcomeServiceImpl implements OutcomeService {
         outcome.setDate(LocalDate.parse(outcomeDto.getDate()));
         outcome.setTime(LocalTime.now());
         outcome.setNote(outcomeDto.getNote());
-        outcome.setHashTags(outcomeDto.getHashTags().toLowerCase());
+        List<HashTag> hashtags = new ArrayList<>();
+        if(!outcomeDto.getHashTags().isEmpty()){
+            for(String hashtag: outcomeDto.getHashTags()){
+                HashTag tag = hashTagService.getHashTagByUserAndText(user,hashtag);
+                if(tag==null && hashtag.trim().length()>0) {
+                    hashTagService.addHashTag(new HashTag(hashtag,user));
+                    hashtags.add(hashTagService.getHashTagByUserAndText(user,hashtag));
+                }else{
+                    hashtags.add(tag);
+                }
+            }
+        }
+        outcome.setHashTags(hashtags);
         outcome.setOutcomeType(outcomeTypeService.findTypeById(outcomeDto.getOutcomeTypeId()));
         outcome.setDefaultAmount(new BigDecimal(outcomeDto.getDefaultAmount()));
         return outcome;

@@ -5,7 +5,7 @@ $(document).ready(function () {
             event.preventDefault();
             var form = $(this);
             var data = form.serializeArray();
-            var objectifyData = objectifyForm(data);
+            var objectifyData = serializeObject(data);
             var jsonData = JSON.stringify(objectifyData);
             $.ajax({
                 type: 'POST',
@@ -40,4 +40,23 @@ $(document).ready(function () {
         }
         return returnArray;
     }
+
+    function serializeObject (formArray){
+        var obj = {};
+        $.each(formArray, function() {
+            var value = this.value || '';
+            if (/^\d+$/.test(value))
+                value = +value;
+
+            if (obj[this.name] !== undefined) {
+                if (!obj[this.name].push) {
+                    obj[this.name] = [obj[this.name]];
+                }
+                obj[this.name].push(value);
+            } else {
+                obj[this.name] = value;
+            }
+        });
+        return obj;
+    };
 });

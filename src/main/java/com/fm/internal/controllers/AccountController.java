@@ -47,6 +47,8 @@ public class AccountController {
     private MessageSource messages;
     @Autowired
     private StatusBarService statusBarService;
+    @Autowired
+    private HashTagService hashTagService;
 
 //    @RequestMapping(value = "/add", method = RequestMethod.GET)
 //    public ModelAndView getList() {
@@ -69,10 +71,12 @@ public class AccountController {
 
     @RequestMapping(value = "/page", method = RequestMethod.GET)
     public ModelAndView getAccountPage(@RequestParam("id") long idOfAccount) {
+        User loggedUser = userService.getLoggedUser();
         ModelAndView modelAndView = setDefaultMavForAccountByName(idOfAccount);
         modelAndView.setViewName("accountpage");
-        modelAndView.addObject("user",userService.getLoggedUser());
-        modelAndView.addObject("statusBarDto", statusBarService.getStatusBar(userService.getLoggedUser()));
+        modelAndView.addObject("user",loggedUser);
+        modelAndView.addObject("hashtags",hashTagService.getHashTagsByUser(loggedUser));
+        modelAndView.addObject("statusBarDto", statusBarService.getStatusBar(loggedUser));
         return modelAndView;
     }
 

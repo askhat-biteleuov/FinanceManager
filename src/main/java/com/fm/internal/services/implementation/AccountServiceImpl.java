@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AccountServiceImpl implements AccountService {
@@ -33,6 +34,9 @@ public class AccountServiceImpl implements AccountService {
 
     @Autowired
     private OutcomeTypeService outcomeTypeService;
+
+    @Autowired
+    private HashTagService hashTagService;
 
     @Autowired
     private UtilServiceImpl utilService;
@@ -65,11 +69,20 @@ public class AccountServiceImpl implements AccountService {
         Account fromAccount = accountDao.getById(transferDto.getAccountId());
         Account toAccount = accountDao.getById(transferDto.getToAccountId());
         final String note = "Transfer from account " + fromAccount.getName() + " to account " + toAccount.getName();
+        User user = userService.getLoggedUser();
+        List<HashTag> hashtags = new ArrayList<>();
+        HashTag tag = hashTagService.getHashTagByUserAndText(user,"transfer");
+        if(tag==null) {
+            hashTagService.addHashTag(new HashTag("transfer",user));
+            hashtags.add(hashTagService.getHashTagByUserAndText(user,"transfer"));
+        }else{
+            hashtags.add(tag);
+        }
         Outcome transferOutcome = new Outcome(new BigDecimal(transferDto.getOutcomeAmount()), new BigDecimal(transferDto.getDefaultAmount()),
-                LocalDate.parse(transferDto.getDate()), LocalTime.MIDNIGHT, note, "", fromAccount,
+                LocalDate.parse(transferDto.getDate()), LocalTime.MIDNIGHT, note, hashtags, fromAccount,
                 outcomeTypeService.getOutcomeTypeByNameAndUser(userService.getLoggedUser(), "Переводы"));
         outcomeService.addOutcome(transferOutcome);
-        Income transferIncome = new Income(new BigDecimal(transferDto.getIncomeAmount()), LocalDate.parse(transferDto.getDate()), LocalTime.MIDNIGHT, toAccount);
+        Income transferIncome = new Income(new BigDecimal(transferDto.getIncomeAmount()), LocalDate.parse(transferDto.getDate()), LocalTime.MIDNIGHT, note, hashtags, toAccount);
         transferIncome.setNote(note);
         incomeService.addIncome(transferIncome);
     }

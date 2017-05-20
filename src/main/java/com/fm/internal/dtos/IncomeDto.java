@@ -1,24 +1,26 @@
 package com.fm.internal.dtos;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.Pattern;
+import java.util.List;
 
 public class IncomeDto {
     @Pattern(regexp = "^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\\.[0-9]{2})?$")
     private String amount;
-    @Pattern(regexp = "^((#(([^#\\s]+)\\s+)*(#([^#\\s]+)))|(#([^#\\s]+))?)$")
-    private String hashTags;
     @NotEmpty
     private String date;
     private String note;
     private long accountId;
     private long incomeId;
+    @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+    private List<String> hashTags;
 
     public IncomeDto() {
     }
 
-    public IncomeDto(String amount, String date, String note, String hashTags, long accountId, long incomeId) {
+    public IncomeDto(String amount, String date, String note, List<String> hashTags, long accountId, long incomeId) {
         this.amount = amount;
         this.date = date;
         this.note = note;
@@ -67,11 +69,11 @@ public class IncomeDto {
         this.incomeId = incomeId;
     }
 
-    public String getHashTags() {
+    public List<String> getHashTags() {
         return hashTags;
     }
 
-    public void setHashTags(String hashTags) {
+    public void setHashTags(List<String> hashTags) {
         this.hashTags = hashTags;
     }
 }

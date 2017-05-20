@@ -59,7 +59,7 @@
                         </div>
                         <div class="help-block with-errors"></div>
                     </div>
-                    <input type="hidden" name="hashTags" value="">
+                    <%@include file="../fragments/tags-select.jsp"%>
                     <input type="hidden" id="accountId" name="accountId">
                     <input type="hidden" name="outcomeTypeId" value="${outcomeType.key.id}">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

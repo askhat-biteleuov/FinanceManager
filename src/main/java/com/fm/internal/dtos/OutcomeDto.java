@@ -1,5 +1,7 @@
 package com.fm.internal.dtos;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fm.internal.models.OutcomeType;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -12,8 +14,6 @@ public class OutcomeDto {
     @Pattern(regexp = "^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\\.[0-9]{2})?$")
     private String amount;
     private String defaultAmount;
-    @Pattern(regexp = "^((#(([^#\\s]+)\\s+)*(#([^#\\s]+)))|(#([^#\\s]+))?)$")
-    private String hashTags;
     @NotEmpty
     private String date;
     private String note;
@@ -24,6 +24,8 @@ public class OutcomeDto {
     private long outcomeTypeId;
     private List<OutcomeType> outcomeTypes;
     private OutcomeType outcomeType;
+    @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+    private List<String> hashTags;
 
     public OutcomeDto() {
     }
@@ -92,19 +94,19 @@ public class OutcomeDto {
         this.outcomeType = outcomeType;
     }
 
-    public String getHashTags() {
-        return hashTags;
-    }
-
-    public void setHashTags(String hashTags) {
-        this.hashTags = hashTags;
-    }
-
     public long getOutcomeId() {
         return outcomeId;
     }
 
     public void setOutcomeId(long outcomeId) {
         this.outcomeId = outcomeId;
+    }
+
+    public List<String> getHashTags() {
+        return hashTags;
+    }
+
+    public void setHashTags(List<String> hashTags) {
+        this.hashTags = hashTags;
     }
 }

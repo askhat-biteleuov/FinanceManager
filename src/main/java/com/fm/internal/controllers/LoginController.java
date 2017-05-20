@@ -4,6 +4,7 @@ import com.fm.internal.dtos.OutcomeTypeDto;
 import com.fm.internal.models.OutcomeType;
 import com.fm.internal.models.User;
 import com.fm.internal.services.CurrencyService;
+import com.fm.internal.services.HashTagService;
 import com.fm.internal.services.OutcomeTypeService;
 import com.fm.internal.services.StatusBarService;
 import com.fm.internal.services.implementation.UserServiceImpl;
@@ -32,6 +33,8 @@ public class LoginController {
     private CurrencyService currencyService;
     @Autowired
     private OutcomeTypeService outcomeTypeService;
+    @Autowired
+    private HashTagService hashTagService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView init() {
@@ -70,6 +73,7 @@ public class LoginController {
                 BigDecimal sumOfOutcomesInTypeForMonth = typeService.getSumOfOutcomesInTypeForMonth(outcomeType);
                 outcomeTypes.put(outcomeType, sumOfOutcomesInTypeForMonth);
             }
+            modelAndView.addObject("hashtags",hashTagService.getHashTagsByUser(loggedUser));
             modelAndView.addObject("outcomeTypes", outcomeTypes);
             modelAndView.addObject("currencies", currencyService.getCurrencies());
             modelAndView.addObject("types", outcomeTypeService.getAvailableOutcomeTypes(userService.getLoggedUser()));

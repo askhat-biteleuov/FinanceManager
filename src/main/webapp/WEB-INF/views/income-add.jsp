@@ -29,6 +29,7 @@
                         </div>
                         <div class="help-block with-errors"></div>
                     </div>
+                    <%@include file="../fragments/tags-select.jsp"%>
                     <input type="hidden" id="accountId" name="accountId" value="${account.id}">
                     <input type="hidden" id="hashTags" name="hashTags" value="">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
