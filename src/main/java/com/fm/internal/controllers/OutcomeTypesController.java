@@ -6,12 +6,8 @@ import com.fm.internal.dtos.RangeDto;
 import com.fm.internal.models.Outcome;
 import com.fm.internal.models.OutcomeType;
 import com.fm.internal.models.User;
-import com.fm.internal.services.AccountService;
-import com.fm.internal.services.OutcomeTypeService;
-import com.fm.internal.services.StatusBarService;
-import com.fm.internal.services.UserService;
+import com.fm.internal.services.*;
 import com.fm.internal.services.implementation.PaginationServiceImpl;
-import com.fm.internal.services.RangeService;
 import com.fm.internal.services.implementation.UtilServiceImpl;
 import com.fm.internal.validation.OutcomeTypeValidator;
 import com.fm.internal.validation.util.ValidErrors;
@@ -25,7 +21,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
@@ -82,7 +77,7 @@ public class OutcomeTypesController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public Object addOutcomeType(@Valid @RequestBody OutcomeTypeDto outcomeTypeDto, BindingResult result) {
+    public Object addOutcomeType(@RequestBody OutcomeTypeDto outcomeTypeDto, BindingResult result) {
         validator.validate(outcomeTypeDto, result);
         User loggedUser = userService.getLoggedUser();
         if (!result.hasErrors() && loggedUser != null) {

@@ -57,7 +57,7 @@ public class AccountController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public Object addAccount(@Valid @RequestBody AccountDto accountDto, BindingResult result) {
+    public Object addAccount(@RequestBody AccountDto accountDto, BindingResult result) {
         accountValidator.validate(accountDto, result);
         User loggedUser = userService.getLoggedUser();
         if (result.hasErrors() || loggedUser == null) {
