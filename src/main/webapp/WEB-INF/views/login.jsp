@@ -17,10 +17,12 @@
                     <p>You have been logged out successfully.</p>
                 </c:if>
                 <div class="form-group">
+                    <label for="username">Ваш email:</label>
                     <input class="form-control" type="text" id="username" name="email" placeholder="Имя пользователя"
                            required>
                 </div>
                 <div class="form-group">
+                    <label for="password">Ваш пароль:</label>
                     <input class="form-control" type="password" id="password" name="password"
                            placeholder="Пароль"
                            required>
