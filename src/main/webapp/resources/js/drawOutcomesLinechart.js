@@ -26,10 +26,10 @@ function drawLineChart(data) {
 
     var options = {
         hAxis: {
-            title: 'Day'
+            title: 'День'
         },
         vAxis: {
-            title: 'Amount'
+            title: 'Сумма'
         },
         series: {
             1: {curveType: 'function'}
