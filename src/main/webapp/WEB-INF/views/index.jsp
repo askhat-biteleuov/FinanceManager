@@ -36,29 +36,30 @@
                                 <div class="panel panel-shadow-1">
                                     <a href="<c:url value="/account/page?id=${account.id}"/>">
                                         <div class="panel-body">
-                                        <div class="editDiv">
-                                            <h3 class="editField ellipsis blue" contenteditable="false">
-                                                <c:out value="${account.name}"/>
-                                            </h3>
-                                            <input type="text" hidden class="oldVal">
-                                            <input hidden class="accountId" value="${account.id}">
-                                            <input hidden class="accountBalance" value="${account.balance}">
-                                            <button href="#" hidden class="acceptBtn dark-green btn-link">
-                                                <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
-                                            </button>
-                                            <button href="#" hidden class="cancelBtn red btn-link">
-                                                <span class="glyphicon glyphicon-remove-circle"
-                                                      aria-hidden="true"></span>
-                                            </button>
-                                            <button href="#" class="editBtn dark-grey btn-link">
-                                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                            </button>
-                                        <div class="memo">
-                                            <fmt:formatNumber type="currency"
-                                                              currencySymbol="${account.currency.characterCode}"
-                                                              value="${account.balance}"/>
-                                        </div>
-                                        </div>
+                                            <div class="editAccountDiv">
+                                                <h3 class=" edit editAccountName blue" contenteditable="false">
+                                                    <c:out value="${account.name}"/>
+                                                </h3>
+                                                <input type="text" hidden class="oldAccountName">
+                                                <input hidden class="accountId" value="${account.id}">
+                                                <input hidden class="accountBalance" value="${account.balance}">
+                                                <button href="#" hidden class="acceptAccountBtn dark-green btn-link">
+                                                    <span class="glyphicon glyphicon-ok-circle"
+                                                          aria-hidden="true"></span>
+                                                </button>
+                                                <button href="#" hidden class="cancelAccountBtn red btn-link">
+                                                    <span class="glyphicon glyphicon-remove-circle"
+                                                          aria-hidden="true"></span>
+                                                </button>
+                                                <button href="#" class="editAccountBtn dark-grey btn-link">
+                                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                                </button>
+                                                <div class="memo">
+                                                    <fmt:formatNumber type="currency"
+                                                                      currencySymbol="${account.currency.characterCode}"
+                                                                      value="${account.balance}"/>
+                                                </div>
+                                            </div>
                                         </div>
                                     </a>
                                     <div class="panel-footer">
@@ -89,6 +90,7 @@
                 </div>
                 <h1 class="page-header">Категории расходов</h1>
                 <br>
+                <script src="<c:url value="/resources/js/editOutcometype.js"/>"></script>
                 <div class="container">
                     <div class="row">
                         <c:forEach var="outcomeType" items="${outcomeTypes}">
@@ -99,33 +101,57 @@
                                 <div class="panel panel-shadow-1">
                                     <a href="<c:out value="${outcomeTypeUrl}"/>">
                                         <div class="panel-body">
-                                            <h3 class="dark-green">
-                                                <c:out value="${outcomeType.key.name}"/>
-                                            </h3>
-                                            <c:if test="${outcomeType.key.limit>0}">
-                                            <c:choose>
-                                                <c:when test="${outcomeType.value > outcomeType.key.limit}">
-                                                <span style="color:red">
-                                                    <fmt:formatNumber type="currency"
-                                                                      currencySymbol="${user.info.currency.characterCode}"
-                                                                      value="${outcomeType.value}"/>/
-                                                    <fmt:formatNumber type="currency"
-                                                                      currencySymbol="${user.info.currency.characterCode}"
-                                                                      value="${outcomeType.key.limit}"/>
-                                                </span>
-                                                </c:when>
-                                                <c:otherwise>
-                                                <span class="memo">
-                                                    <fmt:formatNumber type="currency"
-                                                                      currencySymbol="${user.info.currency.characterCode}"
-                                                                      value="${outcomeType.value}"/> /
-                                                    <fmt:formatNumber type="currency"
-                                                                      currencySymbol="${user.info.currency.characterCode}"
-                                                                      value="${outcomeType.key.limit}"/>
-                                                </span>
-                                                </c:otherwise>
-                                            </c:choose>
-                                            </c:if>
+                                            <div class="editOutcometypeDiv">
+                                                <h3 class="edit editOutcometypeName dark-green" contenteditable="false">
+                                                    <c:out value="${outcomeType.key.name}"/>
+                                                </h3>
+                                                <div hidden class=" edit editOutcometypeLimit">
+                                                        ${outcomeType.key.limit}
+                                                </div>
+                                                <input type="text" hidden class="outcometypeId"
+                                                       value="${outcomeType.key.id}">
+                                                <input type="text" hidden class="oldOutcometypeLimit">
+                                                <input type="text" hidden class="oldOutcometypeName">
+                                                <button href="#" hidden
+                                                        class="acceptOutcometypeBtn dark-green btn-link">
+                                                    <span class="glyphicon glyphicon-ok-circle"
+                                                          aria-hidden="true"></span>
+                                                </button>
+                                                <button href="#" hidden class="cancelOutcometypeBtn red btn-link">
+                                                    <span class="glyphicon glyphicon-remove-circle"
+                                                          aria-hidden="true"></span>
+                                                </button>
+                                                <button href="#" class="editOutcometypeBtn dark-grey btn-link">
+                                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                                </button>
+
+                                                <div class="defaultViewOfLimit">
+                                                    <c:if test="${outcomeType.key.limit>0}">
+                                                        <c:choose>
+                                                            <c:when test="${outcomeType.value > outcomeType.key.limit}">
+                                                        <span style="color:red">
+                                                            <fmt:formatNumber type="currency"
+                                                                              currencySymbol="${user.info.currency.characterCode}"
+                                                                              value="${outcomeType.value}"/>/
+                                                            <fmt:formatNumber type="currency"
+                                                                              currencySymbol="${user.info.currency.characterCode}"
+                                                                              value="${outcomeType.key.limit}"/>
+                                                        </span>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                        <span class="memo">
+                                                            <fmt:formatNumber type="currency"
+                                                                              currencySymbol="${user.info.currency.characterCode}"
+                                                                              value="${outcomeType.value}"/> /
+                                                            <fmt:formatNumber type="currency"
+                                                                              currencySymbol="${user.info.currency.characterCode}"
+                                                                              value="${outcomeType.key.limit}"/>
+                                                        </span>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </c:if>
+                                                </div>
+                                            </div>
                                         </div>
                                     </a>
                                     <div class="panel-footer">

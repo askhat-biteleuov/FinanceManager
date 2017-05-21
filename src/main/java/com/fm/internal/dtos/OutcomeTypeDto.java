@@ -4,12 +4,14 @@ import com.fm.internal.models.Outcome;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 public class OutcomeTypeDto {
     private long id;
 
     @NotEmpty
+    @Size(max = 15)
     private String name;
     @Pattern(regexp = "^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\\.[0-9]{2})?$")
     private String limit;

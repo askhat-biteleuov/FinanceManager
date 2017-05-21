@@ -82,15 +82,12 @@ a{
     background: #39c2d7 !important;
     color: #ffffff !important;
 }
-.editField {
+
+.edit {
     white-space: nowrap; /* Запрещаем перенос строк */
     overflow: hidden; /* Обрезаем все, что не помещается в область */
     /* Не обязательно, но может понадобиться. Например, для ссылок */
     display: block;
-}
-/* Точки для длинной строки*/
-.ellipsis{
-    text-overflow: ellipsis; /* Добавляем многоточие */
 }
 
 /* Прозрачный фон для основного содержимого */

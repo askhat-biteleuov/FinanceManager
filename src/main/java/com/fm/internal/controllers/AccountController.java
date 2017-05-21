@@ -29,19 +29,12 @@ public class AccountController {
 
     @Autowired
     private AccountService accountService;
-
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private OutcomeService outcomeService;
-
     @Autowired
     private OutcomeTypeService outcomeTypeService;
-
     @Autowired
     private AccountValidator accountValidator;
-
     @Qualifier("messageSource")
     @Autowired
     private MessageSource messages;
@@ -50,14 +43,9 @@ public class AccountController {
     @Autowired
     private HashTagService hashTagService;
 
-//    @RequestMapping(value = "/add", method = RequestMethod.GET)
-//    public ModelAndView getList() {
-//        return new ModelAndView("account", "accountDto", new AccountDto());
-//    }
-
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public Object addAccount(@RequestBody AccountDto accountDto, BindingResult result) {
+    public Object addAccount(@Valid @RequestBody AccountDto accountDto, BindingResult result) {
         accountValidator.validate(accountDto, result);
         User loggedUser = userService.getLoggedUser();
         if (result.hasErrors() || loggedUser == null) {
@@ -102,7 +90,6 @@ public class AccountController {
         LOGGER.info("Account with id:" + accountDto.getId()+" was updated");
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 
     private ModelAndView setDefaultMavForAccountByName(long id) {
         ModelAndView modelAndView = new ModelAndView();

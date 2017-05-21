@@ -21,6 +21,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
@@ -77,7 +78,7 @@ public class OutcomeTypesController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public Object addOutcomeType(@RequestBody OutcomeTypeDto outcomeTypeDto, BindingResult result) {
+    public Object addOutcomeType(@Valid @RequestBody OutcomeTypeDto outcomeTypeDto, BindingResult result) {
         validator.validate(outcomeTypeDto, result);
         User loggedUser = userService.getLoggedUser();
         if (!result.hasErrors() && loggedUser != null) {
@@ -87,6 +88,21 @@ public class OutcomeTypesController {
             Map<String, String> errors = ValidErrors.getMapOfMessagesAndErrors(result, messages);
             return new ResponseEntity<>(errors, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    @ResponseBody
+    public Object editOutcomeType(@Valid @RequestBody OutcomeTypeDto outcomeTypeDto, BindingResult result) {
+        OutcomeType outcomeType = typeService.findTypeById(outcomeTypeDto.getId());
+        validator.validate(outcomeTypeDto, result);
+        if (result.hasErrors()) {
+            Map<String, String> errors = ValidErrors.getMapOfMessagesAndErrors(result, messages);
+            return new ResponseEntity<>(errors, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        outcomeType.setName(outcomeTypeDto.getName().trim());
+        outcomeType.setLimit(new BigDecimal(outcomeTypeDto.getLimit()));
+        typeService.updateOutcomeType(outcomeType);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/delete/all", method = RequestMethod.POST)
