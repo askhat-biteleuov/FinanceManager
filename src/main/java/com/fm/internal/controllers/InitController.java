@@ -49,28 +49,23 @@ public class InitController {
             outcomeTypeService.addOutcomeType(type);
         }
 
-        Outcome[] outcomes = {
-                new Outcome(new BigDecimal(2122), currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
-                        new BigDecimal(2122)), LocalDate.now(), LocalTime.now(), accounts[0], types[0]),
-                new Outcome(new BigDecimal(332), currencyService.getOutcomeAmountForDefaultCurrency(accounts[2],
-                        new BigDecimal(332)), LocalDate.now(), LocalTime.now(), accounts[2], types[0]),
-                new Outcome(new BigDecimal(4144), currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
-                        new BigDecimal(4144)), LocalDate.now(), LocalTime.now(), accounts[0], types[1]),
-                new Outcome(new BigDecimal(9999), currencyService.getOutcomeAmountForDefaultCurrency(accounts[1],
-                        new BigDecimal(9999)), LocalDate.now(), LocalTime.now(), accounts[1], types[1]),
-                new Outcome(new BigDecimal(50), currencyService.getOutcomeAmountForDefaultCurrency(accounts[2],
-                        new BigDecimal(50)), LocalDate.now(), LocalTime.now(), accounts[2], types[2]),
-                new Outcome(new BigDecimal(1234), currencyService.getOutcomeAmountForDefaultCurrency(accounts[1],
-                        new BigDecimal(1234)), LocalDate.now(), LocalTime.now(), accounts[1], types[2]),
-                new Outcome(new BigDecimal(2222), currencyService.getOutcomeAmountForDefaultCurrency(accounts[2],
-                        new BigDecimal(2222)), LocalDate.now(), LocalTime.now(), accounts[2], types[0]),
-                new Outcome(new BigDecimal(3999), currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
-                        new BigDecimal(3999)), LocalDate.now(), LocalTime.now(), accounts[0], types[2]),
-        };
-        for (int i = 0; i < 10; i++) {
-            for (Outcome outcome : outcomes) {
-                outcomeService.addOutcome(outcome);
-            }
+        LocalDate now = LocalDate.now();
+        for (int i = 1; i < 30; i++) {
+            double rand = Math.random()*1000;
+            outcomeService.addOutcome(new Outcome(new BigDecimal(rand),
+                    currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                    new BigDecimal(rand)), LocalDate.of(now.getYear(),now.getMonth(),i), LocalTime.now(),
+                    accounts[0], types[0]));
+            rand = Math.random()*1000;
+            outcomeService.addOutcome(new Outcome(new BigDecimal(rand),
+                    currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                            new BigDecimal(rand)), LocalDate.of(now.getYear(),now.getMonth(),i), LocalTime.now(),
+                    accounts[0], types[1]));
+            rand = Math.random()*1000;
+            outcomeService.addOutcome(new Outcome(new BigDecimal(rand),
+                    currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                            new BigDecimal(rand)), LocalDate.of(now.getYear(),now.getMonth(),i), LocalTime.now(),
+                    accounts[0], types[2]));
         }
 
         Income[] incomes = {

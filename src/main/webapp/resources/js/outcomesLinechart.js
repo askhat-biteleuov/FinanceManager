@@ -1,4 +1,7 @@
 $(document).ready(function () {
+    var date = new Date();
+    $('#monthSelect').val(date.getMonth()+1);
+    $('#yearSelect').val(date.getFullYear());
     $('#linechartForm').submit(function (event) {
         event.preventDefault();
         refreshLineChart();

@@ -10,7 +10,7 @@ function drawChart(data) {
     }
     // Set chart options
     var options = {
-        title: 'Статистика',
+        title: 'Сумма расходов по категории за период',
         width: 550,
         height: 400,
         backgroundColor: 'transparent'

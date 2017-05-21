@@ -16,13 +16,13 @@
                 <c:if test="${param.logout != null}">
                     <p>You have been logged out successfully.</p>
                 </c:if>
-                <div class="form-group">
-                    <label for="username">Ваш email:</label>
-                    <input class="form-control" type="text" id="username" name="email" placeholder="Имя пользователя"
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    <input class="form-control" type="text" id="username" name="email" placeholder="Email"
                            required>
                 </div>
-                <div class="form-group">
-                    <label for="password">Ваш пароль:</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                     <input class="form-control" type="password" id="password" name="password"
                            placeholder="Пароль"
                            required>
