@@ -26,13 +26,18 @@ function drawLineChart(data) {
 
     var options = {
 
-        title: "Сумма расходов по категории за день",
+        title: "Сумма расходов по категориям за день",
 
         hAxis: {
-            title: 'День'
+            title: 'День',
+            scaleType: 'linear',
+            min: 1,
+            showTextEvery: 1
         },
         vAxis: {
-            title: 'Сумма'
+            title: 'Сумма',
+            scaleType: 'linear',
+            min: 0
         },
         series: {
             1: {curveType: 'function'}
