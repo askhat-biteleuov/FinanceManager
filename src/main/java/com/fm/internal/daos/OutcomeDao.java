@@ -157,19 +157,19 @@ public class OutcomeDao extends GenericDao<Outcome> {
         }
     }
 
-//    @Transactional
-//    public List<Outcome> getOutcomesByHashTag(Account account, String hashTag){
-//        Session currentSession = getSessionFactory().getCurrentSession();
-//        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
-//        CriteriaQuery<Outcome> query = builder.createQuery(Outcome.class);
-//        Root<Outcome> root = query.from(Outcome.class);
-//        query.select(root);
-//        Predicate hashcodeSearch = builder.like(root.get(Outcome_.hashTags), "%"+hashTag+" %");
-//        Predicate equalAccount = builder.equal(root.get(Outcome_.account), account);
-//        query.where(hashcodeSearch, equalAccount);
-//        query.orderBy(builder.desc(root.get(Outcome_.date)));
-//        return currentSession.createQuery(query).getResultList();
-//    }
+    @Transactional
+    public List<Outcome> getOutcomesByHashTag(Account account, HashTag hashTag){
+        Session currentSession = getSessionFactory().getCurrentSession();
+        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
+        CriteriaQuery<Outcome> query = builder.createQuery(Outcome.class);
+        Root<Outcome> outcomeRoot = query.from(Outcome.class);
+        Predicate equalAccount = builder.equal(outcomeRoot.get(Outcome_.account), account);
+        query.where(equalAccount);
+        Join<Outcome, HashTag> hashTagJoin = outcomeRoot.join(Outcome_.hashTags);
+        Predicate matchingHashTag = builder.equal(hashTagJoin.get(HashTag_.text), hashTag.getText());
+        query.where(matchingHashTag);
+        return currentSession.createQuery(query).getResultList();
+    }
 
     @Transactional
     public BigDecimal getSumOfOutcomesInAccount(Account account) {

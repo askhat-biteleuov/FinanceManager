@@ -2,6 +2,7 @@ package com.fm.internal.services;
 
 import com.fm.internal.dtos.OutcomeDto;
 import com.fm.internal.models.Account;
+import com.fm.internal.models.HashTag;
 import com.fm.internal.models.Outcome;
 import com.fm.internal.models.User;
 
@@ -40,6 +41,6 @@ public interface OutcomeService {
 
     BigDecimal sumOfAllOutcomes(List<Outcome> outcomes);
 
-//    List<Outcome> getOutcomesByHashTag(Account account, String hashcode);
+    List<Outcome> getOutcomesByHashTag(Account account, HashTag hashTag);
 
 }

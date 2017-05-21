@@ -105,18 +105,6 @@ public class OutcomeServiceImpl implements OutcomeService {
         outcome.setDate(LocalDate.parse(outcomeDto.getDate()));
         outcome.setTime(LocalTime.now());
         outcome.setNote(outcomeDto.getNote());
-//        List<HashTag> hashtags = new ArrayList<>();
-//        if(!outcomeDto.getHashTags().isEmpty()){
-//            for(String hashtag: outcomeDto.getHashTags()){
-//                HashTag tag = hashTagService.getHashTagByUserAndText(user,hashtag);
-//                if(tag==null && hashtag.trim().length()>0) {
-//                    hashTagService.addHashTag(new HashTag(hashtag,user));
-//                    hashtags.add(hashTagService.getHashTagByUserAndText(user,hashtag));
-//                }else{
-//                    hashtags.add(tag);
-//                }
-//            }
-//        }
         outcome.setHashTags(utilService.parseHashTags(user, outcomeDto.getHashTags()));
         outcome.setOutcomeType(outcomeTypeService.findTypeById(outcomeDto.getOutcomeTypeId()));
         outcome.setDefaultAmount(new BigDecimal(outcomeDto.getDefaultAmount()));
@@ -141,8 +129,8 @@ public class OutcomeServiceImpl implements OutcomeService {
         return outcomes.stream().map(Outcome::getAmount).reduce(BigDecimal::add).get();
     }
 
-//    @Override
-//    public List<Outcome> getOutcomesByHashTag(Account account, String hashTag) {
-//        return dao.getOutcomesByHashTag(account, hashTag);
-//    }
+    @Override
+    public List<Outcome> getOutcomesByHashTag(Account account, HashTag hashTag) {
+        return dao.getOutcomesByHashTag(account, hashTag);
+    }
 }

@@ -57,6 +57,9 @@ public class OutcomeServiceTest extends AbstractTestNGSpringContextTests{
         outcomeTypeService.addOutcomeType(type);
         List<HashTag> hashTagList = new ArrayList<>();
         hashTagList.add(new HashTag("#weekend",accounts[0].getUser()));
+        hashTagList.add(new HashTag("#summer",accounts[0].getUser()));
+        hashTagList.add(new HashTag("#party",accounts[0].getUser()));
+        hashTagList.stream().forEach(hashTag -> hashTagService.addHashTag(hashTag));
         Outcome[] outcomes = {
                 new Outcome(new BigDecimal(1), currencyService.getOutcomeAmountForDefaultCurrency(accounts[0], new BigDecimal(1)), LocalDate.now(), LocalTime.now(), "blahblahblahblah blahblahblah", hashTagList, accounts[0], type),
                 new Outcome(new BigDecimal(2), currencyService.getOutcomeAmountForDefaultCurrency(accounts[0], new BigDecimal(2)), LocalDate.now(), LocalTime.now(), "blahblahblahblah blahblahblah", hashTagList, accounts[0], type),
@@ -98,11 +101,11 @@ public class OutcomeServiceTest extends AbstractTestNGSpringContextTests{
         Assert.assertEquals(4, hashTagService.getHashTagsByUser(user).size());
     }
 
-//    @Test
-//    public void hashTagSearchTest() throws Exception{
-//        User user = userService.findByEmail(USER_EMAIL);
-//        Account account = accountService.findUserAccountByName(user, FIRST_ACCOUNT_NAME);
-//        Assert.assertEquals(2, outcomeService.getOutcomesByHashTag(account, "#weekend").size());
-//        outcomeService.getOutcomesByHashTag(account, "#weekend").stream().forEach(outcome -> System.out.println(outcome.getHashTags()));
-//    }
+    @Test
+    public void hashTagSearchTest() throws Exception{
+        User user = userService.findByEmail(USER_EMAIL);
+        Account account = accountService.findUserAccountByName(user, FIRST_ACCOUNT_NAME);
+        HashTag searchHashTag = hashTagService.getHashTagByUserAndText(user, "#weekend");
+        Assert.assertEquals(2, outcomeService.getOutcomesByHashTag(account, searchHashTag).size());
+    }
 }
