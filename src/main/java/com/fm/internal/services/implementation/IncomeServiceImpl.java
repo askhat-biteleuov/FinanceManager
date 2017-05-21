@@ -104,19 +104,19 @@ public class IncomeServiceImpl implements IncomeService {
         income.setAmount(new BigDecimal(incomeDto.getAmount()));
         income.setDate(LocalDate.parse(incomeDto.getDate()));
         income.setTime(LocalTime.now());
-        List<HashTag> hashtags = new ArrayList<>();
-        if(!incomeDto.getHashTags().isEmpty()){
-            for(String hashtag: incomeDto.getHashTags()){
-                HashTag tag = hashTagService.getHashTagByUserAndText(user,hashtag);
-                if(tag==null && hashtag.trim().length()>0) {
-                    hashTagService.addHashTag(new HashTag(hashtag,user));
-                    hashtags.add(hashTagService.getHashTagByUserAndText(user,hashtag));
-                }else{
-                    hashtags.add(tag);
-                }
-            }
-        }
-        income.setHashTags(hashtags);
+//        List<HashTag> hashtags = new ArrayList<>();
+//        if(!incomeDto.getHashTags().isEmpty()){
+//            for(String hashtag: incomeDto.getHashTags()){
+//                HashTag tag = hashTagService.getHashTagByUserAndText(user,hashtag);
+//                if(tag==null && hashtag.trim().length()>0) {
+//                    hashTagService.addHashTag(new HashTag(hashtag,user));
+//                    hashtags.add(hashTagService.getHashTagByUserAndText(user,hashtag));
+//                }else{
+//                    hashtags.add(tag);
+//                }
+//            }
+//        }
+        income.setHashTags(utilService.parseHashTags(user, incomeDto.getHashTags()));
         return income;
     }
 

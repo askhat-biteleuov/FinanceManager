@@ -1,6 +1,7 @@
 package com.fm.internal.services.implementation;
 
 import com.fm.internal.models.*;
+import com.fm.internal.services.HashTagService;
 import com.fm.internal.services.IncomeService;
 import com.fm.internal.services.OutcomeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ public class UtilServiceImpl {
     private OutcomeService outcomeService;
     @Autowired
     private IncomeService incomeService;
+    @Autowired
+    private HashTagService hashTagService;
 
     public BigDecimal recountAccountBalance(Account account) {
         List<Outcome> allOutcomesInAccount = outcomeService.findAllOutcomesInAccount(account);
@@ -25,13 +28,19 @@ public class UtilServiceImpl {
         return sumOfIncomes.subtract(sumOfOutcomes);
     }
 
-    public List<HashTag> parseHashTags(User user, String hashTags) {
-        Pattern hashTagPattern = Pattern.compile("(^|\\s)#([^#\\s]+)");//(^|\s)#[^#\s](\S+)
-        Matcher hashTagMatcher = hashTagPattern.matcher(hashTags);
-        List<HashTag> hashTagsList = new ArrayList<>();
-        while (hashTagMatcher.find()) {
-            hashTagsList.add(new HashTag(hashTagMatcher.group().trim(), user));
+    public List<HashTag> parseHashTags(User user, List<String> StringHashTags) {
+        List<HashTag> hashTags = new ArrayList<>();
+        if (!StringHashTags.isEmpty()){
+            for(String stringHashTag: StringHashTags){
+                HashTag hashTag = hashTagService.getHashTagByUserAndText(user, stringHashTag);
+                if(hashTag == null && stringHashTag.trim().length() > 0) {
+                    hashTagService.addHashTag(new HashTag(stringHashTag, user));
+                    hashTags.add(hashTagService.getHashTagByUserAndText(user, stringHashTag));
+                }else{
+                    hashTags.add(hashTag);
+                }
+            }
         }
-        return hashTagsList;
+        return hashTags;
     }
 }

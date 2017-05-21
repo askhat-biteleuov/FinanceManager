@@ -38,19 +38,6 @@ public class OutcomeDao extends GenericDao<Outcome> {
         return currentSession.createQuery(query).getResultList();
     }
 
-//    No need of this method
-//    @Transactional
-//    public List<Outcome> getUserOutcomesPage(User user, int offset, int limit){
-//        Session currentSession = getSessionFactory().getCurrentSession();
-//        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
-//        CriteriaQuery<Outcome> query = builder.createQuery(Outcome.class);
-//        Root<Outcome> outcomeRoot = query.from(Outcome.class);
-//        Join<Outcome, Account> accountJoin = outcomeRoot.join(Outcome_.account);
-//        query.orderBy(builder.asc(accountJoin.getParent().get(Outcome_.date)));
-//        query.where(builder.equal(accountJoin.get(Account_.user), user));
-//        return currentSession.createQuery(query).setFirstResult(offset).setMaxResults(limit).getResultList();
-//    }
-
     @Transactional
     public List<Outcome> getAccountOutcomesPageByDate(Account account, int offset, int limit, LocalDate start, LocalDate end) {
         Session session = getSessionFactory().getCurrentSession();
