@@ -22,7 +22,7 @@
                     <a class="btn btn-blue" href="<c:url value="/account/income/page?itemId=${account.id}"/>">
                         Посмотреть все приходы
                     </a>
-                    <a class="btn btn-blue" href="<c:url value="/outcome/page?itemId=${account.id}"/>">
+                    <a class="btn btn-blue" href="<c:url value="/outcome/all?accountId=${account.id}"/>">
                         Посмотреть все расходы
                     </a>
                 </div>

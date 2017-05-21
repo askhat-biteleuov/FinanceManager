@@ -16,29 +16,45 @@
     <div class="container">
         <h2 align="center" class="page-header">Расходы</h2>
         <div class="article">
+            <div class="row">
+                <form class="col-md-6 form-inline" method="get" action="/outcome/all" id="searchForm">
+                    <input class="form-control" placeholder="Hashtag" type="text" name="hashTag"/>
+                    <button type="submit" class="btn btn-green">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                    <c:if test="${accountId != null}">
+                        <input type="hidden" name="accountId" value="${accountId}"/>
+                    </c:if>
+                </form>
+                <form:form method="get" action="/outcome/all" modelAttribute="rangeDto" id="rangeForm"
+                           cssClass="form-inline col-md-6">
+                    <div class="input-daterange input-group" id="datepicker-range">
+                        <form:input path="start" type="text" cssClass="input-sm form-control" name="start"
+                                    id="start"
+                                    readonly="true"/>
+                        <span class="input-group-addon">to</span>
+                        <form:input path="end" type="text" cssClass="input-sm form-control" name="end" id="end"
+                                    readonly="true"/>
+                    </div>
+                    <button type="submit" class="btn btn-blue">Принять</button>
+                    <input type="hidden" name="itemId" value="${rangeDto.id}">
+                    <c:if test="${accountId != null}">
+                        <input type="hidden" name="accountId" value="${accountId}"/>
+                    </c:if>
+                    <c:if test="${hashTag != null}">
+                        <input type="hidden" name="hashTag" value="${hashTag}"/>
+                    </c:if>
+                    <script>
+                        $('#datepicker-range').datepicker({
+                            format: "yyyy-mm-dd",
+                            todayBtn: "linked",
+                            clearBtn: true
+                        });
+                    </script>
+                </form:form>
+            </div>
             <c:choose>
                 <c:when test="${not empty outcomes}">
-                    <form:form method="get" action="/outcome/page" modelAttribute="rangeDto" id="rangeForm"
-                               cssClass="form-inline">
-                        <div class="input-daterange input-group" id="datepicker-range">
-                            <form:input path="start" type="text" cssClass="input-sm form-control" name="start"
-                                        id="start"
-                                        readonly="true"/>
-                            <span class="input-group-addon">to</span>
-                            <form:input path="end" type="text" cssClass="input-sm form-control" name="end" id="end"
-                                        readonly="true"/>
-                        </div>
-                        <button type="submit" class="btn btn-blue">Принять</button>
-                        <input type="hidden" name="itemId" value="${rangeDto.id}">
-                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                        <script>
-                            $('#datepicker-range').datepicker({
-                                format: "yyyy-mm-dd",
-                                todayBtn: "linked",
-                                clearBtn: true
-                            });
-                        </script>
-                    </form:form>
                     <br>
                     <table id="outcomes" class="table notes">
                         <thead>
@@ -115,27 +131,6 @@
                 </c:when>
                 <c:otherwise>
                     <div>
-                        <form:form method="get" action="/outcome/page" modelAttribute="rangeDto" id="rangeForm"
-                                   cssClass="form-inline">
-                            <div class="input-daterange input-group" id="datepicker-range">
-                                <form:input path="start" type="text" cssClass="input-sm form-control" name="start"
-                                            id="start"
-                                            readonly="true"/>
-                                <span class="input-group-addon">to</span>
-                                <form:input path="end" type="text" cssClass="input-sm form-control" name="end" id="end"
-                                            readonly="true"/>
-                            </div>
-                            <button type="submit" class="btn btn-blue">Показать</button>
-                            <input type="hidden" name="itemId" value="${rangeDto.id}">
-                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                            <script>
-                                $('#datepicker-range').datepicker({
-                                    format: "yyyy-mm-dd",
-                                    todayBtn: "linked",
-                                    clearBtn: true
-                                });
-                            </script>
-                        </form:form>
                         <br>
                         <h3>Пока нет расходов по данному счету.</h3>
                     </div>
