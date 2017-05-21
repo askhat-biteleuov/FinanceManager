@@ -22,10 +22,10 @@
         </c:if>
         <c:if test="${user != null}">
             <div align="center">
-                <script src="<c:url value="/resources/js/hashtagsAutocomplete.js"/>"></script>
-                <div class="dropdown">
-                    <input type="text" class="hashtagSearchInput form-control dropdown-toggle" placeholder="Начните ввод хэштегов через пробел" data-toggle="dropdown">
-                </div>
+                    <%--<script src="<c:url value="/resources/js/hashtagsAutocomplete.js"/>"></script>
+                    <div class="dropdown">
+                        <input type="text" class="hashtagSearchInput form-control dropdown-toggle" placeholder="Начните ввод хэштегов через пробел" data-toggle="dropdown">
+                    </div>--%>
                 <h1 class="page-header">Счета</h1>
                 <br>
                 <script src="<c:url value="/resources/js/editAccount.js"/>"></script>

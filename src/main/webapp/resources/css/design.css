@@ -6,9 +6,6 @@
     font-size: 1.25rem;
     font-family:'oswald-regular',helvetica,sans-serif,arial;
 }
-body {
-    padding-top: 5.8rem;
-}
 
 a{
     text-transform: uppercase;
@@ -61,8 +58,8 @@ a{
 }
 
 .background{
-    padding-top: 7rem;
-    background: linear-gradient(45deg, #EECFBA, #C5DDE8);
+    background-size: cover !important;
+    background: linear-gradient(45deg, #EECFBA, #C5DDE8) fixed;
 }
 .memo{
     color: #464547 !important;
@@ -86,18 +83,14 @@ a{
 .edit {
     white-space: nowrap; /* Запрещаем перенос строк */
     overflow: hidden; /* Обрезаем все, что не помещается в область */
-    /* Не обязательно, но может понадобиться. Например, для ссылок */
-    display: block;
+    display: block; /* Не обязательно, но может понадобиться. Например, для ссылок */
 }
 
 /* Прозрачный фон для основного содержимого */
 .article {
     background:rgba(255,255,255,0.7);
     padding: 20px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 20px;
-    margin-right: 10px;
+    margin: 10px 10px 10px 20px;
 }
 .pagination>li>a{
     color: #464547 !important;
@@ -111,4 +104,9 @@ a{
 .range-end.active,.range-start.active{
     background: #39c2d7 !important;
     color: #fff !important;
+}
+
+.dobody {
+    margin-top: 7rem;
+    margin-bottom: 7rem;
 }

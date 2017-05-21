@@ -82,8 +82,9 @@
 /* Цвет фона кнопки (которая открывает меню) при поднесении к ней курсора мышки или при нахождении её в фокусе */
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus {
-    background-color: #39c2d7;
+    background-color: #c6dce6;
 }
+
 /* Цвет полосочек в кнопочке, которая открывает меню */
 .navbar-default .navbar-toggle .icon-bar {
     background-color: #464547;
@@ -110,10 +111,17 @@
     /* the rest of your styling */
 }
 
-@media (min-width: 768px) {
-    .navbar-center {
-        position: absolute;
-        left: 50%;
-        transform: translatex(-50%);
-    }
+.navbar-text {
+    color: #464547 !important;
+    margin-top: 20px;
+}
+
+.navbar-text-footer {
+    margin-top: 15px;
+}
+
+.navbar-center {
+    position: absolute;
+    left: 50%;
+    transform: translatex(-50%);
 }

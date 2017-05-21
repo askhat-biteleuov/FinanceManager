@@ -43,6 +43,16 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="<c:url value="/"/>">FinanceManager</a>
+                    <c:if test="${userName != null}">
+                        <p class="nav navbar-text navbar-center">
+                            Баланс: <fmt:formatNumber type="currency"
+                                                      currencySymbol="${statusBarDto.info.currency.characterCode}"
+                                                      value="${statusBarDto.sumOfAllBalancesOfAccounts}"/>
+                            Расходы: <fmt:formatNumber type="currency"
+                                                       currencySymbol="${statusBarDto.info.currency.characterCode}"
+                                                       value="${statusBarDto.sumOfAllOutcomesForMonthForUser}"/>
+                        </p>
+                    </c:if>
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-toogle">
                     <ul class="nav navbar-nav">
@@ -57,18 +67,6 @@
                         </c:if>
                     </ul>
                     <c:if test="${userName != null}">
-                        <ul class="nav navbar-nav navbar-center">
-                            <li>
-                                <p class="navbar-text">
-                                    Баланс: <fmt:formatNumber type="currency"
-                                                              currencySymbol="${statusBarDto.info.currency.characterCode}"
-                                                              value="${statusBarDto.sumOfAllBalancesOfAccounts}"/>
-                                    Расходы: <fmt:formatNumber type="currency"
-                                                               currencySymbol="${statusBarDto.info.currency.characterCode}"
-                                                               value="${statusBarDto.sumOfAllOutcomesForMonthForUser}"/>
-                                </p>
-                            </li>
-                        </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -95,8 +93,15 @@
                 </div>
             </div>
         </nav>
-        <div>
+        <div class="dobody">
             <jsp:doBody/>
         </div>
+        <nav class="navbar navbar-default navbar-fixed-bottom">
+            <div class="container">
+                <div class="row">
+                    <p class="navbar-text-footer navbar-center">Designed by JavaLab Spring 2017</p>
+                </div>
+            </div>
+        </nav>
     </body>
 </html>
