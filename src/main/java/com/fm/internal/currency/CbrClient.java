@@ -15,7 +15,7 @@ public class CbrClient {
     public CbrClient() {
     }
 
-    public List<CurrencyData.ValuteCursOnDate> getAllCurrencyCursForNow() {
+    List<CurrencyData.ValuteCursOnDate> getAllCurrencyCursForNow() {
         DailyInfo service = new DailyInfo();
         DailyInfoSoap port = service.getDailyInfoSoap();
         XMLGregorianCalendar date = null;

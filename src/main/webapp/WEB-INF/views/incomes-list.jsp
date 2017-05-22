@@ -8,7 +8,6 @@
     <script src="<c:url value="/resources/js/editNotes.js"/>"></script>
     <style>
         [contenteditable]:focus {
-            background: #FFFFD3;
             padding: 5px;
         }
     </style>
@@ -43,31 +42,37 @@
                     <table id="incomes" class="table notes">
                         <thead>
                         <tr>
-                            <th>Дата</th>
-                            <th>Сумма</th>
-                            <th>Счет</th>
-                            <th>Заметка</th>
                             <th>Редактировать заметку</th>
-                            <th>Удалить приход</th>
+                            <th>Заметка</th>
+                            <th>Сумма</th>
+                            <th>Дата</th>
+                            <th>Счет</th>
                         </tr>
                         </thead>
                         <tbody>
                         <c:forEach var="income" items="${incomes}">
                             <tr class="tableRow">
                                 <td>
-                                        ${income.date} ${income.time}
-                                </td>
-                                <td>
-                                        ${income.amount}
-                                </td>
-                                <td>
-                                        ${income.account.name}
-                                </td>
-                                <td class="note" data-name="tableNote" contenteditable="false">
-                                        ${income.note}
-                                </td>
-                                <td>
                                     <div class="row editBar">
+                                        <div class="col-xs-1">
+                                            <form action="<c:url value="/account/income/delete"/>" method="POST">
+                                                <input type="hidden" name="incomeId" value="${income.id}">
+                                                <button type="submit" class="btn-link">
+                                                    <span class="glyphicon glyphicon-trash"></span>
+                                                </button>
+                                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                            </form>
+                                        </div>
+                                        <div class="col-xs-1">
+                                            <button class="editBtn dark-grey btn-link">
+                                                <span class="glyphicon glyphicon-edit"></span>
+                                            </button>
+                                        </div>
+                                        <div class="col-xs-1">
+                                            <button class="cancelBtn red btn-link" hidden>
+                                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                            </button>
+                                        </div>
                                         <div class="col-xs-1">
                                             <form class="saveNote" action="<c:url value="/account/income/update"/>"
                                                   method="POST">
@@ -76,29 +81,24 @@
                                                 <input type="hidden" name="note">
                                                 <input type="hidden" name="${_csrf.parameterName}"
                                                        value="${_csrf.token}"/>
-                                                <button type="submit" class="saveBtn" hidden>
+                                                <button type="submit" class="saveBtn dark-green btn-link" hidden>
                                                     <span class="glyphicon glyphicon-ok"></span>
                                                 </button>
                                             </form>
-                                            <button class="cancelBtn" hidden>
-                                                <span class="glyphicon glyphicon-remove-circle"></span>
-                                            </button>
-                                        </div>
-                                        <div class="col-xs-1">
-                                            <button class="editBtn">
-                                                <span class="glyphicon glyphicon-edit"></span>
-                                            </button>
                                         </div>
                                     </div>
                                 </td>
+                                <td class="note" data-name="tableNote" contenteditable="false">
+                                        ${income.note}
+                                </td>
                                 <td>
-                                    <form action="<c:url value="/account/income/delete"/>" method="POST">
-                                        <input type="hidden" name="incomeId" value="${income.id}">
-                                        <button type="submit">
-                                            <span class="glyphicon glyphicon-trash"></span>
-                                        </button>
-                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                    </form>
+                                        ${income.amount}
+                                </td>
+                                <td>
+                                        ${income.date} ${income.time}
+                                </td>
+                                <td>
+                                        ${income.account.name}
                                 </td>
                             </tr>
                         </c:forEach>

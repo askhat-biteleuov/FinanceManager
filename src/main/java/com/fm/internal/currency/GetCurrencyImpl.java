@@ -15,7 +15,7 @@ public class GetCurrencyImpl implements GetCurrency {
     @Autowired
     private CbrClient client;
 
-    @Scheduled(fixedDelay = 25000)
+    @Scheduled(fixedDelay = 3600000)
     @Override
     public void execute() {
         List<CurrencyData.ValuteCursOnDate> allCurrencyCursForNow = client.getAllCurrencyCursForNow();

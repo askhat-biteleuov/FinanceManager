@@ -8,7 +8,6 @@
     <script src="<c:url value="/resources/js/editNotes.js"/>"></script>
     <style>
         [contenteditable]:focus {
-            background: #FFFFD3;
             padding: 5px;
         }
     </style>
@@ -59,35 +58,39 @@
                     <table id="outcomes" class="table notes">
                         <thead>
                         <tr>
-                            <th>Дата</th>
-                            <th>Сумма</th>
-                            <th>Счет</th>
-                            <th>Заметка</th>
-                            <th>Категория</th>
                             <th>Редактировать заметку</th>
-                            <th>Удалить расход</th>
+                            <th>Заметка</th>
+                            <th>Сумма</th>
+                            <th>Категория</th>
+                            <th>Дата</th>
+                            <th>Счет</th>
                         </tr>
                         </thead>
                         <tbody>
                         <c:forEach var="outcome" items="${outcomes}">
                             <tr class="tableRow">
                                 <td>
-                                        ${outcome.date} ${outcome.time}
-                                </td>
-                                <td>
-                                        ${outcome.amount}
-                                </td>
-                                <td>
-                                        ${outcome.account.name}
-                                </td>
-                                <td class="note" data-name="tableNote" contenteditable="false">
-                                        ${outcome.note}
-                                </td>
-                                <td>
-                                        ${outcome.outcomeType.name}
-                                </td>
-                                <td>
                                     <div class="row editBar">
+                                        <div class="col-xs-1">
+                                            <form action="<c:url value="/outcome/delete"/>" method="POST">
+                                                <input type="hidden" name="outcomeId" value="${outcome.id}">
+                                                <button type="submit" class="btn-link">
+                                                    <span class="glyphicon glyphicon-trash"></span>
+                                                </button>
+                                                <input type="hidden" name="${_csrf.parameterName}"
+                                                       value="${_csrf.token}"/>
+                                            </form>
+                                        </div>
+                                        <div class="col-xs-1">
+                                            <button class="editBtn dark-grey btn-link">
+                                                <span class="glyphicon glyphicon-edit"></span>
+                                            </button>
+                                        </div>
+                                        <div class="col-xs-1">
+                                            <button class="cancelBtn red btn-link" hidden>
+                                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                            </button>
+                                        </div>
                                         <div class="col-xs-1">
                                             <form class="saveNote" action="<c:url value="/outcome/update"/>"
                                                   method="POST">
@@ -97,29 +100,27 @@
                                                 <input type="hidden" name="note">
                                                 <input type="hidden" name="${_csrf.parameterName}"
                                                        value="${_csrf.token}"/>
-                                                <button type="submit" class="saveBtn" hidden>
+                                                <button type="submit" class="saveBtn dark-green btn-link" hidden>
                                                     <span class="glyphicon glyphicon-ok"></span>
                                                 </button>
                                             </form>
-                                            <button class="cancelBtn" hidden>
-                                                <span class="glyphicon glyphicon-remove-circle"></span>
-                                            </button>
-                                        </div>
-                                        <div class="col-xs-1">
-                                            <button class="editBtn">
-                                                <span class="glyphicon glyphicon-edit"></span>
-                                            </button>
                                         </div>
                                     </div>
                                 </td>
+                                <td class="note" data-name="tableNote" contenteditable="false">
+                                        ${outcome.note}
+                                </td>
                                 <td>
-                                    <form action="<c:url value="/outcome/delete"/>" method="POST">
-                                        <input type="hidden" name="outcomeId" value="${outcome.id}">
-                                        <button type="submit">
-                                            <span class="glyphicon glyphicon-trash"></span>
-                                        </button>
-                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                    </form>
+                                        ${outcome.amount}
+                                </td>
+                                <td>
+                                        ${outcome.outcomeType.name}
+                                </td>
+                                <td>
+                                        ${outcome.date} ${outcome.time}
+                                </td>
+                                <td>
+                                        ${outcome.account.name}
                                 </td>
                             </tr>
                         </c:forEach>
