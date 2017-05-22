@@ -27,7 +27,6 @@ function drawLineChart(data) {
     var options = {
 
         title: "Сумма расходов по категориям за день",
-
         hAxis: {
             title: 'День',
             scaleType: 'linear',

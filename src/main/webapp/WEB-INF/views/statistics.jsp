@@ -53,7 +53,7 @@
                 </div>
         </form>
         <div class="col-md-12">
-            <div id="linechart"></div>
+            <div id="linechart" style="height: 50%"></div>
         </div>
         <script src="<c:url value="/resources/js/outcomesLinechart.js"/>"></script>
         <script src="<c:url value="/resources/js/drawOutcomesLinechart.js"/>"></script>

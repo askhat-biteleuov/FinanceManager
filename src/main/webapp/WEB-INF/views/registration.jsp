@@ -18,7 +18,7 @@
                 <%--<label for="lastName">Фамилия:</label>--%>
                 <form:input cssClass="form-control" path="lastName" placeholder="Фамилия"/>
                 <form:errors path="lastName" cssClass="red"/><br>
-                <%--<label for="currency">Выберите вашу валюту:</label>--%>
+                <label for="currency">Выберите вашу валюту:</label>
                 <select class="form-control" name="currency">
                     <option disabled>--- Выберите валюту ---</option>
                     <c:forEach items="${currencies}" var="currency">

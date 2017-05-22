@@ -35,7 +35,7 @@
                         <form:input path="end" type="text" cssClass="input-sm form-control" name="end" id="end"
                                     readonly="true"/>
                     </div>
-                    <button type="submit" class="btn btn-blue">Принять</button>
+                    <button type="submit" class="btn btn-blue">Показать</button>
                     <input type="hidden" name="itemId" value="${rangeDto.id}">
                     <c:if test="${accountId != null}">
                         <input type="hidden" name="accountId" value="${accountId}"/>

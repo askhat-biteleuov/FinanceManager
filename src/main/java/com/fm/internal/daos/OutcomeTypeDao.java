@@ -84,9 +84,9 @@ public class OutcomeTypeDao extends GenericDao<OutcomeType> {
     @Transactional
     public Map<Integer, Map<String, Double>> countOutcomeTypesValueByMonth(Account account, LocalDate start) {
         Map<Integer, Map<String, Double>> outcomeTypesValueByDay = new HashMap<>();
-        for (int i = 1; i <= start.lengthOfMonth(); i++) {
-            outcomeTypesValueByDay.put(i, null);
-        }
+//        for (int i = 1; i <= start.lengthOfMonth(); i++) {
+//            outcomeTypesValueByDay.put(i, null);
+//        }
         Session session = getSessionFactory().getCurrentSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<Object[]> query = criteriaBuilder.createQuery(Object[].class);

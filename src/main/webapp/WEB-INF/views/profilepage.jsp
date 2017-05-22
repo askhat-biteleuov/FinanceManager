@@ -16,17 +16,17 @@
         <hr>
         <div class="row">
             <!-- left column -->
-            <div class="col-md-3">
-                <div class="text-center">
-                    <img src="<c:url value="/resources/img/placeholder.png"/>" class="avatar img-circle" alt="avatar">
-                    <h6>Загрузите другое фото...</h6>
-                    <form action="<c:url value="/profile/avatar"/>" class="uploadImage">
-                        <input type="file" class="form-control" accept="image/*">
-                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                        <button type="submit" class="btn-success">Сохранить</button>
-                    </form>
-                </div>
-            </div>
+            <%--<div class="col-md-3">--%>
+                <%--<div class="text-center">--%>
+                    <%--<img src="<c:url value="/resources/img/placeholder.png"/>" class="avatar img-circle" alt="avatar">--%>
+                    <%--<h6>Загрузите другое фото...</h6>--%>
+                    <%--<form action="<c:url value="/profile/avatar"/>" class="uploadImage">--%>
+                        <%--<input type="file" class="form-control" accept="image/*">--%>
+                        <%--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
+                        <%--<button type="submit" class="btn-success">Сохранить</button>--%>
+                    <%--</form>--%>
+                <%--</div>--%>
+            <%--</div>--%>
 
             <!-- edit form column -->
             <div class="col-md-5 personal-info">
