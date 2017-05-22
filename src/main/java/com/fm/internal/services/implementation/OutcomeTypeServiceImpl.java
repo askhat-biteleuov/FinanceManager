@@ -36,19 +36,21 @@ public class OutcomeTypeServiceImpl implements OutcomeTypeService {
     @Override
     public void addOutcomeType(OutcomeTypeDto typeDto, User user) {
         OutcomeType outcomeType = new OutcomeType(typeDto.getName(), new BigDecimal(typeDto.getLimit()), user);
-        outcomeTypeDao.add(outcomeType);
+        outcomeType.setAvailable(true);
+        outcomeTypeDao.saveOrUpdate(outcomeType);
     }
 
     @Override
     public void deleteOutcomeType(OutcomeType type) {
-        outcomeDao.deleteOutcomeByType(type);
-        outcomeTypeDao.delete(type);
+        type.setAvailable(false);
+        outcomeTypeDao.update(type);
     }
 
     @Override
     public void deleteTypeAndUpdateOutcomes(OutcomeType oldOutcomeType, OutcomeType newOutcomeType) {
         outcomeDao.updateOutcomeByType(oldOutcomeType, newOutcomeType);
-        outcomeTypeDao.delete(oldOutcomeType);
+        oldOutcomeType.setAvailable(false);
+        outcomeTypeDao.update(oldOutcomeType);
     }
 
     @Override
