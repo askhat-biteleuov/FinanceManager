@@ -58,10 +58,9 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-3 control-label"></label>
-                        <div class="col-md-8">
+                        <label class="col-lg-3 control-label"></label>
+                        <div class="col-lg-8">
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                            <input type="reset" class="btn btn-default" value="Отмена">
                             <span></span>
                             <input type="submit" class="btn btn-primary" value="Сохранить изменения">
                         </div>
@@ -99,7 +98,6 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label"></label>
                         <div class="col-md-8">
-                            <button type="reset" class="btn btn-default">Отмена</button>
                             <span></span>
                             <button type="submit" class="btn btn-primary">Сохранить новый пароль</button>
                         </div>
