@@ -80,23 +80,4 @@ public class Currency implements Serializable {
         this.characterCode = characterCode;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Currency currency = (Currency) o;
-
-        if (code != currency.code) return false;
-        if (!name.equals(currency.name)) return false;
-        return characterCode.equals(currency.characterCode);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = name.hashCode();
-        result = 31 * result + code;
-        result = 31 * result + characterCode.hashCode();
-        return result;
-    }
 }

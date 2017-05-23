@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class UtilServiceImpl {
     @Autowired
@@ -28,15 +26,15 @@ public class UtilServiceImpl {
         return sumOfIncomes.subtract(sumOfOutcomes);
     }
 
-    public List<HashTag> parseHashTags(User user, List<String> StringHashTags) {
+    public List<HashTag> parseHashTags(User user, List<String> stringHashTags) {
         List<HashTag> hashTags = new ArrayList<>();
-        if (!StringHashTags.isEmpty()){
-            for(String stringHashTag: StringHashTags){
+        if (stringHashTags != null && !stringHashTags.isEmpty()) {
+            for (String stringHashTag : stringHashTags) {
                 HashTag hashTag = hashTagService.getHashTagByUserAndText(user, stringHashTag);
-                if(hashTag == null && stringHashTag.trim().length() > 0) {
+                if (hashTag == null && stringHashTag.trim().length() > 0) {
                     hashTagService.addHashTag(new HashTag(stringHashTag, user));
                     hashTags.add(hashTagService.getHashTagByUserAndText(user, stringHashTag));
-                }else{
+                } else {
                     hashTags.add(hashTag);
                 }
             }
