@@ -130,7 +130,25 @@ public class OutcomeServiceImpl implements OutcomeService {
     }
 
     @Override
-    public List<Outcome> getOutcomesByHashTag(Account account, HashTag hashTag) {
-        return dao.getOutcomesByHashTag(account, hashTag);
+    public List<Outcome> getOutcomesByAccountAndHashTag(Account account, HashTag hashTag, LocalDate start, LocalDate end) {
+        return dao.getOutcomesByAccountAndHashTag(account, hashTag, start, end);
     }
+
+
+    @Override
+    public List<Outcome> getAccountOutcomesPageByHashTagAndDate(Account account, HashTag hashTag, int offset, int limit, LocalDate start, LocalDate end) {
+        return dao.getAccountOutcomesPageByHashTagAndDate(account, hashTag, offset, limit, start, end);
+    }
+
+    @Override
+    public List<Outcome> getOutcomesByUserAndHashTag(User user, HashTag hashTag, LocalDate start, LocalDate end) {
+        return dao.getOutcomesByUserAndHashTag(user, hashTag, start, end);
+    }
+
+    @Override
+    public List<Outcome> getUserOutcomesPageByHashTagAndDate(User user, HashTag hashTag, int offset, int limit, LocalDate start, LocalDate end) {
+        return dao.getUserOutcomesPageByHashTagAndDate(user, hashTag, offset, limit, start, end);
+    }
+
+
 }

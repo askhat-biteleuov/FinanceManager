@@ -158,18 +158,63 @@ public class OutcomeDao extends GenericDao<Outcome> {
     }
 
     @Transactional
-    public List<Outcome> getOutcomesByHashTag(Account account, HashTag hashTag){
+    public List<Outcome> getOutcomesByAccountAndHashTag(Account account, HashTag hashTag, LocalDate start, LocalDate end){
         Session currentSession = getSessionFactory().getCurrentSession();
         CriteriaBuilder builder = currentSession.getCriteriaBuilder();
         CriteriaQuery<Outcome> query = builder.createQuery(Outcome.class);
         Root<Outcome> outcomeRoot = query.from(Outcome.class);
         Predicate equalAccount = builder.equal(outcomeRoot.get(Outcome_.account), account);
-        query.where(equalAccount);
         Join<Outcome, HashTag> hashTagJoin = outcomeRoot.join(Outcome_.hashTags);
         Predicate matchingHashTag = builder.equal(hashTagJoin.get(HashTag_.text), hashTag.getText());
-        query.where(matchingHashTag);
+        Predicate betweenDate = builder.between(outcomeRoot.get(Outcome_.date), start, end);
+        query.where(matchingHashTag, equalAccount, betweenDate);
         return currentSession.createQuery(query).getResultList();
     }
+
+    @Transactional
+    public List<Outcome> getAccountOutcomesPageByHashTagAndDate(Account account, HashTag hashTag, int offset, int limit, LocalDate start, LocalDate end){
+        Session currentSession = getSessionFactory().getCurrentSession();
+        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
+        CriteriaQuery<Outcome> query = builder.createQuery(Outcome.class);
+        Root<Outcome> outcomeRoot = query.from(Outcome.class);
+        Join<Outcome, HashTag> hashTagJoin = outcomeRoot.join(Outcome_.hashTags);
+        Predicate matchingHashTag = builder.equal(hashTagJoin.get(HashTag_.text), hashTag.getText());
+        Predicate equalAccount = builder.equal(outcomeRoot.get(Outcome_.account), account);
+        Predicate betweenDate = builder.between(outcomeRoot.get(Outcome_.date), start, end);
+        query.where(matchingHashTag, equalAccount, betweenDate);
+        return currentSession.createQuery(query).setFirstResult(offset).setMaxResults(limit).getResultList();
+    }
+
+    @Transactional
+    public List<Outcome> getOutcomesByUserAndHashTag(User user, HashTag hashTag, LocalDate start, LocalDate end){
+        Session currentSession = getSessionFactory().getCurrentSession();
+        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
+        CriteriaQuery<Outcome> query = builder.createQuery(Outcome.class);
+        Root<Outcome> outcomeRoot = query.from(Outcome.class);
+        Join<Outcome, Account> accountJoin = outcomeRoot.join(Outcome_.account);
+        Predicate equalUser = builder.equal(accountJoin.get(Account_.user), user);
+        Join<Outcome, HashTag> hashTagJoin = outcomeRoot.join(Outcome_.hashTags);
+        Predicate matchingHashTag = builder.equal(hashTagJoin.get(HashTag_.text), hashTag.getText());
+        Predicate betweenDate = builder.between(outcomeRoot.get(Outcome_.date), start, end);
+        query.where(matchingHashTag, equalUser, betweenDate);
+        return currentSession.createQuery(query).getResultList();
+    }
+
+    @Transactional
+    public List<Outcome> getUserOutcomesPageByHashTagAndDate(User user, HashTag hashTag, int offset, int limit, LocalDate start, LocalDate end){
+        Session currentSession = getSessionFactory().getCurrentSession();
+        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
+        CriteriaQuery<Outcome> query = builder.createQuery(Outcome.class);
+        Root<Outcome> outcomeRoot = query.from(Outcome.class);
+        Predicate betweenDate = builder.between(outcomeRoot.get(Outcome_.date), start, end);
+        Join<Outcome, Account> accountJoin = outcomeRoot.join(Outcome_.account);
+        Predicate equalUser = builder.equal(accountJoin.get(Account_.user), user);
+        Join<Outcome, HashTag> hashTagJoin = outcomeRoot.join(Outcome_.hashTags);
+        Predicate matchingHashTag = builder.equal(hashTagJoin.get(HashTag_.text), hashTag.getText());
+        query.where(matchingHashTag, betweenDate, equalUser);
+        return currentSession.createQuery(query).setFirstResult(offset).setMaxResults(limit).getResultList();
+    }
+
 
     @Transactional
     public BigDecimal getSumOfOutcomesInAccount(Account account) {

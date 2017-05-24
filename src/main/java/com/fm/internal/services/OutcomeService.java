@@ -41,6 +41,11 @@ public interface OutcomeService {
 
     BigDecimal sumOfAllOutcomes(List<Outcome> outcomes);
 
-    List<Outcome> getOutcomesByHashTag(Account account, HashTag hashTag);
+    List<Outcome> getOutcomesByAccountAndHashTag(Account account, HashTag hashTag, LocalDate start, LocalDate end);
 
+    List<Outcome> getAccountOutcomesPageByHashTagAndDate(Account account, HashTag hashTag, int offset, int limit, LocalDate start, LocalDate end);
+
+    List<Outcome> getOutcomesByUserAndHashTag(User user, HashTag hashTag, LocalDate start, LocalDate end);
+
+    List<Outcome> getUserOutcomesPageByHashTagAndDate(User user, HashTag hashTag, int offset, int limit, LocalDate start, LocalDate end);
 }
