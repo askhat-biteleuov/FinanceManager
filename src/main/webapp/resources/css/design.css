@@ -66,6 +66,10 @@ a{
     text-decoration: none !important;
 }
 
+.btn-margin-10 {
+    margin-top: 10px;
+}
+
 .btn{
     text-transform: uppercase !important;
     text-decoration: none !important;
@@ -89,8 +93,14 @@ a{
 /* Прозрачный фон для основного содержимого */
 .article {
     background:rgba(255,255,255,0.7);
-    padding: 20px;
-    margin: 10px 10px 10px 20px;
+    padding-top: 20px;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-bottom: 20px;
+    margin-top: 10px;
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-bottom: 0;
 }
 .pagination>li>a{
     color: #464547 !important;

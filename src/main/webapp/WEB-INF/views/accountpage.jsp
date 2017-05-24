@@ -13,17 +13,19 @@
             display: none;
         }
     </style>
-    <jsp:include page="../fragments/back-button.jsp"/>
     <div class="container">
-        <h2 align="center" class="page-header">Счёт ${account.name}</h2>
+        <jsp:include page="../fragments/back-button.jsp"/>
+        <div class="col-sm-11 col-sm-offset-1">
+            <h2 align="center" class="page-header">Счёт ${account.name}</h2>
         <h3 align="center">Баланс: ${account.balance} ${account.currency.characterCode}</h3>
         <div class="row center">
-            <div class="article col-sm-5">
+            <div class="article col-sx-12 col-md-5">
                 <div align="center">
-                    <a class="btn btn-blue" href="<c:url value="/account/income/page?itemId=${account.id}"/>">
+                    <a class="btn btn-blue btn-margin-10"
+                       href="<c:url value="/account/income/page?itemId=${account.id}"/>">
                         Посмотреть все приходы
                     </a>
-                    <a class="btn btn-blue" href="<c:url value="/outcome/all?accountId=${account.id}"/>">
+                    <a class="btn btn-blue btn-margin-10" href="<c:url value="/outcome/all?accountId=${account.id}"/>">
                         Посмотреть все расходы
                     </a>
                 </div>
@@ -191,7 +193,7 @@
                     </div>
                 </div>
             </div>
-            <div class="article col-sm-6">
+            <div class="article col-sx-12 col-md-6">
                 <div id="chart" align="center">
                     <form id="rangeForm">
                         <div class="input-daterange input-group datepicker" id="datepicker-range">
@@ -206,9 +208,10 @@
                     <script src="<c:url value="/resources/js/datePickerConfig.js"/>"></script>
                     <script src="<c:url value="/resources/js/outcomesPiechart.js"/>"></script>
                     <script src="<c:url value="/resources/js/drawOutcomesPiechart.js"/>"></script>
-                    <div id="piechart" style="width: 550px; height: 400px; margin: 0 auto"></div>
+                    <div id="piechart" style=" margin: 0 auto"></div>
                 </div>
             </div>
+        </div>
         </div>
     </div>
 </t:master-page>

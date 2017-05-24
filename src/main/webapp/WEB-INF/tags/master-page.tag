@@ -43,16 +43,6 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="<c:url value="/"/>">FinanceManager</a>
-                    <c:if test="${userName != null}">
-                        <p class="nav navbar-text navbar-center">
-                            Баланс: <fmt:formatNumber type="currency"
-                                                      currencySymbol="${statusBarDto.info.currency.characterCode}"
-                                                      value="${statusBarDto.sumOfAllBalancesOfAccounts}"/>
-                            Расходы: <fmt:formatNumber type="currency"
-                                                       currencySymbol="${statusBarDto.info.currency.characterCode}"
-                                                       value="${statusBarDto.sumOfAllOutcomesForMonthForUser}"/>
-                        </p>
-                    </c:if>
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-toogle">
                     <ul class="nav navbar-nav">
@@ -60,7 +50,18 @@
                             <li><a href="<c:url value="/login"/>">Войти в аккаунт</a></li>
                             <li><a href="<c:url value="/registration"/>">Пройти регистрацию</a></li>
                         </c:if>
+
                         <c:if test="${userName != null}">
+                            <li class="navbar-center">
+                                <p class="text-center">
+                                    Баланс: <fmt:formatNumber type="currency"
+                                                              currencySymbol="${statusBarDto.info.currency.characterCode}"
+                                                              value="${statusBarDto.sumOfAllBalancesOfAccounts}"/>
+                                    Расходы: <fmt:formatNumber type="currency"
+                                                               currencySymbol="${statusBarDto.info.currency.characterCode}"
+                                                               value="${statusBarDto.sumOfAllOutcomesForMonthForUser}"/>
+                                </p>
+                            </li>
                             <li><a href="<c:url value="/outcome/all"/>">Расходы</a></li>
                             <li><a href="<c:url value="/account/income/all"/>">Приходы</a></li>
                             <li><a href="<c:url value="/statistics"/>">Статистика</a></li>
@@ -98,9 +99,7 @@
         </div>
         <nav class="navbar navbar-default navbar-fixed-bottom">
             <div class="container">
-                <div class="row">
-                    <p class="navbar-text-footer navbar-center">Designed by JavaLab Spring 2017</p>
-                </div>
+                <p align="center" class="navbar-text-footer">Designed by JavaLab Spring 2017</p>
             </div>
         </nav>
     </body>

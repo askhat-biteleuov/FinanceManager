@@ -2,7 +2,7 @@
     position:fixed;
     height:100%;
     width:100px;
-    top:61px;
+    top: 50px;
     left:0px;
     cursor:pointer;
     z-index:10000;
@@ -24,4 +24,10 @@
 #scroiller div{
     font:bold 1.1em Verdana;
     color: #8a8489;
+}
+
+@media (max-width: 767px) {
+    #scroiller div {
+        display: none;
+    }
 }

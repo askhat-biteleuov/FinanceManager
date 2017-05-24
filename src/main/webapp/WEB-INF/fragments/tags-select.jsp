@@ -18,7 +18,8 @@
             placeholder: "Хэштеги",
             tags: true,
             width: '100%',
-            theme: "bootstrap"
+            theme: "bootstrap",
+            tokenSeparators: [',', ' ', '#']
         });
     });
 </script>

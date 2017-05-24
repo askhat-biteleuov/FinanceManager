@@ -12,11 +12,15 @@
     <div class="container">
         <c:if test="${user == null}">
             <div align="center">
-                <div class="col-sm-4">
+                <div class="col-xs-12 col-sm-10 col-md-6 col-sm-offset-1 col-md-offset-3">
                     <h1 class="page-header">Добрый день!</h1>
                     <p>Вы можете войти в свой аккаунт или пройти регистрацию.</p>
-                    <a class="btn btn-default" href="<c:url value="/registration"/>" type="submit">Пройти регистрацию</a>
-                    <a class="btn btn-green" href="<c:url value="/login"/>" type="submit">Войти в аккаунт</a>
+                    <div class="row">
+                        <a class="btn btn-default col-xs-12 col-sm-8" href="<c:url value="/registration"/>"
+                           type="submit">Пройти регистрацию</a>
+                        <a class="btn btn-green col-xs-12 col-sm-4" href="<c:url value="/login"/>" type="submit">Войти в
+                            аккаунт</a>
+                    </div>
                 </div>
             </div>
         </c:if>
@@ -55,9 +59,7 @@
                                                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                                 </button>
                                                 <div class="memo">
-                                                    <fmt:formatNumber type="currency"
-                                                                      currencySymbol="${account.currency.characterCode}"
-                                                                      value="${account.balance}"/>
+                                                        ${account.balance}
                                                 </div>
                                             </div>
                                         </div>
@@ -130,22 +132,12 @@
                                                         <c:choose>
                                                             <c:when test="${outcomeType.value > outcomeType.key.limit}">
                                                         <span style="color:red">
-                                                            <fmt:formatNumber type="currency"
-                                                                              currencySymbol="${user.info.currency.characterCode}"
-                                                                              value="${outcomeType.value}"/>/
-                                                            <fmt:formatNumber type="currency"
-                                                                              currencySymbol="${user.info.currency.characterCode}"
-                                                                              value="${outcomeType.key.limit}"/>
+                                                            ${outcomeType.value} / ${outcomeType.key.limit}
                                                         </span>
                                                             </c:when>
                                                             <c:otherwise>
                                                         <span class="memo">
-                                                            <fmt:formatNumber type="currency"
-                                                                              currencySymbol="${user.info.currency.characterCode}"
-                                                                              value="${outcomeType.value}"/> /
-                                                            <fmt:formatNumber type="currency"
-                                                                              currencySymbol="${user.info.currency.characterCode}"
-                                                                              value="${outcomeType.key.limit}"/>
+                                                           ${outcomeType.value} / ${outcomeType.key.limit}
                                                         </span>
                                                             </c:otherwise>
                                                         </c:choose>

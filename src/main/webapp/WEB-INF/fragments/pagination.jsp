@@ -23,10 +23,10 @@
     </c:url>
     <c:choose>
         <c:when test="${paginationDto.selectedPage == 1}">
-            <li class="disabled"><a href="${firstPageUrl}">Первая</a></li>
+            <li class="disabled"><a href="${firstPageUrl}"><<</a></li>
         </c:when>
         <c:otherwise>
-            <li class=""><a href="${firstPageUrl}">Первая</a></li>
+            <li class=""><a href="${firstPageUrl}"><<</a></li>
         </c:otherwise>
     </c:choose>
 
@@ -54,7 +54,9 @@
                 <li class="active"><a href="${pageUrl}"><c:out value="${i}"/></a></li>
             </c:when>
             <c:otherwise>
-                <li class=""><a href="${pageUrl}"><c:out value="${i}"/></a></li>
+                <li class="${paginationDto.selectedPage - i<2 && paginationDto.selectedPage - i>-2 ? "":"hidden-xs"}">
+                    <a href="${pageUrl}"><c:out value="${i}"/></a>
+                </li>
             </c:otherwise>
         </c:choose>
     </c:forEach>
@@ -79,10 +81,10 @@
     </c:url>
     <c:choose>
         <c:when test="${paginationDto.selectedPage == paginationDto.pageCount}">
-            <li class="disabled"><a href="${lastPageUrl}">Последняя</a></li>
+            <li class="disabled"><a href="${lastPageUrl}">>></a></li>
         </c:when>
         <c:otherwise>
-            <li class=""><a href="${lastPageUrl}" name="pageId">Последняя</a></li>
+            <li class=""><a href="${lastPageUrl}" name="pageId">>></a></li>
         </c:otherwise>
     </c:choose>
 </ul>
