@@ -59,7 +59,16 @@
                                                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                                 </button>
                                                 <div class="memo">
-                                                        ${account.balance}
+                                                    <c:choose>
+                                                        <c:when test="${user.info.currency.characterCode==account.currency.characterCode}">
+                                                            ${account.balance}
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <fmt:formatNumber type="currency"
+                                                                              currencySymbol="${account.currency.characterCode}"
+                                                                              value="${account.balance}"/>
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                 </div>
                                             </div>
                                         </div>
