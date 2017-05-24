@@ -29,11 +29,16 @@ public class OutcomeTypeValidator implements Validator {
     public void validate(Object target, Errors errors) {
         OutcomeTypeDto dto = (OutcomeTypeDto) target;
         List<OutcomeType> availableOutcomeTypes = outcomeTypeService.getAvailableOutcomeTypes(userService.getLoggedUser());
-        availableOutcomeTypes.forEach(outcomeType -> LOGGER.info(outcomeType.getName()));
-        boolean anyMatch = availableOutcomeTypes.stream()
-                .map(OutcomeType::getName)
-                .anyMatch(typeName -> typeName.equalsIgnoreCase(dto.getName()));
-        LOGGER.info(anyMatch);
+        boolean anyMatch = false;
+        if (dto.getId() != 0) {
+            for (OutcomeType outcomeType : availableOutcomeTypes) {
+                anyMatch = (outcomeType.getId() != dto.getId()) && (outcomeType.getName().equalsIgnoreCase(dto.getName()));
+            }
+        } else {
+            anyMatch = availableOutcomeTypes.stream()
+                    .map(OutcomeType::getName)
+                    .anyMatch(typeName -> typeName.equalsIgnoreCase(dto.getName()));
+        }
         if (anyMatch) errors.rejectValue("name", "Exist");
     }
 }
