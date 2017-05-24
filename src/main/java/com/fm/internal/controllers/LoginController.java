@@ -69,10 +69,10 @@ public class LoginController {
         if (loggedUser != null) {
             modelAndView.addObject("user", loggedUser);
             Map<OutcomeType, BigDecimal> outcomeTypes = new TreeMap<>(Comparator.comparing(OutcomeType::getName));
-            for (OutcomeType outcomeType : loggedUser.getOutcomeTypes()) {
+            loggedUser.getOutcomeTypes().stream().filter(outcomeType -> outcomeType.isAvailable()).forEach(outcomeType -> {
                 BigDecimal sumOfOutcomesInTypeForMonth = typeService.getSumOfOutcomesInTypeForMonth(outcomeType);
                 outcomeTypes.put(outcomeType, sumOfOutcomesInTypeForMonth);
-            }
+            });
             modelAndView.addObject("hashtags",hashTagService.getHashTagsByUser(loggedUser));
             modelAndView.addObject("outcomeTypes", outcomeTypes);
             modelAndView.addObject("currencies", currencyService.getCurrencies());

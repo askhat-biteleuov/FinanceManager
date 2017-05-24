@@ -43,8 +43,10 @@ public class OutcomeTypeServiceTest extends AbstractTestNGSpringContextTests {
 
     @BeforeMethod
     public void setUp() throws Exception {
-        User user = new User(FIRST_USER_EMAIL, FIRST_USER_PASSWORD, new UserInfo("name", "surname", currencyService.findCurrencyByCharCode("RUS")));
-        User secondUser = new User(SECOND_USER_EMAIL, SECOND_USER_PASSWORD, new UserInfo("name", "surname", currencyService.findCurrencyByCharCode("RUS")));
+        Currency currency = new Currency("Рубль", BigDecimal.ONE, BigDecimal.ONE, 999, "RUB");
+        currencyService.addOrUpdateCurrency(currency);
+        User user = new User(FIRST_USER_EMAIL, FIRST_USER_PASSWORD, new UserInfo("name", "surname", currencyService.findCurrencyByCharCode("RUB")));
+        User secondUser = new User(SECOND_USER_EMAIL, SECOND_USER_PASSWORD, new UserInfo("name", "surname", currencyService.findCurrencyByCharCode("RUB")));
         userService.createUser(user);
         userService.createUser(secondUser);
         Account[] accounts = {
@@ -64,7 +66,7 @@ public class OutcomeTypeServiceTest extends AbstractTestNGSpringContextTests {
         OutcomeType[] types = {
                 new OutcomeType("Еда вне дома", new BigDecimal(3000), user),
                 new OutcomeType("ФФСБ", new BigDecimal(2323), user),
-                new OutcomeType("dfsfsd", new  BigDecimal(3242), user),
+                new OutcomeType("dfsfsd", new  BigDecimal(3242), user, false),
                 new OutcomeType("Еда вне дома", new BigDecimal(3000), secondUser),
         };
         for (OutcomeType type : types) {
@@ -130,7 +132,8 @@ public class OutcomeTypeServiceTest extends AbstractTestNGSpringContextTests {
     public void testGetAvailableOutcomeTypes() throws Exception {
         User user = userService.findByEmail(FIRST_USER_EMAIL);
         List<OutcomeType> availableOutcomeTypes = outcomeTypeService.getAvailableOutcomeTypes(user);
-        Assert.assertEquals(availableOutcomeTypes.size(), 9);
+        Assert.assertEquals(availableOutcomeTypes.size(), 8);
+        availableOutcomeTypes.forEach(outcomeType -> System.out.println(outcomeType.getName()));
     }
 
     @Test

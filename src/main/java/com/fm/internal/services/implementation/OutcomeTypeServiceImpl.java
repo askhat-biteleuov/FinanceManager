@@ -36,7 +36,6 @@ public class OutcomeTypeServiceImpl implements OutcomeTypeService {
     @Override
     public void addOutcomeType(OutcomeTypeDto typeDto, User user) {
         OutcomeType outcomeType = new OutcomeType(typeDto.getName(), new BigDecimal(typeDto.getLimit()), user);
-        outcomeType.setAvailable(true);
         outcomeTypeDao.saveOrUpdate(outcomeType);
     }
 
