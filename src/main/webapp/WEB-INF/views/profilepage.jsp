@@ -3,7 +3,6 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <t:master-page title="Личный кабинет">
-    <script src="<c:url value="/resources/js/imageUpload.js"/>"></script>
     <script src="<c:url value="/resources/js/sendPasswordViaAjax.js"/>"></script>
     <link href="<c:url value="/resources/css/back-button.css"/>" rel="stylesheet"/>
 
@@ -12,7 +11,7 @@
     </div>
 
     <div class="container">
-        <h1>Edit Profile</h1>
+        <h1>Редактирование профиля</h1>
         <hr>
         <div class="row">
             <!-- left column -->

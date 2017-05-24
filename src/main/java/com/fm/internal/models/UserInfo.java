@@ -19,10 +19,6 @@ public class UserInfo implements Serializable {
     @Column
     private String lastName;
 
-    @Lob
-    @Column(name = "avatar")
-    private byte[] image;
-
     @ManyToOne
     @JoinColumn(nullable = false, name = "currency_character_code", foreignKey = @ForeignKey(name = "fk_currency_character_code"))
     private Currency currency;
@@ -68,11 +64,4 @@ public class UserInfo implements Serializable {
         this.currency = currency;
     }
 
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
 }

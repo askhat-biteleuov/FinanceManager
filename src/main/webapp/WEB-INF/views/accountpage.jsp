@@ -16,6 +16,7 @@
     <jsp:include page="../fragments/back-button.jsp"/>
     <div class="container">
         <h2 align="center" class="page-header">Счёт ${account.name}</h2>
+        <h3 align="center">Баланс: ${account.balance} ${account.currency.characterCode}</h3>
         <div class="row center">
             <div class="article col-sm-5">
                 <div align="center">
