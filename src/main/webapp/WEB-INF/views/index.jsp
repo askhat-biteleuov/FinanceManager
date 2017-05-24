@@ -95,8 +95,8 @@
                     <div class="row">
                         <c:forEach var="outcomeType" items="${outcomeTypes}">
                             <div class="col-sm-4 col-lg-3 ">
-                                <c:url value="/outcometype/page" var="outcomeTypeUrl">
-                                    <c:param name="itemId" value="${outcomeType.key.id}"/>
+                                <c:url value="/outcome/all" var="outcomeTypeUrl">
+                                    <c:param name="outcomeTypeId" value="${outcomeType.key.id}"/>
                                 </c:url>
                                 <div class="panel panel-shadow-1">
                                     <a href="<c:out value="${outcomeTypeUrl}"/>">
