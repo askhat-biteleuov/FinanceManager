@@ -114,6 +114,7 @@ public class OutcomeController {
         return modelAndView;
     }
 
+    private void addAccountOutcomesPageInView(Long accountId, Integer pageId, LocalDate start, LocalDate end, int pageSize, ModelAndView modelAndView, HashTag searchHashTag) {
         Account accountById = accountService.findAccountById(accountId);
         long outcomesNumber = outcomeService.getOutcomesByAccountAndHashTag(accountById, searchHashTag, start, end).size();
         PaginationDto paginationDto = paginationService.createPagination(accountId, pageId, pageSize,
