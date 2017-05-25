@@ -42,7 +42,7 @@
                             <script>
                                 var myDate = new Date();
                                 var year = myDate.getFullYear();
-                                for (var i = 2010; i < year + 1; i++) {
+                                for (var i = year; i > 2010; i--) {
                                     document.write('<option value="' + i + '">' + i + '</option>');
                                 }
                             </script>
@@ -53,7 +53,7 @@
                 </div>
         </form>
         <div class="col-md-12">
-            <div id="linechart" style="height: 50%"></div>
+            <div id="linechart" class="linechart"></div>
         </div>
         <script src="<c:url value="/resources/js/outcomesLinechart.js"/>"></script>
         <script src="<c:url value="/resources/js/drawOutcomesLinechart.js"/>"></script>

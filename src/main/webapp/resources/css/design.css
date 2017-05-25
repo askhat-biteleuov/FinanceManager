@@ -120,3 +120,7 @@ a{
     margin-top: 7rem;
     margin-bottom: 7rem;
 }
+
+.linechart {
+    height: 50%;
+}

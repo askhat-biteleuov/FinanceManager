@@ -50,22 +50,445 @@ public class InitController {
         }
 
         LocalDate now = LocalDate.now();
-        for (int i = 1; i < 30; i++) {
-            double rand = Math.random()*1000;
-            outcomeService.addOutcome(new Outcome(new BigDecimal(rand),
-                    currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
-                    new BigDecimal(rand)), LocalDate.of(now.getYear(),now.getMonth(),i), LocalTime.now(),
-                    accounts[0], types[0]));
-            rand = Math.random()*1000;
-            outcomeService.addOutcome(new Outcome(new BigDecimal(rand),
-                    currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
-                            new BigDecimal(rand)), LocalDate.of(now.getYear(),now.getMonth(),i), LocalTime.now(),
-                    accounts[0], types[1]));
-            rand = Math.random()*1000;
-            outcomeService.addOutcome(new Outcome(new BigDecimal(rand),
-                    currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
-                            new BigDecimal(rand)), LocalDate.of(now.getYear(),now.getMonth(),i), LocalTime.now(),
-                    accounts[0], types[2]));
+        for (int i = 1; i <= 31; i++) {
+            switch (i) {
+                case 1:
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(250),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(250)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[0]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(80),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(80)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[1]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(0),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(0)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[2]));
+                    break;
+                case 2:
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(160),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(160)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[0]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(80),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(80)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[1]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(0),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(0)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[2]));
+                    break;
+                case 3:
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(245),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(245)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[0]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(120),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(120)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[1]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(0),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(0)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[2]));
+                    break;
+                case 4:
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(350),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(350)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[0]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(80),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(80)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[1]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(0),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(0)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[2]));
+                    break;
+                case 5:
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(120),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(120)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[0]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(200),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(200)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[1]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(500),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(500)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[2]));
+                    break;
+                case 6:
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(200),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(200)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[0]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(80),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(80)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[1]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(0),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(0)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[2]));
+                    break;
+                case 7:
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(180),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(180)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[0]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(80),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(80)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[1]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(0),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(0)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[2]));
+                    break;
+                case 8:
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(150),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(150)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[0]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(80),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(80)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[1]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(0),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(0)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[2]));
+                    break;
+                case 9:
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(245),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(245)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[0]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(0),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(0)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[1]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(400),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(400)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[2]));
+                    break;
+                case 10:
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(220),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(220)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[0]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(80),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(80)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[1]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(0),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(0)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[2]));
+                    break;
+                case 11:
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(190),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(190)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[0]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(40),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(40)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[1]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(0),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(0)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[2]));
+                    break;
+                case 12:
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(240),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(240)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[0]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(0),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(0)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[1]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(0),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(0)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[2]));
+                    break;
+                case 13:
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(280),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(280)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[0]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(0),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(0)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[1]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(0),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(0)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[2]));
+                    break;
+                case 14:
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(120),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(120)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[0]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(80),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(80)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[1]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(0),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(0)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[2]));
+                    break;
+                case 15:
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(160),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(160)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[0]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(80),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(80)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[1]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(350),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(350)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[2]));
+                    break;
+                case 16:
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(240),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(240)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[0]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(40),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(40)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[1]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(0),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(0)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[2]));
+                    break;
+                case 17:
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(140),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(140)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[0]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(220),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(220)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[1]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(0),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(0)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[2]));
+                    break;
+                case 18:
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(165),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(165)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[0]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(0),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(0)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[1]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(0),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(0)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[2]));
+                    break;
+                case 19:
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(300),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(300)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[0]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(80),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(80)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[1]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(0),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(0)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[2]));
+                    break;
+                case 20:
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(220),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(220)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[0]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(80),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(80)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[1]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(0),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(0)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[2]));
+                    break;
+                case 21:
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(310),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(310)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[0]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(120),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(120)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[1]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(0),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(0)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[2]));
+                    break;
+                case 22:
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(250),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(250)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[0]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(160),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(160)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[1]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(0),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(0)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[2]));
+                    break;
+                case 23:
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(270),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(270)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[0]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(40),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(40)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[1]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(0),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(0)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[2]));
+                    break;
+                case 24:
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(165),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(165)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[0]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(0),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(0)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[1]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(500),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(500)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[2]));
+                    break;
+                case 25:
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(210),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(210)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[0]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(180),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(180)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[1]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(0),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(0)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[2]));
+                    break;
+                case 26:
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(200),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(200)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[0]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(150),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(150)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[1]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(0),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(0)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[2]));
+                    break;
+                case 27:
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(110),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(110)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[0]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(0),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(0)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[1]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(0),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(0)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[2]));
+                    break;
+                case 28:
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(170),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(170)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[0]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(80),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(80)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[1]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(0),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(0)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[2]));
+                    break;
+                case 29:
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(210),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(210)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[0]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(0),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(0)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[1]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(0),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(0)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[2]));
+                    break;
+                case 30:
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(245),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(245)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[0]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(160),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(160)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[1]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(0),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(0)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[2]));
+                    break;
+                case 31:
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(240),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(240)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[0]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(150),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(150)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[1]));
+                    outcomeService.addOutcome(new Outcome(new BigDecimal(400),
+                            currencyService.getOutcomeAmountForDefaultCurrency(accounts[0],
+                                    new BigDecimal(400)), LocalDate.of(now.getYear(), now.getMonth(), i), LocalTime.now(),
+                            accounts[0], types[2]));
+                    break;
+
+
+            }
         }
 
         Income[] incomes = {
