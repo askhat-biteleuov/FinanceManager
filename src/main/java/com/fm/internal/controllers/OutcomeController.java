@@ -1,6 +1,7 @@
 package com.fm.internal.controllers;
 
 import com.fm.internal.dtos.OutcomeDto;
+import com.fm.internal.dtos.OutcomeTypeDto;
 import com.fm.internal.dtos.PaginationDto;
 import com.fm.internal.dtos.RangeDto;
 import com.fm.internal.models.*;
@@ -111,6 +112,7 @@ public class OutcomeController {
             modelAndView.addObject("hashTag", hashTag);
         }
         modelAndView.addObject("statusBarDto", statusBarService.getStatusBar(user));
+        modelAndView.addObject("user", user);
         return modelAndView;
     }
 
@@ -146,6 +148,9 @@ public class OutcomeController {
         modelAndView.addObject("paginationDto", paginationDto);
         modelAndView.addObject("outcomes", outcomesPage);
         modelAndView.addObject("outcomeTypeId", outcomeTypeId);
+        modelAndView.addObject("outcomeTypeDto", new OutcomeTypeDto(outcomeTypeId, outcomeType.getName(),
+                outcomeType.getLimit().toString(), outcomeTypeService.getOutcomesOfTypeByDate(
+                outcomeType, paginationDto.getFirstItem(), pageSize, start, end)));
     }
 
     private void addAccountOutcomesPageToView(Long accountId, Integer pageId, LocalDate start, LocalDate end, int pageSize, ModelAndView modelAndView) {

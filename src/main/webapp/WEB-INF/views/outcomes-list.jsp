@@ -162,6 +162,14 @@
                         </div>
                     </c:otherwise>
                 </c:choose>
+                <c:if test="${outcomeTypeId != null}">
+                    <div>
+                        <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#outcometype-delete">
+                            Удалить категорию
+                        </button>
+                        <jsp:include page="outcometype-delete.jsp"/>
+                    </div>
+                </c:if>
             </div>
         </div>
     </div>
