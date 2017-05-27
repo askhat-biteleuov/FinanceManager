@@ -46,7 +46,7 @@ public class OutcomeTypeDao extends GenericDao<OutcomeType> {
         CriteriaBuilder builder = currentSession.getCriteriaBuilder();
         CriteriaQuery<OutcomeType> query = builder.createQuery(OutcomeType.class);
         Root<OutcomeType> root = query.from(OutcomeType.class);
-        Predicate getOutcomeTypeByNameAndUser = builder.and(builder.equal(root.get(OutcomeType_.name), name), builder.equal(root.get(OutcomeType_.user), user));
+        Predicate getOutcomeTypeByNameAndUser = builder.and(builder.equal(builder.lower(root.get(OutcomeType_.name)), name.toLowerCase()), builder.equal(root.get(OutcomeType_.user), user));
         query.where(getOutcomeTypeByNameAndUser);
         try {
             return currentSession.createQuery(query).getSingleResult();

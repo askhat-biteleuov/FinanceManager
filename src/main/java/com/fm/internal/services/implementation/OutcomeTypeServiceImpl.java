@@ -35,8 +35,15 @@ public class OutcomeTypeServiceImpl implements OutcomeTypeService {
 
     @Override
     public void addOutcomeType(OutcomeTypeDto typeDto, User user) {
-        OutcomeType outcomeType = new OutcomeType(typeDto.getName(), new BigDecimal(typeDto.getLimit()), user);
-        outcomeTypeDao.saveOrUpdate(outcomeType);
+        if (outcomeTypeDao.getOutcomeTypeByNameAndUser(user, typeDto.getName()) == null){
+            OutcomeType outcomeType = new OutcomeType(typeDto.getName(), new BigDecimal(typeDto.getLimit()), user);
+            outcomeTypeDao.add(outcomeType);
+        } else if (!outcomeTypeDao.getOutcomeTypeByNameAndUser(user, typeDto.getName()).isAvailable()){
+            OutcomeType outcomeType = outcomeTypeDao.getOutcomeTypeByNameAndUser(user, typeDto.getName());
+            outcomeType.setAvailable(true);
+            outcomeType.setLimit(new BigDecimal(typeDto.getLimit()));
+            outcomeTypeDao.update(outcomeType);
+        }
     }
 
     @Override
