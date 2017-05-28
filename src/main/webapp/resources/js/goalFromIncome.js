@@ -1,8 +1,15 @@
 $(document).ready(function () {
     $('.input-group-addon').find('.checkboxGoal').click(function () {
-        $('.goals').each(function () {
-            $(this).toggle('slow');
-        })
+        var button = $(this);
+        if (button.is(':checked')) {
+            $('.goals').each(function () {
+                $(this).show('slow');
+            })
+        } else {
+            $('.goals').each(function () {
+                $(this).hide('slow');
+            })
+        }
     });
 
     $('.radio-button').click(function () {
@@ -17,6 +24,10 @@ $(document).ready(function () {
             $('form').find('.amountGoal').prop('disabled', false);
         }
     });
+    
+    function countAmountByPercent(element, amount, percent) {
+
+    }
 
 });
 
