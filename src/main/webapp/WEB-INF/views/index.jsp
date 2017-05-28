@@ -9,6 +9,7 @@
     <script src="<c:url value="/resources/js/sendIncomeAndOutcomeForm.js"/>"></script>
     <script src="<c:url value="/resources/js/changeCurrency.js"/>"></script>
     <script src="<c:url value="/resources/js/formSlideAndDefaultDate.js"/>"></script>
+    <script src="<c:url value="/resources/js/goalFromIncome.js"/>"></script>
     <div class="container">
         <c:if test="${user == null}">
             <div align="center">
