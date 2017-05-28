@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AccountServiceImpl implements AccountService {
 
@@ -46,7 +47,7 @@ public class AccountServiceImpl implements AccountService {
         if (user == null) {
             return null;
         } else {
-            return user.getAccounts();
+            return user.getAccounts().stream().filter(account -> account.getClass().equals(Account.class)).collect(Collectors.toList());
         }
     }
 

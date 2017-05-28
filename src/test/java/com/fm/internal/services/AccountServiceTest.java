@@ -1,8 +1,7 @@
 package com.fm.internal.services;
 
-import com.fm.internal.models.Account;
-import com.fm.internal.models.User;
-import com.fm.internal.models.UserInfo;
+import com.fm.internal.daos.GoalDao;
+import com.fm.internal.models.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,18 +30,25 @@ public class AccountServiceTest extends AbstractTestNGSpringContextTests {
     @Autowired
     private CurrencyService currencyService;
 
+    @Autowired
+    private GoalService goalService;
+
     private final static String USER_EMAIL = "user@email";
 
     @BeforeMethod
     public void setUp() throws Exception {
-        User user = new User(USER_EMAIL, "password", new UserInfo("name", "surname", currencyService.findCurrencyByCharCode("RUS")));
+        Currency rub = new Currency("Ruble", BigDecimal.ONE, BigDecimal.ONE, 999, "RUB");
+        currencyService.addOrUpdateCurrency(rub);
+        User user = new User(USER_EMAIL, "password", new UserInfo("name", "surname", currencyService.findCurrencyByCharCode("RUB")));
         userService.createUser(user);
         Account acc1 = new Account("visa", BigDecimal.valueOf(1234), null, userService.findByEmail(USER_EMAIL),
                 currencyService.findCurrencyByCharCode("RUB"));
         Account acc2 = new Account("mastercard", BigDecimal.valueOf(4321), null, userService.findByEmail(USER_EMAIL),
                 currencyService.findCurrencyByCharCode("RUB"));
+        Goal goal = new Goal("My summer trip", BigDecimal.ZERO, BigDecimal.ZERO, null, userService.findByEmail(USER_EMAIL), currencyService.findCurrencyByCharCode("RUB"));
         accountService.createAccount(acc1);
         accountService.createAccount(acc2);
+        goalService.addGoal(goal);
     }
 
     @AfterMethod
@@ -55,9 +61,12 @@ public class AccountServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testFindAllUserAccounts() throws Exception {
-        final int ACCOUNTS_AMOUNT = 3;
+        final int ACCOUNTS_AMOUNT = 4;
         User user = userService.findByEmail(USER_EMAIL);
         Assert.assertEquals(accountService.findAllUserAccounts(user).size(), ACCOUNTS_AMOUNT);
+        Assert.assertEquals(goalService.getGoalsByUser(user).size(), 1);
+        //accountService.findAllUserAccounts(user).forEach(account -> System.out.println(account.getClass()));
+        System.out.printf("%s, %d, %s", goalService.getGoalsByUser(user).get(0).getName(), goalService.getGoalsByUser(user).get(0).getId(), goalService.getGoalsByUser(user).get(0).getClass().toString());
     }
 
     @Test

@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(uniqueConstraints = {@UniqueConstraint(name = "name_user", columnNames = {"name", "user_id"})})
+@Inheritance(strategy=InheritanceType.JOINED)
 public class Account implements Serializable {
 
     private static final long serialVersionUID = 1L;

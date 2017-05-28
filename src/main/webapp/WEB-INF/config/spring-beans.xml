@@ -22,6 +22,7 @@
     <bean class="com.fm.internal.daos.OutcomeTypeDao"/>
     <bean class="com.fm.internal.daos.CurrencyDao"/>
     <bean class="com.fm.internal.daos.HashTagDao"/>
+    <bean class="com.fm.internal.daos.GoalDao"/>
 
     <bean class="com.fm.internal.services.implementation.AccountServiceImpl"/>
     <bean class="com.fm.internal.services.implementation.UserServiceImpl"/>
@@ -34,6 +35,7 @@
     <bean class="com.fm.internal.services.implementation.UtilServiceImpl"/>
     <bean class="com.fm.internal.services.implementation.RangeServiceImpl"/>
     <bean class="com.fm.internal.services.implementation.HashTagServiceImplementation"/>
+    <bean class="com.fm.internal.services.implementation.GoalServiceImpl"/>
 
     <bean class="com.fm.internal.validation.UserValidator"/>
     <bean class="com.fm.internal.validation.AccountValidator"/>
