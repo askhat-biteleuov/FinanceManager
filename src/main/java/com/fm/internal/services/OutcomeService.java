@@ -1,10 +1,7 @@
 package com.fm.internal.services;
 
 import com.fm.internal.dtos.OutcomeDto;
-import com.fm.internal.models.Account;
-import com.fm.internal.models.HashTag;
-import com.fm.internal.models.Outcome;
-import com.fm.internal.models.User;
+import com.fm.internal.models.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -48,4 +45,8 @@ public interface OutcomeService {
     List<Outcome> getOutcomesByUserAndHashTag(User user, HashTag hashTag, LocalDate start, LocalDate end);
 
     List<Outcome> getUserOutcomesPageByHashTagAndDate(User user, HashTag hashTag, int offset, int limit, LocalDate start, LocalDate end);
+
+    List<Outcome> getOutcomesByTypeAndHashTag(OutcomeType outcomeType, HashTag hashTag, LocalDate start, LocalDate end);
+
+    List<Outcome> getTypeOutcomesPageByHashTagAndDate(OutcomeType outcomeType, HashTag hashTag, int offset, int limit, LocalDate start, LocalDate end);
 }

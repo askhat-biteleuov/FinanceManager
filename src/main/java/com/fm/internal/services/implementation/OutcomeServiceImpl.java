@@ -2,10 +2,7 @@ package com.fm.internal.services.implementation;
 
 import com.fm.internal.daos.OutcomeDao;
 import com.fm.internal.dtos.OutcomeDto;
-import com.fm.internal.models.Account;
-import com.fm.internal.models.HashTag;
-import com.fm.internal.models.Outcome;
-import com.fm.internal.models.User;
+import com.fm.internal.models.*;
 import com.fm.internal.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -148,6 +145,16 @@ public class OutcomeServiceImpl implements OutcomeService {
     @Override
     public List<Outcome> getUserOutcomesPageByHashTagAndDate(User user, HashTag hashTag, int offset, int limit, LocalDate start, LocalDate end) {
         return dao.getUserOutcomesPageByHashTagAndDate(user, hashTag, offset, limit, start, end);
+    }
+
+    @Override
+    public List<Outcome> getOutcomesByTypeAndHashTag(OutcomeType outcomeType, HashTag hashTag, LocalDate start, LocalDate end) {
+        return dao.getOutcomesByTypeAndHashTag(outcomeType, hashTag, start, end);
+    }
+
+    @Override
+    public List<Outcome> getTypeOutcomesPageByHashTagAndDate(OutcomeType outcomeType, HashTag hashTag, int offset, int limit, LocalDate start, LocalDate end) {
+        return dao.getTypeOutcomesPageByHashTagAndDate(outcomeType, hashTag, offset, limit, start, end);
     }
 
 

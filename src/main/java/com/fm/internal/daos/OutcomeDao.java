@@ -215,6 +215,33 @@ public class OutcomeDao extends GenericDao<Outcome> {
         return currentSession.createQuery(query).setFirstResult(offset).setMaxResults(limit).getResultList();
     }
 
+    @Transactional
+    public List<Outcome> getOutcomesByTypeAndHashTag(OutcomeType type, HashTag hashTag, LocalDate start, LocalDate end){
+        Session currentSession = getSessionFactory().getCurrentSession();
+        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
+        CriteriaQuery<Outcome> query = builder.createQuery(Outcome.class);
+        Root<Outcome> outcomeRoot = query.from(Outcome.class);
+        Predicate equalType = builder.equal(outcomeRoot.get(Outcome_.outcomeType), type);
+        Join<Outcome, HashTag> hashTagJoin = outcomeRoot.join(Outcome_.hashTags);
+        Predicate matchingHashTag = builder.equal(hashTagJoin.get(HashTag_.text), hashTag.getText());
+        Predicate betweenDate = builder.between(outcomeRoot.get(Outcome_.date), start, end);
+        query.where(matchingHashTag, equalType, betweenDate);
+        return currentSession.createQuery(query).getResultList();
+    }
+
+    @Transactional
+    public List<Outcome> getTypeOutcomesPageByHashTagAndDate(OutcomeType type, HashTag hashTag, int offset, int limit, LocalDate start, LocalDate end){
+        Session currentSession = getSessionFactory().getCurrentSession();
+        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
+        CriteriaQuery<Outcome> query = builder.createQuery(Outcome.class);
+        Root<Outcome> outcomeRoot = query.from(Outcome.class);
+        Join<Outcome, HashTag> hashTagJoin = outcomeRoot.join(Outcome_.hashTags);
+        Predicate matchingHashTag = builder.equal(hashTagJoin.get(HashTag_.text), hashTag.getText());
+        Predicate equalType = builder.equal(outcomeRoot.get(Outcome_.outcomeType), type);
+        Predicate betweenDate = builder.between(outcomeRoot.get(Outcome_.date), start, end);
+        query.where(matchingHashTag, equalType, betweenDate);
+        return currentSession.createQuery(query).setFirstResult(offset).setMaxResults(limit).getResultList();
+    }
 
     @Transactional
     public BigDecimal getSumOfOutcomesInAccount(Account account) {
