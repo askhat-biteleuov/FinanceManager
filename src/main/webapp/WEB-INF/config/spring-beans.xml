@@ -39,6 +39,7 @@
 
     <bean class="com.fm.internal.validation.UserValidator"/>
     <bean class="com.fm.internal.validation.AccountValidator"/>
+    <bean class="com.fm.internal.validation.GoalValidator"/>
     <bean class="com.fm.internal.validation.OutcomeTypeValidator"/>
     <bean class="com.fm.internal.validation.PasswordValidator"/>
 

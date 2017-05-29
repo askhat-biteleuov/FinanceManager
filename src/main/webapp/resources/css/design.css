@@ -133,3 +133,11 @@ a{
     margin-right: 1rem;
     margin-left: 1rem;
 }
+
+.progress-value {
+    color: #464547 !important;
+    text-decoration: none !important;
+    position: absolute;
+    right: 0;
+    left: 0;
+}

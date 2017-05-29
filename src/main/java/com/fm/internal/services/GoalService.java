@@ -1,5 +1,6 @@
 package com.fm.internal.services;
 
+import com.fm.internal.dtos.GoalDto;
 import com.fm.internal.models.Goal;
 import com.fm.internal.models.User;
 
@@ -13,4 +14,6 @@ public interface GoalService {
     void updateGoal(Goal goal);
 
     void deleteGoal(Goal goal);
+
+    void addGoal(GoalDto goalDto, User loggedUser);
 }
