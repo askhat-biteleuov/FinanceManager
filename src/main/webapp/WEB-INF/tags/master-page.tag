@@ -63,7 +63,7 @@
                                 </p>
                             </li>
                             <li><a href="<c:url value="/outcome/all"/>">Расходы</a></li>
-                            <li><a href="<c:url value="/account/income/all"/>">Приходы</a></li>
+                            <li><a href="<c:url value="/income/all"/>">Приходы</a></li>
                             <li><a href="<c:url value="/statistics"/>">Статистика</a></li>
                             <li><a href="<c:url value="/goal"/>">Цели</a></li>
                         </c:if>

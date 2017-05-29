@@ -4,6 +4,7 @@ import com.fm.internal.dtos.IncomeDto;
 import com.fm.internal.dtos.PaginationDto;
 import com.fm.internal.dtos.RangeDto;
 import com.fm.internal.models.Account;
+import com.fm.internal.models.HashTag;
 import com.fm.internal.models.Income;
 import com.fm.internal.models.User;
 import com.fm.internal.services.AccountService;
@@ -30,7 +31,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/account/income")
+@RequestMapping("/income")
 public class IncomeController {
     @Autowired
     private UserService userService;
@@ -48,6 +49,8 @@ public class IncomeController {
     @Autowired
     private RangeService rangeService;
 
+    final int PAGE_SIZE = 10;
+
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public Object addIncome(@Valid @RequestBody IncomeDto incomeDto, BindingResult result) {
@@ -61,49 +64,99 @@ public class IncomeController {
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
-    public ModelAndView userIncomes(@RequestParam(value = "pageId", required = false) Integer pageId,
+    public ModelAndView userIncomes(@RequestParam(value = "accountId", required = false) Long accountId,
+                                    @RequestParam(value = "pageId", required = false) Integer pageId,
+                                    @RequestParam(value = "hashTag", required = false) String hashTag,
+                                    @RequestParam(value = "start", required = false) String startFromUrl,
+                                    @RequestParam(value = "end", required = false) String endFromUrl,
                                     @ModelAttribute("rangeDto") RangeDto rangeDto) {
         if (pageId == null) {
             pageId = 1;
         }
-        LocalDate start = rangeService.setupStart(rangeDto);
-        LocalDate end = rangeService.setupEnd(rangeDto);
+        LocalDate start;
+        LocalDate end;
+        if (startFromUrl != null && endFromUrl != null){
+            RangeDto datesFromUrlDto = new RangeDto();
+            datesFromUrlDto.setStart(startFromUrl);
+            datesFromUrlDto.setEnd(endFromUrl);
+            start = rangeService.setupStart(datesFromUrlDto);
+            end = rangeService.setupEnd(datesFromUrlDto);
+        } else {
+            start = rangeService.setupStart(rangeDto);
+            end = rangeService.setupEnd(rangeDto);
+        }
+        ModelAndView modelAndView = new ModelAndView("incomes-list");
         User user = userService.getLoggedUser();
-        Long userIncomesNumber = incomeService.getUserIncomesNumberByDate(user, start, end);
-        int pageSize = 10;
-        PaginationDto paginationDto = paginationService.createPagination(user.getId(), pageId, pageSize,
-                userIncomesNumber, "/account/income/all");
-        List<Income> incomesPage = incomeService.getUserIncomesPageByDate(user, paginationDto.getFirstItem(),
-                pageSize, start, end);
-        ModelAndView modelAndView = new ModelAndView("user-incomes");
-        modelAndView.addObject("paginationDto", paginationDto);
-        modelAndView.addObject("incomes", incomesPage);
+        if (hashTag == null){
+            if (accountId == null){
+                addUserIncomesPageToView(user, pageId, start, end, modelAndView);
+            } else if(accountId != null){
+                addAccountIncomesPageToView(accountId, pageId, start, end, modelAndView);
+            }
+        } else if (!hashTag.isEmpty()){
+            HashTag searchHashTag = new HashTag(hashTag, user);
+            if (accountId == null){
+                addUserIncomesPageToView(pageId, start, end, modelAndView, user, searchHashTag);
+            } else if (accountId != null){
+                addAccountIncomesPageInView(accountId, pageId, start, end, modelAndView, searchHashTag);
+            }
+            modelAndView.addObject("hashTag", hashTag);
+        }
         modelAndView.addObject("statusBarDto", statusBarService.getStatusBar(user));
+        modelAndView.addObject("user", user);
         return modelAndView;
     }
 
-    @RequestMapping(value = "/page", method = RequestMethod.GET)
-    public ModelAndView listOfIncomes(@RequestParam("itemId") Long accountId,
-                                      @RequestParam(value = "pageId", required = false) Integer pageId,
-                                      @ModelAttribute("rangeDto") RangeDto rangeDto) {
-        if (pageId == null) {
-            pageId = 1;
-        }
-        LocalDate start = rangeService.setupStart(rangeDto);
-        LocalDate end = rangeService.setupEnd(rangeDto);
+    private void addAccountIncomesPageInView(Long accountId, Integer pageId,
+                                              LocalDate start, LocalDate end, ModelAndView modelAndView,
+                                              HashTag searchHashTag) {
         Account accountById = accountService.findAccountById(accountId);
-        Long sizeOfIncomesInAccount = incomeService.getAccountIncomesNumberByDate(accountById, start, end);
-        int pageSize = 10;
-        PaginationDto paginationDto = paginationService.createPagination(accountId, pageId, pageSize,
-                sizeOfIncomesInAccount, "/account/income/page");
-        List<Income> incomesPage = incomeService.getAccountIncomesPageByDate(accountById, paginationDto.getFirstItem(),
-                pageSize, start, end);
-        rangeDto.setId(accountId);
-        ModelAndView modelAndView = new ModelAndView("incomes-list");
-        modelAndView.addObject("incomes", incomesPage);
+        long incomesAmount = incomeService.getIncomesByAccountAndHashTag(accountById, searchHashTag,
+                start, end).size();
+        PaginationDto paginationDto = paginationService.createPagination(accountId, pageId, PAGE_SIZE,
+                incomesAmount, "/income/all");
+        List<Income> outcomesPage = incomeService.getAccountIncomesPageByHashTagAndDate(accountById, searchHashTag,
+                paginationDto.getFirstItem(), PAGE_SIZE, start, end);
         modelAndView.addObject("paginationDto", paginationDto);
-        modelAndView.addObject("statusBarDto", statusBarService.getStatusBar(userService.getLoggedUser()));
-        return modelAndView;
+        modelAndView.addObject("incomes", outcomesPage);
+        modelAndView.addObject("accountId", accountId);
+    }
+
+    private void addUserIncomesPageToView(Integer pageId, LocalDate start,
+                                           LocalDate end, ModelAndView modelAndView, User user,
+                                           HashTag searchHashTag) {
+        long userIncomesAmount = incomeService.getIncomesByUserAndHashTag(user, searchHashTag,
+                start, end).size();
+        PaginationDto paginationDto = paginationService.createPagination(user.getId(), pageId, PAGE_SIZE,
+                userIncomesAmount, "/income/all");
+        List<Income> incomesPage = incomeService.getUserIncomesPageByHashTagAndDate(user, searchHashTag,
+                paginationDto.getFirstItem(), PAGE_SIZE, start, end);
+        modelAndView.addObject("paginationDto", paginationDto);
+        modelAndView.addObject("incomes", incomesPage);
+    }
+
+    private void addAccountIncomesPageToView(Long accountId, Integer pageId,
+                                              LocalDate start, LocalDate end, ModelAndView modelAndView) {
+        Account accountById = accountService.findAccountById(accountId);
+        long incomesAmount = incomeService.getAccountIncomesNumberByDate(accountById, start, end);
+        PaginationDto paginationDto = paginationService.createPagination(accountId, pageId, PAGE_SIZE,
+                incomesAmount, "/income/all");
+        List<Income> incomesPage = incomeService.getAccountIncomesPageByDate(accountById,
+                paginationDto.getFirstItem(), PAGE_SIZE, start, end);
+        modelAndView.addObject("paginationDto", paginationDto);
+        modelAndView.addObject("incomes", incomesPage);
+        modelAndView.addObject("accountId", accountId);
+    }
+
+    private void addUserIncomesPageToView(User user, Integer pageId,
+                                           LocalDate start, LocalDate end, ModelAndView modelAndView) {
+        Long userIncomesAmount = incomeService.getUserIncomesNumberByDate(user, start, end);
+        PaginationDto paginationDto = paginationService.createPagination(user.getId(), pageId, PAGE_SIZE,
+                userIncomesAmount, "/income/all");
+        List<Income> incomesPage = incomeService.getUserIncomesPageByDate(user, paginationDto.getFirstItem(),
+                PAGE_SIZE, start, end);
+        modelAndView.addObject("paginationDto", paginationDto);
+        modelAndView.addObject("incomes", incomesPage);
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)

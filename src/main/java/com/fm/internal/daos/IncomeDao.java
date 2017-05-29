@@ -87,19 +87,6 @@ public class IncomeDao extends GenericDao<Income> {
         return session.createQuery(query).uniqueResult();
     }
 
-//    No need of this method
-//    @Transactional
-//    public List<Income> getUserIncomesPage(User user, int offset, int limit){
-//        Session currentSession = getSessionFactory().getCurrentSession();
-//        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
-//        CriteriaQuery<Income> query = builder.createQuery(Income.class);
-//        Root<Income> incomeRoot = query.from(Income.class);
-//        Join<Income, Account> accountJoin = incomeRoot.join(Income_.account);
-//        query.orderBy(builder.asc(accountJoin.getParent().get(Income_.date)));
-//        query.where(builder.equal(accountJoin.get(Account_.user), user));
-//        return currentSession.createQuery(query).setFirstResult(offset).setMaxResults(limit).getResultList();
-//    }
-
     @Transactional
     public List<Income> getUserIncomesPageByDate(User user, int offset, int limit, LocalDate start, LocalDate end){
         Session currentSession = getSessionFactory().getCurrentSession();
@@ -141,17 +128,61 @@ public class IncomeDao extends GenericDao<Income> {
         }
     }
 
-//    @Transactional
-//    public List<Income> getIncomesByHashTag(Account account, String hashTag){
-//        Session currentSession = getSessionFactory().getCurrentSession();
-//        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
-//        CriteriaQuery<Income> query = builder.createQuery(Income.class);
-//        Root<Income> root = query.from(Income.class);
-//        query.select(root);
-//        Predicate hashcodeSearch = builder.like(root.get(Income_.hashTags), "%"+hashTag+" %");
-//        Predicate equalAccount = builder.equal(root.get(Income_.account), account);
-//        query.where(hashcodeSearch, equalAccount);
-//        query.orderBy(builder.desc(root.get(Income_.date)));
-//        return currentSession.createQuery(query).getResultList();
-//    }
+    @Transactional
+    public List<Income> getIncomesByAccountAndHashTag(Account account, HashTag hashTag, LocalDate start, LocalDate end){
+        Session currentSession = getSessionFactory().getCurrentSession();
+        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
+        CriteriaQuery<Income> query = builder.createQuery(Income.class);
+        Root<Income> incomeRoot = query.from(Income.class);
+        Predicate equalAccount = builder.equal(incomeRoot.get(Income_.account), account);
+        Join<Income, HashTag> hashTagJoin = incomeRoot.join(Income_.hashTags);
+        Predicate matchingHashTag = builder.equal(hashTagJoin.get(HashTag_.text), hashTag.getText());
+        Predicate betweenDate = builder.between(incomeRoot.get(Income_.date), start, end);
+        query.where(matchingHashTag, equalAccount, betweenDate);
+        return currentSession.createQuery(query).getResultList();
+    }
+
+    @Transactional
+    public List<Income> getAccountIncomesPageByHashTagAndDate(Account account, HashTag hashTag, int offset, int limit, LocalDate start, LocalDate end){
+        Session currentSession = getSessionFactory().getCurrentSession();
+        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
+        CriteriaQuery<Income> query = builder.createQuery(Income.class);
+        Root<Income> incomeRoot = query.from(Income.class);
+        Join<Income, HashTag> hashTagJoin = incomeRoot.join(Income_.hashTags);
+        Predicate matchingHashTag = builder.equal(hashTagJoin.get(HashTag_.text), hashTag.getText());
+        Predicate equalAccount = builder.equal(incomeRoot.get(Income_.account), account);
+        Predicate betweenDate = builder.between(incomeRoot.get(Income_.date), start, end);
+        query.where(matchingHashTag, equalAccount, betweenDate);
+        return currentSession.createQuery(query).setFirstResult(offset).setMaxResults(limit).getResultList();
+    }
+
+    @Transactional
+    public List<Income> getIncomesByUserAndHashTag(User user, HashTag hashTag, LocalDate start, LocalDate end){
+        Session currentSession = getSessionFactory().getCurrentSession();
+        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
+        CriteriaQuery<Income> query = builder.createQuery(Income.class);
+        Root<Income> incomeRoot = query.from(Income.class);
+        Join<Income, Account> accountJoin = incomeRoot.join(Income_.account);
+        Predicate equalUser = builder.equal(accountJoin.get(Account_.user), user);
+        Join<Income, HashTag> hashTagJoin = incomeRoot.join(Income_.hashTags);
+        Predicate matchingHashTag = builder.equal(hashTagJoin.get(HashTag_.text), hashTag.getText());
+        Predicate betweenDate = builder.between(incomeRoot.get(Income_.date), start, end);
+        query.where(matchingHashTag, equalUser, betweenDate);
+        return currentSession.createQuery(query).getResultList();
+    }
+
+    @Transactional
+    public List<Income> getUserIncomesPageByHashTagAndDate(User user, HashTag hashTag, int offset, int limit, LocalDate start, LocalDate end){
+        Session currentSession = getSessionFactory().getCurrentSession();
+        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
+        CriteriaQuery<Income> query = builder.createQuery(Income.class);
+        Root<Income> incomeRoot = query.from(Income.class);
+        Predicate betweenDate = builder.between(incomeRoot.get(Income_.date), start, end);
+        Join<Income, Account> accountJoin = incomeRoot.join(Income_.account);
+        Predicate equalUser = builder.equal(accountJoin.get(Account_.user), user);
+        Join<Income, HashTag> hashTagJoin = incomeRoot.join(Income_.hashTags);
+        Predicate matchingHashTag = builder.equal(hashTagJoin.get(HashTag_.text), hashTag.getText());
+        query.where(matchingHashTag, betweenDate, equalUser);
+        return currentSession.createQuery(query).setFirstResult(offset).setMaxResults(limit).getResultList();
+    }
 }

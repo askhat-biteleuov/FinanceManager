@@ -104,7 +104,7 @@ public class OutcomeController {
             } else if(outcomeTypeId != null){
                 addOutcomeTypeOutcomesPageToView(outcomeTypeId, pageId, start, end, modelAndView);
             }
-        } else {
+        } else if (!hashTag.isEmpty()){
             HashTag searchHashTag = new HashTag(hashTag, user);
             if (accountId == null && outcomeTypeId == null){
                 addUserOutcomesPageToView(pageId, start, end, modelAndView, user, searchHashTag);
@@ -124,10 +124,10 @@ public class OutcomeController {
                                               LocalDate start, LocalDate end, ModelAndView modelAndView,
                                               HashTag searchHashTag) {
         Account accountById = accountService.findAccountById(accountId);
-        long outcomesNumber = outcomeService.getOutcomesByAccountAndHashTag(accountById, searchHashTag,
+        long outcomesAmount = outcomeService.getOutcomesByAccountAndHashTag(accountById, searchHashTag,
                 start, end).size();
         PaginationDto paginationDto = paginationService.createPagination(accountId, pageId, PAGE_SIZE,
-                outcomesNumber, "/outcome/all");
+                outcomesAmount, "/outcome/all");
         List<Outcome> outcomesPage = outcomeService.getAccountOutcomesPageByHashTagAndDate(accountById, searchHashTag,
                 paginationDto.getFirstItem(), PAGE_SIZE, start, end);
         modelAndView.addObject("paginationDto", paginationDto);
@@ -152,10 +152,10 @@ public class OutcomeController {
                                                   LocalDate start, LocalDate end, ModelAndView modelAndView,
                                                   HashTag searchHashTag) {
         OutcomeType outcomeType = outcomeTypeService.findTypeById(outcomeTypeId);
-        long amountOutcomesInType = outcomeService.getOutcomesByTypeAndHashTag(outcomeType, searchHashTag,
+        long typeOutcomesAmount = outcomeService.getOutcomesByTypeAndHashTag(outcomeType, searchHashTag,
                 start, end).size();
         PaginationDto paginationDto = paginationService.createPagination(outcomeTypeId, pageId, PAGE_SIZE,
-                amountOutcomesInType, "/outcome/all");
+                typeOutcomesAmount, "/outcome/all");
         List<Outcome> outcomesPage = outcomeService.getTypeOutcomesPageByHashTagAndDate(outcomeType, searchHashTag,
                 paginationDto.getFirstItem(), PAGE_SIZE, start, end);
         modelAndView.addObject("paginationDto", paginationDto);
@@ -168,9 +168,9 @@ public class OutcomeController {
     private void addOutcomeTypeOutcomesPageToView(Integer outcomeTypeId, Integer pageId,
                                                   LocalDate start, LocalDate end, ModelAndView modelAndView) {
         OutcomeType outcomeType = outcomeTypeService.findTypeById(outcomeTypeId);
-        long amountOutcomesInType = outcomeTypeService.getSizeOutcomesOfTypeByDate(outcomeType, start, end);
+        long typeOutcomesAmount = outcomeTypeService.getSizeOutcomesOfTypeByDate(outcomeType, start, end);
         PaginationDto paginationDto = paginationService.createPagination(outcomeTypeId, pageId, PAGE_SIZE,
-                amountOutcomesInType, "/outcome/all");
+                typeOutcomesAmount, "/outcome/all");
         List<Outcome> outcomesPage = outcomeTypeService.getOutcomesOfTypeByDate(outcomeType, paginationDto.getFirstItem(),
                 PAGE_SIZE, start, end);
         modelAndView.addObject("paginationDto", paginationDto);
@@ -183,9 +183,9 @@ public class OutcomeController {
     private void addAccountOutcomesPageToView(Long accountId, Integer pageId,
                                               LocalDate start, LocalDate end, ModelAndView modelAndView) {
         Account accountById = accountService.findAccountById(accountId);
-        long amountOfOutcomesInAccount = outcomeService.getAccountOutcomesNumberByDate(accountById, start, end);
+        long accountOutcomesAmount = outcomeService.getAccountOutcomesNumberByDate(accountById, start, end);
         PaginationDto paginationDto = paginationService.createPagination(accountId, pageId, PAGE_SIZE,
-                amountOfOutcomesInAccount, "/outcome/all");
+                accountOutcomesAmount, "/outcome/all");
         List<Outcome> outcomesPage = outcomeService.getAccountOutcomesPageByDate(accountById,
                 paginationDto.getFirstItem(), PAGE_SIZE, start, end);
         modelAndView.addObject("paginationDto", paginationDto);
@@ -195,9 +195,9 @@ public class OutcomeController {
 
     private void addUserOutcomesPageToView(User user, Integer pageId,
                                            LocalDate start, LocalDate end, ModelAndView modelAndView) {
-        Long userOutcomesNumber = outcomeService.getUserOutcomesNumberByDate(user, start, end);
+        Long userOutcomesAmount = outcomeService.getUserOutcomesNumberByDate(user, start, end);
         PaginationDto paginationDto = paginationService.createPagination(user.getId(), pageId, PAGE_SIZE,
-                userOutcomesNumber, "/outcome/all");
+                userOutcomesAmount, "/outcome/all");
         List<Outcome> outcomesPage = outcomeService.getUserOutcomesPageByDate(user, paginationDto.getFirstItem(),
                 PAGE_SIZE, start, end);
         modelAndView.addObject("paginationDto", paginationDto);

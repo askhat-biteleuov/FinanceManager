@@ -22,10 +22,11 @@
             <div class="article col-sx-12 col-md-5">
                 <div align="center">
                     <a class="btn btn-blue btn-margin-10"
-                       href="<c:url value="/account/income/page?itemId=${account.id}"/>">
+                       href="<c:url value="/income/all?accountId=${account.id}"/>">
                         Посмотреть все приходы
                     </a>
-                    <a class="btn btn-blue btn-margin-10" href="<c:url value="/outcome/all?accountId=${account.id}"/>">
+                    <a class="btn btn-blue btn-margin-10"
+                       href="<c:url value="/outcome/all?accountId=${account.id}"/>">
                         Посмотреть все расходы
                     </a>
                 </div>
@@ -33,7 +34,7 @@
                 <div id="addingOnPage"  align="center">
                     <div id="incomeAdd" class="adding">
                         <button type="button" class="btn btn-green btn-block showBtn">Добавить приход</button>
-                        <form method="POST" action="<c:url value="/account/income/add"/>" id="incomeForm" class="trans" role="form">
+                        <form method="POST" action="<c:url value="/income/add"/>" id="incomeForm" class="trans" role="form">
                             <br/>
                             <div class="form-group">
                                 <input type="text" id="incomeNote" name="note" placeholder="Заметка" class="form-control"

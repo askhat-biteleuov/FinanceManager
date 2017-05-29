@@ -2,6 +2,7 @@ package com.fm.internal.services;
 
 import com.fm.internal.dtos.IncomeDto;
 import com.fm.internal.models.Account;
+import com.fm.internal.models.HashTag;
 import com.fm.internal.models.Income;
 import com.fm.internal.models.User;
 
@@ -37,5 +38,13 @@ public interface IncomeService {
     BigDecimal sumOfAllIncomes(List<Income> incomes);
 
 //    List<Income> getIncomesByHashTag(Account account, String hashTag);
+
+    List<Income> getIncomesByAccountAndHashTag(Account account, HashTag hashTag, LocalDate start, LocalDate end);
+
+    List<Income> getAccountIncomesPageByHashTagAndDate(Account account, HashTag hashTag, int offset, int limit, LocalDate start, LocalDate end);
+
+    List<Income> getIncomesByUserAndHashTag(User user, HashTag hashTag, LocalDate start, LocalDate end);
+
+    List<Income> getUserIncomesPageByHashTagAndDate(User user, HashTag hashTag, int offset, int limit, LocalDate start, LocalDate end);
 
 }

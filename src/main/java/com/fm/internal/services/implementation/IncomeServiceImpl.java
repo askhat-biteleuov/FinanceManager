@@ -128,11 +128,23 @@ public class IncomeServiceImpl implements IncomeService {
         return incomes.stream().map(Income::getAmount).reduce(BigDecimal::add).get();
     }
 
-//    @Override
-//    public List<Income> getIncomesByHashTag(Account account, String hashTag) {
-//        return dao.getIncomesByHashTag(account, hashTag);
-//    }
+    @Override
+    public List<Income> getIncomesByAccountAndHashTag(Account account, HashTag hashTag, LocalDate start, LocalDate end) {
+        return dao.getIncomesByAccountAndHashTag(account, hashTag, start, end);
+    }
 
+    @Override
+    public List<Income> getAccountIncomesPageByHashTagAndDate(Account account, HashTag hashTag, int offset, int limit, LocalDate start, LocalDate end) {
+        return dao.getAccountIncomesPageByHashTagAndDate(account, hashTag, offset, limit, start, end);
+    }
 
+    @Override
+    public List<Income> getIncomesByUserAndHashTag(User user, HashTag hashTag, LocalDate start, LocalDate end) {
+        return dao.getIncomesByUserAndHashTag(user, hashTag, start, end);
+    }
 
+    @Override
+    public List<Income> getUserIncomesPageByHashTagAndDate(User user, HashTag hashTag, int offset, int limit, LocalDate start, LocalDate end) {
+        return dao.getUserIncomesPageByHashTagAndDate(user, hashTag, offset, limit, start, end);
+    }
 }
