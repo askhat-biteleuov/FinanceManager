@@ -76,7 +76,6 @@ public class LoginController {
             modelAndView.addObject("outcomeTypes", outcomeTypes);
             modelAndView.addObject("currencies", currencyService.getCurrencies());
             modelAndView.addObject("types", outcomeTypeService.getAvailableOutcomeTypes(userService.getLoggedUser()));
-            modelAndView.addObject("goals", goalService.getGoalsByUser(loggedUser));
             modelAndView.addObject("statusBarDto", statusBarService.getStatusBar(loggedUser));
         }
         return modelAndView;

@@ -34,48 +34,6 @@
                     <input type="hidden" id="hashTags" name="hashTags" value="">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 </div>
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <input class="checkboxGoal" type="checkbox"/>
-                        </div>
-                        <input type="text" class="form-control" value="Перевести на цель" disabled/>
-                    </div>
-                </div>
-                <div class="form-group goals" hidden>
-                    <select name="goal" class="form-control">
-                        <option disabled>--- Выберите цель ---</option>
-                        <c:forEach items="${goals}" var="goal">
-                            <option value="${goal.id}">${goal.name}</option>
-                        </c:forEach>
-                    </select><br/>
-                </div>
-                <div class="form-group goals" hidden>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <input name="toGoal" class="radio-button percentToGoal" type="radio" checked/>
-                        </div>
-                        <input type="text" class="form-control" value="В процентах" disabled/>
-                    </div>
-                </div>
-                <div class="form-group goals" hidden>
-                    <input type="number" name="percents" class="form-control percents"
-                           min="0" max="100" step="0.01" value="0"/><br/>
-                    <div class="help-block with-errors"></div>
-                </div>
-                <div class="form-group goals" hidden>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <input name="toGoal" class="radio-button amountToGoal" type="radio"/>
-                        </div>
-                        <input type="text" class="form-control" value="Указать размер перевода" disabled/>
-                    </div>
-                </div>
-                <div class="form-group goals" hidden>
-                    <input type="number" name="amountToGoal" class="form-control amountGoal"
-                           min="0" step="0.01" value="0" disabled/><br/>
-                    <div class="help-block with-errors"></div>
-                </div>
                 <div class="modal-footer">
                     <button class="btn btn-success btn-block" type="submit">Добавить</button>
                     <br>
