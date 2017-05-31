@@ -28,13 +28,16 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <input type="text" id="accountBalance" name="balance" placeholder="Начальный баланс"
-                                   class="form-control"
-                                   pattern="^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$" required/><br/>
-                        </div>
-                        <div class="form-group">
                             <input type="text" name="goalAmount" placeholder="Планирую накопить" class="form-control"
                                    pattern="^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$" required/>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group date" id="datepicker-modal-goaladd">
+                                <input type="text" class="form-control" id="goalDate" name="date" readonly required>
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </span>
+                            </div>
                         </div>
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     </div>
@@ -44,6 +47,7 @@
                         <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Отмена</button>
                     </div>
                 </form>
+                <script src="<c:url value="/resources/js/datePickerConfig.js"/>"></script>
             </div>
         </div>
     </div>

@@ -9,6 +9,8 @@ import java.util.List;
 public interface GoalService {
     List<Goal> getGoalsByUser(User user);
 
+    List<Goal> getGoalsWithoutIncomeForMonth(User user);
+
     void addGoal(Goal goal);
 
     void updateGoal(Goal goal);

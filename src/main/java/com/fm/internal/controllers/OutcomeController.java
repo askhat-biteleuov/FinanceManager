@@ -47,6 +47,8 @@ public class OutcomeController {
     private StatusBarService statusBarService;
     @Autowired
     private RangeService rangeService;
+    @Autowired
+    private GoalService goalService;
 
     final int PAGE_SIZE = 10;
 
@@ -117,6 +119,7 @@ public class OutcomeController {
         }
         modelAndView.addObject("statusBarDto", statusBarService.getStatusBar(user));
         modelAndView.addObject("user", user);
+        modelAndView.addObject("goalsMessages", goalService.getGoalsWithoutIncomeForMonth(user));
         return modelAndView;
     }
 

@@ -20,6 +20,9 @@ public class GoalDto {
     @Pattern(regexp = "^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\\.[0-9]{2})?$")
     private String goalAmount;
 
+    @NotEmpty
+    private String date;
+
     public GoalDto() {
     }
 
@@ -61,5 +64,13 @@ public class GoalDto {
 
     public void setGoalAmount(String goalAmount) {
         this.goalAmount = goalAmount;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

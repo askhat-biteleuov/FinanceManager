@@ -1,8 +1,6 @@
 package com.fm.internal.controllers;
 
-import com.fm.internal.daos.OutcomeTypeDao;
 import com.fm.internal.dtos.StatisticsDto;
-import com.fm.internal.dtos.StatusBarDto;
 import com.fm.internal.models.Account;
 import com.fm.internal.models.User;
 import com.fm.internal.services.*;
@@ -28,6 +26,8 @@ public class StatisticsController {
 
     @Autowired
     private StatusBarService statusBarService;
+    @Autowired
+    private GoalService goalService;
 
     @RequestMapping(value = "/statistics", method = RequestMethod.GET)
     public ModelAndView getStatPage(@ModelAttribute("statisticsDto") StatisticsDto statisticsDto) {
@@ -35,6 +35,8 @@ public class StatisticsController {
         ModelAndView modelAndView = new ModelAndView("statistics");
         modelAndView.addObject("accounts", accountService.findAllUserAccounts(user));
         modelAndView.addObject("statusBarDto", statusBarService.getStatusBar(user));
+        modelAndView.addObject("goalsMessages", goalService.getGoalsWithoutIncomeForMonth(user));
+
         return modelAndView;
     }
 

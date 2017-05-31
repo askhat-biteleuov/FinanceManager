@@ -1,6 +1,5 @@
 package com.fm.internal.services;
 
-import com.fm.internal.daos.GoalDao;
 import com.fm.internal.models.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -13,6 +12,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @ContextConfiguration("classpath:spring-utils.xml")
@@ -45,7 +45,7 @@ public class AccountServiceTest extends AbstractTestNGSpringContextTests {
                 currencyService.findCurrencyByCharCode("RUB"));
         Account acc2 = new Account("mastercard", BigDecimal.valueOf(4321), null, userService.findByEmail(USER_EMAIL),
                 currencyService.findCurrencyByCharCode("RUB"));
-        Goal goal = new Goal("My summer trip", BigDecimal.ZERO, BigDecimal.ZERO, null, userService.findByEmail(USER_EMAIL), currencyService.findCurrencyByCharCode("RUB"));
+        Goal goal = new Goal("My summer trip", BigDecimal.ZERO, BigDecimal.ZERO, null, userService.findByEmail(USER_EMAIL), currencyService.findCurrencyByCharCode("RUB"), LocalDate.now());
         accountService.createAccount(acc1);
         accountService.createAccount(acc2);
         goalService.addGoal(goal);

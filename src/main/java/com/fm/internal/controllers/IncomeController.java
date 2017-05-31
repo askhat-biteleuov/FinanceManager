@@ -7,12 +7,8 @@ import com.fm.internal.models.Account;
 import com.fm.internal.models.HashTag;
 import com.fm.internal.models.Income;
 import com.fm.internal.models.User;
-import com.fm.internal.services.AccountService;
-import com.fm.internal.services.IncomeService;
-import com.fm.internal.services.StatusBarService;
-import com.fm.internal.services.UserService;
+import com.fm.internal.services.*;
 import com.fm.internal.services.implementation.PaginationServiceImpl;
-import com.fm.internal.services.RangeService;
 import com.fm.internal.validation.util.ValidErrors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -48,6 +44,8 @@ public class IncomeController {
     private StatusBarService statusBarService;
     @Autowired
     private RangeService rangeService;
+    @Autowired
+    private GoalService goalService;
 
     final int PAGE_SIZE = 10;
 
@@ -104,6 +102,7 @@ public class IncomeController {
         }
         modelAndView.addObject("statusBarDto", statusBarService.getStatusBar(user));
         modelAndView.addObject("user", user);
+        modelAndView.addObject("goalsMessages", goalService.getGoalsWithoutIncomeForMonth(user));
         return modelAndView;
     }
 

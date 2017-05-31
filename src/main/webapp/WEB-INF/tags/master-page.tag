@@ -2,6 +2,7 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@attribute name="title" %>
 
 <c:set var="userName" value="${pageContext.request.userPrincipal.name}"/>
@@ -65,28 +66,53 @@
                             <li><a href="<c:url value="/outcome/all"/>">Расходы</a></li>
                             <li><a href="<c:url value="/income/all"/>">Приходы</a></li>
                             <li><a href="<c:url value="/statistics"/>">Статистика</a></li>
-                            <li><a href="<c:url value="/goal"/>">Цели</a></li>
                         </c:if>
                     </ul>
                     <c:if test="${userName != null}">
                         <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle" role="button"
+                                   aria-haspopup="true" aria-expanded="false">
+                                    Цели <span class="badge gold">${goalsMessages.size()}</span>
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <c:forEach var="goal" items="${goalsMessages}">
+                                        <c:if test="${goalsMessages.size()!=0}">
+                                            <li>
+                                                <span>
+                                                    В этом месяце вы еще не приблизились к своей целе: <c:out
+                                                        value="${goal.name}"/>!
+                                                    <a class="gold" href="">Приблизиться </a>
+                                                </span>
+                                            </li>
+                                        </c:if>
+                                    </c:forEach>
+                                    <c:if test="${goalsMessages.size()==0}">
+                                        <li><span>Пока нет уведомлений</span></li>
+                                    </c:if>
+                                    <li class="divider"></li>
+                                    <li><a href="<c:url value="/goal"/>">Посмотреть все</a></li>
+                                </ul>
+                            </li>
                             <li class="dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" role="button"
                                    aria-haspopup="true" aria-expanded="false">Добрый день, ${userName}!<span
                                         class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <button class="btn btn-link" type="button">
-                                            <a href="<c:url value="/profile"/>">
-                                                Редактировать профиль
-                                            </a>
-                                        </button>
+                                        <a href="<c:url value="/profile"/>">
+                                            Редактировать профиль
+                                        </a>
                                     </li>
                                     <li>
-                                        <form action="<c:url value="/logout"/>" method="post">
-                                            <button class="btn btn-link" type="submit">Выход</button>
-                                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                        </form>
+                                        <a>
+                                            <form action="<c:url value="/logout"/>" method="post">
+                                                <button class=" btn btn-link btn-block" type="submit">Выход</button>
+                                                <input type="hidden" name="${_csrf.parameterName}"
+                                                       value="${_csrf.token}"/>
+                                            </form>
+                                        </a>
                                     </li>
                                 </ul>
                             </li>

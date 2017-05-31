@@ -42,6 +42,8 @@ public class AccountController {
     private StatusBarService statusBarService;
     @Autowired
     private HashTagService hashTagService;
+    @Autowired
+    private GoalService goalService;
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
@@ -65,6 +67,7 @@ public class AccountController {
         modelAndView.addObject("user",loggedUser);
         modelAndView.addObject("hashtags",hashTagService.getHashTagsByUser(loggedUser));
         modelAndView.addObject("statusBarDto", statusBarService.getStatusBar(loggedUser));
+        modelAndView.addObject("goalsMessages", goalService.getGoalsWithoutIncomeForMonth(loggedUser));
         return modelAndView;
     }
 

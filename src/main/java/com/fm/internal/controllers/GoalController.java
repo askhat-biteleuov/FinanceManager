@@ -50,6 +50,7 @@ public class GoalController {
             //show goal(outcomes, incomes)
             modelAndView.setViewName("goal");
         } else {
+            modelAndView.addObject("goalsMessages", goalService.getGoalsWithoutIncomeForMonth(loggedUser));
             modelAndView.addObject("currencies", currencyService.getCurrencies());
             modelAndView.addObject("goals", goalService.getGoalsByUser(loggedUser));
             modelAndView.setViewName("goal-list");

@@ -6,12 +6,12 @@ import com.fm.internal.dtos.RegistrationDto;
 import com.fm.internal.models.User;
 import com.fm.internal.models.UserInfo;
 import com.fm.internal.services.CurrencyService;
+import com.fm.internal.services.GoalService;
 import com.fm.internal.services.StatusBarService;
 import com.fm.internal.services.UserService;
 import com.fm.internal.validation.PasswordValidator;
 import com.fm.internal.validation.util.ValidErrors;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +38,8 @@ public class ProfileController {
     private PasswordEncoder encoder;
     @Autowired
     private MessageSource messages;
+    @Autowired
+    private GoalService goalService;
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView getProfilePage() {
@@ -89,6 +91,7 @@ public class ProfileController {
         modelAndView.addObject("userInfo", user.getInfo());
         modelAndView.addObject("currencies", currencyService.getCurrencies());
         modelAndView.addObject("statusBarDto", statusBarService.getStatusBar(user));
+        modelAndView.addObject("goalsMessages", goalService.getGoalsWithoutIncomeForMonth(user));
         return modelAndView;
     }
 }

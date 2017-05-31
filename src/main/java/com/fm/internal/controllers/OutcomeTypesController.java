@@ -50,6 +50,8 @@ public class OutcomeTypesController {
     private UtilServiceImpl utilService;
     @Autowired
     private RangeService rangeService;
+    @Autowired
+    private GoalService goalService;
 
     @RequestMapping(value = "/page", method = RequestMethod.GET)
     public ModelAndView showOutcomeType(Long itemId, Integer pageId, @ModelAttribute("rangeDto")RangeDto rangeDto) {
@@ -72,7 +74,7 @@ public class OutcomeTypesController {
         User loggedUser = userService.getLoggedUser();
         modelAndView.addObject("user", loggedUser);
         modelAndView.addObject("statusBarDto", statusBarService.getStatusBar(loggedUser));
-
+        modelAndView.addObject("goalsMessages", goalService.getGoalsWithoutIncomeForMonth(loggedUser));
         return modelAndView;
     }
 

@@ -3,6 +3,8 @@ package com.fm.internal.models;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(uniqueConstraints = {@UniqueConstraint(name = "name_user", columnNames = {"name", "user_id"})})
@@ -32,6 +34,8 @@ public class Account implements Serializable {
     @ManyToOne
     @JoinColumn(nullable = false, name = "user_id", foreignKey = @ForeignKey(name = "fk_user_id"))
     private User user;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account", orphanRemoval = true)
+    private List<Income> incomes = new ArrayList<>();
 
 //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account", orphanRemoval = true)
 //    private List<Income> incomeTransactions = new ArrayList<>();
@@ -97,6 +101,15 @@ public class Account implements Serializable {
     public void setCurrency(Currency currency) {
         this.currency = currency;
     }
+
+    public List<Income> getIncomes() {
+        return incomes;
+    }
+
+    public void setIncomes(List<Income> incomes) {
+        this.incomes = incomes;
+    }
+
     //    public List<Income> getIncomeTransactions() {
 //        return incomeTransactions;
 //    }
@@ -112,4 +125,5 @@ public class Account implements Serializable {
 //    public void setOutcomeTransactions(List<Outcome> outcomeTransactions) {
 //        this.outcomeTransactions = outcomeTransactions;
 //    }
+
 }
