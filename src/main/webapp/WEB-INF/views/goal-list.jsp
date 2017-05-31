@@ -3,7 +3,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
+
 <t:master-page title="Цели">
+    <script src="<c:url value="/resources/js/formSlideAndDefaultDate.js"/>"></script>
     <jsp:include page="../fragments/back-button.jsp"/>
     <div class="container">
         <div class="col-sm-11 col-sm-offset-1" align="center">
@@ -59,7 +61,7 @@
                     </div>
                 </c:forEach>
                 <div class="col-sm-4 col-lg-3">
-                    <a href="#" data-toggle="modal" data-target="#goal-add">
+                    <a href="#" class="showBtn" data-toggle="modal" data-target="#goal-add">
                         <div class="panel panel-add panel-shadow-1">
                             <h3>Новая цель</h3>
                             <h3 class="glyphicon glyphicon-plus"></h3>

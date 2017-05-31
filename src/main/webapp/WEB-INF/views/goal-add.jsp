@@ -32,6 +32,7 @@
                                    pattern="^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$" required/>
                         </div>
                         <div class="form-group">
+                            <label for="goalDate">Планирую накопить до:</label>
                             <div class="input-group date" id="datepicker-modal-goaladd">
                                 <input type="text" class="form-control" id="goalDate" name="date" readonly required>
                                 <span class="input-group-addon">
