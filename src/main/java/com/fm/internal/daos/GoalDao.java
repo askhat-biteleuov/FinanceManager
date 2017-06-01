@@ -8,7 +8,7 @@ import javax.persistence.criteria.*;
 import java.time.LocalDate;
 import java.util.List;
 
-public class GoalDao extends GenericDao{
+public class GoalDao extends GenericDao<Goal>{
     public GoalDao() {
         super(Goal.class);
     }

@@ -50,7 +50,7 @@ public class InitController {
         }
 
         LocalDate now = LocalDate.now();
-        for (int i = 1; i <= 31; i++) {
+        for (int i = 1; i <= now.lengthOfMonth(); i++) {
             switch (i) {
                 case 1:
                     outcomeService.addOutcome(new Outcome(new BigDecimal(250),
