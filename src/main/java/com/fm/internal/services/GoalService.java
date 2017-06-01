@@ -18,4 +18,6 @@ public interface GoalService {
     void deleteGoal(Goal goal);
 
     void addGoal(GoalDto goalDto, User loggedUser);
+
+    Goal getGoalById(long id);
 }

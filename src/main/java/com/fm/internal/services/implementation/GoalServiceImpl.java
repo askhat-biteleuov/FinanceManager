@@ -61,4 +61,9 @@ public class GoalServiceImpl implements GoalService{
                 user, currencyService.findCurrencyByCharCode(goalDto.getCurrency()), LocalDate.parse(goalDto.getDate()));
         goalDao.add(goal);
     }
+
+    @Override
+    public Goal getGoalById(long id){
+        return goalDao.getById(id);
+    }
 }
