@@ -108,7 +108,7 @@ public class AccountController {
         modelAndView.addObject("transferDto", transferDto);
         modelAndView.addObject("types", outcomeTypeService.getAvailableOutcomeTypes(userService.getLoggedUser()));
         modelAndView.addObject("accounts",
-                accountService.findAllUserAccounts(accountService.findAccountById(transferDto.getAccountId()).getUser()));
+                accountService.findAllUserAccountsAndGoals(accountService.findAccountById(transferDto.getAccountId()).getUser()));
         modelAndView.addObject("outcomes", outcomeTypeService.defaultOutcomeTypesValue(account));
         return modelAndView;
     }

@@ -12,6 +12,8 @@ public interface AccountService {
 
     List<Account> findAllUserAccounts(User user);
 
+    List<Account> findAllUserAccountsAndGoals(User user);
+
     Account findUserAccountByName(User user, String name);
 
     Account findAccountById(long id);

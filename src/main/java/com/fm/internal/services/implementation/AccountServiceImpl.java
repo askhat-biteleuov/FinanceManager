@@ -52,6 +52,15 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public List<Account> findAllUserAccountsAndGoals(User user) {
+        if (user == null) {
+            return null;
+        } else {
+            return user.getAccounts();
+        }
+    }
+
+    @Override
     public Account findUserAccountByName(User user, String name) {
         if (user == null) {
             return null;
@@ -69,7 +78,7 @@ public class AccountServiceImpl implements AccountService {
     public void makeTransfer(TransferDto transferDto) {
         Account fromAccount = accountDao.getById(transferDto.getAccountId());
         Account toAccount = accountDao.getById(transferDto.getToAccountId());
-        final String note = "Transfer from account " + fromAccount.getName() + " to account " + toAccount.getName();
+        final String note = "Transfer from " + fromAccount.getClass().getSimpleName() + " " + fromAccount.getName() + " to " + toAccount.getClass().getSimpleName() + " " + toAccount.getName();
         User user = userService.getLoggedUser();
         List<HashTag> hashtags = new ArrayList<>();
         HashTag tag = hashTagService.getHashTagByUserAndText(user,"transfer");
