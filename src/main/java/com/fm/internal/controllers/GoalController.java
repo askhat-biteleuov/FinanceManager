@@ -1,6 +1,11 @@
 package com.fm.internal.controllers;
 
 import com.fm.internal.dtos.GoalDto;
+import com.fm.internal.dtos.PaginationDto;
+import com.fm.internal.dtos.RangeDto;
+import com.fm.internal.models.Account;
+import com.fm.internal.models.Goal;
+import com.fm.internal.models.Income;
 import com.fm.internal.models.User;
 import com.fm.internal.services.*;
 import com.fm.internal.validation.GoalValidator;
@@ -15,8 +20,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import com.fm.internal.services.implementation.PaginationServiceImpl;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -41,6 +49,16 @@ public class GoalController {
     private MessageSource messages;
     @Autowired
     private CurrencyService currencyService;
+    @Autowired
+    private RangeService rangeService;
+    @Autowired
+    private IncomeService incomeService;
+    @Autowired
+    private OutcomeService outcomeService;
+    @Autowired
+    private PaginationServiceImpl paginationService;
+
+    final int PAGE_SIZE = 10;
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView getGoal(@RequestParam(required = false) Long goalId) {
@@ -72,5 +90,41 @@ public class GoalController {
         goalService.addGoal(goalDto, loggedUser);
         LOGGER.info("New account was added:" + goalDto.getName());
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value="/page", method = RequestMethod.GET)
+    public ModelAndView goalPage(@RequestParam(value = "goalId") Long goalId,
+                                 @RequestParam(value = "pageId", required = false) Integer pageId,
+                                 @RequestParam(value = "start", required = false) String startFromUrl,
+                                 @RequestParam(value = "end", required = false) String endFromUrl,
+                                 @ModelAttribute("rangeDto") RangeDto rangeDto) {
+        if (pageId == null) {
+            pageId = 1;
+        }
+        LocalDate start;
+        LocalDate end;
+        if (startFromUrl != null && endFromUrl != null){
+            RangeDto datesFromUrlDto = new RangeDto();
+            datesFromUrlDto.setStart(startFromUrl);
+            datesFromUrlDto.setEnd(endFromUrl);
+            start = rangeService.setupStart(datesFromUrlDto);
+            end = rangeService.setupEnd(datesFromUrlDto);
+        } else {
+            start = rangeService.setupStart(rangeDto);
+            end = rangeService.setupEnd(rangeDto);
+        }
+        ModelAndView modelAndView = new ModelAndView("goal-page");
+        User user = userService.getLoggedUser();
+        Goal goalById = goalService.getGoalById(goalId);
+        long incomesAmount = incomeService.getAccountIncomesNumberByDate(goalById, start, end);
+        PaginationDto paginationDto = paginationService.createPagination(goalId, pageId, PAGE_SIZE,
+                incomesAmount, "/goal/page");
+        List<Income> incomesPage = incomeService.getAccountIncomesPageByDate(goalById,
+                paginationDto.getFirstItem(), PAGE_SIZE, start, end);
+        modelAndView.addObject("paginationDto", paginationDto);
+        modelAndView.addObject("incomes", incomesPage);
+        modelAndView.addObject("goalId", goalId);
+        modelAndView.addObject("goal", goalById);
+        return modelAndView;
     }
 }

@@ -13,7 +13,7 @@
                 <c:forEach var="goal" items="${goals}">
                     <div class="col-sm-4 col-lg-3 ">
                         <div class="panel panel-shadow-1">
-                            <c:url value="/goal" var="goalUrl">
+                            <c:url value="/goal/page" var="goalUrl">
                                 <c:param name="goalId" value="${goal.id}"/>
                             </c:url>
                             <a href="<c:url value="${goalUrl}"/>">
