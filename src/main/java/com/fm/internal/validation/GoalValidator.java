@@ -28,10 +28,16 @@ public class GoalValidator implements Validator {
     public void validate(Object o, Errors errors) {
         GoalDto goalDto = (GoalDto) o;
         List<Goal> goals = goalService.getGoalsByUser(userService.getLoggedUser());
-        for (Goal goal : goals) {
-            if (goal.getName().equalsIgnoreCase(goalDto.getName())) {
-                errors.rejectValue("name", "Exist");
+        boolean anyMatch = false;
+        if (goalDto.getId() != 0) {
+            for (Goal goal : goals) {
+                anyMatch = (goal.getId() != goalDto.getId()) && (goal.getName().equalsIgnoreCase(goalDto.getName()));
             }
+        } else {
+            anyMatch = goals.stream()
+                    .map(Goal::getName)
+                    .anyMatch(typeName -> typeName.equalsIgnoreCase(goalDto.getName()));
         }
+        if (anyMatch) errors.rejectValue("name", "Exist");
     }
 }

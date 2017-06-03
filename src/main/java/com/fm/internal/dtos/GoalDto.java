@@ -12,9 +12,6 @@ public class GoalDto {
     @Size(max = 15)
     private String name;
 
-    @Pattern(regexp = "^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\\.[0-9]{2})?$")
-    private String balance;
-
     private String currency;
 
     @Pattern(regexp = "^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\\.[0-9]{2})?$")
@@ -40,14 +37,6 @@ public class GoalDto {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getBalance() {
-        return balance;
-    }
-
-    public void setBalance(String balance) {
-        this.balance = balance;
     }
 
     public String getCurrency() {

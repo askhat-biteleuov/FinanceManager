@@ -3,11 +3,11 @@ package com.fm.internal.controllers;
 import com.fm.internal.dtos.GoalDto;
 import com.fm.internal.dtos.PaginationDto;
 import com.fm.internal.dtos.RangeDto;
-import com.fm.internal.models.Account;
 import com.fm.internal.models.Goal;
 import com.fm.internal.models.Income;
 import com.fm.internal.models.User;
 import com.fm.internal.services.*;
+import com.fm.internal.services.implementation.PaginationServiceImpl;
 import com.fm.internal.validation.GoalValidator;
 import com.fm.internal.validation.util.ValidErrors;
 import org.apache.log4j.Logger;
@@ -20,9 +20,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import com.fm.internal.services.implementation.PaginationServiceImpl;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -126,5 +126,22 @@ public class GoalController {
         modelAndView.addObject("goalId", goalId);
         modelAndView.addObject("goal", goalById);
         return modelAndView;
+    }
+
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    @ResponseBody
+    public Object editGoal(@Valid @RequestBody GoalDto goalDto, BindingResult result) {
+        Goal goal = goalService.getGoalById(goalDto.getId());
+        goalValidator.validate(goalDto, result);
+        if (result.hasErrors()) {
+            Map<String, String> errors = ValidErrors.getMapOfMessagesAndErrors(result, messages);
+            return new ResponseEntity<>(errors, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        goal.setName(goalDto.getName().trim());
+        goal.setGoalAmount(new BigDecimal(goalDto.getGoalAmount().trim()));
+        goal.setDate(LocalDate.parse(goalDto.getDate()));
+        goalService.updateGoal(goal);
+        LOGGER.info("Goal with id:" + goalDto.getId() + " was updated");
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

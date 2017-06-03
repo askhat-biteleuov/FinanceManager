@@ -40,10 +40,25 @@ a{
     color: #48484a;
     height: 16.6rem;
 }
+
+.panel-add-goal {
+    text-decoration: none !important;
+    outline: 2px dashed rgba(72, 72, 74, 0.8); /* Пунктирная рамка */
+    outline-offset: -10px; /* Выводим рамку внутри элемента */
+    color: #48484a;
+    height: 18.6rem;
+}
 .panel-body{
     height: 10rem;
     padding: 0 !important;
     margin-bottom: 1rem;
+}
+
+.panel-body-goal {
+    height: 10rem;
+    padding: 0 !important;
+    margin-bottom: 1rem;
+    text-decoration: none !important;
 }
 
 .panel-shadow-1 {
