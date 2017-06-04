@@ -8,6 +8,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.criteria.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,21 +83,19 @@ public class OutcomeTypeDao extends GenericDao<OutcomeType> {
     }
 
     @Transactional
-    public Map<Integer, Map<String, Double>> countOutcomeTypesValueByMonth(Account account, LocalDate start) {
+    public Map<Integer, Map<String, Double>> countOutcomeTypesValueByMonth(Account account, LocalDate start, List<OutcomeType> types) {
         Map<Integer, Map<String, Double>> outcomeTypesValueByDay = new HashMap<>();
-//        for (int i = 1; i <= start.lengthOfMonth(); i++) {
-//            outcomeTypesValueByDay.put(i, null);
-//        }
         Session session = getSessionFactory().getCurrentSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<Object[]> query = criteriaBuilder.createQuery(Object[].class);
         Root<Outcome> outcomeRoot = query.from(Outcome.class);
         query.multiselect(outcomeRoot.get(Outcome_.outcomeType), criteriaBuilder.sum(outcomeRoot.get(Outcome_.amount)));
         Predicate equalAccount = criteriaBuilder.equal(outcomeRoot.get(Outcome_.account), account);
+        Predicate equalType = outcomeRoot.get(Outcome_.outcomeType).in(types);
         for (int i = 1; i <= start.lengthOfMonth(); i++) {
             Predicate equalDate = criteriaBuilder.equal(outcomeRoot.get(Outcome_.date),
                     LocalDate.of(start.getYear(), start.getMonth(), i));
-            query.where(equalAccount, equalDate);
+            query.where(equalAccount, equalDate, equalType);
             query.groupBy(outcomeRoot.get(Outcome_.outcomeType));
             List<Object[]> valueArray = session.createQuery(query).getResultList();
             Map<String, Double> outcomeTypesValue = new HashMap<>();

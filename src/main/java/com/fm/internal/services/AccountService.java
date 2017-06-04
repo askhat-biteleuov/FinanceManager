@@ -18,7 +18,9 @@ public interface AccountService {
 
     Account findAccountById(long id);
 
-    void makeTransfer(TransferDto transferDto);
+    void makeTransferTo(TransferDto transferDto);
+
+    void makeTransferFrom(TransferDto transferDto);
 
     void createAccount(Account account);
 

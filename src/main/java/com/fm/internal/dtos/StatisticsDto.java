@@ -1,5 +1,7 @@
 package com.fm.internal.dtos;
 
+import java.util.List;
+
 public class StatisticsDto {
 
     private String accountName;
@@ -7,6 +9,8 @@ public class StatisticsDto {
     private String month;
 
     private String year;
+
+    private List<String> types;
 
     public String getAccountName() {
         return accountName;
@@ -30,5 +34,13 @@ public class StatisticsDto {
 
     public void setYear(String year) {
         this.year = year;
+    }
+
+    public List<String> getTypes() {
+        return types;
+    }
+
+    public void setTypes(List<String> types) {
+        this.types = types;
     }
 }

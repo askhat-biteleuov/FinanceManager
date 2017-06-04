@@ -99,10 +99,9 @@ public class OutcomeTypeServiceImpl implements OutcomeTypeService {
     }
 
     @Override
-    public Map<Integer, Map<String, Double>> countOutcomeTypesValueByMonth(Account account, LocalDate start) {
-        Map<Integer, Map<String, Double>> outcomes = outcomeTypeDao.countOutcomeTypesValueByMonth(account, start);
-        List<OutcomeType> outcomeTypes = outcomeTypeDao.getAvailableOutcomeTypesByUser(userService.getLoggedUser());
-        for (OutcomeType type : outcomeTypes) {
+    public Map<Integer, Map<String, Double>> countOutcomeTypesValueByMonth(Account account, LocalDate start, List<OutcomeType> types) {
+        Map<Integer, Map<String, Double>> outcomes = outcomeTypeDao.countOutcomeTypesValueByMonth(account, start, types);
+        for (OutcomeType type : types) {
             for (Integer day : outcomes.keySet()) {
                 outcomes.get(day).putIfAbsent(type.getName(), 0.0);
             }

@@ -8,6 +8,7 @@
     <script src="<c:url value="/resources/js/editGoal.js"/>"></script>
     <script src="<c:url value="/resources/js/formSlideAndDefaultDate.js"/>"></script>
     <script src="<c:url value="/resources/js/datePickerConfig.js"/>"></script>
+    <script src="<c:url value="/resources/js/sendGoalTransferForm.js"/>"></script>
 
     <jsp:include page="../fragments/back-button.jsp"/>
     <div class="container">
@@ -69,17 +70,18 @@
                                 </div>
                             </a>
                             <div class="panel-footer">
-                                <button class="btn btn-default btn-green showBtn outBtn" type="button"
+                                <button class="btn btn-danger showBtn outBtn" type="button"
                                         data-toggle="modal"
-                                        data-target="#outcomeAdd${goal.id}">
+                                        data-target="#goalOutcomeAdd${goal.id}">
                                     Расход
                                 </button>
-                                <%@include file="outcome-add.jsp" %>
+                                <%@include file="goal-outcome-add.jsp" %>
                                 <button class="btn btn-default btn-blue showBtn" type="button" data-toggle="modal"
-                                        data-target='#incomeAdd${goal.id}'>
-                                    Приход
+                                        data-target='#goalIncomeAdd${goal.id}'>
+                                    Приблизиться
                                 </button>
-                                    <%--<%@include file="income-add.jsp"%>--%>
+                                    <%@include file="goal-income-add.jsp"%>
+
                             </div>
                         </div>
                     </div>

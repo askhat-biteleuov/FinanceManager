@@ -57,6 +57,8 @@ public class GoalController {
     private OutcomeService outcomeService;
     @Autowired
     private PaginationServiceImpl paginationService;
+    @Autowired
+    private AccountService accountService;
 
     final int PAGE_SIZE = 10;
 
@@ -73,6 +75,7 @@ public class GoalController {
             modelAndView.addObject("goals", goalService.getGoalsByUser(loggedUser));
             modelAndView.setViewName("goal-list");
         }
+        modelAndView.addObject("accounts", accountService.findAllUserAccounts(loggedUser));
         modelAndView.addObject("hashtags", hashTagService.getHashTagsByUser(loggedUser));
         modelAndView.addObject("statusBarDto", statusBarService.getStatusBar(loggedUser));
         return modelAndView;

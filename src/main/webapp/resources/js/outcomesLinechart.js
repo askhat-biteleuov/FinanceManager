@@ -2,15 +2,22 @@ $(document).ready(function () {
     var date = new Date();
     $('#monthSelect').val(date.getMonth()+1);
     $('#yearSelect').val(date.getFullYear());
-    $('#linechartForm').submit(function (event) {
+    /*$('#linechartForm').submit(function (event) {
         event.preventDefault();
         refreshLineChart();
+    });*/
+    $('#accountSelect, #monthSelect, #yearSelect').on('change', function () {
+        refreshLineChart();
     });
+    $('.checkboxType').on('click', function () {
+        refreshLineChart();
+    });
+
 });
 
 
 
-function LoadLineChart(month, year, accountName) {
+function LoadLineChart(month, year, accountName, types) {
     $.ajax({
         type: 'POST',
         beforeSend: function (request) {
@@ -23,7 +30,8 @@ function LoadLineChart(month, year, accountName) {
         data: JSON.stringify({
             "month": month,
             "year": year,
-            "accountName": accountName
+            "accountName": accountName,
+            "types": types
         })
     }).done(function (data) {
         drawLineChart(data);

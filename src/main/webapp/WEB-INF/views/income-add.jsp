@@ -5,7 +5,9 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button class="close" type="button" data-dismiss="modal">×</button>
+                <button class="close" type="button" data-dismiss="modal">
+                    <i class="glyphicon glyphicon-remove"></i>
+                </button>
                 <h4 class="modal-title">Новый приход</h4>
             </div>
             <form method="POST" id="incomeForm" role="form" action="<c:url value="/income/add"/>">

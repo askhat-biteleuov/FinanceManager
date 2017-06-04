@@ -81,7 +81,7 @@
                                         <c:if test="${goalsMessages.size()!=0}">
                                             <li>
                                                 <span>
-                                                    В этом месяце вы еще не приблизились к своей целе:
+                                                    В этом месяце, вы еще не приблизились к своей цели:
                                                     <span class="gold"><c:out value="${goal.name}"/></span>
                                                     <a class="btn btn-green" href="">Приблизиться </a>
                                                 </span>

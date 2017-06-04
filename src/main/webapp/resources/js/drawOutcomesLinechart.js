@@ -1,10 +1,10 @@
 google.charts.load('current', {packages: ['corechart', 'line']});
-google.charts.setOnLoadCallback(refreshLineChart());
+google.charts.setOnLoadCallback(refreshLineChart);
 function drawLineChart(data) {
 
     var dataTable = new google.visualization.DataTable();
 
-    dataTable.addColumn('number', 'Day');
+    dataTable.addColumn('number', 'День');
 
     for (var type_ in data[1]) {
         dataTable.addColumn('number', type_)
@@ -13,7 +13,7 @@ function drawLineChart(data) {
     var numOfTypes = Object.keys(data[1]).length;
 
     for (var day in data) {
-        var dataArr = [numOfTypes+1];
+        var dataArr = [numOfTypes + 1];
         dataArr[0] = parseInt(day);
         var i = 1;
         for (var type in data[day]) {
@@ -26,28 +26,30 @@ function drawLineChart(data) {
 
     var options = {
 
-        title: "Сумма расходов по категориям за день",
+        chart: {
+            title: "Сумма расходов по категориям за день"
+
+        },
+        backgroundColor: 'transparent',
         hAxis: {
-            title: 'День',
-            scaleType: 'linear',
-            min: 1,
-            showTextEvery: 1
-        },
-        vAxis: {
-            title: 'Сумма',
-            scaleType: 'linear',
-            min: 0
-        },
-        series: {
-            1: {curveType: 'function'}
+            viewWindowMode: 'explicit',
+            viewWindow: {
+                max: Object.keys(data).length,
+                min: 1
+            }
         }
     };
 
-    var chart = new google.visualization.LineChart(document.getElementById('linechart'));
-    chart.draw(dataTable, options);
+    var chart = new google.charts.Line(document.getElementById('linechart'));
+    chart.draw(dataTable, google.charts.Line.convertOptions(options));
 }
 
 function refreshLineChart() {
+
+    var types = [];
+    $('.checkboxTypes input:checked').each(function () {
+        types.push($(this).val());
+    });
     LoadLineChart($("#linechartForm [name=month]").val(), $("#linechartForm [name=year]").val(),
-        $('#linechartForm [name=accountName]').val());
+        $('#linechartForm [name=accountName]').val(), types);
 }

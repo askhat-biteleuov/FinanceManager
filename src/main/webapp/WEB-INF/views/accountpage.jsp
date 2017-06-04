@@ -128,7 +128,7 @@
                     <br>
                     <div id="transfer" class="adding">
                         <button type="submit" class="btn btn-green btn-block showBtn">Перевести на другой счет</button>
-                        <form method="POST" action="<c:url value="/transfer/add"/>" class="trans">
+                        <form method="POST" action="<c:url value="/transfer/to"/>" class="trans">
                             <br/>
                             <div class="form-group">
                                 <select id="accountSelect" name="toAccountId" class="form-control">

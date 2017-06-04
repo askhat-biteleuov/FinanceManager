@@ -75,9 +75,32 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void makeTransfer(TransferDto transferDto) {
+    public void makeTransferTo(TransferDto transferDto) {
         Account fromAccount = accountDao.getById(transferDto.getAccountId());
         Account toAccount = accountDao.getById(transferDto.getToAccountId());
+        final String note = "Transfer from " + fromAccount.getClass().getSimpleName() + " " + fromAccount.getName() + " to " + toAccount.getClass().getSimpleName() + " " + toAccount.getName();
+        User user = userService.getLoggedUser();
+        List<HashTag> hashtags = new ArrayList<>();
+        HashTag tag = hashTagService.getHashTagByUserAndText(user,"transfer");
+        if(tag==null) {
+            hashTagService.addHashTag(new HashTag("transfer",user));
+            hashtags.add(hashTagService.getHashTagByUserAndText(user,"transfer"));
+        }else{
+            hashtags.add(tag);
+        }
+        Outcome transferOutcome = new Outcome(new BigDecimal(transferDto.getOutcomeAmount()), new BigDecimal(transferDto.getDefaultAmount()),
+                LocalDate.parse(transferDto.getDate()), LocalTime.MIDNIGHT, note, hashtags, fromAccount,
+                outcomeTypeService.getOutcomeTypeByNameAndUser(userService.getLoggedUser(), "Переводы"));
+        outcomeService.addOutcome(transferOutcome);
+        Income transferIncome = new Income(new BigDecimal(transferDto.getIncomeAmount()), LocalDate.parse(transferDto.getDate()), LocalTime.MIDNIGHT, note, hashtags, toAccount);
+        transferIncome.setNote(note);
+        incomeService.addIncome(transferIncome);
+    }
+
+    @Override
+    public void makeTransferFrom(TransferDto transferDto) {
+        Account fromAccount = accountDao.getById(transferDto.getToAccountId());
+        Account toAccount = accountDao.getById(transferDto.getAccountId());
         final String note = "Transfer from " + fromAccount.getClass().getSimpleName() + " " + fromAccount.getName() + " to " + toAccount.getClass().getSimpleName() + " " + toAccount.getName();
         User user = userService.getLoggedUser();
         List<HashTag> hashtags = new ArrayList<>();
