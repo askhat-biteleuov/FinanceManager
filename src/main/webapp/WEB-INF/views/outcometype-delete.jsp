@@ -23,7 +23,7 @@
                 <br>
                 <form action="<c:url value="/outcometype/delete/all"/>" method="POST">
                     <input type="hidden" name="currentOutcomeTypeId" value="${outcomeTypeDto.id}">
-                    <button class="btn btn-danger btn-block" type="submit">Стереть все операции</button>
+                    <button class="btn btn-danger btn-block" type="submit">Сделать категорию неактивной</button>
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 </form>
                 <br>
