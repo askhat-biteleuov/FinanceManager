@@ -7,17 +7,15 @@ import com.fm.internal.services.*;
 import com.fm.internal.services.implementation.UserServiceImpl;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.Comparator;
+import java.util.Map;
+import java.util.TreeMap;
 
 @Controller
 public class LoginController {
@@ -25,6 +23,8 @@ public class LoginController {
 
     @Autowired
     private UserServiceImpl userService;
+    @Autowired
+    private AccountService accountService;
     @Autowired
     private StatusBarService statusBarService;
     @Autowired
@@ -43,26 +43,6 @@ public class LoginController {
         return new ModelAndView("login");
     }
 
-    @RequestMapping(value = "/hashtag", method = RequestMethod.GET)
-    @ResponseBody
-    public Object getHashtag(@RequestParam String str){
-        List<String> hashtags = new ArrayList<>();
-        hashtags.add("Java");
-        hashtags.add("James");
-        hashtags.add("AOP");
-        hashtags.add("Dependency Injection");
-        hashtags.add("Intuition");
-
-        List <String> subListHashtags = new ArrayList<>();
-        for (String hashtag : hashtags) {
-            if(hashtag.toLowerCase().contains(str.toLowerCase())){
-                subListHashtags.add(hashtag);
-            }
-        }
-        return new ResponseEntity<>(subListHashtags,HttpStatus.OK);
-    }
-
-
     @RequestMapping({"/index", "/"})
     public ModelAndView index() {
         ModelAndView modelAndView = new ModelAndView("index");
@@ -75,6 +55,7 @@ public class LoginController {
                 BigDecimal sumOfOutcomesInTypeForMonth = typeService.getSumOfOutcomesInTypeForMonth(outcomeType);
                 outcomeTypes.put(outcomeType, sumOfOutcomesInTypeForMonth);
             });
+            modelAndView.addObject("accounts", accountService.findAllUserAccounts(loggedUser));
             modelAndView.addObject("hashtags",hashTagService.getHashTagsByUser(loggedUser));
             modelAndView.addObject("outcomeTypes", outcomeTypes);
             modelAndView.addObject("currencies", currencyService.getCurrencies());

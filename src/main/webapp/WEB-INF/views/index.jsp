@@ -36,7 +36,7 @@
                 <script src="<c:url value="/resources/js/editAccount.js"/>"></script>
                 <div class="container">
                     <div class="row">
-                        <c:forEach var="account" items="${user.accounts}">
+                        <c:forEach var="account" items="${accounts}">
                             <div class="col-sm-4 col-lg-3 ">
                                 <div class="panel panel-shadow-1">
                                     <a href="<c:url value="/account/page?id=${account.id}"/>">

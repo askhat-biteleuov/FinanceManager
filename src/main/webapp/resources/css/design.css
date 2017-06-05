@@ -166,3 +166,13 @@ a{
     color: #333;
     white-space: nowrap;
 }
+
+.badge-notification {
+    background-color: #f0ad4e !important;
+    vertical-align: baseline !important;
+}
+
+.message-notification {
+    text-transform: none;
+    text-decoration: none !important;
+}

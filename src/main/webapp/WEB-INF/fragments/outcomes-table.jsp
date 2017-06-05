@@ -5,25 +5,54 @@
     <table id="outcomes" class="table notes table-hover">
         <thead>
         <tr>
-            <th>Редактировать заметку</th>
-            <th>Заметка</th>
-            <th>Хэштеги</th>
             <th>Сумма</th>
             <th>Категория</th>
             <th>Дата</th>
             <th>Счет</th>
+            <th>Хэштеги</th>
+            <th>Заметка</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
         <c:forEach var="outcome" items="${outcomes}">
             <tr class="tableRow">
                 <td>
-                    <div class="row editBar">
+                        ${outcome.amount}
+                </td>
+                <td>
+                        ${outcome.outcomeType.name}
+                </td>
+                <td>
+                        ${outcome.date}
+                </td>
+                <td>
+                        ${outcome.account.name}
+                </td>
+                <td>
+                    <c:forEach var="hashtag" items="${outcome.hashTags}">
+                        <c:url value="/outcome/all" var="hashtagUrl">
+                            <c:param name="hashTag" value="${hashtag.text}"/>
+                            <c:if test="${accountId != null}">
+                                <c:param name="accountId" value="${accountId}"/>
+                            </c:if>
+                            <c:if test="${outcomeTypeId != null}">
+                                <c:param name="outcomeTypeId" value="${outcomeTypeId}"/>
+                            </c:if>
+                        </c:url>
+                        <a class="badge" href="<c:out value="${hashtagUrl}"/>">${hashtag.text}</a>
+                    </c:forEach>
+                </td>
+                <td class="note" data-name="tableNote" contenteditable="false">
+                        ${outcome.note}
+                </td>
+                <td>
+                    <div class="editBar">
                         <div>
                             <form action="<c:url value="/outcome/delete"/>" method="POST">
                                 <input type="hidden" name="outcomeId" value="${outcome.id}">
                                 <button type="submit" class="btn-link">
-                                    <span class="glyphicon glyphicon-trash"></span>
+                                    <span class="red glyphicon glyphicon-trash"></span>
                                 </button>
                                 <input type="hidden" name="${_csrf.parameterName}"
                                        value="${_csrf.token}"/>
@@ -35,7 +64,7 @@
                             </button>
                         </div>
                         <div>
-                            <button class="cancelBtn red btn-link" hidden>
+                            <button class="cancelBtn gold btn-link" hidden>
                                 <span class="glyphicon glyphicon-remove-circle"></span>
                             </button>
                         </div>
@@ -54,35 +83,6 @@
                             </form>
                         </div>
                     </div>
-                </td>
-                <td class="note" data-name="tableNote" contenteditable="false">
-                        ${outcome.note}
-                </td>
-                <td>
-                    <c:forEach var="hashtag" items="${outcome.hashTags}">
-                        <c:url value="/outcome/all" var="hashtagUrl">
-                            <c:param name="hashTag" value="${hashtag.text}"/>
-                            <c:if test="${accountId != null}">
-                                <c:param name="accountId" value="${accountId}"/>
-                            </c:if>
-                            <c:if test="${outcomeTypeId != null}">
-                                <c:param name="outcomeTypeId" value="${outcomeTypeId}"/>
-                            </c:if>
-                        </c:url>
-                        <a class="badge" href="<c:out value="${hashtagUrl}"/>">${hashtag.text}</a>
-                    </c:forEach>
-                </td>
-                <td>
-                        ${outcome.amount}
-                </td>
-                <td>
-                        ${outcome.outcomeType.name}
-                </td>
-                <td>
-                        ${outcome.date} ${outcome.time}
-                </td>
-                <td>
-                        ${outcome.account.name}
                 </td>
             </tr>
         </c:forEach>
