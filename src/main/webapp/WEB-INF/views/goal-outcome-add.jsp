@@ -28,8 +28,8 @@
                                    min="0.01" step="0.01" placeholder="Сумма (${goal.user.info.currency.characterCode})" required/>
                             <div class="help-block with-errors"></div>
                         </div>
-                        <script type="text/javascript"
-                                src="<c:url value="/resources/js/accountAndCurrencySelectionGoalOutcome.js"/>"></script>
+                        <%--<script type="text/javascript"--%>
+                                <%--src="<c:url value="/resources/js/accountAndCurrencySelectionGoalOutcome.js"/>"></script>--%>
                         <div class="form-group">
                             <input type="hidden" value="${goal.currency.nominal}" id="fromAccountNominalGoalOutcome">
                             <input type="hidden" value="${goal.currency.curs}" id="fromAccountCursGoalOutcome">
@@ -37,7 +37,7 @@
                             <input type="hidden" value="${goal.user.info.currency.curs}" id="userCurrencyCursGoalOutcome">
                             <c:forEach items="${accounts}" var="acc">
                                 <c:if test="${acc.id != goal.id}">
-                                    <div class="form-group" id="${acc.id}">
+                                    <div class="form-group" id="Outcome${acc.id}">
                                         <input type="hidden" value="${acc.currency.curs}" id="cursGoalOutcome">
                                         <input type="hidden" value="${acc.currency.nominal}" id="nominalGoalOutcome">
                                         <input type="hidden" value="${acc.currency.characterCode}" id="characterCodeGoalOutcome">

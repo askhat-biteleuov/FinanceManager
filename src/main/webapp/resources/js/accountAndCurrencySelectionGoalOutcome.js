@@ -6,7 +6,7 @@ $(document).ready(function() {
 
     function accountSelect(){
         var toAccountId= $("#accountSelectGoalOutcome").val();
-        var toAccountObj = $('#'+toAccountId);
+        var toAccountObj = $('#Outcome'+toAccountId);
         var toCurs = toAccountObj.children("#cursGoalOutcome").val();
         var toNominal = toAccountObj.children("#nominalGoalOutcome").val();
         $('div[name = currencyCharacterCodeOutcome]').text(toAccountObj.children("#characterCodeGoalOutcome").val());

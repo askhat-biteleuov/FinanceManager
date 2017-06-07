@@ -5,6 +5,7 @@ import com.fm.internal.services.RangeService;
 import org.springframework.security.access.method.P;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class RangeServiceImpl implements RangeService {
 
@@ -21,11 +22,7 @@ public class RangeServiceImpl implements RangeService {
         }
         LocalDate now = LocalDate.now();
         LocalDate start = LocalDate.of(now.getYear(), now.getMonth(), 1);
-        if (now.getMonth().getValue() < 10) {
-            rangeDto.setStart(start.getYear() + "-" + "0" + start.getMonth().getValue() + "-" + "0" + 1);
-        } else {
-            rangeDto.setStart(start.getYear() + "-" + start.getMonth().getValue() + "-" + "0" + 1);
-        }
+        rangeDto.setStart(start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         return start;
     }
 
@@ -35,11 +32,7 @@ public class RangeServiceImpl implements RangeService {
             return LocalDate.parse(rangeDto.getEnd());
         }
         LocalDate end = LocalDate.now();
-        if (end.getMonth().getValue() < 10) {
-            rangeDto.setEnd(end.getYear() + "-" + "0" + end.getMonth().getValue() + "-" + end.getDayOfMonth());
-        } else {
-            rangeDto.setEnd(end.getYear() + "-" + end.getMonth().getValue() + "-" + end.getDayOfMonth());
-        }
+        rangeDto.setEnd(end.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         return end;
     }
 

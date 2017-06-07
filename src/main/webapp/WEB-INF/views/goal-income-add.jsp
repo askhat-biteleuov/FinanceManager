@@ -27,10 +27,9 @@
                             <input type="number" id="outcomeTransferAmountGoalIncome" name="outcomeAmount" class="form-control"
                                    min="0.01" step="0.01" placeholder="Сумма (${goal.user.info.currency.characterCode})" required/>
                             <div class="help-block with-errors"></div>
-                            <div class="help-block with-errors"></div>
                         </div>
-                        <script type="text/javascript"
-                                src="<c:url value="/resources/js/accountAndCurrencySelectionGoalIncome.js"/>"></script>
+                        <%--<script type="text/javascript"--%>
+                                <%--src="<c:url value="/resources/js/accountAndCurrencySelectionGoalIncome.js"/>"></script>--%>
                         <div class="form-group">
                             <input type="hidden" value="${goal.currency.nominal}" id="fromAccountNominalGoalIncome">
                             <input type="hidden" value="${goal.currency.curs}" id="fromAccountCursGoalIncome">
@@ -38,7 +37,7 @@
                             <input type="hidden" value="${goal.user.info.currency.curs}" id="userCurrencyCursGoalIncome">
                             <c:forEach items="${accounts}" var="acc">
                                 <c:if test="${acc.id != goal.id}">
-                                    <div class="form-group" id="${acc.id}">
+                                    <div class="form-group" id="Income${acc.id}">
                                         <input type="hidden" value="${acc.currency.curs}" id="cursGoalIncome">
                                         <input type="hidden" value="${acc.currency.nominal}" id="nominalGoalIncome">
                                         <input type="hidden" value="${acc.currency.characterCode}" id="characterCodeGoalIncome">

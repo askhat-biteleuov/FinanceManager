@@ -9,6 +9,8 @@
     <script src="<c:url value="/resources/js/formSlideAndDefaultDate.js"/>"></script>
     <script src="<c:url value="/resources/js/datePickerConfig.js"/>"></script>
     <script src="<c:url value="/resources/js/sendGoalTransferForm.js"/>"></script>
+    <script type="text/javascript" src="<c:url value="/resources/js/accountAndCurrencySelectionGoalOutcome.js"/>"></script>
+    <script type="text/javascript" src="<c:url value="/resources/js/accountAndCurrencySelectionGoalIncome.js"/>"></script>
 
     <jsp:include page="../fragments/back-button.jsp"/>
     <div class="container">
