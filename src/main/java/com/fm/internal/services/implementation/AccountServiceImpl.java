@@ -111,11 +111,11 @@ public class AccountServiceImpl implements AccountService {
         }else{
             hashtags.add(tag);
         }
-        Outcome transferOutcome = new Outcome(new BigDecimal(transferDto.getOutcomeAmount()), new BigDecimal(transferDto.getDefaultAmount()),
+        Outcome transferOutcome = new Outcome(new BigDecimal(transferDto.getIncomeAmount()), new BigDecimal(transferDto.getDefaultAmount()),
                 LocalDate.parse(transferDto.getDate()), LocalTime.MIDNIGHT, note, hashtags, fromAccount,
                 outcomeTypeService.getOutcomeTypeByNameAndUser(userService.getLoggedUser(), "Переводы"));
         outcomeService.addOutcome(transferOutcome);
-        Income transferIncome = new Income(new BigDecimal(transferDto.getIncomeAmount()), LocalDate.parse(transferDto.getDate()), LocalTime.MIDNIGHT, note, hashtags, toAccount);
+        Income transferIncome = new Income(new BigDecimal(transferDto.getDefaultAmount()), LocalDate.parse(transferDto.getDate()), LocalTime.MIDNIGHT, note, hashtags, toAccount);
         transferIncome.setNote(note);
         incomeService.addIncome(transferIncome);
     }

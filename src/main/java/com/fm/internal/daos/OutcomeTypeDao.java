@@ -8,10 +8,8 @@ import javax.persistence.NoResultException;
 import javax.persistence.criteria.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.Month;
+import java.util.*;
 
 public class OutcomeTypeDao extends GenericDao<OutcomeType> {
 
@@ -130,6 +128,37 @@ public class OutcomeTypeDao extends GenericDao<OutcomeType> {
             outcomeTypesValue.put(outcomeType.getName(), value.doubleValue());
         }
         return outcomeTypesValue;
+    }
+
+    @Transactional
+    public Map<Integer, Map<String, Double>> countOutcomeTypesValueByYear(Account account, int year, List<OutcomeType> types) {
+        Map<Integer, Map<String, Double>> outcomeTypesValueByDay = new TreeMap<>();
+        Session session = getSessionFactory().getCurrentSession();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<Object[]> query = criteriaBuilder.createQuery(Object[].class);
+        Root<Outcome> outcomeRoot = query.from(Outcome.class);
+        query.multiselect(outcomeRoot.get(Outcome_.outcomeType), criteriaBuilder.sum(outcomeRoot.get(Outcome_.amount)));
+        Predicate equalAccount = criteriaBuilder.equal(outcomeRoot.get(Outcome_.account), account);
+        Predicate equalType = outcomeRoot.get(Outcome_.outcomeType).in(types);
+        for (Month month : Month.values()) {
+            Expression monthExp = criteriaBuilder.function("month", Integer.class, outcomeRoot.get(Outcome_.date));
+            Expression yearExp = criteriaBuilder.function("year", Integer.class, outcomeRoot.get(Outcome_.date));
+            Predicate equalMonth = criteriaBuilder.equal(monthExp, month.getValue());
+            Predicate equalYear = criteriaBuilder.equal(yearExp, year);
+            query.where(equalAccount, equalMonth, equalYear, equalType);
+            query.groupBy(outcomeRoot.get(Outcome_.outcomeType));
+            List<Object[]> valueArray = session.createQuery(query).getResultList();
+            Map<String, Double> outcomeTypesValue = new TreeMap<>();
+            if (valueArray.size() > 0) {
+                for (Object[] values : valueArray) {
+                    final OutcomeType outcomeType = (OutcomeType) values[0];
+                    final BigDecimal value = (BigDecimal) values[1];
+                    outcomeTypesValue.put(outcomeType.getName(), value.doubleValue());
+                }
+            }
+            outcomeTypesValueByDay.put(month.getValue(), outcomeTypesValue);
+        }
+        return outcomeTypesValueByDay;
     }
 
     @Transactional

@@ -72,18 +72,17 @@
                                 </div>
                             </a>
                             <div class="panel-footer">
+                                <button class="btn btn-default btn-blue showBtn" type="button" data-toggle="modal"
+                                        data-target='#goalIncomeAdd${goal.id}'>
+                                    Приблизиться
+                                </button>
+                                <%@include file="goal-income-add.jsp"%>
                                 <button class="btn btn-danger showBtn outBtn" type="button"
                                         data-toggle="modal"
                                         data-target="#goalOutcomeAdd${goal.id}">
                                     Расход
                                 </button>
                                 <%@include file="goal-outcome-add.jsp" %>
-                                <button class="btn btn-default btn-blue showBtn" type="button" data-toggle="modal"
-                                        data-target='#goalIncomeAdd${goal.id}'>
-                                    Приблизиться
-                                </button>
-                                    <%@include file="goal-income-add.jsp"%>
-
                             </div>
                         </div>
                     </div>

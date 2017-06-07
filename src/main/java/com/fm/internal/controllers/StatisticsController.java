@@ -46,7 +46,7 @@ public class StatisticsController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/statistics", method = RequestMethod.POST)
+    @RequestMapping(value = "/statistics/month", method = RequestMethod.POST)
     @ResponseBody
     public Object getLineChartJson(@RequestBody StatisticsDto statisticsDto, BindingResult result) {
         User loggedUser = userService.getLoggedUser();
@@ -62,5 +62,17 @@ public class StatisticsController {
             types.add(outcomeTypeService.getOutcomeTypeByNameAndUser(loggedUser, type));
         }
         return outcomeTypeService.countOutcomeTypesValueByMonth(accountByName, LocalDate.parse(date),types);
+    }
+
+    @RequestMapping(value = "/statistics/year", method = RequestMethod.POST)
+    @ResponseBody
+    public Object getLineChartYearJson(@RequestBody StatisticsDto statisticsDto, BindingResult result) {
+        User loggedUser = userService.getLoggedUser();
+        Account accountByName = accountService.findUserAccountByName(loggedUser, statisticsDto.getAccountName());
+        List<OutcomeType> types = new ArrayList<>();
+        for (String type : statisticsDto.getTypes()) {
+            types.add(outcomeTypeService.getOutcomeTypeByNameAndUser(loggedUser, type));
+        }
+        return outcomeTypeService.countOutcomeTypesValueByYear(accountByName, Integer.parseInt(statisticsDto.getYear()), types);
     }
 }

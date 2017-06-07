@@ -23,7 +23,8 @@ $(document).ready(function () {
                 form.each(function () {
                     this.reset();
                 });
-                form.hide('slow');
+                $('.modal').modal('hide');
+                location.reload();
             }).fail(function (error) {
                 var errors = error.responseJSON;
                 for (var key in errors) { //foreach map

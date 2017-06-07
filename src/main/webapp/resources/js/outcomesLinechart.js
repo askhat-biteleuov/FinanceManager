@@ -26,7 +26,7 @@ function LoadLineChart(month, year, accountName, types) {
             request.setRequestHeader(header, token);
         },
         contentType: 'application/json; charset=UTF-8',
-        url: '/statistics',
+        url: '/statistics/month',
         data: JSON.stringify({
             "month": month,
             "year": year,

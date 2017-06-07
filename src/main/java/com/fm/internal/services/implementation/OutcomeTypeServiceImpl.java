@@ -110,6 +110,17 @@ public class OutcomeTypeServiceImpl implements OutcomeTypeService {
     }
 
     @Override
+    public Map<Integer, Map<String, Double>> countOutcomeTypesValueByYear(Account account, int year, List<OutcomeType> types) {
+        Map<Integer, Map<String, Double>> outcomes = outcomeTypeDao.countOutcomeTypesValueByYear(account, year, types);
+        for (OutcomeType type : types) {
+            for (Integer month : outcomes.keySet()) {
+                outcomes.get(month).putIfAbsent(type.getName(), 0.0);
+            }
+        }
+        return outcomes;
+    }
+
+    @Override
     public List<double[]> prepareChartData(Map<Integer, Map<String, Double>> data) {
         List<double[]> preaparedData = new ArrayList<>();
         int numOfTypes = data.get(0).size();
