@@ -5,6 +5,7 @@ import com.fm.internal.dtos.PaginationDto;
 import com.fm.internal.dtos.RangeDto;
 import com.fm.internal.models.Goal;
 import com.fm.internal.models.Income;
+import com.fm.internal.models.Outcome;
 import com.fm.internal.models.User;
 import com.fm.internal.services.*;
 import com.fm.internal.services.implementation.PaginationServiceImpl;
@@ -95,8 +96,8 @@ public class GoalController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value="/page", method = RequestMethod.GET)
-    public ModelAndView goalPage(@RequestParam(value = "goalId") Long goalId,
+    @RequestMapping(value="/page/incomes", method = RequestMethod.GET)
+    public ModelAndView goalIncomesPage(@RequestParam(value = "goalId") Long goalId,
                                  @RequestParam(value = "pageId", required = false) Integer pageId,
                                  @RequestParam(value = "start", required = false) String startFromUrl,
                                  @RequestParam(value = "end", required = false) String endFromUrl,
@@ -116,16 +117,50 @@ public class GoalController {
             start = rangeService.setupStart(rangeDto);
             end = rangeService.setupEnd(rangeDto);
         }
-        ModelAndView modelAndView = new ModelAndView("goal-page");
-        User user = userService.getLoggedUser();
+        ModelAndView modelAndView = new ModelAndView("goal-incomes-page");
         Goal goalById = goalService.getGoalById(goalId);
         long incomesAmount = incomeService.getAccountIncomesNumberByDate(goalById, start, end);
         PaginationDto paginationDto = paginationService.createPagination(goalId, pageId, PAGE_SIZE,
-                incomesAmount, "/goal/page");
+                incomesAmount, "/goal/page/incomes");
         List<Income> incomesPage = incomeService.getAccountIncomesPageByDate(goalById,
                 paginationDto.getFirstItem(), PAGE_SIZE, start, end);
         modelAndView.addObject("paginationDto", paginationDto);
         modelAndView.addObject("incomes", incomesPage);
+        modelAndView.addObject("goalId", goalId);
+        modelAndView.addObject("goal", goalById);
+        return modelAndView;
+    }
+
+    @RequestMapping(value="/page/outcomes", method = RequestMethod.GET)
+    public ModelAndView goalOutcomesPage(@RequestParam(value = "goalId") Long goalId,
+                                 @RequestParam(value = "pageId", required = false) Integer pageId,
+                                 @RequestParam(value = "start", required = false) String startFromUrl,
+                                 @RequestParam(value = "end", required = false) String endFromUrl,
+                                 @ModelAttribute("rangeDto") RangeDto rangeDto) {
+        if (pageId == null) {
+            pageId = 1;
+        }
+        LocalDate start;
+        LocalDate end;
+        if (startFromUrl != null && endFromUrl != null){
+            RangeDto datesFromUrlDto = new RangeDto();
+            datesFromUrlDto.setStart(startFromUrl);
+            datesFromUrlDto.setEnd(endFromUrl);
+            start = rangeService.setupStart(datesFromUrlDto);
+            end = rangeService.setupEnd(datesFromUrlDto);
+        } else {
+            start = rangeService.setupStart(rangeDto);
+            end = rangeService.setupEnd(rangeDto);
+        }
+        ModelAndView modelAndView = new ModelAndView("goal-outcomes-page");
+        Goal goalById = goalService.getGoalById(goalId);
+        long outcomesAmount = outcomeService.getAccountOutcomesNumberByDate(goalById, start, end);
+        PaginationDto paginationDto = paginationService.createPagination(goalId, pageId, PAGE_SIZE,
+                outcomesAmount, "/goal/page/outcomes");
+        List<Outcome> outcomesPage = outcomeService.getAccountOutcomesPageByDate(goalById,
+                paginationDto.getFirstItem(), PAGE_SIZE, start, end);
+        modelAndView.addObject("paginationDto", paginationDto);
+        modelAndView.addObject("incomes", outcomesPage);
         modelAndView.addObject("goalId", goalId);
         modelAndView.addObject("goal", goalById);
         return modelAndView;

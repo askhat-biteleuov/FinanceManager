@@ -27,7 +27,7 @@
                 </td>
                 <td>
                     <c:forEach var="hashtag" items="${income.hashTags}">
-                        <c:url value="/income/all" var="hashtagUrl">
+                        <c:url value="${paginationDto.url}" var="hashtagUrl">
                             <c:param name="hashTag" value="${hashtag.text}"/>
                             <c:if test="${accountId != null}">
                                 <c:param name="accountId" value="${accountId}"/>

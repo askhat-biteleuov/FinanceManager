@@ -21,7 +21,7 @@
             <c:param name="start" value="${rangeDto.start}"/>
         </c:if>
         <c:if test="${goalId != null}">
-            <input type="hidden" name="goalId" value="${goalId}"/>
+            <c:param name="goalId" value="${goalId}"/>
         </c:if>
     </c:url>
     <c:choose>
@@ -50,6 +50,9 @@
             </c:if>
             <c:if test="${rangeDto.start != null}">
                 <c:param name="start" value="${rangeDto.start}"/>
+            </c:if>
+            <c:if test="${goalId != null}">
+                <c:param name="goalId" value="${goalId}"/>
             </c:if>
         </c:url>
         <c:choose>
@@ -80,6 +83,9 @@
         </c:if>
         <c:if test="${rangeDto.start != null}">
             <c:param name="start" value="${rangeDto.start}"/>
+        </c:if>
+        <c:if test="${goalId != null}">
+            <c:param name="goalId" value="${goalId}"/>
         </c:if>
     </c:url>
     <c:choose>

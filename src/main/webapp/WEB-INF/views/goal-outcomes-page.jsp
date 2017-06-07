@@ -14,10 +14,10 @@
     <jsp:include page="../fragments/back-button.jsp"/>
     <div class="container">
         <div class="col-sm-11 col-sm-offset-1">
-            <h2 align="center" class="page-header">Приходы</h2>
+            <h2 align="center" class="page-header">Расходы</h2>
             <div class="article">
                 <div class="row">
-                    <form:form method="get" action="/goal/page" modelAttribute="rangeDto" id="rangeForm"
+                    <form:form method="get" action="/goal/page/outcomes" modelAttribute="rangeDto" id="rangeForm"
                                cssClass="form-inline col-md-7 col-sm-7">
                         <div class="input-daterange input-group col-sm-9 col-sm-pull-3" id="datepicker-range">
                             <form:input path="start" type="text" cssClass="form-control" name="start"
@@ -41,19 +41,32 @@
                         </script>
                     </form:form>
                 </div>
+                <ul class="nav nav-tabs nav-justified">
+                    <c:url value="/goal/page/incomes" var="incomesTabUrl">
+                        <c:if test="${goalId != null}">
+                            <c:param name="goalId" value="${goalId}"/>
+                        </c:if>
+                    </c:url>
+                    <li><a href="${incomesTabUrl}">Приходы</a></li>
+                    <c:url value="/goal/page/outcomes" var="outcomesTabUrl">
+                        <c:if test="${goalId != null}">
+                            <c:param name="goalId" value="${goalId}"/>
+                        </c:if>
+                    </c:url>
+                    <li class="active"><a href="${outcomesTabUrl}">Расходы</a></li>
+                </ul>
                 <c:choose>
-                    <c:when test="${not empty incomes}">
+                    <c:when test="${not empty outcomes}">
                         <br>
-                        <jsp:include page="../fragments/goal-incomes-table.jsp"/>
+                        <jsp:include page="../fragments/outcomes-table.jsp"/>
                         <div align="center">
                             <jsp:include page="../fragments/pagination.jsp"/>
                         </div>
-
                     </c:when>
                     <c:otherwise>
                         <div>
                             <br>
-                            <h3>Пока нет приходов и расходов на данную цель.</h3>
+                            <h3>Пока нет расходов с данной цели.</h3>
                         </div>
                     </c:otherwise>
                 </c:choose>
