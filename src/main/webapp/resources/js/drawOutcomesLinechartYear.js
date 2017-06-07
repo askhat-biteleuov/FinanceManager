@@ -11,9 +11,11 @@ function drawLineChartYear(data) {
     }
 
     var numOfTypes = Object.keys(data[1]).length;
+    var months = [];
 
     for (var month in data) {
         var dataArr = [numOfTypes + 1];
+        months.push(new Date($('#yearSelectYear').val(), month-1));
         dataArr[0] = new Date($('#yearSelectYear').val(), month-1);
         var i = 1;
         for (var type in data[month]) {
@@ -26,18 +28,15 @@ function drawLineChartYear(data) {
 
     var options = {
 
-        chart: {
-            title: "Сумма расходов по категориям за месяц"
-
-        },
+        title: "Сумма расходов по категориям за месяц",
         backgroundColor: 'transparent',
         hAxis: {
-            viewWindowMode: 'explicit'
+            ticks: months
         }
     };
 
-    var chart = new google.charts.Line(document.getElementById('linechartYear'));
-    chart.draw(dataTable, google.charts.Line.convertOptions(options));
+    var chart = new google.visualization.LineChart(document.getElementById('linechartYear'));
+    chart.draw(dataTable, options);
 }
 
 function refreshLineChartYear() {
