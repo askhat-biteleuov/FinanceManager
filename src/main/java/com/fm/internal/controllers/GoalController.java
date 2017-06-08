@@ -73,7 +73,13 @@ public class GoalController {
         } else {
             modelAndView.addObject("goalsMessages", goalService.getGoalsWithoutIncomeForMonth(loggedUser));
             modelAndView.addObject("currencies", currencyService.getCurrencies());
-            modelAndView.addObject("goals", goalService.getGoalsByUser(loggedUser));
+            List<Goal> userGoals = goalService.getGoalsByUser(loggedUser);
+            userGoals.forEach(goal -> {
+                if (goal.getDate().isAfter(LocalDate.now()) && !goal.isOverdue()) {
+                    goal.setOverdue(true);
+                }
+            });
+            modelAndView.addObject("goals", userGoals);
             modelAndView.setViewName("goal-list");
         }
         modelAndView.addObject("accounts", accountService.findAllUserAccounts(loggedUser));

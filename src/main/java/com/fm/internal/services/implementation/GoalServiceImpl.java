@@ -21,8 +21,6 @@ public class GoalServiceImpl implements GoalService{
     private GoalDao goalDao;
     @Autowired
     private CurrencyService currencyService;
-    @Autowired
-    private IncomeService incomeService;
 
     @Override
     public List<Goal> getGoalsByUser(User user) {

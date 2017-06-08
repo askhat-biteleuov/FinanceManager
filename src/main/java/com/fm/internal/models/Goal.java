@@ -13,6 +13,10 @@ public class Goal extends Account{
     private BigDecimal goalAmount;
     @Column(nullable = false)
     private LocalDate date;
+    @Column
+    private boolean isOverdue;
+    @Column
+    private boolean isFinished;
 
     public Goal() {
     }
@@ -21,6 +25,8 @@ public class Goal extends Account{
         super(name, balance, type, user, currency);
         this.goalAmount = goalAmount;
         this.date = date;
+        this.isFinished = false;
+        this.isOverdue = false;
     }
 
     public BigDecimal getGoalAmount() {
@@ -37,5 +43,21 @@ public class Goal extends Account{
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public boolean isOverdue() {
+        return isOverdue;
+    }
+
+    public void setOverdue(boolean overdue) {
+        isOverdue = overdue;
+    }
+
+    public boolean isFinished() {
+        return isFinished;
+    }
+
+    public void setFinished(boolean finished) {
+        isFinished = finished;
     }
 }
