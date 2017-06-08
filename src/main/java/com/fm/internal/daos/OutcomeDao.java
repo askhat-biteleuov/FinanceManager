@@ -9,6 +9,7 @@ import javax.persistence.criteria.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class OutcomeDao extends GenericDao<Outcome> {
 
@@ -168,6 +169,21 @@ public class OutcomeDao extends GenericDao<Outcome> {
         Predicate matchingHashTag = builder.equal(hashTagJoin.get(HashTag_.text), hashTag.getText());
         Predicate betweenDate = builder.between(outcomeRoot.get(Outcome_.date), start, end);
         query.where(matchingHashTag, equalAccount, betweenDate);
+        return currentSession.createQuery(query).getResultList();
+    }
+
+    @Transactional
+    public List<Outcome> getOutcomesByAccountAndHashTags(Account account, List<HashTag> hashTags, LocalDate start, LocalDate end){
+        List<String> hashTagsText = hashTags.stream().map(hashTag -> hashTag.getText()).collect(Collectors.toList());
+        Session currentSession = getSessionFactory().getCurrentSession();
+        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
+        CriteriaQuery<Outcome> query = builder.createQuery(Outcome.class);
+        Root<Outcome> outcomeRoot = query.from(Outcome.class);
+        Predicate equalAccount = builder.equal(outcomeRoot.get(Outcome_.account), account);
+        Join<Outcome, HashTag> hashTagJoin = outcomeRoot.join(Outcome_.hashTags);
+        Predicate matchingHashTags = hashTagJoin.get(HashTag_.text).in(hashTagsText);
+        Predicate betweenDate = builder.between(outcomeRoot.get(Outcome_.date), start, end);
+        query.where(matchingHashTags, equalAccount, betweenDate);
         return currentSession.createQuery(query).getResultList();
     }
 
