@@ -41,6 +41,7 @@
                         </script>
                     </form:form>
                 </div>
+                <br>
                 <ul class="nav nav-tabs nav-justified">
                     <c:url value="/goal/page/incomes" var="incomesTabUrl">
                         <c:if test="${goalId != null}">

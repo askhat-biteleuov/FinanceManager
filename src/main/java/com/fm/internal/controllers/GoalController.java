@@ -108,6 +108,7 @@ public class GoalController {
                                  @RequestParam(value = "start", required = false) String startFromUrl,
                                  @RequestParam(value = "end", required = false) String endFromUrl,
                                  @ModelAttribute("rangeDto") RangeDto rangeDto) {
+        User loggedUser = userService.getLoggedUser();
         if (pageId == null) {
             pageId = 1;
         }
@@ -134,6 +135,7 @@ public class GoalController {
         modelAndView.addObject("incomes", incomesPage);
         modelAndView.addObject("goalId", goalId);
         modelAndView.addObject("goal", goalById);
+        modelAndView.addObject("statusBarDto", statusBarService.getStatusBar(loggedUser));
         return modelAndView;
     }
 
@@ -143,6 +145,7 @@ public class GoalController {
                                  @RequestParam(value = "start", required = false) String startFromUrl,
                                  @RequestParam(value = "end", required = false) String endFromUrl,
                                  @ModelAttribute("rangeDto") RangeDto rangeDto) {
+        User loggedUser = userService.getLoggedUser();
         if (pageId == null) {
             pageId = 1;
         }
@@ -169,6 +172,7 @@ public class GoalController {
         modelAndView.addObject("incomes", outcomesPage);
         modelAndView.addObject("goalId", goalId);
         modelAndView.addObject("goal", goalById);
+        modelAndView.addObject("statusBarDto", statusBarService.getStatusBar(loggedUser));
         return modelAndView;
     }
 
