@@ -169,7 +169,7 @@ public class GoalController {
         List<Outcome> outcomesPage = outcomeService.getAccountOutcomesPageByDate(goalById,
                 paginationDto.getFirstItem(), PAGE_SIZE, start, end);
         modelAndView.addObject("paginationDto", paginationDto);
-        modelAndView.addObject("incomes", outcomesPage);
+        modelAndView.addObject("outcomes", outcomesPage);
         modelAndView.addObject("goalId", goalId);
         modelAndView.addObject("goal", goalById);
         modelAndView.addObject("statusBarDto", statusBarService.getStatusBar(loggedUser));
