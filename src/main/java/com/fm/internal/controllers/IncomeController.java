@@ -9,6 +9,7 @@ import com.fm.internal.models.Income;
 import com.fm.internal.models.User;
 import com.fm.internal.services.*;
 import com.fm.internal.services.implementation.PaginationServiceImpl;
+import com.fm.internal.services.implementation.UtilServiceImpl;
 import com.fm.internal.validation.util.ValidErrors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -46,6 +47,10 @@ public class IncomeController {
     private RangeService rangeService;
     @Autowired
     private GoalService goalService;
+    @Autowired
+    private HashTagService hashTagService;
+    @Autowired
+    private UtilServiceImpl utilService;
 
     final int PAGE_SIZE = 10;
 
@@ -100,6 +105,7 @@ public class IncomeController {
             }
             modelAndView.addObject("hashTag", hashTag);
         }
+        modelAndView.addObject("hashtags", hashTagService.getHashTagsByUser(user));
         modelAndView.addObject("statusBarDto", statusBarService.getStatusBar(user));
         modelAndView.addObject("user", user);
         modelAndView.addObject("goalsMessages", goalService.getGoalsWithoutIncomeForMonth(user));
@@ -166,16 +172,19 @@ public class IncomeController {
         return new ModelAndView("redirect:" + referer);
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public Object updateIncome(@RequestBody IncomeDto incomeDto) {
-        Income incomeById = incomeService.findById(incomeDto.getIncomeId());
-        if (incomeById != null) {
-            incomeById.setNote(incomeDto.getNote());
-            incomeService.updateIncome(incomeById);
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    public Object editIncome(@RequestBody IncomeDto incomeDto) {
+        Income income = incomeService.findById(incomeDto.getIncomeId());
+        if (income != null) {
+            if (incomeDto.getDate().length() != 0) {
+                income.setDate(LocalDate.parse(incomeDto.getDate()));
+            }
+            income.setHashTags(utilService.parseHashTags(userService.getLoggedUser(), incomeDto.getHashTags()));
+            income.setNote(incomeDto.getNote());
+            incomeService.updateIncome(income);
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
-
 }
 

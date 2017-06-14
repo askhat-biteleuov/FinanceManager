@@ -53,6 +53,7 @@ public class OutcomeTypesController {
     @Autowired
     private GoalService goalService;
 
+
     @RequestMapping(value = "/page", method = RequestMethod.GET)
     public ModelAndView showOutcomeType(Long itemId, Integer pageId, @ModelAttribute("rangeDto")RangeDto rangeDto) {
         if (pageId == null) {

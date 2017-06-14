@@ -5,7 +5,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <t:master-page title="Список расходов">
-    <script src="<c:url value="/resources/js/editNotes.js"/>"></script>
     <jsp:include page="../fragments/back-button.jsp"/>
     <div class="container">
         <div class="col-sm-11 col-sm-offset-1">
@@ -14,7 +13,21 @@
                 <div class="row">
                     <form class="form-group form-inline col-md-5 col-sm-5" method="get" action="/outcome/all"
                           id="searchForm">
-                        <input class="form-control col-sm-3" placeholder="Hashtag" type="text" name="hashTag"/>
+                        <select name="hashTag" class=" col-sm-3 tags-select form-control hashtagsSearch" multiple>
+                            <c:forEach items="${hashtags}" var="hashtag">
+                                <option value="${hashtag.text}">${hashtag.text}</option>
+                            </c:forEach>
+                        </select>
+                        <script>
+                            $(document).ready(function () {
+                                $(".hashtagsSearch").select2({
+                                    placeholder: "Хэштеги",
+                                    tags: true,
+                                    theme: "bootstrap",
+                                    tokenSeparators: [',', ' ', '#']
+                                });
+                            });
+                        </script>
                         <button type="submit" class="btn btn-green col-xs-12 col-sm-2">
                             <span class="glyphicon glyphicon-search"></span>
                         </button>

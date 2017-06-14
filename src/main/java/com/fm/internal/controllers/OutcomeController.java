@@ -7,6 +7,7 @@ import com.fm.internal.dtos.RangeDto;
 import com.fm.internal.models.*;
 import com.fm.internal.services.*;
 import com.fm.internal.services.implementation.PaginationServiceImpl;
+import com.fm.internal.services.implementation.UtilServiceImpl;
 import com.fm.internal.validation.util.ValidErrors;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,10 @@ public class OutcomeController {
     private RangeService rangeService;
     @Autowired
     private GoalService goalService;
+    @Autowired
+    private HashTagService hashTagService;
+    @Autowired
+    private UtilServiceImpl utilService;
 
     final int PAGE_SIZE = 10;
 
@@ -117,6 +122,8 @@ public class OutcomeController {
             }
             modelAndView.addObject("hashTag", hashTag);
         }
+        modelAndView.addObject("hashtags", hashTagService.getHashTagsByUser(user));
+        modelAndView.addObject("outcometypes", outcomeTypeService.getAvailableOutcomeTypes(user));
         modelAndView.addObject("statusBarDto", statusBarService.getStatusBar(user));
         modelAndView.addObject("user", user);
         modelAndView.addObject("goalsMessages", goalService.getGoalsWithoutIncomeForMonth(user));
@@ -176,6 +183,7 @@ public class OutcomeController {
                 typeOutcomesAmount, "/outcome/all");
         List<Outcome> outcomesPage = outcomeTypeService.getOutcomesOfTypeByDate(outcomeType, paginationDto.getFirstItem(),
                 PAGE_SIZE, start, end);
+        modelAndView.addObject("hashtags", hashTagService.getHashTagsByUser(userService.getLoggedUser()));
         modelAndView.addObject("paginationDto", paginationDto);
         modelAndView.addObject("outcomes", outcomesPage);
         modelAndView.addObject("outcomeTypeId", outcomeTypeId);
@@ -215,10 +223,15 @@ public class OutcomeController {
         return new ModelAndView("redirect:" + referer);
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public Object updateOutcome(@RequestBody OutcomeDto outcomeDto) {
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    public Object editOutcome(@RequestBody OutcomeDto outcomeDto) {
         Outcome outcome = outcomeService.findById(outcomeDto.getOutcomeId());
         if (outcome != null) {
+            outcome.setOutcomeType(outcomeTypeService.findTypeById(outcomeDto.getOutcomeTypeId()));
+            if (outcomeDto.getDate().length() != 0) {
+                outcome.setDate(LocalDate.parse(outcomeDto.getDate()));
+            }
+            outcome.setHashTags(utilService.parseHashTags(userService.getLoggedUser(), outcomeDto.getHashTags()));
             outcome.setNote(outcomeDto.getNote());
             outcomeService.updateOutcome(outcome);
             return new ResponseEntity<>(HttpStatus.OK);
