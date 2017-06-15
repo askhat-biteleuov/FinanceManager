@@ -27,6 +27,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/goal")
@@ -75,11 +77,23 @@ public class GoalController {
             modelAndView.addObject("currencies", currencyService.getCurrencies());
             List<Goal> userGoals = goalService.getGoalsByUser(loggedUser);
             userGoals.forEach(goal -> {
-                if (goal.getDate().isAfter(LocalDate.now()) && !goal.isOverdue()) {
-                    goal.setOverdue(true);
+                if (!goal.isFinished()) {
+                    if (goal.getDate().isBefore(LocalDate.now()) && !goal.isOverdue()) {
+                        goal.setOverdue(true);
+                        goalService.updateGoal(goal);
+                    }
+                    if (goal.getDate().isAfter(LocalDate.now()) && goal.isOverdue()) {
+                        goal.setOverdue(false);
+                        goalService.updateGoal(goal);
+                    }
                 }
             });
-            modelAndView.addObject("goals", userGoals);
+            List overdueGoals = userGoals.stream().filter(goal -> goal.isOverdue() && !goal.isFinished()).collect(Collectors.toList());
+            List finishedGoals = userGoals.stream().filter(goal -> goal.isFinished()).collect(Collectors.toList());
+            userGoals = userGoals.stream().filter(goal -> !goal.isFinished() && !goal.isOverdue()).collect(Collectors.toList());
+            modelAndView.addObject("activeGoals", userGoals);
+            modelAndView.addObject("overdueGoals", overdueGoals);
+            modelAndView.addObject("finishedGoals", finishedGoals);
             modelAndView.setViewName("goal-list");
         }
         modelAndView.addObject("accounts", accountService.findAllUserAccounts(loggedUser));
@@ -136,6 +150,8 @@ public class GoalController {
         modelAndView.addObject("goalId", goalId);
         modelAndView.addObject("goal", goalById);
         modelAndView.addObject("statusBarDto", statusBarService.getStatusBar(loggedUser));
+        modelAndView.addObject("goalsMessages", goalService.getGoalsWithoutIncomeForMonth(loggedUser));
+        modelAndView.addObject("currencies", currencyService.getCurrencies());
         return modelAndView;
     }
 
@@ -173,6 +189,8 @@ public class GoalController {
         modelAndView.addObject("goalId", goalId);
         modelAndView.addObject("goal", goalById);
         modelAndView.addObject("statusBarDto", statusBarService.getStatusBar(loggedUser));
+        modelAndView.addObject("goalsMessages", goalService.getGoalsWithoutIncomeForMonth(loggedUser));
+        modelAndView.addObject("currencies", currencyService.getCurrencies());
         return modelAndView;
     }
 
@@ -191,5 +209,13 @@ public class GoalController {
         goalService.updateGoal(goal);
         LOGGER.info("Goal with id:" + goalDto.getId() + " was updated");
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value="/finish", method = RequestMethod.POST)
+    public Object finishGoal(Long goalId){
+        Goal goal = goalService.getGoalById(goalId);
+        goal.setFinished(true);
+        goalService.updateGoal(goal);
+        return new ModelAndView("redirect:" + "/goal");
     }
 }

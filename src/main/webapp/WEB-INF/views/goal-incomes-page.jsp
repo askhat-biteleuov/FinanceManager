@@ -72,6 +72,34 @@
                         </div>
                     </c:otherwise>
                 </c:choose>
+                <c:if test="${!goal.isFinished()}">
+                    <div>
+                        <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#goal-finish">
+                            Закрыть цель
+                        </button>
+                        <div class="modal fade" id="goal-finish" tabindex="-1" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button class="close" type="button" data-dismiss="modal">×</button>
+                                        <h4 class="modal-title">
+                                            Закрыть цель "${goal.name}"
+                                        </h4>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <form action="<c:url value="/goal/finish"/>" method="POST">
+                                            <input type="hidden" name="goalId" value="${goal.id}">
+                                            <button class="btn btn-danger btn-block" type="submit">Закрыть цель</button>
+                                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                        </form>
+                                        <br>
+                                        <button class="btn btn-default btn-block" type="button" data-dismiss="modal">Отмена</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </c:if>
             </div>
         </div>
     </div>
