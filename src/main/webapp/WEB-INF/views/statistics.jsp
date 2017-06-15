@@ -11,8 +11,8 @@
     <body>
     <div class="container">
         <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#byMonth">За месяц</a></li>
-            <li><a data-toggle="tab" href="#byYear">За год</a></li>
+            <li class="active" id="tab-by-month"><a data-toggle="tab" href="#byMonth">За месяц</a></li>
+            <li id="tab-by-year"><a data-toggle="tab" href="#byYear">За год</a></li>
         </ul>
         <div class="tab-content">
             <div id="byMonth" class="tab-pane fade in active">

@@ -47,7 +47,7 @@ public class AccountServiceImpl implements AccountService {
         if (user == null) {
             return null;
         } else {
-            return user.getAccounts().stream().filter(account -> account instanceof Account).collect(Collectors.toList());
+            return user.getAccounts().stream().filter(account -> !(account instanceof Goal)).collect(Collectors.toList());
         }
     }
 

@@ -25,7 +25,7 @@ public interface DailyInfoSoap {
 
 
     /**
-     * Сальдо операций ЦБ РФ по предоставлению/абсорбированию ликвидности (XMLDocument)
+     * РЎР°Р»СЊРґРѕ РѕРїРµСЂР°С†РёР№ Р¦Р‘ Р Р¤ РїРѕ РїСЂРµРґРѕСЃС‚Р°РІР»РµРЅРёСЋ/Р°Р±СЃРѕСЂР±РёСЂРѕРІР°РЅРёСЋ Р»РёРєРІРёРґРЅРѕСЃС‚Рё (XMLDocument)
      * 
      * @param fromDate
      * @param toDate
@@ -43,7 +43,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Ставка ROISfix (XMLDocument)
+     * РЎС‚Р°РІРєР° ROISfix (XMLDocument)
      * 
      * @param fromDate
      * @param toDate
@@ -61,7 +61,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Ставка Ruonia (XMLDocument)
+     * РЎС‚Р°РІРєР° Ruonia (XMLDocument)
      * 
      * @param fromDate
      * @param toDate
@@ -79,7 +79,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Депозиты банков в Банке России (млн. руб) (как xmlDocument)
+     * Р”РµРїРѕР·РёС‚С‹ Р±Р°РЅРєРѕРІ РІ Р‘Р°РЅРєРµ Р РѕСЃСЃРёРё (РјР»РЅ. СЂСѓР±) (РєР°Рє xmlDocument)
      * 
      * @param fromDate
      * @param toDate
@@ -97,7 +97,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Данные по интервенциям Банка России на внутреннем валютном рынке - Ежедневные значения (как xmlDocument)
+     * Р”Р°РЅРЅС‹Рµ РїРѕ РёРЅС‚РµСЂРІРµРЅС†РёСЏРј Р‘Р°РЅРєР° Р РѕСЃСЃРёРё РЅР° РІРЅСѓС‚СЂРµРЅРЅРµРј РІР°Р»СЋС‚РЅРѕРј СЂС‹РЅРєРµ - Р•Р¶РµРґРЅРµРІРЅС‹Рµ Р·РЅР°С‡РµРЅРёСЏ (РєР°Рє xmlDocument)
      * 
      * @param fromDate
      * @param toDate
@@ -115,7 +115,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Данные по интервенциям Банка России на внутреннем валютном рынке - Ежедневные значения
+     * Р”Р°РЅРЅС‹Рµ РїРѕ РёРЅС‚РµСЂРІРµРЅС†РёСЏРј Р‘Р°РЅРєР° Р РѕСЃСЃРёРё РЅР° РІРЅСѓС‚СЂРµРЅРЅРµРј РІР°Р»СЋС‚РЅРѕРј СЂС‹РЅРєРµ - Р•Р¶РµРґРЅРµРІРЅС‹Рµ Р·РЅР°С‡РµРЅРёСЏ
      * 
      * @param fromDate
      * @param toDate
@@ -133,7 +133,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Депозиты банков в Банке России (млн. руб)
+     * Р”РµРїРѕР·РёС‚С‹ Р±Р°РЅРєРѕРІ РІ Р‘Р°РЅРєРµ Р РѕСЃСЃРёРё (РјР»РЅ. СЂСѓР±)
      * 
      * @param fromDate
      * @param toDate
@@ -151,7 +151,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Ставка ROISfix (DataSet)
+     * РЎС‚Р°РІРєР° ROISfix (DataSet)
      * 
      * @param fromDate
      * @param toDate
@@ -169,7 +169,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Ставка RUONIA (DataSet)
+     * РЎС‚Р°РІРєР° RUONIA (DataSet)
      * 
      * @param fromDate
      * @param toDate
@@ -187,7 +187,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Международные резервы Российской Федерации, еженедельные значения (DataSet)
+     * РњРµР¶РґСѓРЅР°СЂРѕРґРЅС‹Рµ СЂРµР·РµСЂРІС‹ Р РѕСЃСЃРёР№СЃРєРѕР№ Р¤РµРґРµСЂР°С†РёРё, РµР¶РµРЅРµРґРµР»СЊРЅС‹Рµ Р·РЅР°С‡РµРЅРёСЏ (DataSet)
      * 
      * @param fromDate
      * @param toDate
@@ -205,7 +205,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Международные резервы Российской Федерации, еженедельные значения  (XMLDocument)
+     * РњРµР¶РґСѓРЅР°СЂРѕРґРЅС‹Рµ СЂРµР·РµСЂРІС‹ Р РѕСЃСЃРёР№СЃРєРѕР№ Р¤РµРґРµСЂР°С†РёРё, РµР¶РµРЅРµРґРµР»СЊРЅС‹Рµ Р·РЅР°С‡РµРЅРёСЏ  (XMLDocument)
      * 
      * @param fromDate
      * @param toDate
@@ -223,7 +223,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Задолженность кредитных организаций перед Банком России по операциям РЕПО в иностранной валюте (DataSet)
+     * Р—Р°РґРѕР»Р¶РµРЅРЅРѕСЃС‚СЊ РєСЂРµРґРёС‚РЅС‹С… РѕСЂРіР°РЅРёР·Р°С†РёР№ РїРµСЂРµРґ Р‘Р°РЅРєРѕРј Р РѕСЃСЃРёРё РїРѕ РѕРїРµСЂР°С†РёСЏРј Р Р•РџРћ РІ РёРЅРѕСЃС‚СЂР°РЅРЅРѕР№ РІР°Р»СЋС‚Рµ (DataSet)
      * 
      * @param fromDate
      * @param toDate
@@ -241,7 +241,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Задолженность кредитных организаций перед Банком России по операциям РЕПО в иностранной валюте  (XMLDocument)
+     * Р—Р°РґРѕР»Р¶РµРЅРЅРѕСЃС‚СЊ РєСЂРµРґРёС‚РЅС‹С… РѕСЂРіР°РЅРёР·Р°С†РёР№ РїРµСЂРµРґ Р‘Р°РЅРєРѕРј Р РѕСЃСЃРёРё РїРѕ РѕРїРµСЂР°С†РёСЏРј Р Р•РџРћ РІ РёРЅРѕСЃС‚СЂР°РЅРЅРѕР№ РІР°Р»СЋС‚Рµ  (XMLDocument)
      * 
      * @param fromDate
      * @param toDate
@@ -259,7 +259,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Международные резервы Российской Федерации, ежемесячные значения  (DataSet)
+     * РњРµР¶РґСѓРЅР°СЂРѕРґРЅС‹Рµ СЂРµР·РµСЂРІС‹ Р РѕСЃСЃРёР№СЃРєРѕР№ Р¤РµРґРµСЂР°С†РёРё, РµР¶РµРјРµСЃСЏС‡РЅС‹Рµ Р·РЅР°С‡РµРЅРёСЏ  (DataSet)
      * 
      * @param fromDate
      * @param toDate
@@ -277,7 +277,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Международные резервы Российской Федерации, ежемесячные значения  (XMLDocument)
+     * РњРµР¶РґСѓРЅР°СЂРѕРґРЅС‹Рµ СЂРµР·РµСЂРІС‹ Р РѕСЃСЃРёР№СЃРєРѕР№ Р¤РµРґРµСЂР°С†РёРё, РµР¶РµРјРµСЃСЏС‡РЅС‹Рµ Р·РЅР°С‡РµРЅРёСЏ  (XMLDocument)
      * 
      * @param fromDate
      * @param toDate
@@ -295,7 +295,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Сальдо операций ЦБ РФ по предоставлению/абсорбированию ликвидности (DataSet)
+     * РЎР°Р»СЊРґРѕ РѕРїРµСЂР°С†РёР№ Р¦Р‘ Р Р¤ РїРѕ РїСЂРµРґРѕСЃС‚Р°РІР»РµРЅРёСЋ/Р°Р±СЃРѕСЂР±РёСЂРѕРІР°РЅРёСЋ Р»РёРєРІРёРґРЅРѕСЃС‚Рё (DataSet)
      * 
      * @param fromDate
      * @param toDate
@@ -313,7 +313,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Получение новостей сервера (XMLDocument)
+     * РџРѕР»СѓС‡РµРЅРёРµ РЅРѕРІРѕСЃС‚РµР№ СЃРµСЂРІРµСЂР° (XMLDocument)
      * 
      * @param fromDate
      * @param toDate
@@ -331,7 +331,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Операции на открытом рынке (как XMLDocument)
+     * РћРїРµСЂР°С†РёРё РЅР° РѕС‚РєСЂС‹С‚РѕРј СЂС‹РЅРєРµ (РєР°Рє XMLDocument)
      * 
      * @return
      *     returns ru.cbr.web.OmodInfoXMLResponse.OmodInfoXMLResult
@@ -343,7 +343,7 @@ public interface DailyInfoSoap {
     public ru.cbr.web.OmodInfoXMLResponse.OmodInfoXMLResult omodInfoXML();
 
     /**
-     * Операции Банка России на рынке государственных ценных бумаг по поручению Министерства финансов Российской Федерации (как DataSet)
+     * РћРїРµСЂР°С†РёРё Р‘Р°РЅРєР° Р РѕСЃСЃРёРё РЅР° СЂС‹РЅРєРµ РіРѕСЃСѓРґР°СЂСЃС‚РІРµРЅРЅС‹С… С†РµРЅРЅС‹С… Р±СѓРјР°Рі РїРѕ РїРѕСЂСѓС‡РµРЅРёСЋ РњРёРЅРёСЃС‚РµСЂСЃС‚РІР° С„РёРЅР°РЅСЃРѕРІ Р РѕСЃСЃРёР№СЃРєРѕР№ Р¤РµРґРµСЂР°С†РёРё (РєР°Рє DataSet)
      * 
      * @param fromDate
      * @param toDate
@@ -361,7 +361,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Операции Банка России на рынке государственных ценных бумаг по поручению Министерства финансов Российской Федерации  (XMLDocument)
+     * РћРїРµСЂР°С†РёРё Р‘Р°РЅРєР° Р РѕСЃСЃРёРё РЅР° СЂС‹РЅРєРµ РіРѕСЃСѓРґР°СЂСЃС‚РІРµРЅРЅС‹С… С†РµРЅРЅС‹С… Р±СѓРјР°Рі РїРѕ РїРѕСЂСѓС‡РµРЅРёСЋ РњРёРЅРёСЃС‚РµСЂСЃС‚РІР° С„РёРЅР°РЅСЃРѕРІ Р РѕСЃСЃРёР№СЃРєРѕР№ Р¤РµРґРµСЂР°С†РёРё  (XMLDocument)
      * 
      * @param fromDate
      * @param toDate
@@ -379,7 +379,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Получение основной информации - Ставка рефинансирования, золотовалютные резервы, денежная база, денежная масса (как XMLDocument)
+     * РџРѕР»СѓС‡РµРЅРёРµ РѕСЃРЅРѕРІРЅРѕР№ РёРЅС„РѕСЂРјР°С†РёРё - РЎС‚Р°РІРєР° СЂРµС„РёРЅР°РЅСЃРёСЂРѕРІР°РЅРёСЏ, Р·РѕР»РѕС‚РѕРІР°Р»СЋС‚РЅС‹Рµ СЂРµР·РµСЂРІС‹, РґРµРЅРµР¶РЅР°СЏ Р±Р°Р·Р°, РґРµРЅРµР¶РЅР°СЏ РјР°СЃСЃР° (РєР°Рє XMLDocument)
      * 
      * @return
      *     returns ru.cbr.web.MainInfoXMLResponse.MainInfoXMLResult
@@ -391,7 +391,7 @@ public interface DailyInfoSoap {
     public ru.cbr.web.MainInfoXMLResponse.MainInfoXMLResult mainInfoXML();
 
     /**
-     * Получение всей оперативной информации (XmlDocument) ver 26.01.2017
+     * РџРѕР»СѓС‡РµРЅРёРµ РІСЃРµР№ РѕРїРµСЂР°С‚РёРІРЅРѕР№ РёРЅС„РѕСЂРјР°С†РёРё (XmlDocument) ver 26.01.2017
      * 
      * @return
      *     returns ru.cbr.web.AllDataInfoXMLResponse.AllDataInfoXMLResult
@@ -403,7 +403,7 @@ public interface DailyInfoSoap {
     public ru.cbr.web.AllDataInfoXMLResponse.AllDataInfoXMLResult allDataInfoXML();
 
     /**
-     * Получение новостей сервера (DataSet)
+     * РџРѕР»СѓС‡РµРЅРёРµ РЅРѕРІРѕСЃС‚РµР№ СЃРµСЂРІРµСЂР° (DataSet)
      * 
      * @param fromDate
      * @param toDate
@@ -421,7 +421,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Задолженность кредитных организаций перед Банком России по сделкам «валютный своп» (DataSet)
+     * Р—Р°РґРѕР»Р¶РµРЅРЅРѕСЃС‚СЊ РєСЂРµРґРёС‚РЅС‹С… РѕСЂРіР°РЅРёР·Р°С†РёР№ РїРµСЂРµРґ Р‘Р°РЅРєРѕРј Р РѕСЃСЃРёРё РїРѕ СЃРґРµР»РєР°Рј В«РІР°Р»СЋС‚РЅС‹Р№ СЃРІРѕРїВ» (DataSet)
      * 
      * @param fromDate
      * @param toDate
@@ -439,7 +439,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Задолженность кредитных организаций перед Банком России по сделкам «валютный своп» (XMLDocument)
+     * Р—Р°РґРѕР»Р¶РµРЅРЅРѕСЃС‚СЊ РєСЂРµРґРёС‚РЅС‹С… РѕСЂРіР°РЅРёР·Р°С†РёР№ РїРµСЂРµРґ Р‘Р°РЅРєРѕРј Р РѕСЃСЃРёРё РїРѕ СЃРґРµР»РєР°Рј В«РІР°Р»СЋС‚РЅС‹Р№ СЃРІРѕРїВ» (XMLDocument)
      * 
      * @param fromDate
      * @param toDate
@@ -457,7 +457,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Валютный своп buy/sell overnight (XMLDocument)
+     * Р’Р°Р»СЋС‚РЅС‹Р№ СЃРІРѕРї buy/sell overnight (XMLDocument)
      * 
      * @param fromDate
      * @param toDate
@@ -475,7 +475,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Объем сделок «валютный своп» по продаже долларов США за рубли, заключенных Банком России (XMLDocument)
+     * РћР±СЉРµРј СЃРґРµР»РѕРє В«РІР°Р»СЋС‚РЅС‹Р№ СЃРІРѕРїВ» РїРѕ РїСЂРѕРґР°Р¶Рµ РґРѕР»Р»Р°СЂРѕРІ РЎРЁРђ Р·Р° СЂСѓР±Р»Рё, Р·Р°РєР»СЋС‡РµРЅРЅС‹С… Р‘Р°РЅРєРѕРј Р РѕСЃСЃРёРё (XMLDocument)
      * 
      * @param fromDate
      * @param toDate
@@ -493,7 +493,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Объем сделок «валютный своп» по продаже долларов США за рубли, заключенных Банком России (DataSet) ver 21.11.2014
+     * РћР±СЉРµРј СЃРґРµР»РѕРє В«РІР°Р»СЋС‚РЅС‹Р№ СЃРІРѕРїВ» РїРѕ РїСЂРѕРґР°Р¶Рµ РґРѕР»Р»Р°СЂРѕРІ РЎРЁРђ Р·Р° СЂСѓР±Р»Рё, Р·Р°РєР»СЋС‡РµРЅРЅС‹С… Р‘Р°РЅРєРѕРј Р РѕСЃСЃРёРё (DataSet) ver 21.11.2014
      * 
      * @param fromDate
      * @param toDate
@@ -511,7 +511,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Условия заключения сделок «валютный своп» по продаже долларов США за рубли (DataSet) ver 18.09.2014
+     * РЈСЃР»РѕРІРёСЏ Р·Р°РєР»СЋС‡РµРЅРёСЏ СЃРґРµР»РѕРє В«РІР°Р»СЋС‚РЅС‹Р№ СЃРІРѕРїВ» РїРѕ РїСЂРѕРґР°Р¶Рµ РґРѕР»Р»Р°СЂРѕРІ РЎРЁРђ Р·Р° СЂСѓР±Р»Рё (DataSet) ver 18.09.2014
      * 
      * @param fromDate
      * @param toDate
@@ -529,7 +529,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Условия заключения сделок «валютный своп» по продаже долларов США за рубли (как xmlDocument)
+     * РЈСЃР»РѕРІРёСЏ Р·Р°РєР»СЋС‡РµРЅРёСЏ СЃРґРµР»РѕРє В«РІР°Р»СЋС‚РЅС‹Р№ СЃРІРѕРїВ» РїРѕ РїСЂРѕРґР°Р¶Рµ РґРѕР»Р»Р°СЂРѕРІ РЎРЁРђ Р·Р° СЂСѓР±Р»Рё (РєР°Рє xmlDocument)
      * 
      * @param fromDate
      * @param toDate
@@ -547,7 +547,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Стоимость бивалютной корзины (как xmlDocument)
+     * РЎС‚РѕРёРјРѕСЃС‚СЊ Р±РёРІР°Р»СЋС‚РЅРѕР№ РєРѕСЂР·РёРЅС‹ (РєР°Рє xmlDocument)
      * 
      * @param fromDate
      * @param toDate
@@ -565,7 +565,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Стоимость бивалютной корзины (DataSet) ver 03.12.2014
+     * РЎС‚РѕРёРјРѕСЃС‚СЊ Р±РёРІР°Р»СЋС‚РЅРѕР№ РєРѕСЂР·РёРЅС‹ (DataSet) ver 03.12.2014
      * 
      * @param fromDate
      * @param toDate
@@ -583,7 +583,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Структура бивалютной корзины  (как xmlDocument)
+     * РЎС‚СЂСѓРєС‚СѓСЂР° Р±РёРІР°Р»СЋС‚РЅРѕР№ РєРѕСЂР·РёРЅС‹  (РєР°Рє xmlDocument)
      * 
      * @return
      *     returns ru.cbr.web.BiCurBacketXMLResponse.BiCurBacketXMLResult
@@ -595,7 +595,7 @@ public interface DailyInfoSoap {
     public ru.cbr.web.BiCurBacketXMLResponse.BiCurBacketXMLResult biCurBacketXML();
 
     /**
-     * Структура бивалютной корзины  (DataSet) ver 03.12.2014
+     * РЎС‚СЂСѓРєС‚СѓСЂР° Р±РёРІР°Р»СЋС‚РЅРѕР№ РєРѕСЂР·РёРЅС‹  (DataSet) ver 03.12.2014
      * 
      * @return
      *     returns ru.cbr.web.BiCurBacketResponse.BiCurBacketResult
@@ -607,7 +607,7 @@ public interface DailyInfoSoap {
     public ru.cbr.web.BiCurBacketResponse.BiCurBacketResult biCurBacket();
 
     /**
-     * Условия заключения сделок «валютный своп» по покупке долларов США и евро за рубли (DataSet) ver 31.07.2012
+     * РЈСЃР»РѕРІРёСЏ Р·Р°РєР»СЋС‡РµРЅРёСЏ СЃРґРµР»РѕРє В«РІР°Р»СЋС‚РЅС‹Р№ СЃРІРѕРїВ» РїРѕ РїРѕРєСѓРїРєРµ РґРѕР»Р»Р°СЂРѕРІ РЎРЁРђ Рё РµРІСЂРѕ Р·Р° СЂСѓР±Р»Рё (DataSet) ver 31.07.2012
      * 
      * @param fromDate
      * @param toDate
@@ -625,7 +625,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Объем сделок 'валютный своп' Банка России (DataSet) ver 03.04.2014
+     * РћР±СЉРµРј СЃРґРµР»РѕРє 'РІР°Р»СЋС‚РЅС‹Р№ СЃРІРѕРї' Р‘Р°РЅРєР° Р РѕСЃСЃРёРё (DataSet) ver 03.04.2014
      * 
      * @param fromDate
      * @param toDate
@@ -643,7 +643,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Объем сделок 'валютный своп' Банка России (как xmlDocument)
+     * РћР±СЉРµРј СЃРґРµР»РѕРє 'РІР°Р»СЋС‚РЅС‹Р№ СЃРІРѕРї' Р‘Р°РЅРєР° Р РѕСЃСЃРёРё (РєР°Рє xmlDocument)
      * 
      * @param fromDate
      * @param toDate
@@ -661,7 +661,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Ставки межбанковского кредитного рынка  (DataSet) ver 31.07.2012
+     * РЎС‚Р°РІРєРё РјРµР¶Р±Р°РЅРєРѕРІСЃРєРѕРіРѕ РєСЂРµРґРёС‚РЅРѕРіРѕ СЂС‹РЅРєР°  (DataSet) ver 31.07.2012
      * 
      * @param fromDate
      * @param toDate
@@ -679,7 +679,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Ставки межбанковского кредитного рынка (как xmlDocument)
+     * РЎС‚Р°РІРєРё РјРµР¶Р±Р°РЅРєРѕРІСЃРєРѕРіРѕ РєСЂРµРґРёС‚РЅРѕРіРѕ СЂС‹РЅРєР° (РєР°Рє xmlDocument)
      * 
      * @param fromDate
      * @param toDate
@@ -697,7 +697,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Требования Банка России к кредитным организациям (DataSet) ver 31.07.2012
+     * РўСЂРµР±РѕРІР°РЅРёСЏ Р‘Р°РЅРєР° Р РѕСЃСЃРёРё Рє РєСЂРµРґРёС‚РЅС‹Рј РѕСЂРіР°РЅРёР·Р°С†РёСЏРј (DataSet) ver 31.07.2012
      * 
      * @param fromDate
      * @param toDate
@@ -715,7 +715,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Требования Банка России к кредитным организациям (как xmlDocument)
+     * РўСЂРµР±РѕРІР°РЅРёСЏ Р‘Р°РЅРєР° Р РѕСЃСЃРёРё Рє РєСЂРµРґРёС‚РЅС‹Рј РѕСЂРіР°РЅРёР·Р°С†РёСЏРј (РєР°Рє xmlDocument)
      * 
      * @param fromDate
      * @param toDate
@@ -733,7 +733,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Задолженность кредитных организаций перед Банком России по операциям прямого РЕПО (DataSet) ver 18.06.2014
+     * Р—Р°РґРѕР»Р¶РµРЅРЅРѕСЃС‚СЊ РєСЂРµРґРёС‚РЅС‹С… РѕСЂРіР°РЅРёР·Р°С†РёР№ РїРµСЂРµРґ Р‘Р°РЅРєРѕРј Р РѕСЃСЃРёРё РїРѕ РѕРїРµСЂР°С†РёСЏРј РїСЂСЏРјРѕРіРѕ Р Р•РџРћ (DataSet) ver 18.06.2014
      * 
      * @param fromDate
      * @param toDate
@@ -751,7 +751,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Задолженность кредитных организаций перед Банком России по операциям прямого РЕПО (как xmlDocument)
+     * Р—Р°РґРѕР»Р¶РµРЅРЅРѕСЃС‚СЊ РєСЂРµРґРёС‚РЅС‹С… РѕСЂРіР°РЅРёР·Р°С†РёР№ РїРµСЂРµРґ Р‘Р°РЅРєРѕРј Р РѕСЃСЃРёРё РїРѕ РѕРїРµСЂР°С†РёСЏРј РїСЂСЏРјРѕРіРѕ Р Р•РџРћ (РєР°Рє xmlDocument)
      * 
      * @param fromDate
      * @param toDate
@@ -769,7 +769,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Отпускные цены Банка России на инвестиционные монеты (DataSet) ver 31.07.2012
+     * РћС‚РїСѓСЃРєРЅС‹Рµ С†РµРЅС‹ Р‘Р°РЅРєР° Р РѕСЃСЃРёРё РЅР° РёРЅРІРµСЃС‚РёС†РёРѕРЅРЅС‹Рµ РјРѕРЅРµС‚С‹ (DataSet) ver 31.07.2012
      * 
      * @param fromDate
      * @param toDate
@@ -787,7 +787,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Отпускные цены Банка России на инвестиционные монеты (как xmlDocument)
+     * РћС‚РїСѓСЃРєРЅС‹Рµ С†РµРЅС‹ Р‘Р°РЅРєР° Р РѕСЃСЃРёРё РЅР° РёРЅРІРµСЃС‚РёС†РёРѕРЅРЅС‹Рµ РјРѕРЅРµС‚С‹ (РєР°Рє xmlDocument)
      * 
      * @param fromDate
      * @param toDate
@@ -805,7 +805,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Фиксинги на драгоценные металлы (DataSet) ver 31.07.2012
+     * Р¤РёРєСЃРёРЅРіРё РЅР° РґСЂР°РіРѕС†РµРЅРЅС‹Рµ РјРµС‚Р°Р»Р»С‹ (DataSet) ver 31.07.2012
      * 
      * @param fromDate
      * @param toDate
@@ -823,7 +823,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Фиксинги на драгоценные металлы (как xmlDocument)
+     * Р¤РёРєСЃРёРЅРіРё РЅР° РґСЂР°РіРѕС†РµРЅРЅС‹Рµ РјРµС‚Р°Р»Р»С‹ (РєР°Рє xmlDocument)
      * 
      * @param fromDate
      * @param toDate
@@ -841,7 +841,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Ставки по кредиту 'overnight' (DataSet) ver 31.07.2012
+     * РЎС‚Р°РІРєРё РїРѕ РєСЂРµРґРёС‚Сѓ 'overnight' (DataSet) ver 31.07.2012
      * 
      * @param fromDate
      * @param toDate
@@ -859,7 +859,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Ставки по кредиту 'overnight' (как xmlDocument
+     * РЎС‚Р°РІРєРё РїРѕ РєСЂРµРґРёС‚Сѓ 'overnight' (РєР°Рє xmlDocument
      * 
      * @param fromDate
      * @param toDate
@@ -877,7 +877,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * База данных по размещению бюджетных средств на депозиты коммерческих банков (DataSet) ver 31.07.2012
+     * Р‘Р°Р·Р° РґР°РЅРЅС‹С… РїРѕ СЂР°Р·РјРµС‰РµРЅРёСЋ Р±СЋРґР¶РµС‚РЅС‹С… СЃСЂРµРґСЃС‚РІ РЅР° РґРµРїРѕР·РёС‚С‹ РєРѕРјРјРµСЂС‡РµСЃРєРёС… Р±Р°РЅРєРѕРІ (DataSet) ver 31.07.2012
      * 
      * @param fromDate
      * @param toDate
@@ -895,7 +895,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * База данных по размещению бюджетных средств на депозиты коммерческих банков (как xmlDocument
+     * Р‘Р°Р·Р° РґР°РЅРЅС‹С… РїРѕ СЂР°Р·РјРµС‰РµРЅРёСЋ Р±СЋРґР¶РµС‚РЅС‹С… СЃСЂРµРґСЃС‚РІ РЅР° РґРµРїРѕР·РёС‚С‹ РєРѕРјРјРµСЂС‡РµСЃРєРёС… Р±Р°РЅРєРѕРІ (РєР°Рє xmlDocument
      * 
      * @param fromDate
      * @param toDate
@@ -913,7 +913,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Динамики ставок привлечения средств по депозитным операциям (как xmlDocument
+     * Р”РёРЅР°РјРёРєРё СЃС‚Р°РІРѕРє РїСЂРёРІР»РµС‡РµРЅРёСЏ СЃСЂРµРґСЃС‚РІ РїРѕ РґРµРїРѕР·РёС‚РЅС‹Рј РѕРїРµСЂР°С†РёСЏРј (РєР°Рє xmlDocument
      * 
      * @param fromDate
      * @param toDate
@@ -931,7 +931,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Динамика ставок привлечения средств по депозитным операциям (DataSet) 
+     * Р”РёРЅР°РјРёРєР° СЃС‚Р°РІРѕРє РїСЂРёРІР»РµС‡РµРЅРёСЏ СЃСЂРµРґСЃС‚РІ РїРѕ РґРµРїРѕР·РёС‚РЅС‹Рј РѕРїРµСЂР°С†РёСЏРј (DataSet) 
      * 
      * @param fromDate
      * @param toDate
@@ -949,7 +949,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Динамики сведений об остатках средств на корреспондентских счетах кредитных организаций (XMLDocument).
+     * Р”РёРЅР°РјРёРєРё СЃРІРµРґРµРЅРёР№ РѕР± РѕСЃС‚Р°С‚РєР°С… СЃСЂРµРґСЃС‚РІ РЅР° РєРѕСЂСЂРµСЃРїРѕРЅРґРµРЅС‚СЃРєРёС… СЃС‡РµС‚Р°С… РєСЂРµРґРёС‚РЅС‹С… РѕСЂРіР°РЅРёР·Р°С†РёР№ (XMLDocument).
      * 
      * @param fromDate
      * @param toDate
@@ -967,7 +967,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Динамики сведений об остатках средств на корреспондентских счетах кредитных организаций (DataSet)!
+     * Р”РёРЅР°РјРёРєРё СЃРІРµРґРµРЅРёР№ РѕР± РѕСЃС‚Р°С‚РєР°С… СЃСЂРµРґСЃС‚РІ РЅР° РєРѕСЂСЂРµСЃРїРѕРЅРґРµРЅС‚СЃРєРёС… СЃС‡РµС‚Р°С… РєСЂРµРґРёС‚РЅС‹С… РѕСЂРіР°РЅРёР·Р°С†РёР№ (DataSet)!
      * 
      * @param fromDate
      * @param toDate
@@ -985,7 +985,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Динамика учетных цен драгоценных металлов (как XMLDocument)
+     * Р”РёРЅР°РјРёРєР° СѓС‡РµС‚РЅС‹С… С†РµРЅ РґСЂР°РіРѕС†РµРЅРЅС‹С… РјРµС‚Р°Р»Р»РѕРІ (РєР°Рє XMLDocument)
      * 
      * @param fromDate
      * @param toDate
@@ -1003,7 +1003,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Динамика учетных цен драгоценных металлов (DataSet)
+     * Р”РёРЅР°РјРёРєР° СѓС‡РµС‚РЅС‹С… С†РµРЅ РґСЂР°РіРѕС†РµРЅРЅС‹С… РјРµС‚Р°Р»Р»РѕРІ (DataSet)
      * 
      * @param fromDate
      * @param toDate
@@ -1021,7 +1021,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar toDate);
 
     /**
-     * Последняя дата публикации курсов валют как DateTime (ежедневные валюты)
+     * РџРѕСЃР»РµРґРЅСЏСЏ РґР°С‚Р° РїСѓР±Р»РёРєР°С†РёРё РєСѓСЂСЃРѕРІ РІР°Р»СЋС‚ РєР°Рє DateTime (РµР¶РµРґРЅРµРІРЅС‹Рµ РІР°Р»СЋС‚С‹)
      * 
      * @return
      *     returns javax.xml.datatype.XMLGregorianCalendar
@@ -1033,7 +1033,7 @@ public interface DailyInfoSoap {
     public XMLGregorianCalendar getLatestDateTime();
 
     /**
-     * Последняя дата публикации курсов валют(ежемесячные валюты) - строка
+     * РџРѕСЃР»РµРґРЅСЏСЏ РґР°С‚Р° РїСѓР±Р»РёРєР°С†РёРё РєСѓСЂСЃРѕРІ РІР°Р»СЋС‚(РµР¶РµРјРµСЃСЏС‡РЅС‹Рµ РІР°Р»СЋС‚С‹) - СЃС‚СЂРѕРєР°
      * 
      * @return
      *     returns java.lang.String
@@ -1045,7 +1045,7 @@ public interface DailyInfoSoap {
     public String getLatestDate();
 
     /**
-     * Последняя дата публикации курсов валют как DateTime (ежемесячные валюты)
+     * РџРѕСЃР»РµРґРЅСЏСЏ РґР°С‚Р° РїСѓР±Р»РёРєР°С†РёРё РєСѓСЂСЃРѕРІ РІР°Р»СЋС‚ РєР°Рє DateTime (РµР¶РµРјРµСЃСЏС‡РЅС‹Рµ РІР°Р»СЋС‚С‹)
      * 
      * @return
      *     returns javax.xml.datatype.XMLGregorianCalendar
@@ -1057,7 +1057,7 @@ public interface DailyInfoSoap {
     public XMLGregorianCalendar getLatestDateTimeSeld();
 
     /**
-     * Последняя дата публикации курсов валют (ежемесячные валюты) - строка yyyyMMdd
+     * РџРѕСЃР»РµРґРЅСЏСЏ РґР°С‚Р° РїСѓР±Р»РёРєР°С†РёРё РєСѓСЂСЃРѕРІ РІР°Р»СЋС‚ (РµР¶РµРјРµСЃСЏС‡РЅС‹Рµ РІР°Р»СЋС‚С‹) - СЃС‚СЂРѕРєР° yyyyMMdd
      * 
      * @return
      *     returns java.lang.String
@@ -1069,7 +1069,7 @@ public interface DailyInfoSoap {
     public String getLatestDateSeld();
 
     /**
-     * Справочник по кодам валют (как XMLDocument)
+     * РЎРїСЂР°РІРѕС‡РЅРёРє РїРѕ РєРѕРґР°Рј РІР°Р»СЋС‚ (РєР°Рє XMLDocument)
      * 
      * @param seld
      * @return
@@ -1084,7 +1084,7 @@ public interface DailyInfoSoap {
         boolean seld);
 
     /**
-     * Справочник по кодам валют (как DataSet)
+     * РЎРїСЂР°РІРѕС‡РЅРёРє РїРѕ РєРѕРґР°Рј РІР°Р»СЋС‚ (РєР°Рє DataSet)
      * 
      * @param seld
      * @return
@@ -1099,7 +1099,7 @@ public interface DailyInfoSoap {
         boolean seld);
 
     /**
-     * Последняя дата публикации редких валют от Thomson Reuters как DateTime (ежемесячные валюты)
+     * РџРѕСЃР»РµРґРЅСЏСЏ РґР°С‚Р° РїСѓР±Р»РёРєР°С†РёРё СЂРµРґРєРёС… РІР°Р»СЋС‚ РѕС‚ Thomson Reuters РєР°Рє DateTime (РµР¶РµРјРµСЃСЏС‡РЅС‹Рµ РІР°Р»СЋС‚С‹)
      * 
      * @return
      *     returns javax.xml.datatype.XMLGregorianCalendar
@@ -1111,7 +1111,7 @@ public interface DailyInfoSoap {
     public XMLGregorianCalendar getLatestReutersDateTime();
 
     /**
-     * Справочник по кодам редких валют от Thomson Reuters (как XMLDocument)
+     * РЎРїСЂР°РІРѕС‡РЅРёРє РїРѕ РєРѕРґР°Рј СЂРµРґРєРёС… РІР°Р»СЋС‚ РѕС‚ Thomson Reuters (РєР°Рє XMLDocument)
      * 
      * @return
      *     returns ru.cbr.web.EnumReutersValutesXMLResponse.EnumReutersValutesXMLResult
@@ -1123,7 +1123,7 @@ public interface DailyInfoSoap {
     public ru.cbr.web.EnumReutersValutesXMLResponse.EnumReutersValutesXMLResult enumReutersValutesXML();
 
     /**
-     * Справочник по кодам редких валют от Thomson Reuters  (как DataSet)
+     * РЎРїСЂР°РІРѕС‡РЅРёРє РїРѕ РєРѕРґР°Рј СЂРµРґРєРёС… РІР°Р»СЋС‚ РѕС‚ Thomson Reuters  (РєР°Рє DataSet)
      * 
      * @return
      *     returns ru.cbr.web.EnumReutersValutesResponse.EnumReutersValutesResult
@@ -1135,7 +1135,7 @@ public interface DailyInfoSoap {
     public ru.cbr.web.EnumReutersValutesResponse.EnumReutersValutesResult enumReutersValutes();
 
     /**
-     * Получение ежедневных курсов редких валют от Thomson Reuters (как XMLDocument)
+     * РџРѕР»СѓС‡РµРЅРёРµ РµР¶РµРґРЅРµРІРЅС‹С… РєСѓСЂСЃРѕРІ СЂРµРґРєРёС… РІР°Р»СЋС‚ РѕС‚ Thomson Reuters (РєР°Рє XMLDocument)
      * 
      * @param onDate
      * @return
@@ -1150,7 +1150,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar onDate);
 
     /**
-     * Получение ежедневных курсов редких валют от Thomson Reuters (как DataSet)
+     * РџРѕР»СѓС‡РµРЅРёРµ РµР¶РµРґРЅРµРІРЅС‹С… РєСѓСЂСЃРѕРІ СЂРµРґРєРёС… РІР°Р»СЋС‚ РѕС‚ Thomson Reuters (РєР°Рє DataSet)
      * 
      * @param onDate
      * @return
@@ -1165,7 +1165,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar onDate);
 
     /**
-     * Получение динамики ежедневных курсов редкой валюты от Thomson Reuters (как XMLDocument)
+     * РџРѕР»СѓС‡РµРЅРёРµ РґРёРЅР°РјРёРєРё РµР¶РµРґРЅРµРІРЅС‹С… РєСѓСЂСЃРѕРІ СЂРµРґРєРѕР№ РІР°Р»СЋС‚С‹ РѕС‚ Thomson Reuters (РєР°Рє XMLDocument)
      * 
      * @param fromDate
      * @param toDate
@@ -1186,7 +1186,7 @@ public interface DailyInfoSoap {
         int numCode);
 
     /**
-     * Получение динамики ежедневных курсов редкой валюты от Thomson Reuters (как DataSet)
+     * РџРѕР»СѓС‡РµРЅРёРµ РґРёРЅР°РјРёРєРё РµР¶РµРґРЅРµРІРЅС‹С… РєСѓСЂСЃРѕРІ СЂРµРґРєРѕР№ РІР°Р»СЋС‚С‹ РѕС‚ Thomson Reuters (РєР°Рє DataSet)
      * 
      * @param fromDate
      * @param toDate
@@ -1207,7 +1207,7 @@ public interface DailyInfoSoap {
         int numCode);
 
     /**
-     * Получение динамики ежедневных курсов валюты (как XMLDocument)
+     * РџРѕР»СѓС‡РµРЅРёРµ РґРёРЅР°РјРёРєРё РµР¶РµРґРЅРµРІРЅС‹С… РєСѓСЂСЃРѕРІ РІР°Р»СЋС‚С‹ (РєР°Рє XMLDocument)
      * 
      * @param fromDate
      * @param toDate
@@ -1228,7 +1228,7 @@ public interface DailyInfoSoap {
         String valutaCode);
 
     /**
-     * Получение динамики ежедневных курсов валюты (как DataSet)
+     * РџРѕР»СѓС‡РµРЅРёРµ РґРёРЅР°РјРёРєРё РµР¶РµРґРЅРµРІРЅС‹С… РєСѓСЂСЃРѕРІ РІР°Р»СЋС‚С‹ (РєР°Рє DataSet)
      * 
      * @param fromDate
      * @param toDate
@@ -1249,7 +1249,7 @@ public interface DailyInfoSoap {
         String valutaCode);
 
     /**
-     * Получение ежедневных курсов валют (как XMLDocument)
+     * РџРѕР»СѓС‡РµРЅРёРµ РµР¶РµРґРЅРµРІРЅС‹С… РєСѓСЂСЃРѕРІ РІР°Р»СЋС‚ (РєР°Рє XMLDocument)
      * 
      * @param onDate
      * @return
@@ -1264,7 +1264,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar onDate);
 
     /**
-     * Получение ежемесячных курсов валют !*устаревший! (как XMLDocument)
+     * РџРѕР»СѓС‡РµРЅРёРµ РµР¶РµРјРµСЃСЏС‡РЅС‹С… РєСѓСЂСЃРѕРІ РІР°Р»СЋС‚ !*СѓСЃС‚Р°СЂРµРІС€РёР№! (РєР°Рє XMLDocument)
      * 
      * @param onDate
      * @return
@@ -1279,7 +1279,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar onDate);
 
     /**
-     * Получение ежемесячных курсов валют !*устаревший! (как DataSet)
+     * РџРѕР»СѓС‡РµРЅРёРµ РµР¶РµРјРµСЃСЏС‡РЅС‹С… РєСѓСЂСЃРѕРІ РІР°Р»СЋС‚ !*СѓСЃС‚Р°СЂРµРІС€РёР№! (РєР°Рє DataSet)
      * 
      * @param onDate
      * @return
@@ -1294,7 +1294,7 @@ public interface DailyInfoSoap {
         XMLGregorianCalendar onDate);
 
     /**
-     * Получение ежедневных курсов валют (как DataSet)
+     * РџРѕР»СѓС‡РµРЅРёРµ РµР¶РµРґРЅРµРІРЅС‹С… РєСѓСЂСЃРѕРІ РІР°Р»СЋС‚ (РєР°Рє DataSet)
      * 
      * @param onDate
      * @return
