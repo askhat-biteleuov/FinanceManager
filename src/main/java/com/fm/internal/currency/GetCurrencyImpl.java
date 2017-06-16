@@ -19,7 +19,7 @@ public class GetCurrencyImpl implements GetCurrency {
     @Override
     public void execute() {
         List<CurrencyData.ValuteCursOnDate> allCurrencyCursForNow = client.getAllCurrencyCursForNow();
-        currencyDao.saveOrUpdate(new Currency("Российский рубль", BigDecimal.ONE, BigDecimal.ONE,
+        currencyDao.saveOrUpdate(new Currency("Rossiiskii rubl", BigDecimal.ONE, BigDecimal.ONE,
                 643, "RUB"));
         allCurrencyCursForNow.forEach(currencyData -> {
             Currency currency = getCurrencyFromCurrencyData(currencyData);
