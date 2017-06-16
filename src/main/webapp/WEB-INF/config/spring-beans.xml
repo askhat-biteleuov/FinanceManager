@@ -46,9 +46,9 @@
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
         <property name="url"
-                  value="jdbc:mysql://localhost:3306/epam?useTimezone=true&amp;serverTimezone=Europe/Moscow&amp;useSSL=false&amp;characterEncoding=UTF-8&amp;useUnicode=true&amp;CharSet=UTF-8"/>
-        <property name="username" value="root"/>
-        <property name="password" value="root"/>
+                  value="jdbc:mysql://mysql:3306/sampledb?useTimezone=true&amp;serverTimezone=Europe/Moscow&amp;useSSL=false&amp;characterEncoding=UTF-8&amp;useUnicode=true&amp;CharSet=UTF-8"/>
+        <property name="username" value="userOPV"/>
+        <property name="password" value="ys2iHQl123177s1o"/>
     </bean>
 
     <bean id="sessionFactory"
