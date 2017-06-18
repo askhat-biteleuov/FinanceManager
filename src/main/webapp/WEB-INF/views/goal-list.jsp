@@ -15,6 +15,7 @@
     <jsp:include page="../fragments/back-button.jsp"/>
     <div class="container">
         <div class="col-sm-11 col-sm-offset-1" align="center">
+            <h2 align="center" class="column-header">Активные цели</h2>
             <div class="row">
                 <c:forEach var="goal" items="${activeGoals}">
                     <div class="col-sm-4 col-lg-3 ">
@@ -99,6 +100,7 @@
             </div>
             <hr class="col-sm-12">
             <%--OVERDUE GOALS--%>
+            <h2 align="center" class="column-header">Просроченные цели</h2>
             <div class="row">
                 <c:forEach var="goal" items="${overdueGoals}">
                     <div class="col-sm-4 col-lg-3 ">
@@ -116,8 +118,8 @@
                                                 ${goal.date}
                                         </div>
                                         <div hidden class="editGoalDate">
-                                            <div class="input-group date" id="datepicker-modal-goaladd">
-                                                <input type="text" class="form-control" id="goalDate" name="date"
+                                            <div class="input-group date" id="datepicker-modal-overdue-goaladd">
+                                                <input type="text" class="form-control" id="overdueGoalDate" name="date"
                                                        readonly required>
                                                 <span class="input-group-addon">
                                                 <i class="glyphicon glyphicon-calendar"></i>
@@ -161,6 +163,7 @@
             </div>
             <hr class="col-sm-12">
             <%--FINISHED GOALS--%>
+            <h2 align="center" class="column-header">Завершенные цели</h2>
             <div class="row">
                 <c:forEach var="goal" items="${finishedGoals}">
                     <div class="col-sm-4 col-lg-3 ">
@@ -171,26 +174,11 @@
                             <a href="<c:url value="${goalUrl}"/>">
                                 <div class="panel-body-goal">
                                     <div class="editGoalDiv">
-                                        <h3 class=" edit editGoalName gold" contenteditable="false">
+                                        <h3 class=" edit editGoalName gold">
                                             <c:out value="${goal.name}"/>
                                         </h3>
                                         <div class="defaultGoalDate">
                                                 ${goal.date}
-                                        </div>
-                                        <div hidden class="editGoalDate">
-                                            <div class="input-group date" id="datepicker-modal-goaladd">
-                                                <input type="text" class="form-control" id="goalDate" name="date"
-                                                       readonly required>
-                                                <span class="input-group-addon">
-                                                <i class="glyphicon glyphicon-calendar"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <button href="#" class="editGoalBtn dark-grey btn-link">
-                                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                        </button>
-                                        <div hidden class="edit editGoalAmount">
-                                                ${goal.goalAmount}
                                         </div>
                                         <div class="defaultGoalAmount">
                                             <div class="progress progress-striped active ">
@@ -202,18 +190,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <button href="#" hidden class="acceptGoalBtn dark-green btn-link">
-                                                        <span class="glyphicon glyphicon-ok-circle"
-                                                              aria-hidden="true"></span>
-                                        </button>
-                                        <button href="#" hidden class="cancelGoalBtn red btn-link">
-                                                        <span class="glyphicon glyphicon-remove-circle"
-                                                              aria-hidden="true"></span>
-                                        </button>
-                                        <input type="text" hidden class="goalId" value="${goal.id}">
-                                        <input type="text" hidden class="oldGoalAmount">
-                                        <input type="text" hidden class="oldGoalName">
                                     </div>
                                 </div>
                             </a>
