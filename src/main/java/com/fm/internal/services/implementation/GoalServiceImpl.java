@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GoalServiceImpl implements GoalService{
     @Autowired
@@ -29,12 +30,7 @@ public class GoalServiceImpl implements GoalService{
 
     @Override
     public List<Goal> getGoalsWithoutIncomeForMonth(User user) {
-        List<Goal> goals = new ArrayList<>();
-        for (Account account : goalDao.getGoalsWithoutIncomeForMonth(user)) {
-            if (account instanceof Goal) {
-                goals.add((Goal) account);
-            }
-        }
+        List<Goal> goals = goalDao.getGoalsWithoutIncomeForMonth(user).stream().filter(account -> account instanceof Goal && !((Goal) account).isFinished() && !((Goal) account).isOverdue()).map(account -> (Goal) account).collect(Collectors.toList());
         return goals;
     }
 
