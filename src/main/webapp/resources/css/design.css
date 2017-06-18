@@ -181,3 +181,11 @@ a{
     letter-spacing: 1px;
     font-size: 15px;
 }
+
+[contenteditable="true"] {
+    background-color: #fffcda;
+}
+
+td {
+    vertical-align: middle !important;
+}

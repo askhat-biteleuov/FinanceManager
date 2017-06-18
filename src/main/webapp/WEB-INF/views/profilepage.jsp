@@ -10,7 +10,7 @@
         <div id="back" onclick="history.back()">◄ Назад</div>
     </div>
 
-    <div class="container">
+    <div class="container ">
         <h1>Редактирование профиля</h1>
         <hr>
         <div class="row">
@@ -28,7 +28,7 @@
             <%--</div>--%>
 
             <!-- edit form column -->
-            <div class="col-md-5 personal-info">
+            <div class="col-md-5 personal-info article">
                 <h3>Персональная информация</h3>
 
                 <form action="<c:url value="/profile/update"/>" class="form-horizontal" role="form" method="POST">
@@ -66,7 +66,7 @@
                     </div>
                 </form>
             </div>
-            <div class="col-md-4 personal-info changePassword">
+            <div class="col-md-4 personal-info changePassword article">
                 <h3>Смена пароля</h3>
                 <form action="<c:url value="/profile/password"/>" class="form-horizontal" role="form" method="POST">
                     <div class="form-group">

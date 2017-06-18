@@ -37,12 +37,6 @@ public class Account implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "account", orphanRemoval = true)
     private List<Income> incomes = new ArrayList<>();
 
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account", orphanRemoval = true)
-//    private List<Income> incomeTransactions = new ArrayList<>();
-//
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account", orphanRemoval = true)
-//    private List<Outcome> outcomeTransactions = new ArrayList<>();
-
     public Account() {
     }
 
@@ -101,29 +95,5 @@ public class Account implements Serializable {
     public void setCurrency(Currency currency) {
         this.currency = currency;
     }
-
-    public List<Income> getIncomes() {
-        return incomes;
-    }
-
-    public void setIncomes(List<Income> incomes) {
-        this.incomes = incomes;
-    }
-
-    //    public List<Income> getIncomeTransactions() {
-//        return incomeTransactions;
-//    }
-//
-//    public void setIncomeTransactions(List<Income> incomeTransactions) {
-//        this.incomeTransactions = incomeTransactions;
-//    }
-//
-//    public List<Outcome> getOutcomeTransactions() {
-//        return outcomeTransactions;
-//    }
-//
-//    public void setOutcomeTransactions(List<Outcome> outcomeTransactions) {
-//        this.outcomeTransactions = outcomeTransactions;
-//    }
 
 }

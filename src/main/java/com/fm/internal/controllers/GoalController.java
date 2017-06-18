@@ -3,10 +3,7 @@ package com.fm.internal.controllers;
 import com.fm.internal.dtos.GoalDto;
 import com.fm.internal.dtos.PaginationDto;
 import com.fm.internal.dtos.RangeDto;
-import com.fm.internal.models.Goal;
-import com.fm.internal.models.Income;
-import com.fm.internal.models.Outcome;
-import com.fm.internal.models.User;
+import com.fm.internal.models.*;
 import com.fm.internal.services.*;
 import com.fm.internal.services.implementation.PaginationServiceImpl;
 import com.fm.internal.validation.GoalValidator;
@@ -27,7 +24,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Controller
@@ -62,6 +58,8 @@ public class GoalController {
     private PaginationServiceImpl paginationService;
     @Autowired
     private AccountService accountService;
+    @Autowired
+    private OutcomeTypeService outcomeTypeService;
 
     final int PAGE_SIZE = 10;
 
@@ -145,6 +143,7 @@ public class GoalController {
                 incomesAmount, "/goal/page/incomes");
         List<Income> incomesPage = incomeService.getAccountIncomesPageByDate(goalById,
                 paginationDto.getFirstItem(), PAGE_SIZE, start, end);
+        modelAndView.addObject("hashtags", hashTagService.getHashTagsByUser(loggedUser));
         modelAndView.addObject("paginationDto", paginationDto);
         modelAndView.addObject("incomes", incomesPage);
         modelAndView.addObject("goalId", goalId);
@@ -184,6 +183,10 @@ public class GoalController {
                 outcomesAmount, "/goal/page/outcomes");
         List<Outcome> outcomesPage = outcomeService.getAccountOutcomesPageByDate(goalById,
                 paginationDto.getFirstItem(), PAGE_SIZE, start, end);
+        List<OutcomeType> outcomeTypes = outcomeTypeService.getAvailableOutcomeTypes(loggedUser);
+        outcomeTypes.add(outcomeTypeService.getOutcomeTypeByNameAndUser(userService.getLoggedUser(), "Переводы"));
+        modelAndView.addObject("outcometypes", outcomeTypes);
+        modelAndView.addObject("hashtags", hashTagService.getHashTagsByUser(loggedUser));
         modelAndView.addObject("paginationDto", paginationDto);
         modelAndView.addObject("outcomes", outcomesPage);
         modelAndView.addObject("goalId", goalId);

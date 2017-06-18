@@ -73,7 +73,8 @@
                             <li class="dropdown">
                                 <a href="#" data-toggle="dropdown" class="dropdown-toggle" role="button"
                                    aria-haspopup="true" aria-expanded="false">
-                                    Цели <span class="badge badge-notification">${goalsMessages.size()}</span>
+                                    Цели
+                                    <span class="badge badge-notification">${goalsMessages.size()}</span>
                                     <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu">
@@ -83,7 +84,6 @@
                                                 <span class="message-notification">
                                                     В этом месяце, вы еще не приблизились к своей цели:
                                                     <span style="font-weight: bold"><c:out value="${goal.name}"/></span>
-                                                    <a class="btn btn-link dark-green" href="">Приблизиться </a>
                                                 </span>
                                             </li>
                                         </c:if>
@@ -92,7 +92,7 @@
                                         <li><span class="message-notification">Пока нет уведомлений</span></li>
                                     </c:if>
                                     <li class="divider"></li>
-                                    <li><a class="blue" href="<c:url value="/goal"/>">Посмотреть все</a></li>
+                                    <li><a class="blue" href="<c:url value="/goal"/>">Перейти к целям</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown">

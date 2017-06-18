@@ -9,7 +9,7 @@
         <title>Статистика</title>
     </head>
     <body>
-    <div class="container">
+    <div class="container article">
         <ul class="nav nav-tabs">
             <li class="active" id="tab-by-month"><a data-toggle="tab" href="#byMonth">За месяц</a></li>
             <li id="tab-by-year"><a data-toggle="tab" href="#byYear">За год</a></li>

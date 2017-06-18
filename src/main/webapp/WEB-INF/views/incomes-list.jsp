@@ -5,11 +5,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <t:master-page title="Список приходов">
-    <style>
-        [contenteditable]:focus {
-            padding: 5px;
-        }
-    </style>
     <jsp:include page="../fragments/back-button.jsp"/>
     <div class="container">
         <div class="col-sm-11 col-sm-offset-1">

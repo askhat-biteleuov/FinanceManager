@@ -27,7 +27,7 @@
 }
 
 @media (max-width: 767px) {
-    #scroiller div {
+    #scroiller {
         display: none;
     }
 }
