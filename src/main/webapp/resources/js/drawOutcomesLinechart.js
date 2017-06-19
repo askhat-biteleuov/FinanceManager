@@ -1,5 +1,7 @@
-google.charts.load('current', {packages: ['corechart', 'line']});
-google.charts.setOnLoadCallback(refreshLineChart);
+$(document).ready(function () {
+    google.charts.load('current', {packages: ['corechart', 'line']});
+    google.charts.setOnLoadCallback(refreshLineChart);
+});
 function drawLineChart(data) {
 
     var dataTable = new google.visualization.DataTable();

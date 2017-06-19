@@ -143,7 +143,7 @@ $(document).ready(function () {
         }
     });
 
-    $('.glyphicon-calendar').on('click', function (event) {
+    $('.glyphicon-calendar, #overdueGoalDate').on('click', function (event) {
         event.preventDefault();
     });
 

@@ -5,9 +5,9 @@ $(document).ready(function () {
      event.preventDefault();
      refreshLineChart();
      });*/
-    // $('#tab-by-year').click(function(){
-    //     setTimeout(refreshLineChartYear, 1);
-    // });
+    $('#tab-by-year').click(function(){
+        setTimeout(refreshLineChartYear, 100);
+    });
     $('#accountSelectYear, #yearSelectYear').on('change', function () {
         refreshLineChartYear();
     });

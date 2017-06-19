@@ -6,6 +6,9 @@ $(document).ready(function () {
         event.preventDefault();
         refreshLineChart();
     });*/
+    $('#tab-by-month').click(function(){
+        setTimeout(refreshLineChart, 100);
+    });
     $('#accountSelect, #monthSelect, #yearSelect').on('change', function () {
         refreshLineChart();
     });

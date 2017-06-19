@@ -12,7 +12,6 @@ function drawLineChartYear(data) {
 
     var numOfTypes = Object.keys(data[1]).length;
     var months = [];
-
     for (var month in data) {
         var dataArr = [numOfTypes + 1];
         months.push(new Date($('#yearSelectYear').val(), month-1));
@@ -29,6 +28,8 @@ function drawLineChartYear(data) {
     var options = {
 
         title: "Сумма расходов по категориям за месяц",
+        height: $('#linechartYear').height(),
+        width: $('#linechartYear').width(),
         backgroundColor: 'transparent',
         hAxis: {
             ticks: months
