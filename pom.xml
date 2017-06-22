@@ -150,6 +150,7 @@
         </dependency>
     </dependencies>
     <build>
+        <finalName>ROOT</finalName>
         <testResources>
             <testResource>
                 <directory>src/main/webapp/WEB-INF/config</directory>
