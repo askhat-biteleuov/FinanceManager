@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table
-//@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "name")
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "name")
 public class Currency implements Serializable {
 
     private static final long serialVersionUID = 1L;
