@@ -155,7 +155,7 @@
                 <directory>src/main/webapp/WEB-INF/config</directory>
             </testResource>
         </testResources>
-        <finalName>FinanceManager</finalName>
+        <finalName>ROOT</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
