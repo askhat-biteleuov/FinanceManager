@@ -46,7 +46,7 @@
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
         <property name="url"
-                  value="jdbc:mysql://mysql:3306/fm?useTimezone=true&amp;serverTimezone=Europe/Moscow&amp;useSSL=false&amp;characterEncoding=UTF-8&amp;useUnicode=true&amp;CharSet=UTF-8&amp;sessionVariables=sql_mode=''"/>
+                  value="jdbc:mysql://mysql:3306/fm?useTimezone=true&amp;serverTimezone=Europe/Moscow&amp;useSSL=false&amp;characterEncoding=UTF-8&amp;useUnicode=true&amp;CharSet=UTF-8&amp;sessionVariables=sql_mode=&apos;&apos"/>
         <property name="username" value="fm"/>
         <property name="password" value="fm"/>
     </bean>
