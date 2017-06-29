@@ -8,13 +8,13 @@
              http://www.springframework.org/schema/security/spring-security-4.2.xsd">
 
     <sec:http auto-config="true">
-        <sec:intercept-url pattern="/index" access="permitAll" requires-channel="https"/>
-        <sec:intercept-url pattern="/registration" access="permitAll" requires-channel="https"/>
-        <sec:intercept-url pattern="/login" access="permitAll" requires-channel="https"/>
-        <sec:intercept-url pattern="/account" access="isAuthenticated()" requires-channel="https"/>
-        <sec:intercept-url pattern="/outcome/all" access="isAuthenticated()" requires-channel="https"/>
-        <sec:intercept-url pattern="/account/income/all" access="isAuthenticated()" requires-channel="https"/>
-        <sec:intercept-url pattern="/" requires-channel="https"/>
+        <sec:intercept-url pattern="/index" access="permitAll"/>
+        <sec:intercept-url pattern="/registration" access="permitAll"/>
+        <sec:intercept-url pattern="/login" access="permitAll"/>
+        <sec:intercept-url pattern="/account" access="isAuthenticated()"/>
+        <sec:intercept-url pattern="/outcome/all" access="isAuthenticated()"/>
+        <sec:intercept-url pattern="/account/income/all" access="isAuthenticated()"/>
+        <sec:intercept-url pattern="/"/>
         <sec:form-login login-page="/login" default-target-url="/index"
                         username-parameter="email"
                         password-parameter="password"
