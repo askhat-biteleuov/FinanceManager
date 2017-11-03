@@ -1,6 +1,5 @@
 package com.fm.internal.services.implementation;
 
-import com.fm.internal.daos.UserDao;
 import com.fm.internal.dtos.RegistrationDto;
 import com.fm.internal.models.Account;
 import com.fm.internal.models.OutcomeType;

@@ -3,6 +3,7 @@ package com.fm.internal.services.implementation;
 import com.fm.internal.daos.IncomeDao;
 import com.fm.internal.dtos.IncomeDto;
 import com.fm.internal.models.*;
+import com.fm.internal.repository.IncomeRepository;
 import com.fm.internal.services.AccountService;
 import com.fm.internal.services.HashTagService;
 import com.fm.internal.services.IncomeService;
@@ -13,16 +14,13 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Service
 public class IncomeServiceImpl implements IncomeService {
 
     @Autowired
-    private IncomeDao dao;
+    private IncomeRepository incomeRepository;
     @Autowired
     private UserService userService;
     @Autowired
@@ -34,19 +32,19 @@ public class IncomeServiceImpl implements IncomeService {
 
     @Override
     public void addIncome(Income income) {
-        dao.add(income);
+        incomeRepository.save(income);
         income.getAccount().setBalance(getBalanceAfterIncomeOperation(income));
         accountService.updateAccount(income.getAccount());
     }
 
     @Override
     public void updateIncome(Income income) {
-        dao.update(income);
+        incomeRepository.save(income);
     }
 
     @Override
     public void deleteIncome(Income income) {
-        dao.delete(income);
+        incomeRepository.delete(income);
         income.getAccount().setBalance(getBalanceAfterIncomeOperation(income));
         accountService.updateAccount(income.getAccount());
     }
@@ -58,42 +56,42 @@ public class IncomeServiceImpl implements IncomeService {
 
     @Override
     public Income findById(long id) {
-        return dao.getById(id);
+        return incomeRepository.findOne(id);
     }
 
     @Override
     public List<Income> findAllIncomesInAccount(Account account) {
-        return dao.getAccountIncomes(account);
+        return incomeRepository.findAllByAccount(account);
     }
 
     @Override
     public List<Income> findIncomesInAccountByDate(Account account, LocalDate start, LocalDate end) {
-        return dao.getAccountIncomesByDate(account, start, end);
+        return incomeRepository.findAllByAccountAndDateBetween(account, start, end);
     }
 
     @Override
     public List<Income> getAccountIncomesPageByDate(Account account, int first, int limit, LocalDate start, LocalDate end) {
-        return dao.getAccountIncomesPageByDate(account, first, limit, start, end);
+        return incomeRepository.getAccountIncomesPageByDate(account, first, limit, start, end);
     }
 
     @Override
     public List<Income> getPageOfIncomes(Account account, int first, int limit) {
-        return dao.getIncomesPage(account, first, limit);
+        return incomeRepository.getIncomesPage(account, first, limit);
     }
 
     @Override
     public List<Income> getUserIncomesPageByDate(User user, int first, int limit, LocalDate start, LocalDate end) {
-        return dao.getUserIncomesPageByDate(user, first, limit, start, end);
+        return incomeRepository.getUserIncomesPageByDate(user, first, limit, start, end);
     }
 
     @Override
     public Long getUserIncomesNumberByDate(User user, LocalDate start, LocalDate end) {
-        return dao.getUserIncomesNumberByDate(user, start, end);
+        return incomeRepository.getUserIncomesNumberByDate(user, start, end);
     }
 
     @Override
     public Long getAccountIncomesNumberByDate(Account account, LocalDate start, LocalDate end) {
-        return dao.getAccountIncomeNumberByDate(account, start, end);
+        return incomeRepository.getAccountIncomeNumberByDate(account, start, end);
     }
 
     @Override
@@ -106,18 +104,6 @@ public class IncomeServiceImpl implements IncomeService {
         income.setAmount(new BigDecimal(incomeDto.getAmount()));
         income.setDate(LocalDate.parse(incomeDto.getDate()));
         income.setTime(LocalTime.now());
-//        List<HashTag> hashtags = new ArrayList<>();
-//        if(!incomeDto.getHashTags().isEmpty()){
-//            for(String hashtag: incomeDto.getHashTags()){
-//                HashTag tag = hashTagService.getHashTagByUserAndText(user,hashtag);
-//                if(tag==null && hashtag.trim().length()>0) {
-//                    hashTagService.addHashTag(new HashTag(hashtag,user));
-//                    hashtags.add(hashTagService.getHashTagByUserAndText(user,hashtag));
-//                }else{
-//                    hashtags.add(tag);
-//                }
-//            }
-//        }
         income.setHashTags(utilService.parseHashTags(user, incomeDto.getHashTags()));
         return income;
     }
@@ -132,21 +118,21 @@ public class IncomeServiceImpl implements IncomeService {
 
     @Override
     public List<Income> getIncomesByAccountAndHashTag(Account account, HashTag hashTag, LocalDate start, LocalDate end) {
-        return dao.getIncomesByAccountAndHashTag(account, hashTag, start, end);
+        return incomeRepository.getIncomesByAccountAndHashTag(account, hashTag, start, end);
     }
 
     @Override
     public List<Income> getAccountIncomesPageByHashTagAndDate(Account account, HashTag hashTag, int offset, int limit, LocalDate start, LocalDate end) {
-        return dao.getAccountIncomesPageByHashTagAndDate(account, hashTag, offset, limit, start, end);
+        return incomeRepository.getAccountIncomesPageByHashTagAndDate(account, hashTag, offset, limit, start, end);
     }
 
     @Override
     public List<Income> getIncomesByUserAndHashTag(User user, HashTag hashTag, LocalDate start, LocalDate end) {
-        return dao.getIncomesByUserAndHashTag(user, hashTag, start, end);
+        return incomeRepository.getIncomesByUserAndHashTag(user, hashTag, start, end);
     }
 
     @Override
     public List<Income> getUserIncomesPageByHashTagAndDate(User user, HashTag hashTag, int offset, int limit, LocalDate start, LocalDate end) {
-        return dao.getUserIncomesPageByHashTagAndDate(user, hashTag, offset, limit, start, end);
+        return incomeRepository.getUserIncomesPageByHashTagAndDate(user, hashTag, offset, limit, start, end);
     }
 }
