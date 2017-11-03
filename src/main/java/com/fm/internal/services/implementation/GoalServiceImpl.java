@@ -10,6 +10,7 @@ import com.fm.internal.services.CurrencyService;
 import com.fm.internal.services.GoalService;
 import com.fm.internal.services.IncomeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class GoalServiceImpl implements GoalService{
     @Autowired
     private GoalDao goalDao;

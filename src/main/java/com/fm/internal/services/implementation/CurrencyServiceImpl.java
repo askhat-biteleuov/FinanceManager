@@ -5,10 +5,12 @@ import com.fm.internal.models.Currency;
 import com.fm.internal.models.Account;
 import com.fm.internal.services.CurrencyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
 
+@Service
 public class CurrencyServiceImpl implements CurrencyService {
     @Autowired
     private CurrencyDao currencyDao;

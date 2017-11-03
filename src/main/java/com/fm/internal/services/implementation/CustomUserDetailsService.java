@@ -29,7 +29,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             boolean accountNonExpired = true;
             boolean credentialsNonExpired = true;
             boolean accountNonLocked = true;
-            //TO-DO user's roles
+            //TODO user's roles
             List<GrantedAuthority> authorities = new ArrayList<>();
             authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
             return new org.springframework.security.core.userdetails.User(user.getEmail(),

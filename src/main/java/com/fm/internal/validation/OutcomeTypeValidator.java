@@ -6,11 +6,13 @@ import com.fm.internal.services.OutcomeTypeService;
 import com.fm.internal.services.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import java.util.List;
 
+@Component
 public class OutcomeTypeValidator implements Validator {
     private static final Logger LOGGER = Logger.getLogger(OutcomeTypeValidator.class);
 

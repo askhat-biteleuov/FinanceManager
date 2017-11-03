@@ -6,7 +6,9 @@ import com.fm.internal.services.AccountService;
 import com.fm.internal.services.OutcomeService;
 import com.fm.internal.services.StatusBarService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class StatusBarServiceImpl implements StatusBarService {
 
     @Autowired

@@ -4,10 +4,12 @@ import com.fm.internal.daos.CurrencyDao;
 import com.fm.internal.models.Currency;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.List;
 
+@Component
 public class GetCurrencyImpl implements GetCurrency {
 
     @Autowired

@@ -6,6 +6,7 @@ import com.fm.internal.models.Account;
 import com.fm.internal.models.OutcomeType;
 import com.fm.internal.models.User;
 import com.fm.internal.models.UserInfo;
+import com.fm.internal.repository.UserRepository;
 import com.fm.internal.services.AccountService;
 import com.fm.internal.services.CurrencyService;
 import com.fm.internal.services.OutcomeTypeService;
@@ -14,14 +15,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserDao dao;
+    private UserRepository userRepository;
     @Autowired
     private AccountService accountService;
     @Autowired
@@ -34,7 +37,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByEmail(String email) {
-        return dao.getUserByEmail(email);
+        return userRepository.findByEmail(email);
     }
 
     @Override
@@ -46,13 +49,13 @@ public class UserServiceImpl implements UserService {
         } else {
             return null;
         }
-        return dao.getUserByEmail(email);
+        return userRepository.findByEmail(email);
     }
 
     @Override
     public void createUser(User user) {
         user.setPassword(encoder.encode(user.getPassword()));
-        dao.add(user);
+        userRepository.save(user);
         String currencyCharacterCode = user.getInfo().getCurrency().getCharacterCode();
         Account initWalletAccount = new Account("Кошелек", BigDecimal.ZERO, null, user, currencyService.findCurrencyByCharCode(currencyCharacterCode));
         Account initSalaryAccount = new Account("Зарплатный", BigDecimal.ZERO, null, user, currencyService.findCurrencyByCharCode(currencyCharacterCode));
@@ -72,23 +75,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUserByEmail(String email) {
-        dao.delete(dao.getUserByEmail(email));
+        userRepository.delete(userRepository.findByEmail(email));
     }
 
     @Override
     public void deleteUser(User user) {
-        dao.delete(user);
+        userRepository.delete(user);
     }
 
     @Override
     public void updateUser(User user) {
-        dao.update(user);
+        userRepository.save(user);
     }
 
     @Override
     public void updateUserInfo(User user, UserInfo info) {
         user.setInfo(info);
-        dao.update(user);
+        userRepository.save(user);
     }
 
     @Override

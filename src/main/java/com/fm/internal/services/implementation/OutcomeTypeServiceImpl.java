@@ -10,6 +10,7 @@ import com.fm.internal.models.User;
 import com.fm.internal.services.OutcomeTypeService;
 import com.fm.internal.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class OutcomeTypeServiceImpl implements OutcomeTypeService {
 
     @Autowired

@@ -3,10 +3,12 @@ package com.fm.internal.services.implementation;
 import com.fm.internal.dtos.RangeDto;
 import com.fm.internal.services.RangeService;
 import org.springframework.security.access.method.P;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+@Service
 public class RangeServiceImpl implements RangeService {
 
     @Override
