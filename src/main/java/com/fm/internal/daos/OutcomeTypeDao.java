@@ -1,54 +1,55 @@
 package com.fm.internal.daos;
 
-import com.fm.internal.models.*;
-import org.hibernate.Session;
+import com.fm.internal.models.Account;
+import com.fm.internal.models.Outcome;
+import com.fm.internal.models.OutcomeType;
+import com.fm.internal.models.OutcomeType_;
+import com.fm.internal.models.Outcome_;
+import com.fm.internal.models.User;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.NoResultException;
-import javax.persistence.criteria.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
+@Repository
 public class OutcomeTypeDao extends GenericDao<OutcomeType> {
 
     public OutcomeTypeDao() {
         super(OutcomeType.class);
     }
 
-//    @Transactional
-//    public List<Outcome> getOutcomesByType(OutcomeType outcomeType, int offset, int limit) {
-//        Session session = getSessionFactory().getCurrentSession();
-//        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-//        CriteriaQuery<Outcome> query = criteriaBuilder.createQuery(Outcome.class);
-//        Root<Outcome> root = query.from(Outcome.class);
-//        query.where(criteriaBuilder.equal(root.get(Outcome_.outcomeType), outcomeType));
-//        return session.createQuery(query).setFirstResult(offset).setMaxResults(limit).getResultList();
-//    }
-
     @Transactional
     public List<OutcomeType> getAvailableOutcomeTypesByUser(User user) {
-        Session currentSession = getSessionFactory().getCurrentSession();
-        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
+        CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<OutcomeType> query = builder.createQuery(OutcomeType.class);
         Root<OutcomeType> root = query.from(OutcomeType.class);
         Predicate userEquals = builder.equal(root.get(OutcomeType_.user), user);
         Predicate isAvailable = builder.isTrue(root.get(OutcomeType_.isAvailable));
         query.where(userEquals, isAvailable);
-        return currentSession.createQuery(query).getResultList();
+        return getEntityManager().createQuery(query).getResultList();
     }
 
     @Transactional
     public OutcomeType getOutcomeTypeByNameAndUser(User user, String name) {
-        Session currentSession = getSessionFactory().getCurrentSession();
-        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
+        CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<OutcomeType> query = builder.createQuery(OutcomeType.class);
         Root<OutcomeType> root = query.from(OutcomeType.class);
         Predicate getOutcomeTypeByNameAndUser = builder.and(builder.equal(builder.lower(root.get(OutcomeType_.name)), name.toLowerCase()), builder.equal(root.get(OutcomeType_.user), user));
         query.where(getOutcomeTypeByNameAndUser);
         try {
-            return currentSession.createQuery(query).getSingleResult();
+            return getEntityManager().createQuery(query).getSingleResult();
         } catch (NoResultException e) {
             return null;
         }
@@ -57,34 +58,31 @@ public class OutcomeTypeDao extends GenericDao<OutcomeType> {
     @Transactional
     public List<Outcome> getOutcomesByTypeByDate(OutcomeType outcomeType, int offset, int limit,
                                                  LocalDate start, LocalDate end) {
-        Session session = getSessionFactory().getCurrentSession();
-        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Outcome> query = criteriaBuilder.createQuery(Outcome.class);
         Root<Outcome> root = query.from(Outcome.class);
         Predicate equalDate = criteriaBuilder.between(root.get(Outcome_.date), start, end);
         Predicate equalOutcomeType = criteriaBuilder.equal(root.get(Outcome_.outcomeType), outcomeType);
         query.where(criteriaBuilder.and(equalDate, equalOutcomeType));
-        return session.createQuery(query).setFirstResult(offset).setMaxResults(limit).getResultList();
+        return getEntityManager().createQuery(query).setFirstResult(offset).setMaxResults(limit).getResultList();
     }
 
     @Transactional
     public Long getOutcomesNumberByTypeByDate(OutcomeType outcomeType, LocalDate start, LocalDate end) {
-        Session session = getSessionFactory().getCurrentSession();
-        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Long> query = criteriaBuilder.createQuery(Long.class);
         Root<Outcome> root = query.from(Outcome.class);
         query.select(criteriaBuilder.count(root));
         Predicate equalDate = criteriaBuilder.between(root.get(Outcome_.date), start, end);
         Predicate equalOutcomeType = criteriaBuilder.equal(root.get(Outcome_.outcomeType), outcomeType);
         query.where(criteriaBuilder.and(equalDate, equalOutcomeType));
-        return session.createQuery(query).uniqueResult();
+        return getEntityManager().createQuery(query).getSingleResult();
     }
 
     @Transactional
     public Map<Integer, Map<String, Double>> countOutcomeTypesValueByMonth(Account account, LocalDate start, List<OutcomeType> types) {
         Map<Integer, Map<String, Double>> outcomeTypesValueByDay = new HashMap<>();
-        Session session = getSessionFactory().getCurrentSession();
-        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Object[]> query = criteriaBuilder.createQuery(Object[].class);
         Root<Outcome> outcomeRoot = query.from(Outcome.class);
         query.multiselect(outcomeRoot.get(Outcome_.outcomeType), criteriaBuilder.sum(outcomeRoot.get(Outcome_.amount)));
@@ -95,7 +93,7 @@ public class OutcomeTypeDao extends GenericDao<OutcomeType> {
                     LocalDate.of(start.getYear(), start.getMonth(), i));
             query.where(equalAccount, equalDate, equalType);
             query.groupBy(outcomeRoot.get(Outcome_.outcomeType));
-            List<Object[]> valueArray = session.createQuery(query).getResultList();
+            List<Object[]> valueArray = getEntityManager().createQuery(query).getResultList();
             Map<String, Double> outcomeTypesValue = new HashMap<>();
             if (valueArray.size() > 0) {
                 for (Object[] values : valueArray) {
@@ -112,8 +110,7 @@ public class OutcomeTypeDao extends GenericDao<OutcomeType> {
     @Transactional
     public Map<String, Double> countOutcomeTypesValueByDate(Account account, LocalDate start, LocalDate end) {
         Map<String, Double> outcomeTypesValue = new HashMap<>();
-        Session session = getSessionFactory().getCurrentSession();
-        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Object[]> query = criteriaBuilder.createQuery(Object[].class);
         Root<Outcome> outcomeRoot = query.from(Outcome.class);
         query.multiselect(outcomeRoot.get(Outcome_.outcomeType), criteriaBuilder.sum(outcomeRoot.get(Outcome_.amount)));
@@ -121,7 +118,7 @@ public class OutcomeTypeDao extends GenericDao<OutcomeType> {
         Predicate equalDate = criteriaBuilder.between(outcomeRoot.get(Outcome_.date), start, end);
         query.where(equalAccount, equalDate);
         query.groupBy(outcomeRoot.get(Outcome_.outcomeType));
-        List<Object[]> valueArray = session.createQuery(query).getResultList();
+        List<Object[]> valueArray = getEntityManager().createQuery(query).getResultList();
         for (Object[] values : valueArray) {
             final OutcomeType outcomeType = (OutcomeType) values[0];
             final BigDecimal value = (BigDecimal) values[1];
@@ -133,8 +130,7 @@ public class OutcomeTypeDao extends GenericDao<OutcomeType> {
     @Transactional
     public Map<Integer, Map<String, Double>> countOutcomeTypesValueByYear(Account account, int year, List<OutcomeType> types) {
         Map<Integer, Map<String, Double>> outcomeTypesValueByDay = new TreeMap<>();
-        Session session = getSessionFactory().getCurrentSession();
-        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Object[]> query = criteriaBuilder.createQuery(Object[].class);
         Root<Outcome> outcomeRoot = query.from(Outcome.class);
         query.multiselect(outcomeRoot.get(Outcome_.outcomeType), criteriaBuilder.sum(outcomeRoot.get(Outcome_.amount)));
@@ -147,7 +143,7 @@ public class OutcomeTypeDao extends GenericDao<OutcomeType> {
             Predicate equalYear = criteriaBuilder.equal(yearExp, year);
             query.where(equalAccount, equalMonth, equalYear, equalType);
             query.groupBy(outcomeRoot.get(Outcome_.outcomeType));
-            List<Object[]> valueArray = session.createQuery(query).getResultList();
+            List<Object[]> valueArray = getEntityManager().createQuery(query).getResultList();
             Map<String, Double> outcomeTypesValue = new TreeMap<>();
             if (valueArray.size() > 0) {
                 for (Object[] values : valueArray) {
@@ -163,8 +159,7 @@ public class OutcomeTypeDao extends GenericDao<OutcomeType> {
 
     @Transactional
     public BigDecimal getSumOfOutcomesInTypeForMonth(OutcomeType outcomeType) {
-        Session session = getSessionFactory().getCurrentSession();
-        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<BigDecimal> query = criteriaBuilder.createQuery(BigDecimal.class);
         Root<Outcome> root = query.from(Outcome.class);
         query.select(criteriaBuilder.sum(root.get(Outcome_.defaultAmount)));
@@ -176,8 +171,7 @@ public class OutcomeTypeDao extends GenericDao<OutcomeType> {
         query.where(equalType, equalMonth, equalYear);
         query.groupBy(root.get(Outcome_.outcomeType));
         try {
-            BigDecimal sum = session.createQuery(query).getSingleResult();
-            return sum;
+            return getEntityManager().createQuery(query).getSingleResult();
         } catch (NoResultException e) {
             return BigDecimal.valueOf(0);
         }

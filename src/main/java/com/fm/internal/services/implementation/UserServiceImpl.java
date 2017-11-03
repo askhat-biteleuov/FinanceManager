@@ -1,11 +1,11 @@
 package com.fm.internal.services.implementation;
 
+import com.fm.internal.daos.UserDao;
 import com.fm.internal.dtos.RegistrationDto;
 import com.fm.internal.models.Account;
 import com.fm.internal.models.OutcomeType;
 import com.fm.internal.models.User;
 import com.fm.internal.models.UserInfo;
-import com.fm.internal.repository.UserRepository;
 import com.fm.internal.services.AccountService;
 import com.fm.internal.services.CurrencyService;
 import com.fm.internal.services.OutcomeTypeService;
@@ -23,7 +23,7 @@ import java.util.Arrays;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserDao userDao;
     @Autowired
     private AccountService accountService;
     @Autowired
@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByEmail(String email) {
-        return userRepository.findByEmail(email);
+        return userDao.getUserByEmail(email);
     }
 
     @Override
@@ -48,13 +48,13 @@ public class UserServiceImpl implements UserService {
         } else {
             return null;
         }
-        return userRepository.findByEmail(email);
+        return userDao.getUserByEmail(email);
     }
 
     @Override
     public void createUser(User user) {
         user.setPassword(encoder.encode(user.getPassword()));
-        userRepository.save(user);
+        userDao.add(user);
         String currencyCharacterCode = user.getInfo().getCurrency().getCharacterCode();
         Account initWalletAccount = new Account("Кошелек", BigDecimal.ZERO, null, user, currencyService.findCurrencyByCharCode(currencyCharacterCode));
         Account initSalaryAccount = new Account("Зарплатный", BigDecimal.ZERO, null, user, currencyService.findCurrencyByCharCode(currencyCharacterCode));
@@ -74,23 +74,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUserByEmail(String email) {
-        userRepository.delete(userRepository.findByEmail(email));
+        userDao.delete(userDao.getUserByEmail(email));
     }
 
     @Override
     public void deleteUser(User user) {
-        userRepository.delete(user);
+        userDao.delete(user);
     }
 
     @Override
     public void updateUser(User user) {
-        userRepository.save(user);
+        userDao.add(user);
     }
 
     @Override
     public void updateUserInfo(User user, UserInfo info) {
         user.setInfo(info);
-        userRepository.save(user);
+        userDao.add(user);
     }
 
     @Override

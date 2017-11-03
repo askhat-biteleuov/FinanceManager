@@ -1,8 +1,8 @@
 package com.fm.internal.services.implementation;
 
-import com.fm.internal.models.Account;
+import com.fm.internal.daos.CurrencyDao;
 import com.fm.internal.models.Currency;
-import com.fm.internal.repository.CurrencyRepository;
+import com.fm.internal.models.Account;
 import com.fm.internal.services.CurrencyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,31 +13,31 @@ import java.util.List;
 @Service
 public class CurrencyServiceImpl implements CurrencyService {
     @Autowired
-    private CurrencyRepository currencyRepository;
+    private CurrencyDao currencyDao;
 
     @Override
     public Currency findCurrencyByCharCode(String charCode) {
-        return currencyRepository.findOne(charCode);
+        return currencyDao.getByCharCode(charCode);
     }
 
     @Override
     public void updateCurrency(Currency currency) {
-        currencyRepository.save(currency);
+        currencyDao.update(currency);
     }
 
     @Override
     public void addOrUpdateCurrency(Currency currency) {
-        currencyRepository.save(currency);
+        currencyDao.saveOrUpdate(currency);
     }
 
     @Override
     public void deleteCurrency(Currency currency) {
-        currencyRepository.delete(currency);
+        currencyDao.delete(currency);
     }
 
     @Override
     public List<Currency> getCurrencies() {
-        return currencyRepository.findAll();
+        return currencyDao.getAll();
     }
 
     @Override

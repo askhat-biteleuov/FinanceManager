@@ -1,10 +1,10 @@
 package com.fm.internal.services.implementation;
 
 
+import com.fm.internal.daos.AccountDao;
 import com.fm.internal.dtos.AccountDto;
 import com.fm.internal.dtos.TransferDto;
 import com.fm.internal.models.*;
-import com.fm.internal.repository.AccountRepository;
 import com.fm.internal.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class AccountServiceImpl implements AccountService {
 
     @Autowired
-    private AccountRepository accountRepository;
+    private AccountDao accountDao;
 
     @Autowired
     private UserService userService;
@@ -40,9 +40,6 @@ public class AccountServiceImpl implements AccountService {
 
     @Autowired
     private HashTagService hashTagService;
-
-    @Autowired
-    private UtilServiceImpl utilService;
 
     @Override
     public List<Account> findAllUserAccounts(User user) {
@@ -73,13 +70,13 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account findAccountById(long id) {
-        return accountRepository.findOne(id);
+        return accountDao.getById(id);
     }
 
     @Override
     public void makeTransferTo(TransferDto transferDto) {
-        Account fromAccount = accountRepository.findOne(transferDto.getAccountId());
-        Account toAccount = accountRepository.findOne(transferDto.getToAccountId());
+        Account fromAccount = accountDao.getById(transferDto.getAccountId());
+        Account toAccount = accountDao.getById(transferDto.getToAccountId());
         final String note = "Transfer from " + fromAccount.getClass().getSimpleName() + " " + fromAccount.getName() + " to " + toAccount.getClass().getSimpleName() + " " + toAccount.getName();
         User user = userService.getLoggedUser();
         List<HashTag> hashtags = new ArrayList<>();
@@ -101,8 +98,8 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void makeTransferFrom(TransferDto transferDto) {
-        Account fromAccount = accountRepository.findOne(transferDto.getToAccountId());
-        Account toAccount = accountRepository.findOne(transferDto.getAccountId());
+        Account fromAccount = accountDao.getById(transferDto.getToAccountId());
+        Account toAccount = accountDao.getById(transferDto.getAccountId());
         final String note = "Transfer from " + fromAccount.getClass().getSimpleName() + " " + fromAccount.getName() + " to " + toAccount.getClass().getSimpleName() + " " + toAccount.getName();
         User user = userService.getLoggedUser();
         List<HashTag> hashtags = new ArrayList<>();
@@ -124,24 +121,24 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void createAccount(Account account) {
-        accountRepository.save(account);
+        accountDao.add(account);
     }
 
     @Override
     public void updateAccount(Account account) {
-        accountRepository.save(account);
+        accountDao.update(account);
     }
 
     @Override
     public void deleteAccount(Account account) {
-        accountRepository.delete(account);
+        accountDao.delete(account);
     }
 
     @Override
     public void createAccount(AccountDto accountDto, User user) {
         Account account = new Account(accountDto.getName(), BigDecimal.ZERO, null, user,
                 currencyService.findCurrencyByCharCode(accountDto.getCurrency()));
-        accountRepository.save(account);
+        accountDao.add(account);
         Income income = new Income(new BigDecimal(accountDto.getBalance()), LocalDate.now(), LocalTime.now(), account);
         income.setNote("Start balance");
         incomeService.addIncome(income);
