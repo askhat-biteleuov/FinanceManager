@@ -5,26 +5,28 @@ import com.fm.internal.dtos.OutcomeDto;
 import com.fm.internal.models.*;
 import com.fm.internal.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class OutcomeServiceImpl implements OutcomeService {
-    @Autowired
-    private OutcomeDao dao;
-    @Autowired
+
+    private final OutcomeDao dao;
+    
     private AccountService accountService;
-    @Autowired
     private OutcomeTypeService outcomeTypeService;
-    @Autowired
     private UtilServiceImpl utilService;
-    @Autowired
     private UserService userService;
-    @Autowired
     private HashTagService hashTagService;
+
+    @Autowired
+    public OutcomeServiceImpl(OutcomeDao dao) {
+        this.dao = dao;
+    }
 
     @Override
     public void addOutcome(Outcome outcome) {
@@ -157,5 +159,28 @@ public class OutcomeServiceImpl implements OutcomeService {
         return dao.getTypeOutcomesPageByHashTagAndDate(outcomeType, hashTag, offset, limit, start, end);
     }
 
+    @Autowired
+    public void setAccountService(AccountService accountService) {
+        this.accountService = accountService;
+    }
 
+    @Autowired
+    public void setOutcomeTypeService(OutcomeTypeService outcomeTypeService) {
+        this.outcomeTypeService = outcomeTypeService;
+    }
+
+    @Autowired
+    public void setUtilService(UtilServiceImpl utilService) {
+        this.utilService = utilService;
+    }
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
+    @Autowired
+    public void setHashTagService(HashTagService hashTagService) {
+        this.hashTagService = hashTagService;
+    }
 }

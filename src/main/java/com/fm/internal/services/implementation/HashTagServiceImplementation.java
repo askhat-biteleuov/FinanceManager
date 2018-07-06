@@ -5,12 +5,19 @@ import com.fm.internal.models.HashTag;
 import com.fm.internal.models.User;
 import com.fm.internal.services.HashTagService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class HashTagServiceImplementation implements HashTagService {
+
+    private final HashTagDao hashTagDao;
+
     @Autowired
-    private HashTagDao hashTagDao;
+    public HashTagServiceImplementation(HashTagDao hashTagDao) {
+        this.hashTagDao = hashTagDao;
+    }
 
     @Override
     public void addHashTag(HashTag hashTag) {

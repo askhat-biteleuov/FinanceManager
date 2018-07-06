@@ -1,7 +1,9 @@
 package com.fm.internal.services.implementation;
 
 import com.fm.internal.dtos.PaginationDto;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PaginationServiceImpl {
     public PaginationDto createPagination(long itemId, int selectedPage, int pageSize, long collectionSize, String url) {
         int firstItem = (selectedPage - 1) * pageSize;

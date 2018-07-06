@@ -43,7 +43,7 @@ public class LoginController {
         return new ModelAndView("login");
     }
 
-    @RequestMapping({"/index", "/"})
+    @RequestMapping(value = {"/index", "/"})
     public ModelAndView index() {
         ModelAndView modelAndView = new ModelAndView("index");
         modelAndView.addObject("outcometypeDto", new OutcomeTypeDto());

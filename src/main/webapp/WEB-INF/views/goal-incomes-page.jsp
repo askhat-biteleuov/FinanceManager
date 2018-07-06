@@ -5,7 +5,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <t:master-page title="${goal.name}">
-    <script src="<c:url value="/resources/js/editNotes.js"/>"></script>
     <style>
         [contenteditable]:focus {
             padding: 5px;
