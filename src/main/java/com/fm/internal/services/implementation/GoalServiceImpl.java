@@ -3,25 +3,28 @@ package com.fm.internal.services.implementation;
 
 import com.fm.internal.daos.GoalDao;
 import com.fm.internal.dtos.GoalDto;
-import com.fm.internal.models.Account;
 import com.fm.internal.models.Goal;
 import com.fm.internal.models.User;
 import com.fm.internal.services.CurrencyService;
 import com.fm.internal.services.GoalService;
-import com.fm.internal.services.IncomeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class GoalServiceImpl implements GoalService{
-    @Autowired
-    private GoalDao goalDao;
-    @Autowired
+
+    private final GoalDao goalDao;
     private CurrencyService currencyService;
+
+    @Autowired
+    public GoalServiceImpl(GoalDao goalDao) {
+        this.goalDao = goalDao;
+    }
 
     @Override
     public List<Goal> getGoalsByUser(User user) {
@@ -59,5 +62,10 @@ public class GoalServiceImpl implements GoalService{
     @Override
     public Goal getGoalById(long id){
         return goalDao.getById(id);
+    }
+
+    @Autowired
+    public void setCurrencyService(CurrencyService currencyService) {
+        this.currencyService = currencyService;
     }
 }

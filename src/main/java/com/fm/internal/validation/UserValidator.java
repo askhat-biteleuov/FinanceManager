@@ -4,12 +4,13 @@ import com.fm.internal.dtos.RegistrationDto;
 import com.fm.internal.models.User;
 import com.fm.internal.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+@Component
 public class UserValidator implements Validator {
 
-    @Autowired
     private UserService userService;
 
     @Override
@@ -29,4 +30,8 @@ public class UserValidator implements Validator {
         }
     }
 
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 }

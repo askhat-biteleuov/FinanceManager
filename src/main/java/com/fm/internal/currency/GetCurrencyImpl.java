@@ -4,16 +4,22 @@ import com.fm.internal.daos.CurrencyDao;
 import com.fm.internal.models.Currency;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.List;
 
+@Component
 public class GetCurrencyImpl implements GetCurrency {
 
+    private final CurrencyDao currencyDao;
+    private final CbrClient client;
+
     @Autowired
-    private CurrencyDao currencyDao;
-    @Autowired
-    private CbrClient client;
+    public GetCurrencyImpl(CurrencyDao currencyDao, CbrClient client) {
+        this.currencyDao = currencyDao;
+        this.client = client;
+    }
 
     @Scheduled(fixedDelay = 3600000)
     @Override

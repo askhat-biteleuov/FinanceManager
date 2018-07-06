@@ -1,5 +1,6 @@
 package com.fm.internal.currency;
 
+import org.springframework.stereotype.Component;
 import ru.cbr.web.DailyInfo;
 import ru.cbr.web.DailyInfoSoap;
 import ru.cbr.web.GetCursOnDateResponse;
@@ -10,6 +11,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+@Component
 public class CbrClient {
 
     public CbrClient() {

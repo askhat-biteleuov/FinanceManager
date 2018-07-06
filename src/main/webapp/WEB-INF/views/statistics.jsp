@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="t" tagdir="/src/main/webapp/WEB-INF/views/tags" %>
 <html>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <t:master-page title="${account.name}">
@@ -72,8 +72,8 @@
                 <div class="col-md-12">
                     <div id="linechart" class="linechart"></div>
                 </div>
-                <script src="<c:url value="/resources/js/outcomesLinechart.js"/>"></script>
-                <script src="<c:url value="/resources/js/drawOutcomesLinechart.js"/>"></script>
+                <script src="<c:url value="/static/js/outcomesLinechart.js"/>"></script>
+                <script src="<c:url value="/static/js/drawOutcomesLinechart.js"/>"></script>
             </div>
             <div id="byYear" class="tab-pane fade">
                 <br>
@@ -114,8 +114,8 @@
                 <div class="col-md-12">
                     <div id="linechartYear" class="linechart"></div>
                 </div>
-                <script src="<c:url value="/resources/js/outcomesLinechartYear.js"/>"></script>
-                <script src="<c:url value="/resources/js/drawOutcomesLinechartYear.js"/>"></script>
+                <script src="<c:url value="/static/js/outcomesLinechartYear.js"/>"></script>
+                <script src="<c:url value="/static/js/drawOutcomesLinechartYear.js"/>"></script>
             </div>
         </div>
     </div>

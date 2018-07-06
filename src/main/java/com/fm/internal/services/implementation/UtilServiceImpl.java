@@ -5,19 +5,19 @@ import com.fm.internal.services.HashTagService;
 import com.fm.internal.services.IncomeService;
 import com.fm.internal.services.OutcomeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class UtilServiceImpl {
-    @Autowired
-    private OutcomeService outcomeService;
-    @Autowired
-    private IncomeService incomeService;
-    @Autowired
-    private HashTagService hashTagService;
 
+    private OutcomeService outcomeService;
+    private IncomeService incomeService;
+    private HashTagService hashTagService;
+    
     public BigDecimal recountAccountBalance(Account account) {
         List<Outcome> allOutcomesInAccount = outcomeService.findAllOutcomesInAccount(account);
         List<Income> allIncomesInAccount = incomeService.findAllIncomesInAccount(account);
@@ -40,5 +40,20 @@ public class UtilServiceImpl {
             }
         }
         return hashTags;
+    }
+
+    @Autowired
+    public void setOutcomeService(OutcomeService outcomeService) {
+        this.outcomeService = outcomeService;
+    }
+
+    @Autowired
+    public void setIncomeService(IncomeService incomeService) {
+        this.incomeService = incomeService;
+    }
+
+    @Autowired
+    public void setHashTagService(HashTagService hashTagService) {
+        this.hashTagService = hashTagService;
     }
 }

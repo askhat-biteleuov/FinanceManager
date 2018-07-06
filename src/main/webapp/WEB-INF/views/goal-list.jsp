@@ -1,18 +1,18 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@taglib prefix="t" tagdir="/src/main/webapp/WEB-INF/views/tags" %>
 
 
 <t:master-page title="Цели">
-    <script src="<c:url value="/resources/js/editGoal.js"/>"></script>
-    <script src="<c:url value="/resources/js/formSlideAndDefaultDate.js"/>"></script>
-    <script src="<c:url value="/resources/js/datePickerConfig.js"/>"></script>
-    <script src="<c:url value="/resources/js/sendGoalTransferForm.js"/>"></script>
-    <script type="text/javascript" src="<c:url value="/resources/js/accountAndCurrencySelectionGoalOutcome.js"/>"></script>
-    <script type="text/javascript" src="<c:url value="/resources/js/accountAndCurrencySelectionGoalIncome.js"/>"></script>
+    <script src="<c:url value="/static/js/editGoal.js"/>"></script>
+    <script src="<c:url value="/static/js/formSlideAndDefaultDate.js"/>"></script>
+    <script src="<c:url value="/static/js/datePickerConfig.js"/>"></script>
+    <script src="<c:url value="/static/js/sendGoalTransferForm.js"/>"></script>
+    <script type="text/javascript" src="<c:url value="/static/js/accountAndCurrencySelectionGoalOutcome.js"/>"></script>
+    <script type="text/javascript" src="<c:url value="/static/js/accountAndCurrencySelectionGoalIncome.js"/>"></script>
 
-    <jsp:include page="../fragments/back-button.jsp"/>
+    <jsp:include page="fragments/back-button.jsp"/>
     <div class="container">
         <div class="col-sm-11 col-sm-offset-1" align="center">
             <h2 align="center" class="column-header">Активные цели</h2>

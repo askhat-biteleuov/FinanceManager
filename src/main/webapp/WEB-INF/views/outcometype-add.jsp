@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<script src="<c:url value="/resources/js/sendOutcomeTypeFormViaAjax.js"/>"></script>
+<script src="<c:url value="/static/js/sendOutcomeTypeFormViaAjax.js"/>"></script>
 <div id="outcometype-add" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

@@ -2,7 +2,7 @@ package com.fm.internal.daos;
 
 import com.fm.internal.models.User;
 import com.fm.internal.models.User_;
-import org.hibernate.Session;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.NoResultException;
@@ -10,7 +10,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-
+@Repository
 public class UserDao extends GenericDao<User> {
 
     public UserDao() {
@@ -19,13 +19,12 @@ public class UserDao extends GenericDao<User> {
 
     @Transactional(readOnly = true)
     public User getUserByEmail(String email) {
-        Session currentSession = getSessionFactory().getCurrentSession();
-        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
+        CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<User> cq = builder.createQuery(User.class);
         Root<User> userRoot = cq.from(User.class);
         cq.where(builder.equal(userRoot.get(User_.email), email));
         try {
-            return currentSession.createQuery(cq).getSingleResult();
+            return getEntityManager().createQuery(cq).getSingleResult();
         } catch (NoResultException nre) {
             return null;
         }

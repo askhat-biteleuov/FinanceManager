@@ -29,7 +29,7 @@
                             <div class="help-block with-errors"></div>
                         </div>
                         <%--<script type="text/javascript"--%>
-                                <%--src="<c:url value="/resources/js/accountAndCurrencySelectionGoalIncome.js"/>"></script>--%>
+                                <%--src="<c:url value="/static/js/accountAndCurrencySelectionGoalIncome.js"/>"></script>--%>
                         <div class="form-group">
                             <input type="hidden" value="${goal.currency.nominal}" id="fromAccountNominalGoalIncome">
                             <input type="hidden" value="${goal.currency.curs}" id="fromAccountCursGoalIncome">
@@ -80,7 +80,7 @@
                     </div>
                 </form>
             </div>
-            <script src="<c:url value="/resources/js/datePickerConfig.js"/>"></script>
+            <script src="<c:url value="/static/js/datePickerConfig.js"/>"></script>
         </div>
     </div>
 </div>

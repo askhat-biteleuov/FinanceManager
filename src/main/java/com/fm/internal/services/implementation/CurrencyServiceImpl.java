@@ -1,17 +1,24 @@
 package com.fm.internal.services.implementation;
 
 import com.fm.internal.daos.CurrencyDao;
-import com.fm.internal.models.Currency;
 import com.fm.internal.models.Account;
+import com.fm.internal.models.Currency;
 import com.fm.internal.services.CurrencyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
 
+@Service
 public class CurrencyServiceImpl implements CurrencyService {
+
+    private final CurrencyDao currencyDao;
+
     @Autowired
-    private CurrencyDao currencyDao;
+    public CurrencyServiceImpl(CurrencyDao currencyDao) {
+        this.currencyDao = currencyDao;
+    }
 
     @Override
     public Currency findCurrencyByCharCode(String charCode) {

@@ -1,11 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="t" tagdir="/src/main/webapp/WEB-INF/views/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <t:master-page title="Список приходов">
-    <jsp:include page="../fragments/back-button.jsp"/>
+    <jsp:include page="fragments/back-button.jsp"/>
     <div class="container">
         <div class="col-sm-11 col-sm-offset-1">
             <h2 align="center" class="page-header">Приходы</h2>
@@ -65,9 +65,9 @@
                 <c:choose>
                     <c:when test="${not empty incomes}">
                         <br>
-                        <jsp:include page="../fragments/incomes-table.jsp"/>
+                        <jsp:include page="fragments/incomes-table.jsp"/>
                         <div align="center">
-                            <jsp:include page="../fragments/pagination.jsp"/>
+                            <jsp:include page="fragments/pagination.jsp"/>
                         </div>
                     </c:when>
                     <c:otherwise>

@@ -1,13 +1,14 @@
 package com.fm.internal.daos;
 
 import com.fm.internal.models.*;
-import org.hibernate.Session;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.*;
 import java.time.LocalDate;
 import java.util.List;
 
+@Repository
 public class GoalDao extends GenericDao<Goal>{
     public GoalDao() {
         super(Goal.class);
@@ -15,19 +16,17 @@ public class GoalDao extends GenericDao<Goal>{
 
     @Transactional
     public List<Goal> getGoalsByUser(User user){
-        Session currentSession = getSessionFactory().getCurrentSession();
-        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
+        CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Goal> query = builder.createQuery(Goal.class);
         Root<Goal> root = query.from(Goal.class);
         Predicate equalUser = builder.equal(root.get(Goal_.user), user);
         query.where(equalUser);
-        return currentSession.createQuery(query).getResultList();
+        return getEntityManager().createQuery(query).getResultList();
     }
 
     @Transactional
     public List<Account> getGoalsWithoutIncomeForMonth(User user) {
-        Session currentSession = getSessionFactory().getCurrentSession();
-        CriteriaBuilder builder = currentSession.getCriteriaBuilder();
+        CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Account> query = builder.createQuery(Account.class);
         Root<Account> root = query.from(Account.class);
         Join<Account, Income> incomes = root.join(Account_.incomes, JoinType.LEFT);
@@ -38,6 +37,6 @@ public class GoalDao extends GenericDao<Goal>{
         Predicate equalUser = builder.equal(root.get(Account_.user), user);
         Predicate emptyIncomes = builder.isEmpty(root.get(Account_.incomes));
         query.where(builder.or(builder.and(equalUser, equalYear, notEqualMonth), builder.and(equalUser, emptyIncomes)));
-        return currentSession.createQuery(query).getResultList();
+        return getEntityManager().createQuery(query).getResultList();
     }
 }

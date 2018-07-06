@@ -1,10 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<script src="<c:url value="/resources/js/select2.min.js"/>"></script>
-<link href="<c:url value="/resources/css/select2.min.css"/>" rel="stylesheet">
-<link href="<c:url value="/resources/css/select2-bootstrap.min.css"/>" rel="stylesheet">
-<script src="<c:url value="/resources/js/editIncome.js"/>"></script>
-<script src="<c:url value="/resources/js/formSlideAndDefaultDate.js"/>"></script>
+<script src="<c:url value="/static/js/select2.min.js"/>"></script>
+<link href="<c:url value="/static/css/select2.min.css"/>" rel="stylesheet">
+<link href="<c:url value="/static/css/select2-bootstrap.min.css"/>" rel="stylesheet">
+<script src="<c:url value="/static/js/editIncome.js"/>"></script>
+<script src="<c:url value="/static/js/formSlideAndDefaultDate.js"/>"></script>
 <div class="table-responsive">
     <table id="incomes" class="table notes table-hover">
         <thead>
@@ -38,7 +38,7 @@
                                     <i class="glyphicon glyphicon-calendar"></i>
                                 </span>
                         </div>
-                        <script src="<c:url value="/resources/js/datePickerConfig.js"/>"></script>
+                        <script src="<c:url value="/static/js/datePickerConfig.js"/>"></script>
                     </td>
                     <td>
                         <div class="hashtags">

@@ -1,9 +1,9 @@
 package com.fm.internal.daos;
 
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 public class GenericDao<T> {
@@ -11,49 +11,52 @@ public class GenericDao<T> {
     private Class<T> type;
 
     @Autowired
-    private SessionFactory sessionFactory;
+    private EntityManager entityManager;
 
     public GenericDao(Class<T> type) {
         this.type = type;
     }
 
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
+    public EntityManager getEntityManager() {
+        return entityManager;
     }
 
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    public void setSessionFactory(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 
     @Transactional
     public void add(T entity) {
-        sessionFactory.getCurrentSession().save(entity);
+        entityManager.merge(entity);
+//        sessionFactory.getCurrentSession().save(entity);
     }
 
     @Transactional(readOnly = true)
     public T getById(long id) {
-        return sessionFactory.getCurrentSession().get(type, id);
+//        return sessionFactory.getCurrentSession().get(type, id);
+        return (T) entityManager.find(type.getClass(), id);
     }
 
     @Transactional
     public void update(T entity) {
-        sessionFactory.getCurrentSession().update(entity);
+        entityManager.merge(entity);
     }
 
     @Transactional
     public void saveOrUpdate(T entity) {
-        sessionFactory.getCurrentSession().saveOrUpdate(entity);
+        entityManager.merge(entity);
     }
 
     @Transactional
     public void delete(T entity) {
-        sessionFactory.getCurrentSession().delete(entity);
+        entityManager.remove(entity);
     }
 
     @Transactional(readOnly = true)
     @SuppressWarnings("unchecked")
     public List<T> getAll() {
-        return (List<T>) sessionFactory.getCurrentSession().createQuery("from " + type.getName()).list();
+//        return (List<T>) sessionFactory.getCurrentSession().createQuery("from " + type.getName()).list();
+        return entityManager.createNativeQuery("from " + type.getName()).getResultList();
     }
 
 }

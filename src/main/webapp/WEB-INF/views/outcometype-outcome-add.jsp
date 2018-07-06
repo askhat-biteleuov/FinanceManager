@@ -59,7 +59,7 @@
                         </div>
                         <div class="help-block with-errors"></div>
                     </div>
-                    <%@include file="../fragments/tags-select.jsp"%>
+                    <%@include file="fragments/tags-select.jsp"%>
                     <input type="hidden" id="accountId" name="accountId">
                     <input type="hidden" name="outcomeTypeId" value="${outcomeType.key.id}">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -70,7 +70,7 @@
                     <button class="btn btn-default btn-block" type="button" data-dismiss="modal">Отмена</button>
                 </div>
             </form>
-            <script src="<c:url value="/resources/js/datePickerConfig.js"/>"></script>
+            <script src="<c:url value="/static/js/datePickerConfig.js"/>"></script>
         </div>
     </div>
 </div>

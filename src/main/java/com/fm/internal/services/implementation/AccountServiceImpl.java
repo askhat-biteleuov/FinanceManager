@@ -7,6 +7,7 @@ import com.fm.internal.dtos.TransferDto;
 import com.fm.internal.models.*;
 import com.fm.internal.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -16,31 +17,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class AccountServiceImpl implements AccountService {
 
-    @Autowired
-    private AccountDao accountDao;
+    private final AccountDao accountDao;
 
-    @Autowired
     private UserService userService;
 
-    @Autowired
     private CurrencyService currencyService;
 
-    @Autowired
     private IncomeService incomeService;
 
-    @Autowired
     private OutcomeService outcomeService;
 
-    @Autowired
     private OutcomeTypeService outcomeTypeService;
 
-    @Autowired
     private HashTagService hashTagService;
 
     @Autowired
-    private UtilServiceImpl utilService;
+    public AccountServiceImpl(AccountDao accountDao) {
+        this.accountDao = accountDao;
+    }
 
     @Override
     public List<Account> findAllUserAccounts(User user) {
@@ -156,4 +153,33 @@ public class AccountServiceImpl implements AccountService {
                 .reduce(BigDecimal::add).get();
     }
 
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
+    @Autowired
+    public void setCurrencyService(CurrencyService currencyService) {
+        this.currencyService = currencyService;
+    }
+
+    @Autowired
+    public void setIncomeService(IncomeService incomeService) {
+        this.incomeService = incomeService;
+    }
+
+    @Autowired
+    public void setOutcomeService(OutcomeService outcomeService) {
+        this.outcomeService = outcomeService;
+    }
+
+    @Autowired
+    public void setOutcomeTypeService(OutcomeTypeService outcomeTypeService) {
+        this.outcomeTypeService = outcomeTypeService;
+    }
+
+    @Autowired
+    public void setHashTagService(HashTagService hashTagService) {
+        this.hashTagService = hashTagService;
+    }
 }

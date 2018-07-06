@@ -16,7 +16,7 @@ import java.util.List;
 
 @Service("customUserDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {
-    @Autowired
+
     private UserService userService;
 
     @Transactional(readOnly = true)
@@ -40,5 +40,10 @@ public class CustomUserDetailsService implements UserDetailsService {
                                                                    accountNonLocked,
                                                                                     authorities);
         }
+    }
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 }

@@ -40,11 +40,13 @@ public class LoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView init() {
+        LOGGER.debug("TEST DEBUG MESSAGE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         return new ModelAndView("login");
     }
 
     @RequestMapping({"/index", "/"})
     public ModelAndView index() {
+        LOGGER.debug("TEST DEBUG MESSAGE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         ModelAndView modelAndView = new ModelAndView("index");
         modelAndView.addObject("outcometypeDto", new OutcomeTypeDto());
         User loggedUser = userService.getLoggedUser();

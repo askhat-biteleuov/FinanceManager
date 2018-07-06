@@ -14,23 +14,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
 
+@Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserDao dao;
-    @Autowired
+    private final UserDao dao;
+
     private AccountService accountService;
-    @Autowired
     private OutcomeTypeService outcomeTypeService;
-    @Autowired
     private CurrencyService currencyService;
-    @Autowired
     private PasswordEncoder encoder;
 
+    @Autowired
+    public UserServiceImpl(UserDao dao) {
+        this.dao = dao;
+    }
 
     @Override
     public User findByEmail(String email) {
@@ -97,5 +99,25 @@ public class UserServiceImpl implements UserService {
                 currencyService.findCurrencyByCharCode(registrationDto.getCurrency()));
         User user = new User(registrationDto.getEmail(), registrationDto.getPassword(), userInfo);
         createUser(user);
+    }
+
+    @Autowired
+    public void setAccountService(AccountService accountService) {
+        this.accountService = accountService;
+    }
+
+    @Autowired
+    public void setOutcomeTypeService(OutcomeTypeService outcomeTypeService) {
+        this.outcomeTypeService = outcomeTypeService;
+    }
+
+    @Autowired
+    public void setCurrencyService(CurrencyService currencyService) {
+        this.currencyService = currencyService;
+    }
+
+    @Autowired
+    public void setEncoder(PasswordEncoder encoder) {
+        this.encoder = encoder;
     }
 }
