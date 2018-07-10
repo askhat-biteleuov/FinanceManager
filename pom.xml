@@ -8,14 +8,10 @@
     <url>http://maven.apache.org</url>
 
     <properties>
-        <springboot.version>2.0.3.RELEASE</springboot.version>
-        <springsecurity.version>4.2.2.RELEASE</springsecurity.version>
-        <hibernate.version>5.2.9.Final</hibernate.version>
         <mysql.version>6.0.6</mysql.version>
         <testng.version>6.10</testng.version>
         <mockito.version>2.7.21</mockito.version>
         <jstl.version>1.2</jstl.version>
-        <javax.servlet.version>3.1.0</javax.servlet.version>
         <javax.servlet.jsp.version>2.3.1</javax.servlet.jsp.version>
         <log4j.version>1.2.17</log4j.version>
     </properties>
@@ -32,29 +28,19 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <!--<version>${springboot.version}</version>-->
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
-            <!--<version>${springboot.version}</version>-->
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
-            <!--<version>${springboot.version}</version>-->
         </dependency>
 
-        <!-- Hibernate-->
-        <!--<dependency>-->
-            <!--<groupId>org.hibernate</groupId>-->
-            <!--<artifactId>hibernate-core</artifactId>-->
-            <!--&lt;!&ndash;<version>${hibernate.version}</version>&ndash;&gt;-->
-        <!--</dependency>-->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-jpamodelgen</artifactId>
-            <!--<version>${hibernate.version}</version>-->
         </dependency>
         <!--MySQL-->
         <dependency>
@@ -67,23 +53,6 @@
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
             <version>${jstl.version}</version>
-        </dependency>
-        <!--&lt;!&ndash;JSP + SERVLET&ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>javax.servlet</groupId>-->
-            <!--<artifactId>javax.servlet-api</artifactId>-->
-            <!--<version>${javax.servlet.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>javax.servlet.jsp</groupId>-->
-            <!--<artifactId>javax.servlet.jsp-api</artifactId>-->
-            <!--<version>${javax.servlet.jsp.version}</version>-->
-        <!--</dependency>-->
-        <dependency>
-            <groupId>org.eclipse.jdt.core.compiler</groupId>
-            <artifactId>ecj</artifactId>
-            <version>4.6.1</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
@@ -123,7 +92,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>${spring.version}</version>
         </dependency>
     </dependencies>
     <build>
