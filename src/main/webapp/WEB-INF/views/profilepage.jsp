@@ -1,10 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="t" tagdir="/src/main/webapp/WEB-INF/views/tags" %>
 
 <t:master-page title="Личный кабинет">
-    <script src="<c:url value="/resources/js/sendPasswordViaAjax.js"/>"></script>
-    <link href="<c:url value="/resources/css/back-button.css"/>" rel="stylesheet"/>
+    <script src="<c:url value="/static/js/sendPasswordViaAjax.js"/>"></script>
+    <link href="<c:url value="/static/css/back-button.css"/>" rel="stylesheet"/>
 
     <div id="scroiller">
         <div id="back" onclick="history.back()">◄ Назад</div>
@@ -17,7 +17,7 @@
             <!-- left column -->
             <%--<div class="col-md-3">--%>
                 <%--<div class="text-center">--%>
-                    <%--<img src="<c:url value="/resources/img/placeholder.png"/>" class="avatar img-circle" alt="avatar">--%>
+                    <%--<img src="<c:url value="/static/img/placeholder.png"/>" class="avatar img-circle" alt="avatar">--%>
                     <%--<h6>Загрузите другое фото...</h6>--%>
                     <%--<form action="<c:url value="/profile/avatar"/>" class="uploadImage">--%>
                         <%--<input type="file" class="form-control" accept="image/*">--%>

@@ -1,12 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@taglib prefix="t" tagdir="/src/main/webapp/WEB-INF/views/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--@elvariable id="outcomeTypeDto" type="com.fm.internal.dtos.OutcomeTypeDto"--%>
 
 <t:master-page title="${outcomeTypeDto.name}">
-    <jsp:include page="../fragments/back-button.jsp"/>
+    <jsp:include page="fragments/back-button.jsp"/>
     <div class="container">
         <h1 align="center" class="page-header">${outcomeTypeDto.name}</h1>
         <div class="article">
@@ -84,7 +84,7 @@
                         </tbody>
                     </table>
                     <div align="center">
-                        <jsp:include page="../fragments/pagination.jsp"/>
+                        <jsp:include page="fragments/pagination.jsp"/>
                     </div>
                 </c:when>
                 <c:otherwise>

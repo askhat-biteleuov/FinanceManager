@@ -1,9 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<t:master-page title="Вход">
     <div  class="container">
         <div align="center">
             <div class="col-xs-12 col-sm-10 col-md-6 col-sm-offset-1 col-md-offset-3">
@@ -41,4 +39,3 @@
         </div>
     </div>
     </div>
-</t:master-page>

@@ -2,7 +2,7 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@attribute name="title" %>
 
 <c:set var="userName" value="${pageContext.request.userPrincipal.name}"/>
@@ -16,21 +16,21 @@
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>${title}</title>
-    <link href="<c:url value="/resources/css/design.css" />" rel="stylesheet">
+    <link href="<c:url value="/static/css/design.css" />" rel="stylesheet">
     <link href="http://faviconka.ru/ico/faviconka_ru_1613.ico" rel="shortcut icon" type="image/x-icon">
     <!-- Bootstrap -->
-    <link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet">
+    <link href="<c:url value="/static/css/bootstrap.min.css" />" rel="stylesheet">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
+    <script src="<c:url value="/static/js/jquery-3.2.1.min.js"/>"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+    <script src="<c:url value="/static/js/bootstrap.min.js"/>"></script>
     <!-- Bootstrap Validator Plugin -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
     <%--Bootstrap Datepicker--%>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css"
           rel="stylesheet"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
-    <link href="<c:url value="/resources/css/navbar.css"/>" rel="stylesheet"/>
+    <link href="<c:url value="/static/css/navbar.css"/>" rel="stylesheet"/>
 
 </head>
 <body class="background">

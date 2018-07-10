@@ -1,20 +1,20 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="t" tagdir="/src/main/webapp/WEB-INF/views/tags" %>
 <html>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <t:master-page title="${account.name}">
-    <script src="<c:url value="/resources/js/formSlideAndDefaultDate.js"/>"></script>
-    <script src="<c:url value="/resources/js/sendFormViaAjax.js"/>"></script>
+    <script src="<c:url value="/static/js/formSlideAndDefaultDate.js"/>"></script>
+    <script src="<c:url value="/static/js/sendFormViaAjax.js"/>"></script>
     <style>
         .trans {
             display: none;
         }
     </style>
     <div class="container">
-        <jsp:include page="../fragments/back-button.jsp"/>
+        <jsp:include page="fragments/back-button.jsp"/>
         <div class="col-sm-11 col-sm-offset-1">
             <h2 align="center" class="page-header">Счёт ${account.name}</h2>
         <h3 align="center">Баланс: ${account.balance} ${account.currency.characterCode}</h3>
@@ -54,7 +54,7 @@
                                 </div>
                                 <div class="help-block with-errors"></div>
                             </div>
-                            <%@include file="../fragments/tags-select.jsp"%>
+                            <%@include file="fragments/tags-select.jsp"%>
                             <input type="hidden" id="accountId" name="accountId" value="${account.id}">
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             <button type="submit" class="btn btn-default">Добавить</button>
@@ -84,7 +84,7 @@
                                        min="0.01" step="0.01" placeholder="Сумма" required/>
                                 <div class="help-block with-errors"></div>
                             </div>
-                            <script type="text/javascript" src="<c:url value="/resources/js/changeCurrency.js"/>"></script>
+                            <script type="text/javascript" src="<c:url value="/static/js/changeCurrency.js"/>"></script>
                             <div class="form-group currExchangeOutcome" hidden>
                                 <div class="form-group">
                                     <input type="hidden" value="${account.currency.nominal}" class="fromNominalOutcome">
@@ -119,7 +119,7 @@
                                 </div>
                                 <div class="help-block with-errors"></div>
                             </div>
-                            <%@include file="../fragments/tags-select.jsp"%>
+                            <%@include file="fragments/tags-select.jsp"%>
                             <input type="hidden" name="accountId" value="${account.id}">
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             <button type="submit" class="btn btn-default">Добавить</button>
@@ -145,7 +145,7 @@
                                        min="0.01" step="0.01" placeholder="Сумма" required/>
                                 <div class="help-block with-errors"></div>
                             </div>
-                            <script type="text/javascript" src="<c:url value="/resources/js/accountAndCurrencySelection.js"/>"></script>
+                            <script type="text/javascript" src="<c:url value="/static/js/accountAndCurrencySelection.js"/>"></script>
                             <div class="form-group">
                                 <input type="hidden" value="${account.currency.nominal}" id="fromAccountNominal">
                                 <input type="hidden" value="${account.currency.curs}" id="fromAccountCurs">
@@ -206,9 +206,9 @@
                         <input type="hidden" name="accountName" value="${account.name}"/>
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     </form>
-                    <script src="<c:url value="/resources/js/datePickerConfig.js"/>"></script>
-                    <script src="<c:url value="/resources/js/outcomesPiechart.js"/>"></script>
-                    <script src="<c:url value="/resources/js/drawOutcomesPiechart.js"/>"></script>
+                    <script src="<c:url value="/static/js/datePickerConfig.js"/>"></script>
+                    <script src="<c:url value="/static/js/outcomesPiechart.js"/>"></script>
+                    <script src="<c:url value="/static/js/drawOutcomesPiechart.js"/>"></script>
                     <div id="piechart" style=" margin: 0 auto"></div>
                 </div>
             </div>

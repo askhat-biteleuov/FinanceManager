@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<script src="<c:url value="/resources/js/sendGoalFormViaAjax.js"/>"></script>
+<script src="<c:url value="/static/js/sendGoalFormViaAjax.js"/>"></script>
 <div id="goal-add" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -48,7 +48,7 @@
                         <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Отмена</button>
                     </div>
                 </form>
-                <script src="<c:url value="/resources/js/datePickerConfig.js"/>"></script>
+                <script src="<c:url value="/static/js/datePickerConfig.js"/>"></script>
             </div>
         </div>
     </div>

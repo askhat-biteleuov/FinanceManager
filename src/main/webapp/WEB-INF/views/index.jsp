@@ -1,15 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@taglib prefix="t" tagdir="/src/main/webapp/WEB-INF/views/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <t:master-page title="Главная">
-    <script src="<c:url value="/resources/js/sendAccountFormViaAjax.js"/>"></script>
-    <script src="<c:url value="/resources/js/sendIncomeAndOutcomeForm.js"/>"></script>
-    <script src="<c:url value="/resources/js/changeCurrency.js"/>"></script>
-    <script src="<c:url value="/resources/js/formSlideAndDefaultDate.js"/>"></script>
-    <script src="<c:url value="/resources/js/goalFromIncome.js"/>"></script>
+    <script src="<c:url value="/static/js/sendAccountFormViaAjax.js"/>"></script>
+    <script src="<c:url value="/static/js/sendIncomeAndOutcomeForm.js"/>"></script>
+    <script src="<c:url value="/static/js/changeCurrency.js"/>"></script>
+    <script src="<c:url value="/static/js/formSlideAndDefaultDate.js"/>"></script>
+    <script src="<c:url value="/static/js/goalFromIncome.js"/>"></script>
     <div class="container">
         <c:if test="${user == null}">
             <div align="center">
@@ -27,13 +27,13 @@
         </c:if>
         <c:if test="${user != null}">
             <div align="center">
-                    <%--<script src="<c:url value="/resources/js/hashtagsAutocomplete.js"/>"></script>
+                    <%--<script src="<c:url value="/static/js/hashtagsAutocomplete.js"/>"></script>
                     <div class="dropdown">
                         <input type="text" class="hashtagSearchInput form-control dropdown-toggle" placeholder="Начните ввод хэштегов через пробел" data-toggle="dropdown">
                     </div>--%>
                 <h1 class="page-header">Счета</h1>
                 <br>
-                <script src="<c:url value="/resources/js/editAccount.js"/>"></script>
+                <script src="<c:url value="/static/js/editAccount.js"/>"></script>
                 <div class="container">
                     <div class="row">
                         <c:forEach var="account" items="${accounts}">
@@ -102,7 +102,7 @@
                 </div>
                 <h1 class="page-header">Категории расходов</h1>
                 <br>
-                <script src="<c:url value="/resources/js/editOutcometype.js"/>"></script>
+                <script src="<c:url value="/static/js/editOutcometype.js"/>"></script>
                 <div class="container">
                     <div class="row">
                         <c:forEach var="outcomeType" items="${outcomeTypes}">
