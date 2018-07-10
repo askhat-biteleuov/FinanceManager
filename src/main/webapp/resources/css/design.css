@@ -1,0 +1,192 @@
+@font-face {
+    font-family: "oswald-regular";
+    src: url('/resources/fonts/oswald-regular.ttf') format("truetype");
+}
+*{
+    font-size: 1.25rem;
+    font-family:'oswald-regular',helvetica,sans-serif,arial;
+}
+
+a{
+    text-transform: uppercase;
+    text-decoration: none !important;
+}
+
+.gold {
+    color: #f0ad4e !important;
+}
+.white {
+    color: #ffffff !important;
+}
+.blue {
+     color: #39c2d7 !important;
+}
+
+.dark-green {
+    color: #4caf50 !important;
+}
+
+.red{
+    color: #bc0600 !important;
+}
+
+.dark-grey{
+    color: #464547 !important;
+}
+.panel-add{
+    text-decoration: none !important;
+    outline: 2px dashed rgba(72,72,74,0.8); /* Пунктирная рамка */
+    outline-offset: -10px; /* Выводим рамку внутри элемента */
+    color: #48484a;
+    height: 16.6rem;
+}
+
+.panel-add-goal {
+    text-decoration: none !important;
+    outline: 2px dashed rgba(72, 72, 74, 0.8); /* Пунктирная рамка */
+    outline-offset: -10px; /* Выводим рамку внутри элемента */
+    color: #48484a;
+    height: 18.6rem;
+}
+.panel-body{
+    height: 10rem;
+    padding: 0 !important;
+    margin-bottom: 1rem;
+}
+
+.panel-body-goal {
+    height: 10rem;
+    padding: 0 !important;
+    margin-bottom: 1rem;
+    text-decoration: none !important;
+}
+
+.panel-shadow-1 {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.2s ease-in-out;
+}
+
+.panel-shadow-1:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.scrollable-menu {
+    height: auto;
+    max-height: 100px;
+    overflow-x: hidden;
+}
+
+.background{
+    background-size: cover !important;
+    background: linear-gradient(45deg, #EECFBA, #C5DDE8) fixed;
+}
+.memo{
+    color: #464547 !important;
+    text-decoration: none !important;
+}
+
+.btn-margin-10 {
+    margin-top: 10px;
+}
+
+.btn{
+    text-transform: uppercase !important;
+    text-decoration: none !important;
+}
+.btn-green{
+    background: #4caf50 !important;
+    color: #ffffff !important;
+}
+
+.btn-blue{
+    background: #39c2d7 !important;
+    color: #ffffff !important;
+}
+
+.edit {
+    white-space: nowrap; /* Запрещаем перенос строк */
+    overflow: hidden; /* Обрезаем все, что не помещается в область */
+    display: block; /* Не обязательно, но может понадобиться. Например, для ссылок */
+}
+
+/* Прозрачный фон для основного содержимого */
+.article {
+    background:rgba(255,255,255,0.7);
+    padding-top: 20px;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-bottom: 20px;
+    margin-top: 10px;
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-bottom: 0;
+}
+.pagination>li>a{
+    color: #464547 !important;
+    border: 1px solid #4caf50 !important;
+}
+.pagination>li.active>a {
+    background: #4caf50 !important;
+    color: #fff !important;
+}
+
+.range-end.active,.range-start.active{
+    background: #39c2d7 !important;
+    color: #fff !important;
+}
+
+.dobody {
+    margin-top: 7rem;
+    margin-bottom: 7rem;
+}
+
+.linechart {
+    width: 100%;
+    height: 50%;
+}
+
+.progress {
+    margin-right: 1rem;
+    margin-left: 1rem;
+}
+
+.progress-value {
+    color: #464547 !important;
+    text-decoration: none !important;
+    position: absolute;
+    right: 0;
+    left: 0;
+}
+
+.dropdown-menu > li > span {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: 400;
+    line-height: 1.42857143;
+    color: #333;
+    white-space: nowrap;
+}
+
+.badge-notification {
+    background-color: #f0ad4e !important;
+    vertical-align: baseline !important;
+}
+
+.message-notification {
+    text-transform: none;
+    text-decoration: none !important;
+}
+
+.checkboxTypesLabels {
+    letter-spacing: 1px;
+    font-size: 15px;
+}
+
+[contenteditable="true"] {
+    background-color: #fffcda;
+}
+
+td {
+    vertical-align: middle !important;
+}

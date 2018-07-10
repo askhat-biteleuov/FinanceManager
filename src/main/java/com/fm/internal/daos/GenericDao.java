@@ -42,7 +42,7 @@ public class GenericDao<T> {
 
     @Transactional
     public void saveOrUpdate(T entity) {
-        entityManager.persist(entity);
+        entityManager.merge(entity);
     }
 
     @Transactional

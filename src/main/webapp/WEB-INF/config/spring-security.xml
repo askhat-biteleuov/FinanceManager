@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:sec="http://www.springframework.org/schema/security"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+             http://www.springframework.org/schema/beans/spring-beans.xsd
+             http://www.springframework.org/schema/security
+             http://www.springframework.org/schema/security/spring-security-4.2.xsd">
+
+    <sec:http auto-config="true">
+        <sec:intercept-url pattern="/index" access="permitAll" />
+        <sec:intercept-url pattern="/registration" access="permitAll" />
+        <sec:intercept-url pattern="/login" access="permitAll" />
+        <sec:intercept-url pattern="/account" access="isAuthenticated()" />
+        <sec:intercept-url pattern="/outcome/all" access="isAuthenticated()" />
+        <sec:intercept-url pattern="/account/income/all" access="isAuthenticated()" />
+        <sec:intercept-url pattern="/" />
+        <sec:form-login login-page="/login" default-target-url="/index"
+                        username-parameter="email"
+                        password-parameter="password"
+                        authentication-failure-url="/login?error"/>
+        <sec:logout logout-url="/logout" logout-success-url="/login?logout"/>
+
+        <sec:csrf/>
+
+        <!-- Remember me mechanism -->
+        <sec:remember-me key="uniqueAndSecret"/>
+
+        <sec:port-mappings>
+            <!-- Default ports -->
+            <sec:port-mapping http="80" https="443"/>
+            <!-- Websphere default ports -->
+            <sec:port-mapping http="9080" https="9443"/>
+            <!-- Tomcat default ports -->
+            <sec:port-mapping http="8080" https="8443"/>
+            <!-- Jetty custom ports -->
+            <sec:port-mapping http="7777" https="7443"/>
+        </sec:port-mappings>
+    </sec:http>
+
+    <sec:authentication-manager>
+        <sec:authentication-provider user-service-ref="customUserDetailsService">
+            <sec:password-encoder ref="passwordEncoder"/>
+        </sec:authentication-provider>
+    </sec:authentication-manager>
+
+    <bean id="customUserDetailsService"
+          class="com.fm.internal.services.implementation.CustomUserDetailsService"/>
+
+    <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+
+</beans>

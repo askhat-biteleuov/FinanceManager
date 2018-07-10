@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/tx
+                           http://www.springframework.org/schema/tx/spring-tx.xsd
+                           http://www.springframework.org/schema/task
+                           http://www.springframework.org/schema/task/spring-task.xsd">
+    <task:annotation-driven executor="executor" scheduler="scheduler"/>
+    <task:executor id="executor" pool-size="1"/>
+    <task:scheduler id="scheduler" pool-size="1"/>
+
+    <bean class="com.fm.internal.currency.CbrClient"/>
+    <bean class="com.fm.internal.currency.GetCurrencyImpl"/>
+
+    <bean class="com.fm.internal.daos.UserDao"/>
+    <bean class="com.fm.internal.daos.AccountDao"/>
+    <bean class="com.fm.internal.daos.IncomeDao"/>
+    <bean class="com.fm.internal.daos.OutcomeDao"/>
+    <bean class="com.fm.internal.daos.OutcomeTypeDao"/>
+    <bean class="com.fm.internal.daos.CurrencyDao"/>
+    <bean class="com.fm.internal.daos.HashTagDao"/>
+    <bean class="com.fm.internal.daos.GoalDao"/>
+
+    <bean class="com.fm.internal.services.implementation.AccountServiceImpl"/>
+    <bean class="com.fm.internal.services.implementation.UserServiceImpl"/>
+    <bean class="com.fm.internal.services.implementation.IncomeServiceImpl"/>
+    <bean class="com.fm.internal.services.implementation.OutcomeServiceImpl"/>
+    <bean class="com.fm.internal.services.implementation.OutcomeTypeServiceImpl"/>
+    <bean class="com.fm.internal.services.implementation.PaginationServiceImpl"/>
+    <bean class="com.fm.internal.services.implementation.CurrencyServiceImpl"/>
+    <bean class="com.fm.internal.services.implementation.StatusBarServiceImpl"/>
+    <bean class="com.fm.internal.services.implementation.UtilServiceImpl"/>
+    <bean class="com.fm.internal.services.implementation.RangeServiceImpl"/>
+    <bean class="com.fm.internal.services.implementation.HashTagServiceImplementation"/>
+    <bean class="com.fm.internal.services.implementation.GoalServiceImpl"/>
+
+    <bean class="com.fm.internal.validation.UserValidator"/>
+    <bean class="com.fm.internal.validation.AccountValidator"/>
+    <bean class="com.fm.internal.validation.GoalValidator"/>
+    <bean class="com.fm.internal.validation.OutcomeTypeValidator"/>
+    <bean class="com.fm.internal.validation.PasswordValidator"/>
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+        <property name="url"
+                  value="jdbc:mysql://localhost:3306/epam?useTimezone=true&amp;serverTimezone=Europe/Moscow&amp;useSSL=false&amp;characterEncoding=UTF-8&amp;useUnicode=true&amp;CharSet=UTF-8"/>
+        <property name="username" value="root"/>
+        <property name="password" value="root"/>
+    </bean>
+
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:hibernate.cfg.xml" />
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+</beans>
