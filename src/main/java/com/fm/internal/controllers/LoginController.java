@@ -5,11 +5,9 @@ import com.fm.internal.models.OutcomeType;
 import com.fm.internal.models.User;
 import com.fm.internal.services.*;
 import com.fm.internal.services.implementation.UserServiceImpl;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
@@ -19,7 +17,6 @@ import java.util.TreeMap;
 
 @Controller
 public class LoginController {
-    private static final Logger LOGGER = Logger.getLogger(LoginController.class);
 
     @Autowired
     private UserServiceImpl userService;
@@ -38,15 +35,8 @@ public class LoginController {
     @Autowired
     private GoalService goalService;
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ModelAndView init() {
-        LOGGER.debug("TEST DEBUG MESSAGE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        return new ModelAndView("login");
-    }
-
     @RequestMapping(value = {"/index", "/"})
     public ModelAndView index() {
-        LOGGER.debug("TEST DEBUG MESSAGE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         ModelAndView modelAndView = new ModelAndView("index");
         modelAndView.addObject("outcometypeDto", new OutcomeTypeDto());
         User loggedUser = userService.getLoggedUser();
