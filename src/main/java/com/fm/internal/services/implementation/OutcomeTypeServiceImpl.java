@@ -93,7 +93,7 @@ public class OutcomeTypeServiceImpl implements OutcomeTypeService {
     public Map<String, Double> defaultOutcomeTypesValue(Account account) {
         LocalDate now = LocalDate.now();
         LocalDate start = LocalDate.of(now.getYear(), now.getMonth().getValue(), 1);
-        LocalDate end = LocalDate.of(now.getYear(), now.getMonth().getValue(), 30);
+        LocalDate end = LocalDate.of(now.getYear(), now.getMonth().getValue(), now.lengthOfMonth());
         return outcomeTypeDao.countOutcomeTypesValueByDate(account, start, end);
     }
 
